@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { User } from '../models/user';
+import { RootState } from './store';
 
 interface AuthState {
   user: User;
@@ -72,5 +73,12 @@ export const authSlice = createSlice({
 });
 
 export const { setAuth, clearAuth, setUser, setLogin, setCheck, setFetch } = authSlice.actions;
+
+export const getUser = (state: RootState) => state.auth.user;
+export const getLogin = (state: RootState) => state.auth.login;
+export const getToken = (state: RootState) => state.auth.user.token;
+export const getRole = (state: RootState) => state.auth.user.role;
+export const isFetching = (state: RootState) => state.auth.fetch;
+export const isChecking = (state: RootState) => state.auth.check;
 
 export default authSlice.reducer;

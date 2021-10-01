@@ -1,53 +1,51 @@
-import { createContext, Dispatch, ReactElement, ReactNode, useContext, useReducer } from 'react';
-
+// import { createContext, Dispatch } from 'react';
 import { User } from '../models/user';
-import { clearStorage, getStorage, setStorage } from './storage';
 
-type AuthState = {
+export type AuthState = {
   user: User;
   login: boolean;
   check: boolean;
 };
 
-const initialAuthState: AuthState = {
-  user: { role: 0, name: "", token: "" },
-  login: false,
-  check: false,
-};
+// const initialAuthState: AuthState = {
+//   user: { role: 0, name: "", token: "" },
+//   login: false,
+//   check: false,
+// };
 
-type ReducerActions =
-  | {
-      type: "SetAuth";
-      data: AuthState;
-    }
-  | {
-      type: "ClearAuth";
-    }
-  | {
-      type: "SetLogin";
-      data: boolean;
-    }
-  | {
-      type: "Checked";
-    }
-  | {
-      type: "Unchecked";
-    };
+// type ReducerActions =
+//   | {
+//       type: "SetAuth";
+//       data: AuthState;
+//     }
+//   | {
+//       type: "ClearAuth";
+//     }
+//   | {
+//       type: "SetLogin";
+//       data: boolean;
+//     }
+//   | {
+//       type: "Checked";
+//     }
+//   | {
+//       type: "Unchecked";
+//     };
 
-interface SetAuthState {
-  dispatch: Dispatch<ReducerActions>;
-}
+// interface SetAuthState {
+//   dispatch: Dispatch<ReducerActions>;
+// }
 
-interface TryResponse {
-  t: string;
-  r: number;
-}
+// interface TryResponse {
+//   t: string;
+//   r: number;
+// }
 
-const initialSetAuthState: SetAuthState = {
-  dispatch: () => {
-    return true;
-  },
-};
+// const initialSetAuthState: SetAuthState = {
+//   dispatch: () => {
+//     return true;
+//   },
+// };
 
 // export const login = (name: string, pass: string, setAuth: Dispatch<ReducerActions>): void => {
 //   axios
@@ -80,86 +78,86 @@ const initialSetAuthState: SetAuthState = {
 //   clearStorage();
 // };
 
-const AuthContext = createContext(initialAuthState);
+// const AuthContext = createContext(initialAuthState);
 
-const SetAuthContext = createContext(initialSetAuthState);
+// const SetAuthContext = createContext(initialSetAuthState);
 
-const reducer = (authState: AuthState, action: ReducerActions): AuthState => {
-  switch (action.type) {
-    case "SetAuth": {
-      setStorage(action.data.user);
-      return {
-        user: action.data.user,
-        login: action.data.login,
-        check: action.data.check,
-      };
-    }
-    case "ClearAuth": {
-      clearStorage();
-      return {
-        user: { role: 0, name: "", token: "" },
-        login: false,
-        check: true,
-      };
-    }
-    case "SetLogin": {
-      return {
-        ...authState,
-        login: action.data,
-        check: true,
-      };
-    }
-    case "Checked": {
-      return {
-        ...authState,
-        check: true,
-      };
-    }
-    case "Unchecked": {
-      return {
-        ...authState,
-        check: false,
-      };
-    }
-    default:
-      return authState;
-  }
-};
+// const reducer = (authState: AuthState, action: ReducerActions): AuthState => {
+//   switch (action.type) {
+//     case "SetAuth": {
+//       setStorage(action.data.user);
+//       return {
+//         user: action.data.user,
+//         login: action.data.login,
+//         check: action.data.check,
+//       };
+//     }
+//     case "ClearAuth": {
+//       clearStorage();
+//       return {
+//         user: { role: 0, name: "", token: "" },
+//         login: false,
+//         check: true,
+//       };
+//     }
+//     case "SetLogin": {
+//       return {
+//         ...authState,
+//         login: action.data,
+//         check: true,
+//       };
+//     }
+//     case "Checked": {
+//       return {
+//         ...authState,
+//         check: true,
+//       };
+//     }
+//     case "Unchecked": {
+//       return {
+//         ...authState,
+//         check: false,
+//       };
+//     }
+//     default:
+//       return authState;
+//   }
+// };
 
-export const AuthProvider = ({ children }: { children: ReactNode }): ReactElement => {
-  const user = getStorage();
-  const initState: AuthState = {
-    user,
-    login: false,
-    check: false,
-  };
+// export const AuthProvider = ({ children }: { children: ReactNode }): ReactElement => {
+//   const user = getStorage();
+//   const initState: AuthState = {
+//     user,
+//     login: false,
+//     check: false,
+//   };
 
-  const [state, dispatch] = useReducer(reducer, initState);
+//   const [state, dispatch] = useReducer(reducer, initState);
 
-  const setState: SetAuthState = { dispatch };
+//   const setState: SetAuthState = { dispatch };
 
-  // const contentValues = useMemo(
-  //   () => ({
-  //     state,
-  //     dispatch,
-  //   }),
-  //   [state, dispatch],
-  // );
+//   // const contentValues = useMemo(
+//   //   () => ({
+//   //     state,
+//   //     dispatch,
+//   //   }),
+//   //   [state, dispatch],
+//   // );
 
-  return (
-    <AuthContext.Provider value={state}>
-      <SetAuthContext.Provider value={setState}>{children}</SetAuthContext.Provider>
-    </AuthContext.Provider>
-  );
-};
+//   return (
+//     <AuthContext.Provider value={state}>
+//       <SetAuthContext.Provider value={setState}>{children}</SetAuthContext.Provider>
+//     </AuthContext.Provider>
+//   );
+// };
 
-interface AuthContextProperties {
-  auth: AuthState;
-  setAuth: Dispatch<ReducerActions>;
-}
+// interface AuthContextProperties {
+//   auth: AuthState;
+//   setAuth: Dispatch<ReducerActions>;
+// }
 
-export const useAuthState = (): AuthContextProperties => {
-  const auth = useContext(AuthContext);
-  const setter = useContext(SetAuthContext);
-  return { auth, setAuth: setter.dispatch };
-};
+// export const useAuthState = (): AuthContextProperties => {
+//   const auth = useContext(AuthContext);
+//   const setter = useContext(SetAuthContext);
+//   return { auth, setAuth: setter.dispatch };
+// };

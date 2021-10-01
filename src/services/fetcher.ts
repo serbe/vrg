@@ -1,16 +1,17 @@
-// import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { Certificate, CertificateList } from '../models/certificate';
-import { Company, CompanyList } from '../models/company';
-import { Contact, ContactList } from '../models/contact';
-import { Department, DepartmentList } from '../models/department';
-import { Education, EducationList, EducationShort } from '../models/education';
-import { Kind, KindList } from '../models/kind';
-import { Post, PostList } from '../models/post';
-import { Practice, PracticeList, PracticeShort } from '../models/practice';
-import { Rank, RankList } from '../models/rank';
-import { Scope, ScopeList } from '../models/scope';
-import { Siren, SirenList } from '../models/siren';
-import { SirenType, SirenTypeList } from '../models/sirentype';
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+
+import { Certificate, CertificateList } from "../models/certificate";
+import { Company, CompanyList } from "../models/company";
+import { Contact, ContactList } from "../models/contact";
+import { Department, DepartmentList } from "../models/department";
+import { Education, EducationList, EducationShort } from "../models/education";
+import { Kind, KindList } from "../models/kind";
+import { Post, PostList } from "../models/post";
+import { Practice, PracticeList, PracticeShort } from "../models/practice";
+import { Rank, RankList } from "../models/rank";
+import { Scope, ScopeList } from "../models/scope";
+import { Siren, SirenList } from "../models/siren";
+import { SirenType, SirenTypeList } from "../models/sirentype";
 
 const URL = (import.meta.env.VITE_APP_JSONURL as string) || "/go/json";
 const loginURL = (import.meta.env.VITE_APP_LOGINURL as string) || "/go/login";
@@ -184,6 +185,16 @@ type LoginResponse = {
 type CheckResponse = {
   r: boolean;
 };
+
+export const fetchApi = createApi({
+  reducerPath: "fetchApi",
+  baseQuery: fetchBaseQuery({ baseUrl: "https://pokeapi.co/api/v2/" }),
+  endpoints: (builder) => ({
+    getPokemonByName: builder.query<Pokemon, string>({
+      query: (name) => `pokemon/${name}`,
+    }),
+  }),
+});
 
 export const getItem = (name: string, id: string, token: string): Promise<GetItemResponse> => {
   return fetch(URL, {
