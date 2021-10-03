@@ -1,6 +1,6 @@
-import { ChangeEvent, KeyboardEvent, MouseEvent } from 'react';
+import { ChangeEvent, KeyboardEvent, MouseEvent } from "react";
 
-import { Input } from './input';
+import { Input } from "./input";
 
 export interface FormFieldProperties {
   autocomplete?: string;
@@ -11,12 +11,14 @@ export interface FormFieldProperties {
   label?: string;
   name: string;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
-  onClick?: (event: MouseEvent<HTMLInputElement, globalThis.MouseEvent>) => void;
+  onClick?: (
+    event: MouseEvent<HTMLInputElement, globalThis.MouseEvent>
+  ) => void;
   onKeyPress?: (event: KeyboardEvent<HTMLInputElement>) => void;
   placeholder?: string;
   readonly?: boolean;
   rounded?: boolean;
-  type?: 'text' | 'password' | 'email' | 'tel';
+  type?: "text" | "password" | "email" | "tel";
   value?: number | string;
 }
 
@@ -63,5 +65,5 @@ export const FormField = ({
 };
 
 FormField.defaultProps = {
-  type: 'text',
+  type: "text",
 };

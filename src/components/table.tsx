@@ -1,12 +1,12 @@
-import { useEffect, useReducer } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useEffect, useReducer } from "react";
+import { useHistory } from "react-router-dom";
 
-import { useAuthState } from '../services/auth';
-import { List } from '../services/fetcher';
-import { latrus } from '../services/utils';
-import { Button } from './button';
-import { Input } from './input';
-import { Pagination } from './pagination';
+import { useAuthState } from "../services/auth";
+import { List } from "../services/fetcher";
+import { latrus } from "../services/utils";
+import { Button } from "./button";
+import { Input } from "./input";
+import { Pagination } from "./pagination";
 
 export type SData = {
   data: string;
@@ -40,12 +40,12 @@ type PaginateState = {
 };
 
 type PaginateAction =
-  | { type: 'searchLessThanTwo'; value: List[]; valueLength: number }
-  | { type: 'changeSearch'; value: List[]; search: string }
-  | { type: 'setFilteredData'; value: List[] }
-  | { type: 'setCurrentPage'; value: number }
-  | { type: 'setSearchValues'; value: SData[] }
-  | { type: 'setFilteredDataLength'; value: number };
+  | { type: "searchLessThanTwo"; value: List[]; valueLength: number }
+  | { type: "changeSearch"; value: List[]; search: string }
+  | { type: "setFilteredData"; value: List[] }
+  | { type: "setCurrentPage"; value: number }
+  | { type: "setSearchValues"; value: SData[] }
+  | { type: "setFilteredDataLength"; value: number };
 
 const initialArguments = {
   currentPage: 0,
@@ -55,31 +55,41 @@ const initialArguments = {
   searchValues: [],
 };
 
-const paginateReducer = (state: PaginateState, action: PaginateAction): PaginateState => {
+const paginateReducer = (
+  state: PaginateState,
+  action: PaginateAction
+): PaginateState => {
   switch (action.type) {
-    case 'searchLessThanTwo':
+    case "searchLessThanTwo":
       if (state.filteredDataLength !== action.valueLength) {
-        return { ...state, filteredDataLength: action.valueLength, filteredData: action.value };
+        return {
+          ...state,
+          filteredDataLength: action.valueLength,
+          filteredData: action.value,
+        };
       }
       return state;
-    case 'changeSearch': {
-      const searchArray = action.search.toLowerCase().split(' ');
+    case "changeSearch": {
+      const searchArray = action.search.toLowerCase().split(" ");
       const temporaryFilteredData = action.value.filter((_, index) =>
         searchArray.every(
           (value: string) =>
             state.searchValues[index].data.includes(value) ||
-            (latrus(value[0]) && state.searchValues[index].data.includes(latrus(value))),
-        ),
+            (latrus(value[0]) &&
+              state.searchValues[index].data.includes(latrus(value)))
+        )
       );
       const temporaryFilteredLength = temporaryFilteredData.length;
       if (temporaryFilteredLength !== state.filteredDataLength) {
         if (
           state.currentPage > 1 &&
-          state.currentPage + 1 > Math.ceil(temporaryFilteredLength / state.itemsPerPage)
+          state.currentPage + 1 >
+            Math.ceil(temporaryFilteredLength / state.itemsPerPage)
         ) {
           return {
             ...state,
-            currentPage: Math.ceil(temporaryFilteredLength / state.itemsPerPage) - 1,
+            currentPage:
+              Math.ceil(temporaryFilteredLength / state.itemsPerPage) - 1,
             filteredData: temporaryFilteredData,
             filteredDataLength: temporaryFilteredLength,
           };
@@ -92,13 +102,13 @@ const paginateReducer = (state: PaginateState, action: PaginateAction): Paginate
       }
       return state;
     }
-    case 'setFilteredData':
+    case "setFilteredData":
       return { ...state, filteredData: action.value };
-    case 'setCurrentPage':
+    case "setCurrentPage":
       return { ...state, currentPage: action.value };
-    case 'setSearchValues':
+    case "setSearchValues":
       return { ...state, searchValues: action.value };
-    case 'setFilteredDataLength':
+    case "setFilteredDataLength":
       return { ...state, filteredDataLength: action.value };
     default:
       return state;
@@ -125,17 +135,20 @@ export const Paginate = ({
   );
 };
 
-export const Data = ({ data, search }: DataProperties): [() => List[], JSX.Element] => {
+export const Data = ({
+  data,
+  search,
+}: DataProperties): [() => List[], JSX.Element] => {
   type TableData = typeof data;
 
-  const [{ filteredData, currentPage, filteredDataLength, itemsPerPage }, dispatch] = useReducer(
-    paginateReducer,
-    initialArguments,
-  );
+  const [
+    { filteredData, currentPage, filteredDataLength, itemsPerPage },
+    dispatch,
+  ] = useReducer(paginateReducer, initialArguments);
 
   const setCurrentPage = (page: number): void => {
     dispatch({
-      type: 'setCurrentPage',
+      type: "setCurrentPage",
       value: page,
     });
   };
@@ -144,33 +157,40 @@ export const Data = ({ data, search }: DataProperties): [() => List[], JSX.Eleme
     const sv: SData[] = data.map((row, index): SData => {
       const values = Object.values(row);
       const rowString: string[] = values.map((value) => {
-        if (value && typeof value !== 'number') {
-          if (typeof value === 'string') {
+        if (value && typeof value !== "number") {
+          if (typeof value === "string") {
             return value;
           }
           if (Array.isArray(value)) {
-            return value.join('');
+            return value.join("");
           }
         }
-        return '';
+        return "";
       });
-      return { id: index, data: rowString.join('').toLowerCase() };
+      return { id: index, data: rowString.join("").toLowerCase() };
     });
-    dispatch({ type: 'setSearchValues', value: sv });
-    dispatch({ type: 'setFilteredData', value: data });
-    dispatch({ type: 'setFilteredDataLength', value: data.length });
+    dispatch({ type: "setSearchValues", value: sv });
+    dispatch({ type: "setFilteredData", value: data });
+    dispatch({ type: "setFilteredDataLength", value: data.length });
   }, [data]);
 
   useEffect(() => {
     if (search.length < 2) {
-      dispatch({ type: 'searchLessThanTwo', value: data, valueLength: data.length });
+      dispatch({
+        type: "searchLessThanTwo",
+        value: data,
+        valueLength: data.length,
+      });
     } else {
-      dispatch({ type: 'changeSearch', value: data, search });
+      dispatch({ type: "changeSearch", value: data, search });
     }
   }, [search, data]);
 
   const paginationData = (): TableData => {
-    return filteredData.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
+    return filteredData.slice(
+      currentPage * itemsPerPage,
+      (currentPage + 1) * itemsPerPage
+    );
   };
 
   return [

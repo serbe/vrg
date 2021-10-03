@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
 
-import { Company, CompanyNameInput } from '../../models/company';
-import { ContactShort, ContactShortForm } from '../../models/contact';
+import { Company, CompanyNameInput } from "../../models/company";
+import { ContactShort, ContactShortForm } from "../../models/contact";
 import {
   AddressInput,
   EmailInputs,
@@ -11,17 +11,17 @@ import {
   NoteInput,
   ParameterTypes,
   PhoneInputs,
-} from '../../models/impersonal';
-import { PracticeList, PracticeListForm } from '../../models/practice';
-import { ScopeIDSelect } from '../../models/scope';
-import { useAuthState } from '../../services/auth';
-import { DelItem, GetItem, SetItem } from '../../services/fetcher';
+} from "../../models/impersonal";
+import { PracticeList, PracticeListForm } from "../../models/practice";
+import { ScopeIDSelect } from "../../models/scope";
+import { useAuthState } from "../../services/auth";
+import { DelItem, GetItem, SetItem } from "../../services/fetcher";
 import {
   addEmptyString,
   filterArrayNumber,
   filterArrayString,
   numberToString,
-} from '../../services/utils';
+} from "../../services/utils";
 
 export const CompanyItem = (): JSX.Element => {
   const { auth } = useAuthState();
@@ -31,12 +31,12 @@ export const CompanyItem = (): JSX.Element => {
   const [address, setAddress] = useState<string>();
   const [scopeID, setScopeID] = useState<number>();
   const [note, setNote] = useState<string>();
-  const [emails, setEmails] = useState(['']);
-  const [phones, setPhones] = useState(['']);
-  const [faxes, setFaxes] = useState(['']);
+  const [emails, setEmails] = useState([""]);
+  const [phones, setPhones] = useState([""]);
+  const [faxes, setFaxes] = useState([""]);
   const [practices, setPractices] = useState<PracticeList[]>([]);
   const [contacts, setContacts] = useState<ContactShort[]>([]);
-  const item = GetItem('Company', id);
+  const item = GetItem("Company", id);
   const [status, setStatus] = useState(false);
 
   const send = (): void => {
@@ -52,12 +52,12 @@ export const CompanyItem = (): JSX.Element => {
       faxes: filterArrayNumber(faxes),
     };
 
-    SetItem(NumberID, 'Company', company, setStatus, auth.user.token);
+    SetItem(NumberID, "Company", company, setStatus, auth.user.token);
   };
 
   const del = (): void => {
     const NumberID = Number(id);
-    DelItem(NumberID, 'Company', setStatus, auth.user.token);
+    DelItem(NumberID, "Company", setStatus, auth.user.token);
   };
 
   useEffect(() => {

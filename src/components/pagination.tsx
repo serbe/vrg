@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface PaginationProperties {
   currentPage: number;
@@ -61,9 +61,17 @@ export const Pagination = ({
           <span className="pagination-ellipsis">&hellip;</span>
         ) : (
           <a
-            className={link === currentPage ? 'pagination-link is-current' : 'pagination-link'}
+            className={
+              link === currentPage
+                ? "pagination-link is-current"
+                : "pagination-link"
+            }
             href="#item"
-            onClick={link === currentPage || !link ? undefined : (): void => setter(link)}
+            onClick={
+              link === currentPage || !link
+                ? undefined
+                : (): void => setter(link)
+            }
           >
             {link}
           </a>
@@ -75,7 +83,12 @@ export const Pagination = ({
   };
 
   return (
-    <nav className={navClasses} key="pagination" role="navigation" aria-label="pagination">
+    <nav
+      className={navClasses}
+      key="pagination"
+      role="navigation"
+      aria-label="pagination"
+    >
       <Previous />
       <Next />
       <ul className="pagination-list" key="ul">
@@ -83,7 +96,11 @@ export const Pagination = ({
         <Item check={currentPage > 3} index={2} ellipsis />
         <Item check={currentPage > 2} index={3} link={currentPage - 1} />
         <Item check index={4} link={currentPage} />
-        <Item check={currentPage < lastPage - 1} index={5} link={currentPage + 1} />
+        <Item
+          check={currentPage < lastPage - 1}
+          index={5}
+          link={currentPage + 1}
+        />
         <Item check={currentPage < lastPage - 2} index={6} ellipsis />
         <Item check={currentPage < lastPage} index={7} link={lastPage} />
       </ul>

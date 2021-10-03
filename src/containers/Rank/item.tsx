@@ -1,10 +1,14 @@
-import { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
 
-import { ItemFormButtons, NoteInput, ParameterTypes } from '../../models/impersonal';
-import { Rank, RankNameInput } from '../../models/rank';
-import { useAuthState } from '../../services/auth';
-import { DelItem, GetItem, SetItem } from '../../services/fetcher';
+import {
+  ItemFormButtons,
+  NoteInput,
+  ParameterTypes,
+} from "../../models/impersonal";
+import { Rank, RankNameInput } from "../../models/rank";
+import { useAuthState } from "../../services/auth";
+import { DelItem, GetItem, SetItem } from "../../services/fetcher";
 
 export const RankItem = (): JSX.Element => {
   const { auth } = useAuthState();
@@ -12,7 +16,7 @@ export const RankItem = (): JSX.Element => {
   const { id } = useParams<ParameterTypes>();
   const [name, setName] = useState<string>();
   const [note, setNote] = useState<string>();
-  const item = GetItem('Rank', id);
+  const item = GetItem("Rank", id);
   const [status, setStatus] = useState(false);
 
   const send = (): void => {
@@ -23,12 +27,12 @@ export const RankItem = (): JSX.Element => {
       note,
     };
 
-    SetItem(NumberID, 'Rank', rank, setStatus, auth.user.token);
+    SetItem(NumberID, "Rank", rank, setStatus, auth.user.token);
   };
 
   const del = (): void => {
     const NumberID = Number(id);
-    DelItem(NumberID, 'Rank', setStatus, auth.user.token);
+    DelItem(NumberID, "Rank", setStatus, auth.user.token);
   };
 
   useEffect(() => {

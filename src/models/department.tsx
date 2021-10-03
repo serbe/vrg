@@ -1,8 +1,8 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent } from "react";
 
-import { FormField } from '../components/formfield';
-import { StringInputProperties } from '../components/input';
-import { Select, SelectValues } from '../components/select';
+import { FormField } from "../components/formfield";
+import { StringInputProperties } from "../components/input";
+import { Select, SelectValues } from "../components/select";
 
 export type Department = {
   id: number;
@@ -20,7 +20,10 @@ export type DepartmentList = {
   note?: string;
 };
 
-export const DepartmentIDSelect = ({ id, setter }: SelectValues): JSX.Element => (
+export const DepartmentIDSelect = ({
+  id,
+  setter,
+}: SelectValues): JSX.Element => (
   <Select
     name="department"
     label="Отдел"
@@ -31,12 +34,15 @@ export const DepartmentIDSelect = ({ id, setter }: SelectValues): JSX.Element =>
   />
 );
 
-export const DepartmentNameInput = ({ value, setter }: StringInputProperties): JSX.Element => (
+export const DepartmentNameInput = ({
+  value,
+  setter,
+}: StringInputProperties): JSX.Element => (
   <FormField
     name="name"
     value={value}
     onChange={(event: ChangeEvent<HTMLInputElement>): void =>
-      setter(event.target.value === '' ? undefined : event.target.value)
+      setter(event.target.value === "" ? undefined : event.target.value)
     }
     label="Наименование отдела"
     icon="tag"

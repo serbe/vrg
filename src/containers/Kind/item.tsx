@@ -1,10 +1,14 @@
-import { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
 
-import { ItemFormButtons, NoteInput, ParameterTypes } from '../../models/impersonal';
-import { Kind, KindNameInput, KindShortNameInput } from '../../models/kind';
-import { useAuthState } from '../../services/auth';
-import { DelItem, GetItem, SetItem } from '../../services/fetcher';
+import {
+  ItemFormButtons,
+  NoteInput,
+  ParameterTypes,
+} from "../../models/impersonal";
+import { Kind, KindNameInput, KindShortNameInput } from "../../models/kind";
+import { useAuthState } from "../../services/auth";
+import { DelItem, GetItem, SetItem } from "../../services/fetcher";
 
 export const KindItem = (): JSX.Element => {
   const { auth } = useAuthState();
@@ -13,7 +17,7 @@ export const KindItem = (): JSX.Element => {
   const [name, setName] = useState<string>();
   const [shortName, setShortName] = useState<string>();
   const [note, setNote] = useState<string>();
-  const item = GetItem('Kind', id);
+  const item = GetItem("Kind", id);
   const [status, setStatus] = useState(false);
 
   const send = (): void => {
@@ -25,12 +29,12 @@ export const KindItem = (): JSX.Element => {
       note,
     };
 
-    SetItem(NumberID, 'Kind', kind, setStatus, auth.user.token);
+    SetItem(NumberID, "Kind", kind, setStatus, auth.user.token);
   };
 
   const del = (): void => {
     const NumberID = Number(id);
-    DelItem(NumberID, 'Kind', setStatus, auth.user.token);
+    DelItem(NumberID, "Kind", setStatus, auth.user.token);
   };
 
   useEffect(() => {

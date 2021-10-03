@@ -1,8 +1,8 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent } from "react";
 
-import { FormField } from '../components/formfield';
-import { StringInputProperties } from '../components/input';
-import { Select, SelectValues } from '../components/select';
+import { FormField } from "../components/formfield";
+import { StringInputProperties } from "../components/input";
+import { Select, SelectValues } from "../components/select";
 
 export type Kind = {
   id: number;
@@ -22,12 +22,15 @@ export type KindList = {
   note?: string;
 };
 
-export const KindNameInput = ({ value, setter }: StringInputProperties): JSX.Element => (
+export const KindNameInput = ({
+  value,
+  setter,
+}: StringInputProperties): JSX.Element => (
   <FormField
     name="kind-name"
     value={value}
     onChange={(event: ChangeEvent<HTMLInputElement>): void =>
-      setter(event.target.value === '' ? undefined : event.target.value)
+      setter(event.target.value === "" ? undefined : event.target.value)
     }
     label="Наименование типа тренировки"
     icon="tag"
@@ -35,12 +38,15 @@ export const KindNameInput = ({ value, setter }: StringInputProperties): JSX.Ele
   />
 );
 
-export const KindShortNameInput = ({ value, setter }: StringInputProperties): JSX.Element => (
+export const KindShortNameInput = ({
+  value,
+  setter,
+}: StringInputProperties): JSX.Element => (
   <FormField
     name="kind-short-name"
     value={value}
     onChange={(event: ChangeEvent<HTMLInputElement>): void =>
-      setter(event.target.value === '' ? undefined : event.target.value)
+      setter(event.target.value === "" ? undefined : event.target.value)
     }
     label="Сокращенное наименование"
     icon="tag"

@@ -1,16 +1,20 @@
-import { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
 
 import {
   Education,
   EducationEndDateInput,
   EducationNameSelect,
   EducationStartDateInput,
-} from '../../models/education';
-import { ItemFormButtons, NoteInput, ParameterTypes } from '../../models/impersonal';
-import { PostGoIDSelect } from '../../models/post';
-import { useAuthState } from '../../services/auth';
-import { DelItem, GetItem, SetItem } from '../../services/fetcher';
+} from "../../models/education";
+import {
+  ItemFormButtons,
+  NoteInput,
+  ParameterTypes,
+} from "../../models/impersonal";
+import { PostGoIDSelect } from "../../models/post";
+import { useAuthState } from "../../services/auth";
+import { DelItem, GetItem, SetItem } from "../../services/fetcher";
 
 export const EducationItem = (): JSX.Element => {
   const { auth } = useAuthState();
@@ -21,7 +25,7 @@ export const EducationItem = (): JSX.Element => {
   const [endDate, setEndDate] = useState<string>();
   const [postID, setPostID] = useState<number>();
   const [note, setNote] = useState<string>();
-  const item = GetItem('Education', id);
+  const item = GetItem("Education", id);
   const [status, setStatus] = useState(false);
 
   const send = (): void => {
@@ -35,12 +39,12 @@ export const EducationItem = (): JSX.Element => {
       note,
     };
 
-    SetItem(NumberID, 'Education', education, setStatus, auth.user.token);
+    SetItem(NumberID, "Education", education, setStatus, auth.user.token);
   };
 
   const del = (): void => {
     const NumberID = Number(id);
-    DelItem(NumberID, 'Education', setStatus, auth.user.token);
+    DelItem(NumberID, "Education", setStatus, auth.user.token);
   };
 
   useEffect(() => {
@@ -69,7 +73,10 @@ export const EducationItem = (): JSX.Element => {
 
           <div className="columns">
             <div className="column">
-              <EducationStartDateInput value={startDate} setter={setStartDate} />
+              <EducationStartDateInput
+                value={startDate}
+                setter={setStartDate}
+              />
             </div>
             <div className="column">
               <EducationEndDateInput value={endDate} setter={setEndDate} />

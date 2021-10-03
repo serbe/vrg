@@ -1,15 +1,15 @@
-import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
 
-import { Bar, Data } from '../../components/table';
-import { CompanyList } from '../../models/company';
-import { GetList } from '../../services/fetcher';
-import { splitNumbers, splitStrings } from '../../services/utils';
+import { Bar, Data } from "../../components/table";
+import { CompanyList } from "../../models/company";
+import { GetList } from "../../services/fetcher";
+import { splitNumbers, splitStrings } from "../../services/utils";
 
 export const Companies = (): JSX.Element => {
   const history = useHistory();
-  const data = GetList('CompanyList');
-  const [search, setSearch] = useState('');
+  const data = GetList("CompanyList");
+  const [search, setSearch] = useState("");
 
   const [paginationData, Paginate] = Data({
     data,
@@ -54,7 +54,9 @@ export const Companies = (): JSX.Element => {
             <th className="is-hidden-mobile w250">Сфера деятельности</th>
             <th className="w95">Телефоны</th>
             <th className="is-hidden-touch w95">Факсы</th>
-            <th className="is-hidden-touch is-hidden-desktop-only w95">Тренировки</th>
+            <th className="is-hidden-touch is-hidden-desktop-only w95">
+              Тренировки
+            </th>
           </tr>
           <Body />
         </tbody>

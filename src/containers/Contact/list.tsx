@@ -1,15 +1,15 @@
-import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
 
-import { Bar, Data } from '../../components/table';
-import { ContactList } from '../../models/contact';
-import { GetList } from '../../services/fetcher';
-import { splitNumbers } from '../../services/utils';
+import { Bar, Data } from "../../components/table";
+import { ContactList } from "../../models/contact";
+import { GetList } from "../../services/fetcher";
+import { splitNumbers } from "../../services/utils";
 
 export const Contacts = (): JSX.Element => {
   const history = useHistory();
-  const data = GetList('ContactList');
-  const [search, setSearch] = useState('');
+  const data = GetList("ContactList");
+  const [search, setSearch] = useState("");
 
   const [paginationData, Paginate] = Data({
     data,
@@ -32,7 +32,9 @@ export const Contacts = (): JSX.Element => {
             {contact.name}
           </td>
           <td
-            onClick={(): void => history.push(`/companies/${contact.company_id || 0}`)}
+            onClick={(): void =>
+              history.push(`/companies/${contact.company_id || 0}`)
+            }
             role="gridcell"
             className="is-hidden-mobile w250 link"
           >
@@ -40,7 +42,9 @@ export const Contacts = (): JSX.Element => {
           </td>
           <td className="is-hidden-touch w250">{contact.post_name}</td>
           <td className="w95">{splitNumbers(contact.phones)}</td>
-          <td className="is-hidden-mobile w95">{splitNumbers(contact.faxes)}</td>
+          <td className="is-hidden-mobile w95">
+            {splitNumbers(contact.faxes)}
+          </td>
         </tr>
       ))}
     </>

@@ -1,5 +1,5 @@
-it('renders without crashing', () => {
-  const div = document.createElement('div');
+it("renders without crashing", () => {
+  const div = document.createElement("div");
   // ReactDOM.render(<Home />, div);
   // ReactDOM.unmountComponentAtNode(div);
 });

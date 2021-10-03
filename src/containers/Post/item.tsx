@@ -1,10 +1,14 @@
-import { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
 
-import { ItemFormButtons, NoteInput, ParameterTypes } from '../../models/impersonal';
-import { Post, PostGOSwitch, PostNameInput } from '../../models/post';
-import { useAuthState } from '../../services/auth';
-import { DelItem, GetItem, SetItem } from '../../services/fetcher';
+import {
+  ItemFormButtons,
+  NoteInput,
+  ParameterTypes,
+} from "../../models/impersonal";
+import { Post, PostGOSwitch, PostNameInput } from "../../models/post";
+import { useAuthState } from "../../services/auth";
+import { DelItem, GetItem, SetItem } from "../../services/fetcher";
 
 export const PostItem = (): JSX.Element => {
   const { auth } = useAuthState();
@@ -13,7 +17,7 @@ export const PostItem = (): JSX.Element => {
   const [name, setName] = useState<string>();
   const [go, setGo] = useState(false);
   const [note, setNote] = useState<string>();
-  const item = GetItem('Post', id);
+  const item = GetItem("Post", id);
   const [status, setStatus] = useState(false);
 
   const send = (): void => {
@@ -25,12 +29,12 @@ export const PostItem = (): JSX.Element => {
       note,
     };
 
-    SetItem(NumberID, 'Post', post, setStatus, auth.user.token);
+    SetItem(NumberID, "Post", post, setStatus, auth.user.token);
   };
 
   const del = (): void => {
     const NumberID = Number(id);
-    DelItem(NumberID, 'Post', setStatus, auth.user.token);
+    DelItem(NumberID, "Post", setStatus, auth.user.token);
   };
 
   useEffect(() => {

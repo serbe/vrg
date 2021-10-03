@@ -1,5 +1,5 @@
-import clsx from 'clsx';
-import { MouseEvent } from 'react';
+import clsx from "clsx";
+import { MouseEvent } from "react";
 
 interface ButtonProperties {
   children?: string;
@@ -10,7 +10,7 @@ interface ButtonProperties {
     event: MouseEvent<
       HTMLAnchorElement | HTMLButtonElement | HTMLInputElement,
       globalThis.MouseEvent
-    >,
+    >
   ) => void;
 }
 
@@ -28,7 +28,12 @@ export const Button = ({
       {children}
     </a>
   ) : (
-    <button type="button" disabled={disabled} onClick={onClick} className={buttonClass}>
+    <button
+      type="button"
+      disabled={disabled}
+      onClick={onClick}
+      className={buttonClass}
+    >
       {children}
     </button>
   );

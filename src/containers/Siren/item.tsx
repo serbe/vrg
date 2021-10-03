@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
 
-import { CompanyIDSelect } from '../../models/company';
+import { CompanyIDSelect } from "../../models/company";
 import {
   AddressInput,
   ContactIDSelect,
   ItemFormButtons,
   NoteInput,
   ParameterTypes,
-} from '../../models/impersonal';
+} from "../../models/impersonal";
 import {
   Siren,
   SirenDeskInput,
@@ -19,10 +19,10 @@ import {
   SirenOwnInput,
   SirenRadioInput,
   SirenStageInput,
-} from '../../models/siren';
-import { SirenTypeIDSelect } from '../../models/sirentype';
-import { useAuthState } from '../../services/auth';
-import { DelItem, GetItem, SetItem } from '../../services/fetcher';
+} from "../../models/siren";
+import { SirenTypeIDSelect } from "../../models/sirentype";
+import { useAuthState } from "../../services/auth";
+import { DelItem, GetItem, SetItem } from "../../services/fetcher";
 
 export const SirenItem = (): JSX.Element => {
   const { auth } = useAuthState();
@@ -41,7 +41,7 @@ export const SirenItem = (): JSX.Element => {
   const [stage, setStage] = useState<number>();
   const [own, setOwn] = useState<string>();
   const [note, setNote] = useState<string>();
-  const item = GetItem('Siren', id);
+  const item = GetItem("Siren", id);
   const [status, setStatus] = useState(false);
 
   const send = (): void => {
@@ -63,12 +63,12 @@ export const SirenItem = (): JSX.Element => {
       note,
     };
 
-    SetItem(NumberID, 'Siren', siren, setStatus, auth.user.token);
+    SetItem(NumberID, "Siren", siren, setStatus, auth.user.token);
   };
 
   const del = (): void => {
     const NumberID = Number(id);
-    DelItem(NumberID, 'Siren', setStatus, auth.user.token);
+    DelItem(NumberID, "Siren", setStatus, auth.user.token);
   };
 
   useEffect(() => {
@@ -101,7 +101,10 @@ export const SirenItem = (): JSX.Element => {
       {item && (
         <>
           <SirenNumberIDInput value={numberID} setter={setNumberID} />
-          <SirenNumberPassportInput value={numberPassport} setter={setNumberPassport} />
+          <SirenNumberPassportInput
+            value={numberPassport}
+            setter={setNumberPassport}
+          />
           <SirenTypeIDSelect id={sirenTypeID} setter={setSirenTypeID} />
           <AddressInput value={address} setter={setAddress} />
           <SirenRadioInput value={radio} setter={setRadio} />

@@ -1,12 +1,12 @@
-import './index.css';
+import "./index.css";
 
-import { EducationNearList, EducationShort } from '../../models/education';
-import { PracticeNearList, PracticeShort } from '../../models/practice';
-import { GetList } from '../../services/fetcher';
+import { EducationNearList, EducationShort } from "../../models/education";
+import { PracticeNearList, PracticeShort } from "../../models/practice";
+import { GetList } from "../../services/fetcher";
 
 export const Home = (): JSX.Element => {
-  const educations = GetList('EducationNear');
-  const practices = GetList('PracticeNear');
+  const educations = GetList("EducationNear");
+  const practices = GetList("PracticeNear");
 
   return (
     <div className="columns">

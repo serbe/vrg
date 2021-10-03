@@ -1,12 +1,20 @@
-import { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
 
-import { CompanyIDSelect } from '../../models/company';
-import { ItemFormButtons, NoteInput, ParameterTypes } from '../../models/impersonal';
-import { KindIDSelect } from '../../models/kind';
-import { Practice, PracticeDateInput, PracticeTopicInput } from '../../models/practice';
-import { useAuthState } from '../../services/auth';
-import { DelItem, GetItem, SetItem } from '../../services/fetcher';
+import { CompanyIDSelect } from "../../models/company";
+import {
+  ItemFormButtons,
+  NoteInput,
+  ParameterTypes,
+} from "../../models/impersonal";
+import { KindIDSelect } from "../../models/kind";
+import {
+  Practice,
+  PracticeDateInput,
+  PracticeTopicInput,
+} from "../../models/practice";
+import { useAuthState } from "../../services/auth";
+import { DelItem, GetItem, SetItem } from "../../services/fetcher";
 
 export const PracticeItem = (): JSX.Element => {
   const { auth } = useAuthState();
@@ -17,7 +25,7 @@ export const PracticeItem = (): JSX.Element => {
   const [topic, setTopic] = useState<string>();
   const [date, setDate] = useState<string>();
   const [note, setNote] = useState<string>();
-  const item = GetItem('Practice', id);
+  const item = GetItem("Practice", id);
   const [status, setStatus] = useState(false);
 
   const send = (): void => {
@@ -31,12 +39,12 @@ export const PracticeItem = (): JSX.Element => {
       note,
     };
 
-    SetItem(NumberID, 'Practice', practice, setStatus, auth.user.token);
+    SetItem(NumberID, "Practice", practice, setStatus, auth.user.token);
   };
 
   const del = (): void => {
     const NumberID = Number(id);
-    DelItem(NumberID, 'Practice', setStatus, auth.user.token);
+    DelItem(NumberID, "Practice", setStatus, auth.user.token);
   };
 
   useEffect(() => {

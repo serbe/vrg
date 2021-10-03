@@ -1,16 +1,20 @@
-import { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
 
 import {
   Certificate,
   CertificateDateInput,
   CertificateNumberInput,
-} from '../../models/certificate';
-import { CompanyIDSelect } from '../../models/company';
-import { ContactIDSelect } from '../../models/contact';
-import { ItemFormButtons, NoteInput, ParameterTypes } from '../../models/impersonal';
-import { useAuthState } from '../../services/auth';
-import { DelItem, GetItem, SetItem } from '../../services/fetcher';
+} from "../../models/certificate";
+import { CompanyIDSelect } from "../../models/company";
+import { ContactIDSelect } from "../../models/contact";
+import {
+  ItemFormButtons,
+  NoteInput,
+  ParameterTypes,
+} from "../../models/impersonal";
+import { useAuthState } from "../../services/auth";
+import { DelItem, GetItem, SetItem } from "../../services/fetcher";
 
 export const CertificateItem = (): JSX.Element => {
   const { auth } = useAuthState();
@@ -21,7 +25,7 @@ export const CertificateItem = (): JSX.Element => {
   const [companyID, setCompanyID] = useState<number>();
   const [certDate, setCertDate] = useState<string>();
   const [note, setNote] = useState<string>();
-  const item = GetItem('Certificate', id);
+  const item = GetItem("Certificate", id);
   const [status, setStatus] = useState(false);
 
   const send = (): void => {
@@ -35,12 +39,12 @@ export const CertificateItem = (): JSX.Element => {
       note,
     };
 
-    SetItem(NumberID, 'Certificate', certificate, setStatus, auth.user.token);
+    SetItem(NumberID, "Certificate", certificate, setStatus, auth.user.token);
   };
 
   const del = (): void => {
     const NumberID = Number(id);
-    DelItem(NumberID, 'Certificate', setStatus, auth.user.token);
+    DelItem(NumberID, "Certificate", setStatus, auth.user.token);
   };
 
   useEffect(() => {

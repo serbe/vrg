@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 export interface DatePickerValues {
   value?: string;
@@ -19,7 +19,7 @@ interface DatePickerMonth {
 
 const listDays = (date: Date): string[] => {
   const days = date.getDate();
-  const list = [' '];
+  const list = [" "];
   for (let i = 1; i <= days; i += 1) {
     list.push(i.toString().length === 1 ? `0${i}` : i.toString());
   }
@@ -28,41 +28,46 @@ const listDays = (date: Date): string[] => {
 
 const listMonths = (): DatePickerMonth[] => {
   const list = [
-    { value: ' ', name: ' ' },
-    { value: '01', name: 'января' },
-    { value: '02', name: 'февраля' },
-    { value: '03', name: 'марта' },
-    { value: '04', name: 'апреля' },
-    { value: '05', name: 'мая' },
-    { value: '06', name: 'июня' },
-    { value: '07', name: 'июля' },
-    { value: '08', name: 'августа' },
-    { value: '09', name: 'сентября' },
-    { value: '10', name: 'октября' },
-    { value: '11', name: 'ноября' },
-    { value: '12', name: 'декабря' },
+    { value: " ", name: " " },
+    { value: "01", name: "января" },
+    { value: "02", name: "февраля" },
+    { value: "03", name: "марта" },
+    { value: "04", name: "апреля" },
+    { value: "05", name: "мая" },
+    { value: "06", name: "июня" },
+    { value: "07", name: "июля" },
+    { value: "08", name: "августа" },
+    { value: "09", name: "сентября" },
+    { value: "10", name: "октября" },
+    { value: "11", name: "ноября" },
+    { value: "12", name: "декабря" },
   ];
   return list;
 };
 
 const listYears = (): string[] => {
   const currentYear = new Date().getFullYear();
-  const list = [' '];
+  const list = [" "];
   for (let i = currentYear; i > currentYear - 100; i -= 1) {
     list.push(i.toString());
   }
   return list;
 };
 
-export const DatePicker = ({ name, value, setter, label }: DatePickerProperties): JSX.Element => {
-  const [year, setYear] = useState(' ');
-  const [month, setMonth] = useState(' ');
-  const [day, setDay] = useState(' ');
-  const [rawDate, setRawDate] = useState('');
+export const DatePicker = ({
+  name,
+  value,
+  setter,
+  label,
+}: DatePickerProperties): JSX.Element => {
+  const [year, setYear] = useState(" ");
+  const [month, setMonth] = useState(" ");
+  const [day, setDay] = useState(" ");
+  const [rawDate, setRawDate] = useState("");
 
   useEffect(() => {
     if (value && value !== rawDate) {
-      const values = value.split('-');
+      const values = value.split("-");
       if (values.length === 3) {
         setRawDate(value);
         setYear(values[0]);
@@ -76,14 +81,20 @@ export const DatePicker = ({ name, value, setter, label }: DatePickerProperties)
     const strdate = `${year}-${month}-${day}`;
     if (strdate !== rawDate) {
       setRawDate(strdate);
-      setter(year !== ' ' && month !== ' ' && day !== ' ' ? strdate : undefined);
+      setter(
+        year !== " " && month !== " " && day !== " " ? strdate : undefined
+      );
     }
   }, [day, month, setter, rawDate, year]);
 
   return (
     <div className="field" key={name}>
       {label && (
-        <label className="label" key="DateLabel" htmlFor={`datepicker-${name}-id`}>
+        <label
+          className="label"
+          key="DateLabel"
+          htmlFor={`datepicker-${name}-id`}
+        >
           {label}
         </label>
       )}
@@ -99,10 +110,10 @@ export const DatePicker = ({ name, value, setter, label }: DatePickerProperties)
             >
               {listDays(
                 new Date(
-                  Number(year === ' ' ? '2021' : year),
-                  Number(month === ' ' ? '1' : month),
-                  0,
-                ),
+                  Number(year === " " ? "2021" : year),
+                  Number(month === " " ? "1" : month),
+                  0
+                )
               ).map((item) => (
                 <option key={`${name}day-${item}`} value={item}>
                   {item}

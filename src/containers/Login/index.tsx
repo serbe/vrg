@@ -1,12 +1,12 @@
-import { ChangeEvent, FormEvent, KeyboardEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, KeyboardEvent, useState } from "react";
 
-import { FormField } from '../../components/formfield';
-import { login, useAuthState } from '../../services/auth';
+import { FormField } from "../../components/formfield";
+import { login, useAuthState } from "../../services/auth";
 
 export const Login = (): JSX.Element => {
   const { setAuth } = useAuthState();
-  const [name, setName] = useState('');
-  const [pass, setPass] = useState('');
+  const [name, setName] = useState("");
+  const [pass, setPass] = useState("");
 
   const submit = (): void => login(name, pass, setAuth);
 
@@ -38,7 +38,7 @@ export const Login = (): JSX.Element => {
               setPass(event.target.value);
             }}
             onKeyPress={(event: KeyboardEvent<HTMLInputElement>): void => {
-              if (event.key === 'Enter') {
+              if (event.key === "Enter") {
                 submit();
               }
             }}

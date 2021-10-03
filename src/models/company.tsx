@@ -1,10 +1,10 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent } from "react";
 
-import { FormField } from '../components/formfield';
-import { StringInputProperties } from '../components/input';
-import { Select, SelectValues } from '../components/select';
-import { ContactShort } from './contact';
-import { PracticeList } from './practice';
+import { FormField } from "../components/formfield";
+import { StringInputProperties } from "../components/input";
+import { Select, SelectValues } from "../components/select";
+import { ContactShort } from "./contact";
+import { PracticeList } from "./practice";
 
 export type Company = {
   id: number;
@@ -45,12 +45,15 @@ export const CompanyIDSelect = ({ id, setter }: SelectValues): JSX.Element => (
   />
 );
 
-export const CompanyNameInput = ({ value, setter }: StringInputProperties): JSX.Element => (
+export const CompanyNameInput = ({
+  value,
+  setter,
+}: StringInputProperties): JSX.Element => (
   <FormField
     name="company-name"
     value={value}
     onChange={(event: ChangeEvent<HTMLInputElement>): void =>
-      setter(event.target.value === '' ? undefined : event.target.value)
+      setter(event.target.value === "" ? undefined : event.target.value)
     }
     label="Наименование организации"
     icon="building"

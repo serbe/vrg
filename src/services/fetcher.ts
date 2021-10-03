@@ -1,26 +1,25 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { User } from '~/models/user'
+import { Certificate, CertificateList } from '../models/certificate'
+import { Company, CompanyList } from '../models/company'
+import { Contact, ContactList } from '../models/contact'
+import { Department, DepartmentList } from '../models/department'
+import { Education, EducationList, EducationShort } from '../models/education'
+import { Kind, KindList } from '../models/kind'
+import { Post, PostList } from '../models/post'
+import { Practice, PracticeList, PracticeShort } from '../models/practice'
+import { Rank, RankList } from '../models/rank'
+import { Scope, ScopeList } from '../models/scope'
+import { Siren, SirenList } from '../models/siren'
+import { SirenType, SirenTypeList } from '../models/sirentype'
 
-import { Certificate, CertificateList } from "../models/certificate";
-import { Company, CompanyList } from "../models/company";
-import { Contact, ContactList } from "../models/contact";
-import { Department, DepartmentList } from "../models/department";
-import { Education, EducationList, EducationShort } from "../models/education";
-import { Kind, KindList } from "../models/kind";
-import { Post, PostList } from "../models/post";
-import { Practice, PracticeList, PracticeShort } from "../models/practice";
-import { Rank, RankList } from "../models/rank";
-import { Scope, ScopeList } from "../models/scope";
-import { Siren, SirenList } from "../models/siren";
-import { SirenType, SirenTypeList } from "../models/sirentype";
-
-const URL = (import.meta.env.VITE_APP_JSONURL as string) || "/go/json";
-const loginURL = (import.meta.env.VITE_APP_LOGINURL as string) || "/go/login";
-const checkURL = (import.meta.env.VITE_APP_CHECK_URL as string) || "/go/check";
+const URL = (import.meta.env.VITE_APP_JSONURL as string) || '/go/json'
+const loginURL = (import.meta.env.VITE_APP_LOGINURL as string) || '/go/login'
+const checkURL = (import.meta.env.VITE_APP_CHECKURL as string) || '/go/check'
 
 export type SelectItem = {
-  id: number;
-  name: string;
-};
+  id: number
+  name: string
+}
 
 export type Item =
   | undefined
@@ -35,7 +34,7 @@ export type Item =
   | Rank
   | Scope
   | Siren
-  | SirenType;
+  | SirenType
 
 export type List =
   | CertificateList
@@ -51,235 +50,359 @@ export type List =
   | RankList
   | ScopeList
   | SirenList
-  | SirenTypeList;
+  | SirenTypeList
 
 type GetListResponse =
   | undefined
   | {
-      command: "GetList";
-      name: "CertificateList";
-      object: { CertificateList: CertificateList[] };
-      error: string;
+      command: 'GetList'
+      name: 'CertificateList'
+      object: { CertificateList: CertificateList[] }
+      error: string
     }
   | {
-      command: "GetList";
-      name: "CompanyList";
-      object: { CompanyList: CompanyList[] };
-      error: string;
+      command: 'GetList'
+      name: 'CompanyList'
+      object: { CompanyList: CompanyList[] }
+      error: string
     }
   | {
-      command: "GetList";
-      name: "CompanySelect";
-      object: { SelectItem: SelectItem[] };
-      error: string;
+      command: 'GetList'
+      name: 'CompanySelect'
+      object: { SelectItem: SelectItem[] }
+      error: string
     }
   | {
-      command: "GetList";
-      name: "ContactList";
-      object: { ContactList: ContactList[] };
-      error: string;
+      command: 'GetList'
+      name: 'ContactList'
+      object: { ContactList: ContactList[] }
+      error: string
     }
   | {
-      command: "GetList";
-      name: "ContactSelect";
-      object: { SelectItem: SelectItem[] };
-      error: string;
+      command: 'GetList'
+      name: 'ContactSelect'
+      object: { SelectItem: SelectItem[] }
+      error: string
     }
   | {
-      command: "GetList";
-      name: "DepartmentList";
-      object: { DepartmentList: DepartmentList[] };
-      error: string;
+      command: 'GetList'
+      name: 'DepartmentList'
+      object: { DepartmentList: DepartmentList[] }
+      error: string
     }
   | {
-      command: "GetList";
-      name: "DepartmentSelect";
-      object: { SelectItem: SelectItem[] };
-      error: string;
+      command: 'GetList'
+      name: 'DepartmentSelect'
+      object: { SelectItem: SelectItem[] }
+      error: string
     }
   | {
-      command: "GetList";
-      name: "EducationList";
-      object: { EducationList: EducationList[] };
-      error: string;
+      command: 'GetList'
+      name: 'EducationList'
+      object: { EducationList: EducationList[] }
+      error: string
     }
   | {
-      command: "GetList";
-      name: "EducationNear";
-      object: { EducationShort: EducationShort[] };
-      error: string;
-    }
-  | { command: "GetList"; name: "KindList"; object: { KindList: KindList[] }; error: string }
-  | { command: "GetList"; name: "KindSelect"; object: { SelectItem: SelectItem[] }; error: string }
-  | {
-      command: "GetList";
-      name: "PostGoSelect";
-      object: { SelectItem: SelectItem[] };
-      error: string;
-    }
-  | { command: "GetList"; name: "PostList"; object: { PostList: PostList[] }; error: string }
-  | { command: "GetList"; name: "PostSelect"; object: { SelectItem: SelectItem[] }; error: string }
-  | {
-      command: "GetList";
-      name: "PracticeList";
-      object: { PracticeList: PracticeList[] };
-      error: string;
+      command: 'GetList'
+      name: 'EducationNear'
+      object: { EducationShort: EducationShort[] }
+      error: string
     }
   | {
-      command: "GetList";
-      name: "PracticeNear";
-      object: { PracticeShort: PracticeShort[] };
-      error: string;
-    }
-  | { command: "GetList"; name: "RankList"; object: { RankList: RankList[] }; error: string }
-  | { command: "GetList"; name: "RankSelect"; object: { SelectItem: SelectItem[] }; error: string }
-  | { command: "GetList"; name: "ScopeList"; object: { ScopeList: ScopeList[] }; error: string }
-  | { command: "GetList"; name: "ScopeSelect"; object: { SelectItem: SelectItem[] }; error: string }
-  | { command: "GetList"; name: "SirenList"; object: { SirenList: SirenList[] }; error: string }
-  | {
-      command: "GetList";
-      name: "SirenTypeList";
-      object: { SirenTypeList: SirenTypeList[] };
-      error: string;
+      command: 'GetList'
+      name: 'KindList'
+      object: { KindList: KindList[] }
+      error: string
     }
   | {
-      command: "GetList";
-      name: "SirenTypeSelect";
-      object: { SelectItem: SelectItem[] };
-      error: string;
-    };
+      command: 'GetList'
+      name: 'KindSelect'
+      object: { SelectItem: SelectItem[] }
+      error: string
+    }
+  | {
+      command: 'GetList'
+      name: 'PostGoSelect'
+      object: { SelectItem: SelectItem[] }
+      error: string
+    }
+  | {
+      command: 'GetList'
+      name: 'PostList'
+      object: { PostList: PostList[] }
+      error: string
+    }
+  | {
+      command: 'GetList'
+      name: 'PostSelect'
+      object: { SelectItem: SelectItem[] }
+      error: string
+    }
+  | {
+      command: 'GetList'
+      name: 'PracticeList'
+      object: { PracticeList: PracticeList[] }
+      error: string
+    }
+  | {
+      command: 'GetList'
+      name: 'PracticeNear'
+      object: { PracticeShort: PracticeShort[] }
+      error: string
+    }
+  | {
+      command: 'GetList'
+      name: 'RankList'
+      object: { RankList: RankList[] }
+      error: string
+    }
+  | {
+      command: 'GetList'
+      name: 'RankSelect'
+      object: { SelectItem: SelectItem[] }
+      error: string
+    }
+  | {
+      command: 'GetList'
+      name: 'ScopeList'
+      object: { ScopeList: ScopeList[] }
+      error: string
+    }
+  | {
+      command: 'GetList'
+      name: 'ScopeSelect'
+      object: { SelectItem: SelectItem[] }
+      error: string
+    }
+  | {
+      command: 'GetList'
+      name: 'SirenList'
+      object: { SirenList: SirenList[] }
+      error: string
+    }
+  | {
+      command: 'GetList'
+      name: 'SirenTypeList'
+      object: { SirenTypeList: SirenTypeList[] }
+      error: string
+    }
+  | {
+      command: 'GetList'
+      name: 'SirenTypeSelect'
+      object: { SelectItem: SelectItem[] }
+      error: string
+    }
 
 type ModifyItemResponse =
-  | { command: "InsertItem" | "UpdateItem" | "DeleteItem"; name: "Certificate"; error: string }
-  | { command: "InsertItem" | "UpdateItem" | "DeleteItem"; name: "Company"; error: string }
-  | { command: "InsertItem" | "UpdateItem" | "DeleteItem"; name: "Contact"; error: string }
-  | { command: "InsertItem" | "UpdateItem" | "DeleteItem"; name: "Department"; error: string }
-  | { command: "InsertItem" | "UpdateItem" | "DeleteItem"; name: "Education"; error: string }
-  | { command: "InsertItem" | "UpdateItem" | "DeleteItem"; name: "Kind"; error: string }
-  | { command: "InsertItem" | "UpdateItem" | "DeleteItem"; name: "Post"; error: string }
-  | { command: "InsertItem" | "UpdateItem" | "DeleteItem"; name: "Practice"; error: string }
-  | { command: "InsertItem" | "UpdateItem" | "DeleteItem"; name: "Rank"; error: string }
-  | { command: "InsertItem" | "UpdateItem" | "DeleteItem"; name: "Scope"; error: string }
-  | { command: "InsertItem" | "UpdateItem" | "DeleteItem"; name: "Siren"; error: string }
-  | { command: "InsertItem" | "UpdateItem" | "DeleteItem"; name: "SirenType"; error: string };
+  | {
+      command: 'InsertItem' | 'UpdateItem' | 'DeleteItem'
+      name: 'Certificate'
+      error: string
+    }
+  | {
+      command: 'InsertItem' | 'UpdateItem' | 'DeleteItem'
+      name: 'Company'
+      error: string
+    }
+  | {
+      command: 'InsertItem' | 'UpdateItem' | 'DeleteItem'
+      name: 'Contact'
+      error: string
+    }
+  | {
+      command: 'InsertItem' | 'UpdateItem' | 'DeleteItem'
+      name: 'Department'
+      error: string
+    }
+  | {
+      command: 'InsertItem' | 'UpdateItem' | 'DeleteItem'
+      name: 'Education'
+      error: string
+    }
+  | {
+      command: 'InsertItem' | 'UpdateItem' | 'DeleteItem'
+      name: 'Kind'
+      error: string
+    }
+  | {
+      command: 'InsertItem' | 'UpdateItem' | 'DeleteItem'
+      name: 'Post'
+      error: string
+    }
+  | {
+      command: 'InsertItem' | 'UpdateItem' | 'DeleteItem'
+      name: 'Practice'
+      error: string
+    }
+  | {
+      command: 'InsertItem' | 'UpdateItem' | 'DeleteItem'
+      name: 'Rank'
+      error: string
+    }
+  | {
+      command: 'InsertItem' | 'UpdateItem' | 'DeleteItem'
+      name: 'Scope'
+      error: string
+    }
+  | {
+      command: 'InsertItem' | 'UpdateItem' | 'DeleteItem'
+      name: 'Siren'
+      error: string
+    }
+  | {
+      command: 'InsertItem' | 'UpdateItem' | 'DeleteItem'
+      name: 'SirenType'
+      error: string
+    }
 
 type GetItemResponse =
-  | { command: "GetItem"; name: "Certificate"; object: { Certificate: Certificate }; error: string }
-  | { command: "GetItem"; name: "Company"; object: { Company: Company }; error: string }
-  | { command: "GetItem"; name: "Contact"; object: { Contact: Contact }; error: string }
-  | { command: "GetItem"; name: "Department"; object: { Department: Department }; error: string }
-  | { command: "GetItem"; name: "Education"; object: { Education: Education }; error: string }
-  | { command: "GetItem"; name: "Kind"; object: { Kind: Kind }; error: string }
-  | { command: "GetItem"; name: "Post"; object: { Post: Post }; error: string }
-  | { command: "GetItem"; name: "Practice"; object: { Practice: Practice }; error: string }
-  | { command: "GetItem"; name: "Rank"; object: { Rank: Rank }; error: string }
-  | { command: "GetItem"; name: "Scope"; object: { Scope: Scope }; error: string }
-  | { command: "GetItem"; name: "Siren"; object: { Siren: Siren }; error: string }
-  | { command: "GetItem"; name: "SirenType"; object: { SirenType: SirenType }; error: string };
+  | {
+      command: 'GetItem'
+      name: 'Certificate'
+      object: { Certificate: Certificate }
+      error: string
+    }
+  | {
+      command: 'GetItem'
+      name: 'Company'
+      object: { Company: Company }
+      error: string
+    }
+  | {
+      command: 'GetItem'
+      name: 'Contact'
+      object: { Contact: Contact }
+      error: string
+    }
+  | {
+      command: 'GetItem'
+      name: 'Department'
+      object: { Department: Department }
+      error: string
+    }
+  | {
+      command: 'GetItem'
+      name: 'Education'
+      object: { Education: Education }
+      error: string
+    }
+  | { command: 'GetItem'; name: 'Kind'; object: { Kind: Kind }; error: string }
+  | { command: 'GetItem'; name: 'Post'; object: { Post: Post }; error: string }
+  | {
+      command: 'GetItem'
+      name: 'Practice'
+      object: { Practice: Practice }
+      error: string
+    }
+  | { command: 'GetItem'; name: 'Rank'; object: { Rank: Rank }; error: string }
+  | {
+      command: 'GetItem'
+      name: 'Scope'
+      object: { Scope: Scope }
+      error: string
+    }
+  | {
+      command: 'GetItem'
+      name: 'Siren'
+      object: { Siren: Siren }
+      error: string
+    }
+  | {
+      command: 'GetItem'
+      name: 'SirenType'
+      object: { SirenType: SirenType }
+      error: string
+    }
 
 type LoginResponse = {
-  t: string;
-  r: number;
-};
+  t: string
+  r: number
+}
 
 type CheckResponse = {
-  r: boolean;
-};
-
-export const fetchApi = createApi({
-  reducerPath: "fetchApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://pokeapi.co/api/v2/" }),
-  endpoints: (builder) => ({
-    getPokemonByName: builder.query<Pokemon, string>({
-      query: (name) => `pokemon/${name}`,
-    }),
-  }),
-});
+  r: boolean
+}
 
 export const getItem = (name: string, id: string, token: string): Promise<GetItemResponse> => {
   return fetch(URL, {
-    method: "POST",
-    mode: "cors",
+    method: 'POST',
+    mode: 'cors',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: `{"command":{"GetItem":{"name":"${name}","id":${Number(id)}}},"addon":"${token}"}`,
   })
-    .then((response) => response.json())
-    .then((response) => response as GetItemResponse);
-};
+    .then(response => response.json())
+    .then(response => response as GetItemResponse)
+}
 
 export const getList = (name: string, token: string): Promise<GetListResponse> => {
   return fetch(URL, {
-    method: "POST",
-    mode: "cors",
+    method: 'POST',
+    mode: 'cors',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: `{"command":{"GetList":"${name}"},"addon":"${token}"}`,
   })
-    .then((response) => response.json())
-    .then((response) => response as GetListResponse);
-};
+    .then(response => response.json())
+    .then(response => response as GetListResponse)
+}
 
-export const setItem = (
-  id: number,
-  name: string,
-  item: Item,
-  token: string
-): Promise<ModifyItemResponse> => {
+export const setItem = (id: number, name: string, item: Item, token: string): Promise<ModifyItemResponse> => {
   return fetch(URL, {
-    method: "POST",
-    mode: "cors",
+    method: 'POST',
+    mode: 'cors',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
-    body: `{ "command": { "${
-      id === 0 ? "InsertItem" : "UpdateItem"
-    }": { "${name}": ${JSON.stringify(item)} } }, "addon": "${token}" }`,
+    body: `{ "command": { "${id === 0 ? 'InsertItem' : 'UpdateItem'}": { "${name}": ${JSON.stringify(
+      item,
+    )} } }, "addon": "${token}" }`,
   })
-    .then((response) => response.json())
-    .then((response) => response as ModifyItemResponse);
-};
+    .then(response => response.json())
+    .then(response => response as ModifyItemResponse)
+}
 
 export const delItem = (id: number, name: string, token: string): Promise<ModifyItemResponse> => {
   return fetch(URL, {
-    method: "POST",
-    mode: "cors",
+    method: 'POST',
+    mode: 'cors',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: `{"command":{"Delete":{"name":"${name}","id":${id}}},"addon":"${token}"}`,
   })
-    .then((response) => response.json())
-    .then((response) => response as ModifyItemResponse);
-};
+    .then(response => response.json())
+    .then(response => response as ModifyItemResponse)
+}
 
 export const postLogin = (name: string, pass: string): Promise<LoginResponse> => {
   return fetch(loginURL, {
-    method: "POST",
-    mode: "cors",
+    method: 'POST',
+    mode: 'cors',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({ u: name, p: btoa(pass) }),
   })
-    .then((response) => response.json())
-    .then((response) => response as LoginResponse);
-};
+    .then(response => response.json())
+    .then(response => response as LoginResponse)
+}
 
-export const postCheck = (token: string, role: number): Promise<CheckResponse> => {
+export const postCheck = (user: User): Promise<User> => {
   return fetch(checkURL, {
-    method: "POST",
-    mode: "cors",
+    method: 'POST',
+    mode: 'cors',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ t: token, r: role }),
+    body: JSON.stringify({ t: user.token, r: user.role }),
   })
-    .then((response) => response.json())
-    .then((response) => response as CheckResponse);
-};
+    .then(response => response.json())
+    .then(response => (response as CheckResponse).r === true)
+    .then(() => user)
+}
 
 // export const GetItem = (name: string, id: string): Item => {
 //   const { auth } = useAuthState();

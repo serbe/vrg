@@ -1,10 +1,14 @@
-import { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
 
-import { Department, DepartmentNameInput } from '../../models/department';
-import { ItemFormButtons, NoteInput, ParameterTypes } from '../../models/impersonal';
-import { useAuthState } from '../../services/auth';
-import { DelItem, GetItem, SetItem } from '../../services/fetcher';
+import { Department, DepartmentNameInput } from "../../models/department";
+import {
+  ItemFormButtons,
+  NoteInput,
+  ParameterTypes,
+} from "../../models/impersonal";
+import { useAuthState } from "../../services/auth";
+import { DelItem, GetItem, SetItem } from "../../services/fetcher";
 
 export const DepartmentItem = (): JSX.Element => {
   const { auth } = useAuthState();
@@ -12,7 +16,7 @@ export const DepartmentItem = (): JSX.Element => {
   const { id } = useParams<ParameterTypes>();
   const [name, setName] = useState<string>();
   const [note, setNote] = useState<string>();
-  const item = GetItem('Department', id);
+  const item = GetItem("Department", id);
   const [status, setStatus] = useState(false);
 
   const send = (): void => {
@@ -23,12 +27,12 @@ export const DepartmentItem = (): JSX.Element => {
       note,
     };
 
-    SetItem(NumberID, 'Department', department, setStatus, auth.user.token);
+    SetItem(NumberID, "Department", department, setStatus, auth.user.token);
   };
 
   const del = (): void => {
     const NumberID = Number(id);
-    DelItem(NumberID, 'Department', setStatus, auth.user.token);
+    DelItem(NumberID, "Department", setStatus, auth.user.token);
   };
 
   useEffect(() => {

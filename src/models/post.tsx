@@ -1,8 +1,11 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent } from "react";
 
-import { FormField } from '../components/formfield';
-import { BooleanInputProperties, StringInputProperties } from '../components/input';
-import { Select, SelectValues } from '../components/select';
+import { FormField } from "../components/formfield";
+import {
+  BooleanInputProperties,
+  StringInputProperties,
+} from "../components/input";
+import { Select, SelectValues } from "../components/select";
 
 export type Post = {
   id: number;
@@ -23,7 +26,14 @@ export type PostList = {
 };
 
 export const PostIDSelect = ({ id, setter }: SelectValues): JSX.Element => (
-  <Select name="post" label="Должность" listName="PostSelect" id={id} icon="tag" setter={setter} />
+  <Select
+    name="post"
+    label="Должность"
+    listName="PostSelect"
+    id={id}
+    icon="tag"
+    setter={setter}
+  />
 );
 
 export const PostGoIDSelect = ({ id, setter }: SelectValues): JSX.Element => (
@@ -37,12 +47,15 @@ export const PostGoIDSelect = ({ id, setter }: SelectValues): JSX.Element => (
   />
 );
 
-export const PostNameInput = ({ value, setter }: StringInputProperties): JSX.Element => (
+export const PostNameInput = ({
+  value,
+  setter,
+}: StringInputProperties): JSX.Element => (
   <FormField
     name="post-name"
     value={value}
     onChange={(event: ChangeEvent<HTMLInputElement>): void =>
-      setter(event.target.value === '' ? undefined : event.target.value)
+      setter(event.target.value === "" ? undefined : event.target.value)
     }
     label="Наименование должности"
     icon="tag"
@@ -50,7 +63,10 @@ export const PostNameInput = ({ value, setter }: StringInputProperties): JSX.Ele
   />
 );
 
-export const PostGOSwitch = ({ value, setter }: BooleanInputProperties): JSX.Element => (
+export const PostGOSwitch = ({
+  value,
+  setter,
+}: BooleanInputProperties): JSX.Element => (
   <div className="field">
     <div className="control">
       <label className="checkbox" htmlFor="post-go">

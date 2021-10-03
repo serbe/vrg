@@ -1,10 +1,10 @@
-import { ChangeEvent } from 'react';
-import { useHistory } from 'react-router-dom';
+import { ChangeEvent } from "react";
+import { useHistory } from "react-router-dom";
 
-import { DatePicker, DatePickerValues } from '../components/datepicker';
-import { FormField } from '../components/formfield';
-import { Input, StringInputProperties } from '../components/input';
-import { tinyDate, trClass } from '../services/utils';
+import { DatePicker, DatePickerValues } from "../components/datepicker";
+import { FormField } from "../components/formfield";
+import { Input, StringInputProperties } from "../components/input";
+import { tinyDate, trClass } from "../services/utils";
 
 export interface PracticeValues {
   practices: PracticeList[];
@@ -44,7 +44,9 @@ export type PracticeShort = {
   date_of_practice: string;
 };
 
-export const PracticeListForm = ({ practices }: PracticeValues): JSX.Element => {
+export const PracticeListForm = ({
+  practices,
+}: PracticeValues): JSX.Element => {
   const history = useHistory();
   return practices.length > 0 ? (
     <div className="field" key="practices">
@@ -56,8 +58,8 @@ export const PracticeListForm = ({ practices }: PracticeValues): JSX.Element => 
           name={`practice-${index}`}
           key={`practice-${index}`}
           onClick={(): void => history.push(`/practices/${practice.id}`)}
-          value={`${practice.date_str || ''} - ${practice.kind_name || ''} - ${
-            practice.topic || ''
+          value={`${practice.date_str || ""} - ${practice.kind_name || ""} - ${
+            practice.topic || ""
           }`}
           readonly
           classNameDiv="pb-1"
@@ -70,12 +72,15 @@ export const PracticeListForm = ({ practices }: PracticeValues): JSX.Element => 
   );
 };
 
-export const PracticeTopicInput = ({ value, setter }: StringInputProperties): JSX.Element => (
+export const PracticeTopicInput = ({
+  value,
+  setter,
+}: StringInputProperties): JSX.Element => (
   <FormField
     name="practice-topic"
     value={value}
     onChange={(event: ChangeEvent<HTMLInputElement>): void =>
-      setter(event.target.value === '' ? undefined : event.target.value)
+      setter(event.target.value === "" ? undefined : event.target.value)
     }
     label="Тема тренировки"
     icon="tag"
@@ -83,7 +88,10 @@ export const PracticeTopicInput = ({ value, setter }: StringInputProperties): JS
   />
 );
 
-export const PracticeDateInput = ({ value, setter }: DatePickerValues): JSX.Element => (
+export const PracticeDateInput = ({
+  value,
+  setter,
+}: DatePickerValues): JSX.Element => (
   <DatePicker
     name="practice-date"
     label="Дата проведения тренировки"
@@ -92,7 +100,11 @@ export const PracticeDateInput = ({ value, setter }: DatePickerValues): JSX.Elem
   />
 );
 
-export const PracticeNearList = ({ list }: { list: PracticeShort[] }): JSX.Element => {
+export const PracticeNearList = ({
+  list,
+}: {
+  list: PracticeShort[];
+}): JSX.Element => {
   const history = useHistory();
   return (
     <table className="table is-narrow">
@@ -115,7 +127,9 @@ export const PracticeNearList = ({ list }: { list: PracticeShort[] }): JSX.Eleme
             </td>
             <td
               className="has-text-black"
-              onMouseDown={(): void => history.push(`/companies/${row.company_id}`)}
+              onMouseDown={(): void =>
+                history.push(`/companies/${row.company_id}`)
+              }
               role="gridcell"
             >
               {row.company_name}

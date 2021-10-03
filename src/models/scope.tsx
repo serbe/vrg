@@ -1,8 +1,8 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent } from "react";
 
-import { FormField } from '../components/formfield';
-import { StringInputProperties } from '../components/input';
-import { Select, SelectValues } from '../components/select';
+import { FormField } from "../components/formfield";
+import { StringInputProperties } from "../components/input";
+import { Select, SelectValues } from "../components/select";
 
 export type Scope = {
   id: number;
@@ -31,12 +31,15 @@ export const ScopeIDSelect = ({ id, setter }: SelectValues): JSX.Element => (
   />
 );
 
-export const ScopeNameInput = ({ value, setter }: StringInputProperties): JSX.Element => (
+export const ScopeNameInput = ({
+  value,
+  setter,
+}: StringInputProperties): JSX.Element => (
   <FormField
     name="name"
     value={value}
     onChange={(event: ChangeEvent<HTMLInputElement>): void =>
-      setter(event.target.value === '' ? undefined : event.target.value)
+      setter(event.target.value === "" ? undefined : event.target.value)
     }
     label="Сфера деятельности"
     icon="tag"

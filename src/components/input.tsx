@@ -1,7 +1,7 @@
-import clsx from 'clsx';
-import { ChangeEvent, KeyboardEvent, MouseEvent } from 'react';
+import clsx from "clsx";
+import { ChangeEvent, KeyboardEvent, MouseEvent } from "react";
 
-import { Icon } from './icon';
+import { Icon } from "./icon";
 
 export interface StringInputProperties {
   value?: string;
@@ -28,11 +28,13 @@ interface InputProperties {
   name: string;
   onBlur?: (event: ChangeEvent<HTMLInputElement>) => void;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
-  onClick?: (event: MouseEvent<HTMLInputElement, globalThis.MouseEvent>) => void;
+  onClick?: (
+    event: MouseEvent<HTMLInputElement, globalThis.MouseEvent>
+  ) => void;
   onKeyPress?: (event: KeyboardEvent<HTMLInputElement>) => void;
   placeholder?: string;
   readonly?: boolean;
-  type?: 'text' | 'password' | 'email' | 'tel';
+  type?: "text" | "password" | "email" | "tel";
   value?: number | string;
 }
 
@@ -56,15 +58,15 @@ export const Input = ({
   const divClass = clsx(
     `control`,
     classNameDiv,
-    { 'has-icons-left': icon },
-    { 'has-icons-right': iconRight },
+    { "has-icons-left": icon },
+    { "has-icons-right": iconRight }
   );
 
   return (
     <div className={divClass}>
       <input
         autoComplete={autocomplete}
-        className={`${className || ''} input`}
+        className={`${className || ""} input`}
         defaultValue={value}
         disabled={disabled}
         id={name}
@@ -85,5 +87,5 @@ export const Input = ({
 };
 
 Input.defaultProps = {
-  type: 'text',
+  type: "text",
 };

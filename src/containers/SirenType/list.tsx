@@ -1,14 +1,14 @@
-import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
 
-import { Bar, Data } from '../../components/table';
-import { SirenTypeList } from '../../models/sirentype';
-import { GetList } from '../../services/fetcher';
+import { Bar, Data } from "../../components/table";
+import { SirenTypeList } from "../../models/sirentype";
+import { GetList } from "../../services/fetcher";
 
 export const SirenTypes = (): JSX.Element => {
   const history = useHistory();
-  const data = GetList('SirenTypeList');
-  const [search, setSearch] = useState('');
+  const data = GetList("SirenTypeList");
+  const [search, setSearch] = useState("");
 
   const [paginationData, Paginate] = Data({
     data,

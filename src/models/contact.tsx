@@ -1,11 +1,11 @@
-import { ChangeEvent } from 'react';
-import { useHistory } from 'react-router-dom';
+import { ChangeEvent } from "react";
+import { useHistory } from "react-router-dom";
 
-import { DatePicker, DatePickerValues } from '../components/datepicker';
-import { FormField } from '../components/formfield';
-import { Input, StringInputProperties } from '../components/input';
-import { Select, SelectValues } from '../components/select';
-import { diffMonth } from '../services/utils';
+import { DatePicker, DatePickerValues } from "../components/datepicker";
+import { FormField } from "../components/formfield";
+import { Input, StringInputProperties } from "../components/input";
+import { Select, SelectValues } from "../components/select";
+import { diffMonth } from "../services/utils";
 
 export interface ContactShortValues {
   contacts: ContactShort[];
@@ -53,24 +53,37 @@ export type ContactShort = {
   post_go_name?: string;
 };
 
-export const ContactNameInput = ({ value, setter }: StringInputProperties): JSX.Element => (
+export const ContactNameInput = ({
+  value,
+  setter,
+}: StringInputProperties): JSX.Element => (
   <FormField
     icon="user"
     label="Фамилия Имя Отчество"
     name="contact-name"
     onChange={(event: ChangeEvent<HTMLInputElement>): void =>
-      setter(event.target.value === '' ? undefined : event.target.value)
+      setter(event.target.value === "" ? undefined : event.target.value)
     }
     value={value}
     autocomplete="off"
   />
 );
 
-export const ContactBirthdayInput = ({ value, setter }: DatePickerValues): JSX.Element => (
-  <DatePicker label="Дата рождения" name="birthday" setter={setter} value={value} />
+export const ContactBirthdayInput = ({
+  value,
+  setter,
+}: DatePickerValues): JSX.Element => (
+  <DatePicker
+    label="Дата рождения"
+    name="birthday"
+    setter={setter}
+    value={value}
+  />
 );
 
-export const ContactShortForm = ({ contacts }: ContactShortValues): JSX.Element => {
+export const ContactShortForm = ({
+  contacts,
+}: ContactShortValues): JSX.Element => {
   const history = useHistory();
   return (
     <div className="field" key="contacts">
@@ -86,7 +99,7 @@ export const ContactShortForm = ({ contacts }: ContactShortValues): JSX.Element 
           name={`contact-${index}`}
           onClick={(): void => history.push(`/contacts/${contact.id}`)}
           readonly
-          value={`${contact.name || ''} - ${contact.post_name || ''}`}
+          value={`${contact.name || ""} - ${contact.post_name || ""}`}
           autocomplete="off"
         />
       ))}
@@ -108,16 +121,18 @@ export const ContactIDSelect = ({ id, setter }: SelectValues): JSX.Element => (
 const inputClass = (dateStr: string): string => {
   const date = new Date(dateStr);
   if (date > new Date()) {
-    return 'is-warning';
+    return "is-warning";
   }
   const newDate = diffMonth(60);
   if (date > newDate) {
-    return 'is-success';
+    return "is-success";
   }
-  return 'is-danger';
+  return "is-danger";
 };
 
-export const ContactEducations = ({ educations }: ContactEducationsValues): JSX.Element =>
+export const ContactEducations = ({
+  educations,
+}: ContactEducationsValues): JSX.Element =>
   educations.length > 0 ? (
     <div className="field">
       <label className="label" htmlFor="education-1-input">

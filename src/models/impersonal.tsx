@@ -1,11 +1,11 @@
-import { ChangeEvent, SetStateAction } from 'react';
-import { useHistory } from 'react-router-dom';
+import { ChangeEvent, SetStateAction } from "react";
+import { useHistory } from "react-router-dom";
 
-import { FormField } from '../components/formfield';
-import { Input, StringInputProperties } from '../components/input';
-import { Select, SelectValues } from '../components/select';
-import { useAuthState } from '../services/auth';
-import { addEmptyString, prettyPhone } from '../services/utils';
+import { FormField } from "../components/formfield";
+import { Input, StringInputProperties } from "../components/input";
+import { Select, SelectValues } from "../components/select";
+import { useAuthState } from "../services/auth";
+import { addEmptyString, prettyPhone } from "../services/utils";
 
 export interface ParameterTypes {
   id: string;
@@ -99,12 +99,15 @@ export const FaxInputs = ({ phones, setter }: PhoneValues): JSX.Element => (
   </div>
 );
 
-export const NoteInput = ({ value, setter }: StringInputProperties): JSX.Element => (
+export const NoteInput = ({
+  value,
+  setter,
+}: StringInputProperties): JSX.Element => (
   <FormField
     name="note"
     value={value}
     onChange={(event: ChangeEvent<HTMLInputElement>): void => {
-      setter(event.target.value === '' ? undefined : event.target.value);
+      setter(event.target.value === "" ? undefined : event.target.value);
     }}
     label="Заметки"
     icon="comment"
@@ -112,12 +115,15 @@ export const NoteInput = ({ value, setter }: StringInputProperties): JSX.Element
   />
 );
 
-export const AddressInput = ({ value, setter }: StringInputProperties): JSX.Element => (
+export const AddressInput = ({
+  value,
+  setter,
+}: StringInputProperties): JSX.Element => (
   <FormField
     name="address"
     value={value}
     onChange={(event: ChangeEvent<HTMLInputElement>): void =>
-      setter(event.target.value === '' ? undefined : event.target.value)
+      setter(event.target.value === "" ? undefined : event.target.value)
     }
     label="Адрес"
     icon="address-card"
@@ -140,7 +146,10 @@ interface FormButtonsValues {
   send: () => void;
 }
 
-export const ItemFormButtons = ({ del, send }: FormButtonsValues): JSX.Element => {
+export const ItemFormButtons = ({
+  del,
+  send,
+}: FormButtonsValues): JSX.Element => {
   const history = useHistory();
   const { auth } = useAuthState();
 
@@ -170,7 +179,7 @@ export const ItemFormButtons = ({ del, send }: FormButtonsValues): JSX.Element =
           type="button"
           className="button is-danger"
           onClick={() => {
-            if (window.confirm('Вы действительно хотите удалить запись?')) {
+            if (window.confirm("Вы действительно хотите удалить запись?")) {
               del();
             }
           }}

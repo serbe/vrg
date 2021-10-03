@@ -1,14 +1,14 @@
-import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
 
-import { Bar, Data } from '../../components/table';
-import { PostList } from '../../models/post';
-import { GetList } from '../../services/fetcher';
+import { Bar, Data } from "../../components/table";
+import { PostList } from "../../models/post";
+import { GetList } from "../../services/fetcher";
 
 export const Posts = (): JSX.Element => {
   const history = useHistory();
-  const data = GetList('PostList');
-  const [search, setSearch] = useState('');
+  const data = GetList("PostList");
+  const [search, setSearch] = useState("");
 
   const [paginationData, Paginate] = Data({
     data,

@@ -1,8 +1,8 @@
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 
-import { DatePicker, DatePickerValues } from '../components/datepicker';
-import { Select, SelectValues } from '../components/select';
-import { tinyDate, trClass } from '../services/utils';
+import { DatePicker, DatePickerValues } from "../components/datepicker";
+import { Select, SelectValues } from "../components/select";
+import { tinyDate, trClass } from "../services/utils";
 
 export type Education = {
   id: number;
@@ -37,7 +37,10 @@ export type EducationShort = {
   start_date: string;
 };
 
-export const EducationNameSelect = ({ id, setter }: SelectValues): JSX.Element => (
+export const EducationNameSelect = ({
+  id,
+  setter,
+}: SelectValues): JSX.Element => (
   <Select
     name="education-contact-name"
     label="Полное имя обучаемого"
@@ -48,7 +51,10 @@ export const EducationNameSelect = ({ id, setter }: SelectValues): JSX.Element =
   />
 );
 
-export const EducationStartDateInput = ({ value, setter }: DatePickerValues): JSX.Element => (
+export const EducationStartDateInput = ({
+  value,
+  setter,
+}: DatePickerValues): JSX.Element => (
   <DatePicker
     name="education-start-date"
     label="Дата начала обучения"
@@ -57,7 +63,10 @@ export const EducationStartDateInput = ({ value, setter }: DatePickerValues): JS
   />
 );
 
-export const EducationEndDateInput = ({ value, setter }: DatePickerValues): JSX.Element => (
+export const EducationEndDateInput = ({
+  value,
+  setter,
+}: DatePickerValues): JSX.Element => (
   <DatePicker
     name="education-end-date"
     label="Дата окончания обучения"
@@ -66,7 +75,11 @@ export const EducationEndDateInput = ({ value, setter }: DatePickerValues): JSX.
   />
 );
 
-export const EducationNearList = ({ list }: { list: EducationShort[] }): JSX.Element => {
+export const EducationNearList = ({
+  list,
+}: {
+  list: EducationShort[];
+}): JSX.Element => {
   const history = useHistory();
   return (
     <table className="table is-narrow">
@@ -82,7 +95,9 @@ export const EducationNearList = ({ list }: { list: EducationShort[] }): JSX.Ele
             </td>
             <td
               className="has-text-black"
-              onMouseDown={(): void => history.push(`/contacts/${row.contact_id}`)}
+              onMouseDown={(): void =>
+                history.push(`/contacts/${row.contact_id}`)
+              }
               role="gridcell"
             >
               {row.contact_name}

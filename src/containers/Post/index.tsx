@@ -1,2 +1,2 @@
-export { PostItem } from './item';
-export { Posts } from './list';
+export { PostItem } from "./item";
+export { Posts } from "./list";

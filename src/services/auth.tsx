@@ -1,163 +1,96 @@
-// import { createContext, Dispatch } from 'react';
-import { User } from '../models/user';
+import { createContext, ReactNode, useContext, useMemo, useReducer } from 'react'
+import { User } from '../models/user'
+import { postCheck } from './fetcher'
+import { clearStorage, getStorage, setStorage } from './storage'
 
-export type AuthState = {
-  user: User;
-  login: boolean;
-  check: boolean;
-};
+type AuthState =
+  | {
+      state: 'SIGNED_IN'
+      currentUser: User
+    }
+  | {
+      state: 'SIGNED_OUT'
+    }
+  | {
+      state: 'UNKNOWN'
+    }
 
-// const initialAuthState: AuthState = {
-//   user: { role: 0, name: "", token: "" },
-//   login: false,
-//   check: false,
-// };
+type AuthActions = { type: 'SIGN_IN'; payload: { user: User } } | { type: 'SIGN_OUT' }
 
-// type ReducerActions =
-//   | {
-//       type: "SetAuth";
-//       data: AuthState;
-//     }
-//   | {
-//       type: "ClearAuth";
-//     }
-//   | {
-//       type: "SetLogin";
-//       data: boolean;
-//     }
-//   | {
-//       type: "Checked";
-//     }
-//   | {
-//       type: "Unchecked";
-//     };
+const AuthReducer = (state: AuthState, action: AuthActions): AuthState => {
+  switch (action.type) {
+    case 'SIGN_IN':
+      return {
+        state: 'SIGNED_IN',
+        currentUser: action.payload.user,
+      }
+    case 'SIGN_OUT':
+      return {
+        state: 'SIGNED_OUT',
+      }
+  }
+}
 
-// interface SetAuthState {
-//   dispatch: Dispatch<ReducerActions>;
-// }
+const AuthProvider = ({ children }: { children: ReactNode }) => {
+  const [state, dispatch] = useReducer(AuthReducer, { state: 'UNKNOWN' })
 
-// interface TryResponse {
-//   t: string;
-//   r: number;
-// }
+  const value = useMemo(
+    () => ({
+      state,
+      dispatch,
+    }),
+    [state],
+  )
 
-// const initialSetAuthState: SetAuthState = {
-//   dispatch: () => {
-//     return true;
-//   },
-// };
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+}
 
-// export const login = (name: string, pass: string, setAuth: Dispatch<ReducerActions>): void => {
-//   axios
-//     .post<TryResponse>(
-//       loginURL,
-//       { u: name, p: btoa(pass) },
-//       {
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//       },
-//     )
-//     .then((jsonData) => {
-//       setAuth({
-//         type: 'SetAuth',
-//         data: {
-//           user: {
-//             role: jsonData.data.r,
-//             name,
-//             token: jsonData.data.t,
-//           },
-//           check: true,
-//           login: true,
-//         },
-//       });
-//     });
-// };
+type AuthContextProps = {
+  state: AuthState
+  dispatch: (value: AuthActions) => void
+}
 
-// const logout = (): void => {
-//   clearStorage();
-// };
+export const AuthContext = createContext<AuthContextProps>({ state: { state: 'UNKNOWN' }, dispatch: () => {} })
 
-// const AuthContext = createContext(initialAuthState);
+const useAuthState = () => {
+  const { state } = useContext(AuthContext)
+  return {
+    state,
+  }
+}
 
-// const SetAuthContext = createContext(initialSetAuthState);
+const useAuthDispatch = () => {
+  const { dispatch } = useContext(AuthContext)
+  return { dispatch }
+}
 
-// const reducer = (authState: AuthState, action: ReducerActions): AuthState => {
-//   switch (action.type) {
-//     case "SetAuth": {
-//       setStorage(action.data.user);
-//       return {
-//         user: action.data.user,
-//         login: action.data.login,
-//         check: action.data.check,
-//       };
-//     }
-//     case "ClearAuth": {
-//       clearStorage();
-//       return {
-//         user: { role: 0, name: "", token: "" },
-//         login: false,
-//         check: true,
-//       };
-//     }
-//     case "SetLogin": {
-//       return {
-//         ...authState,
-//         login: action.data,
-//         check: true,
-//       };
-//     }
-//     case "Checked": {
-//       return {
-//         ...authState,
-//         check: true,
-//       };
-//     }
-//     case "Unchecked": {
-//       return {
-//         ...authState,
-//         check: false,
-//       };
-//     }
-//     default:
-//       return authState;
-//   }
-// };
+const useAuth = () => {
+  const { state, dispatch } = useContext(AuthContext)
+  return {
+    state,
+    dispatch,
+  }
+}
 
-// export const AuthProvider = ({ children }: { children: ReactNode }): ReactElement => {
-//   const user = getStorage();
-//   const initState: AuthState = {
-//     user,
-//     login: false,
-//     check: false,
-//   };
+const useSign = () => {
+  const { dispatch } = useAuthDispatch()
+  const signIn = (user: User) => {
+    dispatch({ type: 'SIGN_IN', payload: { user } })
+    setStorage(user)
+  }
+  const signOut = () => {
+    dispatch({ type: 'SIGN_OUT' })
+    clearStorage()
+  }
+  return {
+    signIn,
+    signOut,
+  }
+}
 
-//   const [state, dispatch] = useReducer(reducer, initState);
+const checkUser = (): Promise<User> => {
+  const user = getStorage()
+  return postCheck(user)
+}
 
-//   const setState: SetAuthState = { dispatch };
-
-//   // const contentValues = useMemo(
-//   //   () => ({
-//   //     state,
-//   //     dispatch,
-//   //   }),
-//   //   [state, dispatch],
-//   // );
-
-//   return (
-//     <AuthContext.Provider value={state}>
-//       <SetAuthContext.Provider value={setState}>{children}</SetAuthContext.Provider>
-//     </AuthContext.Provider>
-//   );
-// };
-
-// interface AuthContextProperties {
-//   auth: AuthState;
-//   setAuth: Dispatch<ReducerActions>;
-// }
-
-// export const useAuthState = (): AuthContextProperties => {
-//   const auth = useContext(AuthContext);
-//   const setter = useContext(SetAuthContext);
-//   return { auth, setAuth: setter.dispatch };
-// };
+export { useAuth, useAuthState, useAuthDispatch, useSign, checkUser, AuthProvider }

@@ -1,14 +1,14 @@
-import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
 
-import { Bar, Data } from '../../components/table';
-import { DepartmentList } from '../../models/department';
-import { GetList } from '../../services/fetcher';
+import { Bar, Data } from "../../components/table";
+import { DepartmentList } from "../../models/department";
+import { GetList } from "../../services/fetcher";
 
 export const Departments = (): JSX.Element => {
   const history = useHistory();
-  const data = GetList('DepartmentList');
-  const [search, setSearch] = useState('');
+  const data = GetList("DepartmentList");
+  const [search, setSearch] = useState("");
 
   const [paginationData, Paginate] = Data({
     data,

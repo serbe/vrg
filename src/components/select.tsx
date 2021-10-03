@@ -1,9 +1,9 @@
-import './select.css';
+import "./select.css";
 
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from "react";
 
-import { GetSelect, SelectItem } from '../services/fetcher';
-import { Icon } from './icon';
+import { GetSelect, SelectItem } from "../services/fetcher";
+import { Icon } from "./icon";
 
 export interface SelectValues {
   id?: number;
@@ -11,7 +11,7 @@ export interface SelectValues {
 }
 
 interface SelectProperties {
-  color?: 'primary' | 'info' | 'success' | 'warning' | 'danger';
+  color?: "primary" | "info" | "success" | "warning" | "danger";
   icon?: string;
   id?: number;
   label?: string;
@@ -39,22 +39,22 @@ export const Select = ({
       setItemID(id);
     }
     if (list[0].id !== 0) {
-      list.unshift({ id: 0, name: '' });
+      list.unshift({ id: 0, name: "" });
     }
     if (!id && id === 0) {
-      setValue('');
+      setValue("");
     } else {
       const currentItem = list.find((item) => item.id === id);
-      setValue(currentItem?.name || '');
+      setValue(currentItem?.name || "");
     }
   }, [list, id, itemID]);
 
   const currentValue = (): string => {
     if (opened) {
-      return value || '';
+      return value || "";
     }
     const currentItem = list.find((item) => item.id === itemID);
-    return currentItem?.name || '';
+    return currentItem?.name || "";
   };
 
   const filteredList = (): SelectItem[] => {
@@ -64,33 +64,39 @@ export const Select = ({
       return list;
     }
 
-    const inputArray = inputValue.split(' ');
+    const inputArray = inputValue.split(" ");
 
     return list.filter(
       (listItem) =>
-        listItem.name === '' ||
+        listItem.name === "" ||
         inputArray.every((listItemValue: string) =>
-          new RegExp(listItemValue, 'i').exec(listItem.name),
-        ),
+          new RegExp(listItemValue, "i").exec(listItem.name)
+        )
     );
   };
 
   return (
     <div className="field" key={name}>
       {label && (
-        <label className="label" key="SelectLabel" htmlFor={`select-${name}-id`}>
+        <label
+          className="label"
+          key="SelectLabel"
+          htmlFor={`select-${name}-id`}
+        >
           {label}
         </label>
       )}
       <div
         id={`select-${name}-id`}
-        className={`control is-expanded select is-fullwidth ${icon ? 'has-icons-left' : ''}`}
+        className={`control is-expanded select is-fullwidth ${
+          icon ? "has-icons-left" : ""
+        }`}
         key={`${name}-control`}
       >
         <input
           aria-controls="dropdown-menu"
           aria-haspopup="true"
-          className={`input ${color ? `is-${color}` : ''}`}
+          className={`input ${color ? `is-${color}` : ""}`}
           name={name}
           type="text"
           value={currentValue()}
@@ -108,7 +114,7 @@ export const Select = ({
         />
         {icon && (
           <Icon
-            color={color !== 'primary' ? color : undefined}
+            color={color !== "primary" ? color : undefined}
             icon={icon}
             key="SelectIconLeft"
             position="left"

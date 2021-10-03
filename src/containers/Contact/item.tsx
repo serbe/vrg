@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
 
-import { CompanyIDSelect } from '../../models/company';
+import { CompanyIDSelect } from "../../models/company";
 import {
   Contact,
   ContactBirthdayInput,
   ContactEducations,
   ContactNameInput,
-} from '../../models/contact';
-import { DepartmentIDSelect } from '../../models/department';
+} from "../../models/contact";
+import { DepartmentIDSelect } from "../../models/department";
 import {
   EmailInputs,
   FaxInputs,
@@ -16,17 +16,17 @@ import {
   NoteInput,
   ParameterTypes,
   PhoneInputs,
-} from '../../models/impersonal';
-import { PostGoIDSelect, PostIDSelect } from '../../models/post';
-import { RankIDSelect } from '../../models/rank';
-import { useAuthState } from '../../services/auth';
-import { DelItem, GetItem, SetItem } from '../../services/fetcher';
+} from "../../models/impersonal";
+import { PostGoIDSelect, PostIDSelect } from "../../models/post";
+import { RankIDSelect } from "../../models/rank";
+import { useAuthState } from "../../services/auth";
+import { DelItem, GetItem, SetItem } from "../../services/fetcher";
 import {
   addEmptyString,
   filterArrayNumber,
   filterArrayString,
   numberToString,
-} from '../../services/utils';
+} from "../../services/utils";
 
 export const ContactItem = (): JSX.Element => {
   const { auth } = useAuthState();
@@ -40,11 +40,11 @@ export const ContactItem = (): JSX.Element => {
   const [rankID, setRankID] = useState<number>();
   const [birthday, setBirthday] = useState<string>();
   const [note, setNote] = useState<string>();
-  const [emails, setEmails] = useState(['']);
-  const [phones, setPhones] = useState(['']);
-  const [faxes, setFaxes] = useState(['']);
+  const [emails, setEmails] = useState([""]);
+  const [phones, setPhones] = useState([""]);
+  const [faxes, setFaxes] = useState([""]);
   const [educations, setEducations] = useState<string[]>([]);
-  const item = GetItem('Contact', id);
+  const item = GetItem("Contact", id);
   const [status, setStatus] = useState(false);
 
   const send = (): void => {
@@ -64,12 +64,12 @@ export const ContactItem = (): JSX.Element => {
       faxes: filterArrayNumber(faxes),
     };
 
-    SetItem(NumberID, 'Contact', contact, setStatus, auth.user.token);
+    SetItem(NumberID, "Contact", contact, setStatus, auth.user.token);
   };
 
   const del = (): void => {
     const NumberID = Number(id);
-    DelItem(NumberID, 'Contact', setStatus, auth.user.token);
+    DelItem(NumberID, "Contact", setStatus, auth.user.token);
   };
 
   useEffect(() => {
