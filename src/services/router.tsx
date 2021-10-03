@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import { Header } from '~/components/header'
+// import { Header } from '~/components/header'
 
 const Loading = () => <p className="p-4 w-full h-full text-center">Loading...</p>
 
@@ -12,7 +12,7 @@ export const Router = () => {
     <BrowserRouter>
       <Suspense fallback={<Loading />}>
         <Switch>
-          <Header />
+          {/* <Header /> */}
           <Route exact path="/">
             <IndexScreen />
           </Route>

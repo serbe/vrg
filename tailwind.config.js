@@ -21,11 +21,11 @@ module.exports = {
   },
   variants: {},
   plugins: [
-    // require('daisyui'),
+    require('daisyui'),
   ],
   daisyui: {
     themes: [
-      // 'emerald'
+      'emerald'
     ],
   }
 }
