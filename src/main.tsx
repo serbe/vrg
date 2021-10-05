@@ -1,10 +1,9 @@
-import './index.css';
-import 'antd/dist/antd.css';
+import './index.scss';
 
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 
-import { App } from './containers/Root/App';
+import { App } from './App';
 
 ReactDOM.render(
   <StrictMode>
