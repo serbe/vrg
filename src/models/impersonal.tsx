@@ -1,27 +1,27 @@
-import { ChangeEvent, SetStateAction } from "react";
-import { useHistory } from "react-router-dom";
+import { ChangeEvent, SetStateAction } from 'react';
+import { useHistory } from 'react-router-dom';
 
-import { FormField } from "../components/formfield";
-import { Input, StringInputProperties } from "../components/input";
-import { Select, SelectValues } from "../components/select";
-import { useAuthState } from "../services/auth";
-import { addEmptyString, prettyPhone } from "../services/utils";
+import { FormField } from '../components/formfield';
+import { Input, StringInputProperties } from '../components/input';
+import { Select, SelectValues } from '../components/select';
+import { useAuthState } from '../services/auth';
+import { addEmptyString, prettyPhone } from '../services/utils';
 
 export interface ParameterTypes {
-  id: string;
+  id: string
 }
 
 export type EmailValues = {
-  emails: string[];
-  setter: (value: SetStateAction<string[]>) => void;
-};
+  emails: string[]
+  setter: (value: SetStateAction<string[]>) => void
+}
 
 export type PhoneValues = {
-  phones: string[];
-  setter: (value: SetStateAction<string[]>) => void;
-};
+  phones: string[]
+  setter: (value: SetStateAction<string[]>) => void
+}
 
-export const EmailInputs = ({ emails, setter }: EmailValues): JSX.Element => (
+export const EmailInputs = ({ emails, setter }: EmailValues) => (
   <div className="field">
     <label className="label" htmlFor="email-1-input">
       Электронный адрес
@@ -35,19 +35,19 @@ export const EmailInputs = ({ emails, setter }: EmailValues): JSX.Element => (
         value={email}
         placeholder="Электронный адрес"
         onBlur={(event): void => {
-          let values = emails;
-          values[index] = event.target.value;
-          values = addEmptyString(values);
-          setter(values);
+          let values = emails
+          values[index] = event.target.value
+          values = addEmptyString(values)
+          setter(values)
         }}
         classNameDiv="pb-1"
         autocomplete="off"
       />
     ))}
   </div>
-);
+)
 
-export const PhoneInputs = ({ phones, setter }: PhoneValues): JSX.Element => (
+export const PhoneInputs = ({ phones, setter }: PhoneValues) => (
   <div className="field">
     <label className="label" htmlFor="phone-1-input">
       Телефон
@@ -61,19 +61,19 @@ export const PhoneInputs = ({ phones, setter }: PhoneValues): JSX.Element => (
         value={prettyPhone(phone)}
         placeholder="Телефон"
         onBlur={(event): void => {
-          let values = phones;
-          values[index] = event.target.value;
-          values = addEmptyString(values);
-          setter(values);
+          let values = phones
+          values[index] = event.target.value
+          values = addEmptyString(values)
+          setter(values)
         }}
         classNameDiv="pb-1"
         autocomplete="off"
       />
     ))}
   </div>
-);
+)
 
-export const FaxInputs = ({ phones, setter }: PhoneValues): JSX.Element => (
+export const FaxInputs = ({ phones, setter }: PhoneValues) => (
   <div className="field">
     <label className="label" htmlFor="fax-1-input">
       Факс
@@ -87,74 +87,58 @@ export const FaxInputs = ({ phones, setter }: PhoneValues): JSX.Element => (
         value={prettyPhone(fax)}
         placeholder="Факс"
         onBlur={(event): void => {
-          let values = phones;
-          values[index] = event.target.value;
-          values = addEmptyString(values);
-          setter(values);
+          let values = phones
+          values[index] = event.target.value
+          values = addEmptyString(values)
+          setter(values)
         }}
         classNameDiv="pb-1"
         autocomplete="off"
       />
     ))}
   </div>
-);
+)
 
-export const NoteInput = ({
-  value,
-  setter,
-}: StringInputProperties): JSX.Element => (
+export const NoteInput = ({ value, setter }: StringInputProperties) => (
   <FormField
     name="note"
     value={value}
     onChange={(event: ChangeEvent<HTMLInputElement>): void => {
-      setter(event.target.value === "" ? undefined : event.target.value);
+      setter(event.target.value === '' ? undefined : event.target.value)
     }}
     label="Заметки"
     icon="comment"
     autocomplete="off"
   />
-);
+)
 
-export const AddressInput = ({
-  value,
-  setter,
-}: StringInputProperties): JSX.Element => (
+export const AddressInput = ({ value, setter }: StringInputProperties) => (
   <FormField
     name="address"
     value={value}
     onChange={(event: ChangeEvent<HTMLInputElement>): void =>
-      setter(event.target.value === "" ? undefined : event.target.value)
+      setter(event.target.value === '' ? undefined : event.target.value)
     }
     label="Адрес"
     icon="address-card"
   />
-);
+)
 
-export const ContactIDSelect = ({ id, setter }: SelectValues): JSX.Element => (
-  <Select
-    name="contact"
-    label="Контактное лицо"
-    listName="ContactSelect"
-    id={id}
-    icon="user"
-    setter={setter}
-  />
-);
+export const ContactIDSelect = ({ id, setter }: SelectValues) => (
+  <Select name="contact" label="Контактное лицо" listName="ContactSelect" id={id} icon="user" setter={setter} />
+)
 
 interface FormButtonsValues {
-  del: () => void;
-  send: () => void;
+  del: () => void
+  send: () => void
 }
 
-export const ItemFormButtons = ({
-  del,
-  send,
-}: FormButtonsValues): JSX.Element => {
-  const history = useHistory();
-  const { auth } = useAuthState();
+export const ItemFormButtons = ({ del, send }: FormButtonsValues) => {
+  const history = useHistory()
+  const { state } = useAuthState()
 
   const SaveButton = () =>
-    auth.user.role > 4 ? (
+    state.state === 'SIGNED_IN' && state.currentUser.role > 4 ? (
       <div className="control">
         <button type="button" className="button is-info" onClick={() => send()}>
           Сохранить
@@ -162,7 +146,7 @@ export const ItemFormButtons = ({
       </div>
     ) : (
       <></>
-    );
+    )
 
   const BackButton = () => (
     <div className="control">
@@ -170,17 +154,17 @@ export const ItemFormButtons = ({
         Закрыть
       </button>
     </div>
-  );
+  )
 
   const DeleteButton = () =>
-    auth.user.role > 8 ? (
+    state.state === 'SIGNED_IN' && state.currentUser.role > 8 ? (
       <div className="control mla">
         <button
           type="button"
           className="button is-danger"
           onClick={() => {
-            if (window.confirm("Вы действительно хотите удалить запись?")) {
-              del();
+            if (window.confirm('Вы действительно хотите удалить запись?')) {
+              del()
             }
           }}
         >
@@ -189,7 +173,7 @@ export const ItemFormButtons = ({
       </div>
     ) : (
       <></>
-    );
+    )
 
   return (
     <div className="field is-grouped">
@@ -197,5 +181,5 @@ export const ItemFormButtons = ({
       <BackButton />
       <DeleteButton />
     </div>
-  );
-};
+  )
+}

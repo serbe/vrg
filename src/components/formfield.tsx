@@ -1,25 +1,23 @@
-import { ChangeEvent, KeyboardEvent, MouseEvent } from "react";
+import { ChangeEvent, KeyboardEvent, MouseEvent } from 'react';
 
-import { Input } from "./input";
+import { Input } from './input';
 
 export interface FormFieldProperties {
-  autocomplete?: string;
-  className?: string;
-  disabled?: boolean;
-  icon?: string;
-  iconRight?: string;
-  label?: string;
-  name: string;
-  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
-  onClick?: (
-    event: MouseEvent<HTMLInputElement, globalThis.MouseEvent>
-  ) => void;
-  onKeyPress?: (event: KeyboardEvent<HTMLInputElement>) => void;
-  placeholder?: string;
-  readonly?: boolean;
-  rounded?: boolean;
-  type?: "text" | "password" | "email" | "tel";
-  value?: number | string;
+  autocomplete?: string
+  className?: string
+  disabled?: boolean
+  icon?: string
+  iconRight?: string
+  label?: string
+  name: string
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void
+  onClick?: (event: MouseEvent<HTMLInputElement, globalThis.MouseEvent>) => void
+  onKeyPress?: (event: KeyboardEvent<HTMLInputElement>) => void
+  placeholder?: string
+  readonly?: boolean
+  rounded?: boolean
+  type?: 'text' | 'password' | 'email' | 'tel'
+  value?: number | string
 }
 
 export const FormField = ({
@@ -37,7 +35,7 @@ export const FormField = ({
   readonly,
   type,
   value,
-}: FormFieldProperties): JSX.Element => {
+}: FormFieldProperties) => {
   return (
     <div className="field">
       {label && (
@@ -61,9 +59,9 @@ export const FormField = ({
         value={value}
       />
     </div>
-  );
-};
+  )
+}
 
 FormField.defaultProps = {
-  type: "text",
-};
+  type: 'text',
+}

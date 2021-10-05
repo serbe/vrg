@@ -1,27 +1,29 @@
-import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useToken } from '~/services/auth';
 
-import { Bar, Data } from "../../components/table";
-import { KindList } from "../../models/kind";
-import { GetList } from "../../services/fetcher";
+import { Bar, Data } from '../../components/table';
+import { KindList } from '../../models/kind';
+import { GetList } from '../../services/fetcher';
 
-export const Kinds = (): JSX.Element => {
-  const history = useHistory();
-  const data = GetList("KindList");
-  const [search, setSearch] = useState("");
+export const Kinds = () => {
+  const { token } = useToken()
+  const history = useHistory()
+  const data = GetList('KindList', token)
+  const [search, setSearch] = useState('')
 
   const [paginationData, Paginate] = Data({
     data,
     search,
-  });
+  })
 
   const tableData = (): KindList[] => {
-    return paginationData();
-  };
+    return paginationData()
+  }
 
-  const Body = (): JSX.Element => (
+  const Body = () => (
     <>
-      {tableData().map((kind) => (
+      {tableData().map(kind => (
         <tr
           key={`tr${kind.id}`}
           onClick={(): void => history.push(`/kinds/${kind.id}`)}
@@ -33,7 +35,7 @@ export const Kinds = (): JSX.Element => {
         </tr>
       ))}
     </>
-  );
+  )
 
   return (
     <>
@@ -49,5 +51,5 @@ export const Kinds = (): JSX.Element => {
       </table>
       {Paginate}
     </>
-  );
-};
+  )
+}

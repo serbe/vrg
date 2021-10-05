@@ -1,27 +1,30 @@
-import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useToken } from '~/services/auth';
 
-import { Bar, Data } from "../../components/table";
-import { SirenTypeList } from "../../models/sirentype";
-import { GetList } from "../../services/fetcher";
+import { Bar, Data } from '../../components/table';
+import { SirenTypeList } from '../../models/sirentype';
+import { GetList } from '../../services/fetcher';
 
-export const SirenTypes = (): JSX.Element => {
-  const history = useHistory();
-  const data = GetList("SirenTypeList");
-  const [search, setSearch] = useState("");
+/* eslint-disable camelcase */
+export const SirenTypes = () => {
+  const { token } = useToken()
+  const history = useHistory()
+  const data = GetList('SirenTypeList', token)
+  const [search, setSearch] = useState('')
 
   const [paginationData, Paginate] = Data({
     data,
     search,
-  });
+  })
 
   const tableData = (): SirenTypeList[] => {
-    return paginationData();
-  };
+    return paginationData()
+  }
 
-  const Body = (): JSX.Element => (
+  const Body = () => (
     <>
-      {tableData().map((siren_type) => (
+      {tableData().map(siren_type => (
         <tr
           key={`tr${siren_type.id}`}
           onClick={(): void => history.push(`/sirentypes/${siren_type.id}`)}
@@ -33,7 +36,7 @@ export const SirenTypes = (): JSX.Element => {
         </tr>
       ))}
     </>
-  );
+  )
 
   return (
     <>
@@ -49,5 +52,5 @@ export const SirenTypes = (): JSX.Element => {
       </table>
       {Paginate}
     </>
-  );
-};
+  )
+}

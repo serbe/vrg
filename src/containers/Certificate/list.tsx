@@ -1,50 +1,46 @@
-import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useToken } from '~/services/auth';
 
-import { Bar, Data } from "../../components/table";
-import { CertificateList } from "../../models/certificate";
-import { GetList } from "../../services/fetcher";
+import { Bar, Data } from '../../components/table';
+import { CertificateList } from '../../models/certificate';
+import { GetList } from '../../services/fetcher';
 
-export const Certificates = (): JSX.Element => {
-  const history = useHistory();
-  const data = GetList("CertificateList");
-  const [search, setSearch] = useState("");
+export const Certificates = () => {
+  const { token } = useToken()
+  const history = useHistory()
+  const data = GetList('CertificateList', token)
+  const [search, setSearch] = useState('')
 
   const [paginationData, Paginate] = Data({
     data,
     search,
-  });
+  })
 
   const tableData = (): CertificateList[] => {
-    return paginationData();
-  };
+    return paginationData()
+  }
 
-  const Body = (): JSX.Element => (
+  const Body = () => (
     <>
-      {tableData().map((certificate) => (
+      {tableData().map(certificate => (
         <tr key={`tr${certificate.id}`}>
           <td
-            onClick={(): void =>
-              history.push(`/certificates/${certificate.id}`)
-            }
+            onClick={(): void => history.push(`/certificates/${certificate.id}`)}
             role="gridcell"
             className="link nowrap"
           >
             {certificate.num}
           </td>
           <td
-            onClick={(): void =>
-              history.push(`/contacts/${certificate.contact_id || 0}`)
-            }
+            onClick={(): void => history.push(`/contacts/${certificate.contact_id || 0}`)}
             role="gridcell"
             className="link"
           >
             {certificate.contact_name}
           </td>
           <td
-            onClick={(): void =>
-              history.push(`/companies/${certificate.company_id || 0}`)
-            }
+            onClick={(): void => history.push(`/companies/${certificate.company_id || 0}`)}
             role="gridcell"
             className="is-hidden-mobile link"
           >
@@ -54,7 +50,7 @@ export const Certificates = (): JSX.Element => {
         </tr>
       ))}
     </>
-  );
+  )
 
   return (
     <>
@@ -72,5 +68,5 @@ export const Certificates = (): JSX.Element => {
       </table>
       {Paginate}
     </>
-  );
-};
+  )
+}

@@ -1,35 +1,31 @@
-import { useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 
 import {
   Certificate,
   CertificateDateInput,
   CertificateNumberInput,
-} from "../../models/certificate";
-import { CompanyIDSelect } from "../../models/company";
-import { ContactIDSelect } from "../../models/contact";
-import {
-  ItemFormButtons,
-  NoteInput,
-  ParameterTypes,
-} from "../../models/impersonal";
-import { useAuthState } from "../../services/auth";
-import { DelItem, GetItem, SetItem } from "../../services/fetcher";
+} from '../../models/certificate';
+import { CompanyIDSelect } from '../../models/company';
+import { ContactIDSelect } from '../../models/contact';
+import { ItemFormButtons, NoteInput, ParameterTypes } from '../../models/impersonal';
+import { useToken } from '../../services/auth';
+import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 
-export const CertificateItem = (): JSX.Element => {
-  const { auth } = useAuthState();
-  const history = useHistory();
-  const { id } = useParams<ParameterTypes>();
-  const [sNumber, setSNumber] = useState<string>();
-  const [contactID, setContactID] = useState<number>();
-  const [companyID, setCompanyID] = useState<number>();
-  const [certDate, setCertDate] = useState<string>();
-  const [note, setNote] = useState<string>();
-  const item = GetItem("Certificate", id);
-  const [status, setStatus] = useState(false);
+export const CertificateItem = () => {
+  const { token } = useToken()
+  const history = useHistory()
+  const { id } = useParams<ParameterTypes>()
+  const [sNumber, setSNumber] = useState<string>()
+  const [contactID, setContactID] = useState<number>()
+  const [companyID, setCompanyID] = useState<number>()
+  const [certDate, setCertDate] = useState<string>()
+  const [note, setNote] = useState<string>()
+  const item = GetItem('Certificate', id, token)
+  const [status, setStatus] = useState(false)
 
   const send = (): void => {
-    const NumberID = Number(id);
+    const NumberID = Number(id)
     const certificate: Certificate = {
       id: NumberID,
       num: sNumber,
@@ -37,32 +33,32 @@ export const CertificateItem = (): JSX.Element => {
       company_id: companyID,
       cert_date: certDate,
       note,
-    };
+    }
 
-    SetItem(NumberID, "Certificate", certificate, setStatus, auth.user.token);
-  };
+    SetItem(NumberID, 'Certificate', certificate, setStatus, token)
+  }
 
   const del = (): void => {
-    const NumberID = Number(id);
-    DelItem(NumberID, "Certificate", setStatus, auth.user.token);
-  };
+    const NumberID = Number(id)
+    DelItem(NumberID, 'Certificate', setStatus, token)
+  }
 
   useEffect(() => {
     if (item) {
-      const data = item as Certificate;
-      setSNumber(data.num);
-      setContactID(data.contact_id);
-      setCompanyID(data.company_id);
-      setCertDate(data.cert_date);
-      setNote(data.note);
+      const data = item as Certificate
+      setSNumber(data.num)
+      setContactID(data.contact_id)
+      setCompanyID(data.company_id)
+      setCertDate(data.cert_date)
+      setNote(data.note)
     }
-  }, [item]);
+  }, [item])
 
   useEffect(() => {
     if (status) {
-      history.go(-1);
+      history.go(-1)
     }
-  }, [history, status]);
+  }, [history, status])
 
   return (
     <div>
@@ -78,5 +74,5 @@ export const CertificateItem = (): JSX.Element => {
         </>
       )}
     </div>
-  );
-};
+  )
+}

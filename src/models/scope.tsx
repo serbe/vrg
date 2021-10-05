@@ -1,48 +1,38 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent } from 'react';
+import { StringInputProperties } from '~/components/input';
 
-import { FormField } from "../components/formfield";
-import { StringInputProperties } from "../components/input";
-import { Select, SelectValues } from "../components/select";
+import { FormField } from '../components/formfield';
+import { Select, SelectValues } from '../components/select';
 
 export type Scope = {
-  id: number;
-  name?: string;
-  note?: string;
-};
+  id: number
+  name?: string
+  note?: string
+}
 
 export const ScopeEmpty: Scope = {
   id: 0,
-};
+}
 
 export type ScopeList = {
-  id: number;
-  name?: string;
-  note?: string;
-};
+  id: number
+  name?: string
+  note?: string
+}
 
-export const ScopeIDSelect = ({ id, setter }: SelectValues): JSX.Element => (
-  <Select
-    name="scope"
-    label="Сфера деятельности"
-    listName="ScopeSelect"
-    id={id}
-    icon="tag"
-    setter={setter}
-  />
-);
+export const ScopeIDSelect = ({ id, setter }: SelectValues) => (
+  <Select name="scope" label="Сфера деятельности" listName="ScopeSelect" id={id} icon="tag" setter={setter} />
+)
 
-export const ScopeNameInput = ({
-  value,
-  setter,
-}: StringInputProperties): JSX.Element => (
+export const ScopeNameInput = ({ value, setter }: StringInputProperties) => (
   <FormField
     name="name"
     value={value}
     onChange={(event: ChangeEvent<HTMLInputElement>): void =>
-      setter(event.target.value === "" ? undefined : event.target.value)
+      setter(event.target.value === '' ? undefined : event.target.value)
     }
     label="Сфера деятельности"
     icon="tag"
     autocomplete="off"
   />
-);
+)

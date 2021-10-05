@@ -1,7 +1,8 @@
-import { createContext, ReactNode, useContext, useMemo, useReducer } from 'react'
-import { User } from '../models/user'
-import { postCheck } from './fetcher'
-import { clearStorage, getStorage, setStorage } from './storage'
+import { createContext, ReactNode, useContext, useMemo, useReducer } from 'react';
+
+import { User } from '../models/user';
+import { postCheck } from './fetcher';
+import { clearStorage, getStorage, setStorage } from './storage';
 
 type AuthState =
   | {
@@ -93,4 +94,10 @@ const checkUser = (): Promise<User> => {
   return postCheck(user)
 }
 
-export { useAuth, useAuthState, useAuthDispatch, useSign, checkUser, AuthProvider }
+const useToken = () => {
+  const { state } = useContext(AuthContext)
+  const token = state.state === 'SIGNED_IN' ? state.currentUser.token : ''
+  return { token }
+}
+
+export { useAuth, useAuthState, useToken, useAuthDispatch, useSign, checkUser, AuthProvider }

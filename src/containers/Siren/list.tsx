@@ -1,28 +1,30 @@
-import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useToken } from '~/services/auth';
 
-import { Bar, Data } from "../../components/table";
-import { SirenList } from "../../models/siren";
-import { GetList } from "../../services/fetcher";
-import { splitNumbers } from "../../services/utils";
+import { Bar, Data } from '../../components/table';
+import { SirenList } from '../../models/siren';
+import { GetList } from '../../services/fetcher';
+import { splitNumbers } from '../../services/utils';
 
-export const Sirens = (): JSX.Element => {
-  const history = useHistory();
-  const data = GetList("SirenList");
-  const [search, setSearch] = useState("");
+export const Sirens = () => {
+  const { token } = useToken()
+  const history = useHistory()
+  const data = GetList('SirenList', token, token)
+  const [search, setSearch] = useState('')
 
   const [paginationData, Paginate] = Data({
     data,
     search,
-  });
+  })
 
   const tableData = (): SirenList[] => {
-    return paginationData();
-  };
+    return paginationData()
+  }
 
-  const Body = (): JSX.Element => (
+  const Body = () => (
     <>
-      {tableData().map((siren) => (
+      {tableData().map(siren => (
         <tr
           key={`tr${siren.id}`}
           onClick={(): void => history.push(`/sirens/${siren.id}`)}
@@ -36,7 +38,7 @@ export const Sirens = (): JSX.Element => {
         </tr>
       ))}
     </>
-  );
+  )
 
   return (
     <>
@@ -54,5 +56,5 @@ export const Sirens = (): JSX.Element => {
       </table>
       {Paginate}
     </>
-  );
-};
+  )
+}

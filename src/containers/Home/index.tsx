@@ -1,12 +1,15 @@
-import "./index.css";
+import './index.css';
 
-import { EducationNearList, EducationShort } from "../../models/education";
-import { PracticeNearList, PracticeShort } from "../../models/practice";
-import { GetList } from "../../services/fetcher";
+import { useToken } from '~/services/auth';
 
-export const Home = (): JSX.Element => {
-  const educations = GetList("EducationNear");
-  const practices = GetList("PracticeNear");
+import { EducationNearList, EducationShort } from '../../models/education';
+import { PracticeNearList, PracticeShort } from '../../models/practice';
+import { GetList } from '../../services/fetcher';
+
+export const Home = () => {
+  const { token } = useToken()
+  const educations = GetList('EducationNear', token)
+  const practices = GetList('PracticeNear', token)
 
   return (
     <div className="columns">
@@ -17,5 +20,5 @@ export const Home = (): JSX.Element => {
         <PracticeNearList list={practices as PracticeShort[]} />
       </div>
     </div>
-  );
-};
+  )
+}

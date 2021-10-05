@@ -1,27 +1,29 @@
-import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useToken } from '~/services/auth';
 
-import { Bar, Data } from "../../components/table";
-import { ScopeList } from "../../models/scope";
-import { GetList } from "../../services/fetcher";
+import { Bar, Data } from '../../components/table';
+import { ScopeList } from '../../models/scope';
+import { GetList } from '../../services/fetcher';
 
-export const Scopes = (): JSX.Element => {
-  const history = useHistory();
-  const data = GetList("ScopeList");
-  const [search, setSearch] = useState("");
+export const Scopes = () => {
+  const { token } = useToken()
+  const history = useHistory()
+  const data = GetList('ScopeList', token)
+  const [search, setSearch] = useState('')
 
   const [paginationData, Paginate] = Data({
     data,
     search,
-  });
+  })
 
   const tableData = (): ScopeList[] => {
-    return paginationData();
-  };
+    return paginationData()
+  }
 
-  const Body = (): JSX.Element => (
+  const Body = () => (
     <>
-      {tableData().map((scope) => (
+      {tableData().map(scope => (
         <tr
           key={`tr${scope.id}`}
           onClick={(): void => history.push(`/scopes/${scope.id}`)}
@@ -32,7 +34,7 @@ export const Scopes = (): JSX.Element => {
         </tr>
       ))}
     </>
-  );
+  )
 
   return (
     <>
@@ -47,5 +49,5 @@ export const Scopes = (): JSX.Element => {
       </table>
       {Paginate}
     </>
-  );
-};
+  )
+}

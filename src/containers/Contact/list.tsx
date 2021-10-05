@@ -1,40 +1,36 @@
-import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useToken } from '~/services/auth';
 
-import { Bar, Data } from "../../components/table";
-import { ContactList } from "../../models/contact";
-import { GetList } from "../../services/fetcher";
-import { splitNumbers } from "../../services/utils";
+import { Bar, Data } from '../../components/table';
+import { ContactList } from '../../models/contact';
+import { GetList } from '../../services/fetcher';
+import { splitNumbers } from '../../services/utils';
 
-export const Contacts = (): JSX.Element => {
-  const history = useHistory();
-  const data = GetList("ContactList");
-  const [search, setSearch] = useState("");
+export const Contacts = () => {
+  const { token } = useToken()
+  const history = useHistory()
+  const data = GetList('ContactList', token)
+  const [search, setSearch] = useState('')
 
   const [paginationData, Paginate] = Data({
     data,
     search,
-  });
+  })
 
   const tableData = (): ContactList[] => {
-    return paginationData();
-  };
+    return paginationData()
+  }
 
-  const Body = (): JSX.Element => (
+  const Body = () => (
     <>
-      {tableData().map((contact) => (
+      {tableData().map(contact => (
         <tr key={`tr${contact.id}`}>
-          <td
-            onClick={(): void => history.push(`/contacts/${contact.id}`)}
-            role="gridcell"
-            className="w250 link"
-          >
+          <td onClick={(): void => history.push(`/contacts/${contact.id}`)} role="gridcell" className="w250 link">
             {contact.name}
           </td>
           <td
-            onClick={(): void =>
-              history.push(`/companies/${contact.company_id || 0}`)
-            }
+            onClick={(): void => history.push(`/companies/${contact.company_id || 0}`)}
             role="gridcell"
             className="is-hidden-mobile w250 link"
           >
@@ -42,13 +38,11 @@ export const Contacts = (): JSX.Element => {
           </td>
           <td className="is-hidden-touch w250">{contact.post_name}</td>
           <td className="w95">{splitNumbers(contact.phones)}</td>
-          <td className="is-hidden-mobile w95">
-            {splitNumbers(contact.faxes)}
-          </td>
+          <td className="is-hidden-mobile w95">{splitNumbers(contact.faxes)}</td>
         </tr>
       ))}
     </>
-  );
+  )
 
   return (
     <>
@@ -67,5 +61,5 @@ export const Contacts = (): JSX.Element => {
       </table>
       {Paginate}
     </>
-  );
-};
+  )
+}

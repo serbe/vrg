@@ -1,27 +1,29 @@
-import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useToken } from '~/services/auth';
 
-import { Bar, Data } from "../../components/table";
-import { EducationList } from "../../models/education";
-import { GetList } from "../../services/fetcher";
+import { Bar, Data } from '../../components/table';
+import { EducationList } from '../../models/education';
+import { GetList } from '../../services/fetcher';
 
-export const Educations = (): JSX.Element => {
-  const history = useHistory();
-  const data = GetList("EducationList");
-  const [search, setSearch] = useState("");
+export const Educations = () => {
+  const { token } = useToken()
+  const history = useHistory()
+  const data = GetList('EducationList', token)
+  const [search, setSearch] = useState('')
 
   const [paginationData, Paginate] = Data({
     data,
     search,
-  });
+  })
 
   const tableData = (): EducationList[] => {
-    return paginationData();
-  };
+    return paginationData()
+  }
 
-  const Body = (): JSX.Element => (
+  const Body = () => (
     <>
-      {tableData().map((education) => (
+      {tableData().map(education => (
         <tr
           key={`tr${education.id}`}
           onClick={(): void => history.push(`/educations/${education.id}`)}
@@ -35,7 +37,7 @@ export const Educations = (): JSX.Element => {
         </tr>
       ))}
     </>
-  );
+  )
 
   return (
     <>
@@ -53,5 +55,5 @@ export const Educations = (): JSX.Element => {
       </table>
       {Paginate}
     </>
-  );
-};
+  )
+}

@@ -1,27 +1,29 @@
-import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useToken } from '~/services/auth';
 
-import { Bar, Data } from "../../components/table";
-import { PracticeList } from "../../models/practice";
-import { GetList } from "../../services/fetcher";
+import { Bar, Data } from '../../components/table';
+import { PracticeList } from '../../models/practice';
+import { GetList } from '../../services/fetcher';
 
-export const Practices = (): JSX.Element => {
-  const history = useHistory();
-  const data = GetList("PracticeList");
-  const [search, setSearch] = useState("");
+export const Practices = () => {
+  const { token } = useToken()
+  const history = useHistory()
+  const data = GetList('PracticeList', token)
+  const [search, setSearch] = useState('')
 
   const [paginationData, Paginate] = Data({
     data,
     search,
-  });
+  })
 
   const tableData = (): PracticeList[] => {
-    return paginationData();
-  };
+    return paginationData()
+  }
 
-  const Body = (): JSX.Element => (
+  const Body = () => (
     <>
-      {tableData().map((practice) => (
+      {tableData().map(practice => (
         <tr
           key={`tr${practice.id}`}
           onClick={(): void => history.push(`/practices/${practice.id}`)}
@@ -34,7 +36,7 @@ export const Practices = (): JSX.Element => {
         </tr>
       ))}
     </>
-  );
+  )
 
   return (
     <>
@@ -51,5 +53,5 @@ export const Practices = (): JSX.Element => {
       </table>
       {Paginate}
     </>
-  );
-};
+  )
+}

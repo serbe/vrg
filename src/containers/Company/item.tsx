@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 
-import { Company, CompanyNameInput } from "../../models/company";
-import { ContactShort, ContactShortForm } from "../../models/contact";
+import { Company, CompanyNameInput } from '../../models/company';
+import { ContactShort, ContactShortForm } from '../../models/contact';
 import {
   AddressInput,
   EmailInputs,
@@ -11,36 +11,36 @@ import {
   NoteInput,
   ParameterTypes,
   PhoneInputs,
-} from "../../models/impersonal";
-import { PracticeList, PracticeListForm } from "../../models/practice";
-import { ScopeIDSelect } from "../../models/scope";
-import { useAuthState } from "../../services/auth";
-import { DelItem, GetItem, SetItem } from "../../services/fetcher";
+} from '../../models/impersonal';
+import { PracticeList, PracticeListForm } from '../../models/practice';
+import { ScopeIDSelect } from '../../models/scope';
+import { useToken } from '../../services/auth';
+import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 import {
   addEmptyString,
   filterArrayNumber,
   filterArrayString,
   numberToString,
-} from "../../services/utils";
+} from '../../services/utils';
 
-export const CompanyItem = (): JSX.Element => {
-  const { auth } = useAuthState();
-  const history = useHistory();
-  const { id } = useParams<ParameterTypes>();
-  const [name, setName] = useState<string>();
-  const [address, setAddress] = useState<string>();
-  const [scopeID, setScopeID] = useState<number>();
-  const [note, setNote] = useState<string>();
-  const [emails, setEmails] = useState([""]);
-  const [phones, setPhones] = useState([""]);
-  const [faxes, setFaxes] = useState([""]);
-  const [practices, setPractices] = useState<PracticeList[]>([]);
-  const [contacts, setContacts] = useState<ContactShort[]>([]);
-  const item = GetItem("Company", id);
-  const [status, setStatus] = useState(false);
+export const CompanyItem = () => {
+  const { token } = useToken()
+  const history = useHistory()
+  const { id } = useParams<ParameterTypes>()
+  const [name, setName] = useState<string>()
+  const [address, setAddress] = useState<string>()
+  const [scopeID, setScopeID] = useState<number>()
+  const [note, setNote] = useState<string>()
+  const [emails, setEmails] = useState([''])
+  const [phones, setPhones] = useState([''])
+  const [faxes, setFaxes] = useState([''])
+  const [practices, setPractices] = useState<PracticeList[]>([])
+  const [contacts, setContacts] = useState<ContactShort[]>([])
+  const item = GetItem('Company', id, token)
+  const [status, setStatus] = useState(false)
 
   const send = (): void => {
-    const NumberID = Number(id);
+    const NumberID = Number(id)
     const company: Company = {
       id: NumberID,
       name,
@@ -50,36 +50,36 @@ export const CompanyItem = (): JSX.Element => {
       emails: filterArrayString(emails),
       phones: filterArrayNumber(phones),
       faxes: filterArrayNumber(faxes),
-    };
+    }
 
-    SetItem(NumberID, "Company", company, setStatus, auth.user.token);
-  };
+    SetItem(NumberID, 'Company', company, setStatus, token)
+  }
 
   const del = (): void => {
-    const NumberID = Number(id);
-    DelItem(NumberID, "Company", setStatus, auth.user.token);
-  };
+    const NumberID = Number(id)
+    DelItem(NumberID, 'Company', setStatus, token)
+  }
 
   useEffect(() => {
     if (item) {
-      const data = item as Company;
-      setName(data.name);
-      setAddress(data.address);
-      setScopeID(data.scope_id);
-      setNote(data.note);
-      setEmails(addEmptyString(data.emails));
-      setPhones(addEmptyString(numberToString(data.phones)));
-      setFaxes(addEmptyString(numberToString(data.faxes)));
-      setPractices(data.practices || []);
-      setContacts(data.contacts || []);
+      const data = item as Company
+      setName(data.name)
+      setAddress(data.address)
+      setScopeID(data.scope_id)
+      setNote(data.note)
+      setEmails(addEmptyString(data.emails))
+      setPhones(addEmptyString(numberToString(data.phones)))
+      setFaxes(addEmptyString(numberToString(data.faxes)))
+      setPractices(data.practices || [])
+      setContacts(data.contacts || [])
     }
-  }, [item]);
+  }, [item])
 
   useEffect(() => {
     if (status) {
-      history.go(-1);
+      history.go(-1)
     }
-  }, [history, status]);
+  }, [history, status])
 
   return (
     <div>
@@ -109,5 +109,5 @@ export const CompanyItem = (): JSX.Element => {
         </>
       )}
     </div>
-  );
-};
+  )
+}

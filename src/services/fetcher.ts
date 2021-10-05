@@ -1,16 +1,18 @@
-import { User } from '~/models/user'
-import { Certificate, CertificateList } from '../models/certificate'
-import { Company, CompanyList } from '../models/company'
-import { Contact, ContactList } from '../models/contact'
-import { Department, DepartmentList } from '../models/department'
-import { Education, EducationList, EducationShort } from '../models/education'
-import { Kind, KindList } from '../models/kind'
-import { Post, PostList } from '../models/post'
-import { Practice, PracticeList, PracticeShort } from '../models/practice'
-import { Rank, RankList } from '../models/rank'
-import { Scope, ScopeList } from '../models/scope'
-import { Siren, SirenList } from '../models/siren'
-import { SirenType, SirenTypeList } from '../models/sirentype'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { User } from '~/models/user';
+
+import { Certificate, CertificateEmpty, CertificateList } from '../models/certificate';
+import { Company, CompanyEmpty, CompanyList } from '../models/company';
+import { Contact, ContactEmpty, ContactList } from '../models/contact';
+import { Department, DepartmentEmpty, DepartmentList } from '../models/department';
+import { Education, EducationEmpty, EducationList, EducationShort } from '../models/education';
+import { Kind, KindEmpty, KindList } from '../models/kind';
+import { Post, PostEmpty, PostList } from '../models/post';
+import { Practice, PracticeEmpty, PracticeList, PracticeShort } from '../models/practice';
+import { Rank, RankEmpty, RankList } from '../models/rank';
+import { Scope, ScopeEmpty, ScopeList } from '../models/scope';
+import { Siren, SirenEmpty, SirenList } from '../models/siren';
+import { SirenType, SirenTypeEmpty, SirenTypeList } from '../models/sirentype';
 
 const URL = (import.meta.env.VITE_APP_JSONURL as string) || '/go/json'
 const loginURL = (import.meta.env.VITE_APP_LOGINURL as string) || '/go/login'
@@ -400,320 +402,262 @@ export const postCheck = (user: User): Promise<User> => {
     body: JSON.stringify({ t: user.token, r: user.role }),
   })
     .then(response => response.json())
-    .then(response => (response as CheckResponse).r === true)
+    .then(response => (response as CheckResponse).r)
     .then(() => user)
 }
 
-// export const GetItem = (name: string, id: string): Item => {
-//   const { auth } = useAuthState();
-//   const [data, setData] = useState<Item>();
+export const GetItem = (name: string, id: string, token: string): Item => {
+  const [data, setData] = useState<Item>()
 
-//   useEffect(() => {
-//     const NumberID = Number(id);
-//     if (NumberID !== 0) {
-//       axios
-//         .post<GetItemResponse>(
-//           URL,
-//           `{"command":{"GetItem":{"name":"${name}","id":${NumberID}}},"addon":"${auth.user.token}"}`,
-//           {
-//             headers: {
-//               "Content-Type": "application/json",
-//             },
-//           }
-//         )
-//         .then((response) => {
-//           const jsonData = response.data;
-//           if (jsonData.command === "GetItem") {
-//             switch (jsonData.name) {
-//               case "Certificate":
-//                 setData(jsonData.object.Certificate);
-//                 break;
-//               case "Company":
-//                 setData(jsonData.object.Company);
-//                 break;
-//               case "Contact":
-//                 setData(jsonData.object.Contact);
-//                 break;
-//               case "Department":
-//                 setData(jsonData.object.Department);
-//                 break;
-//               case "Education":
-//                 setData(jsonData.object.Education);
-//                 break;
-//               case "Kind":
-//                 setData(jsonData.object.Kind);
-//                 break;
-//               case "Post":
-//                 setData(jsonData.object.Post);
-//                 break;
-//               case "Practice":
-//                 setData(jsonData.object.Practice);
-//                 break;
-//               case "Rank":
-//                 setData(jsonData.object.Rank);
-//                 break;
-//               case "Scope":
-//                 setData(jsonData.object.Scope);
-//                 break;
-//               case "Siren":
-//                 setData(jsonData.object.Siren);
-//                 break;
-//               case "SirenType":
-//                 setData(jsonData.object.SirenType);
-//                 break;
-//               // default:
-//               //   throw new Error('unknown item');
-//             }
-//           }
-//           // throw new Error('unknown item');
-//         });
-//     } else {
-//       switch (name) {
-//         case "Certificate":
-//           setData(CertificateEmpty);
-//           break;
-//         case "Company":
-//           setData(CompanyEmpty);
-//           break;
-//         case "Contact":
-//           setData(ContactEmpty);
-//           break;
-//         case "Department":
-//           setData(DepartmentEmpty);
-//           break;
-//         case "Education":
-//           setData(EducationEmpty);
-//           break;
-//         case "Kind":
-//           setData(KindEmpty);
-//           break;
-//         case "Post":
-//           setData(PostEmpty);
-//           break;
-//         case "Practice":
-//           setData(PracticeEmpty);
-//           break;
-//         case "Rank":
-//           setData(RankEmpty);
-//           break;
-//         case "Scope":
-//           setData(ScopeEmpty);
-//           break;
-//         case "Siren":
-//           setData(SirenEmpty);
-//           break;
-//         case "SirenType":
-//           setData(SirenTypeEmpty);
-//           break;
-//         // default:
-//         //   throw new Error('unknown item');
-//       }
-//     }
-//   }, [id, name, auth.user.token]);
-//   return data;
-// };
+  useEffect(() => {
+    const NumberID = Number(id)
+    if (NumberID !== 0) {
+      getItem(name, id, token).then(response => {
+        if (response.command === 'GetItem') {
+          switch (response.name) {
+            case 'Certificate':
+              setData(response.object.Certificate)
+              break
+            case 'Company':
+              setData(response.object.Company)
+              break
+            case 'Contact':
+              setData(response.object.Contact)
+              break
+            case 'Department':
+              setData(response.object.Department)
+              break
+            case 'Education':
+              setData(response.object.Education)
+              break
+            case 'Kind':
+              setData(response.object.Kind)
+              break
+            case 'Post':
+              setData(response.object.Post)
+              break
+            case 'Practice':
+              setData(response.object.Practice)
+              break
+            case 'Rank':
+              setData(response.object.Rank)
+              break
+            case 'Scope':
+              setData(response.object.Scope)
+              break
+            case 'Siren':
+              setData(response.object.Siren)
+              break
+            case 'SirenType':
+              setData(response.object.SirenType)
+              break
+            // default:
+            //   throw new Error('unknown item');
+          }
+        }
+        // throw new Error('unknown item');
+      })
+    } else {
+      switch (name) {
+        case 'Certificate':
+          setData(CertificateEmpty)
+          break
+        case 'Company':
+          setData(CompanyEmpty)
+          break
+        case 'Contact':
+          setData(ContactEmpty)
+          break
+        case 'Department':
+          setData(DepartmentEmpty)
+          break
+        case 'Education':
+          setData(EducationEmpty)
+          break
+        case 'Kind':
+          setData(KindEmpty)
+          break
+        case 'Post':
+          setData(PostEmpty)
+          break
+        case 'Practice':
+          setData(PracticeEmpty)
+          break
+        case 'Rank':
+          setData(RankEmpty)
+          break
+        case 'Scope':
+          setData(ScopeEmpty)
+          break
+        case 'Siren':
+          setData(SirenEmpty)
+          break
+        case 'SirenType':
+          setData(SirenTypeEmpty)
+          break
+        // default:
+        //   throw new Error('unknown item');
+      }
+    }
+  }, [id, name])
+  return data
+}
 
-// export const GetList = (name: string): List[] => {
-//   const { auth } = useAuthState();
-//   const [list, setList] = useState<List[]>([]);
+export const GetList = (name: string, token: string): List[] => {
+  const [list, setList] = useState<List[]>([])
 
-//   useEffect(() => {
-//     axios
-//       .post<GetListResponse>(
-//         URL,
-//         `{"command":{"GetList":"${name}"},"addon":"${auth.user.token}"}`,
-//         {
-//           headers: {
-//             "Content-Type": "application/json",
-//           },
-//         }
-//       )
-//       .then((response) => {
-//         const jsonData = response.data;
-//         if (jsonData?.command === "GetList") {
-//           switch (jsonData?.name) {
-//             case "CertificateList":
-//               setList(jsonData.object.CertificateList);
-//               break;
-//             case "CompanyList":
-//               setList(jsonData.object.CompanyList);
-//               break;
-//             case "ContactList":
-//               setList(jsonData.object.ContactList);
-//               break;
-//             case "DepartmentList":
-//               setList(jsonData.object.DepartmentList);
-//               break;
-//             case "EducationList":
-//               setList(jsonData.object.EducationList);
-//               break;
-//             case "EducationNear":
-//               setList(jsonData.object.EducationShort);
-//               break;
-//             case "KindList":
-//               setList(jsonData.object.KindList);
-//               break;
-//             case "PostList":
-//               setList(jsonData.object.PostList);
-//               break;
-//             case "PracticeList":
-//               setList(jsonData.object.PracticeList);
-//               break;
-//             case "PracticeNear":
-//               setList(jsonData.object.PracticeShort);
-//               break;
-//             case "RankList":
-//               setList(jsonData.object.RankList);
-//               break;
-//             case "ScopeList":
-//               setList(jsonData.object.ScopeList);
-//               break;
-//             case "SirenList":
-//               setList(jsonData.object.SirenList);
-//               break;
-//             case "SirenTypeList":
-//               setList(jsonData.object.SirenTypeList);
-//               break;
-//           }
-//         }
-//       });
-//   }, [name, auth.user.token]);
+  useEffect(() => {
+    getList(name, token).then(response => {
+      if (response && response.command === 'GetList') {
+        switch (response.name) {
+          case 'CertificateList':
+            setList(response.object.CertificateList)
+            break
+          case 'CompanyList':
+            setList(response.object.CompanyList)
+            break
+          case 'ContactList':
+            setList(response.object.ContactList)
+            break
+          case 'DepartmentList':
+            setList(response.object.DepartmentList)
+            break
+          case 'EducationList':
+            setList(response.object.EducationList)
+            break
+          case 'EducationNear':
+            setList(response.object.EducationShort)
+            break
+          case 'KindList':
+            setList(response.object.KindList)
+            break
+          case 'PostList':
+            setList(response.object.PostList)
+            break
+          case 'PracticeList':
+            setList(response.object.PracticeList)
+            break
+          case 'PracticeNear':
+            setList(response.object.PracticeShort)
+            break
+          case 'RankList':
+            setList(response.object.RankList)
+            break
+          case 'ScopeList':
+            setList(response.object.ScopeList)
+            break
+          case 'SirenList':
+            setList(response.object.SirenList)
+            break
+          case 'SirenTypeList':
+            setList(response.object.SirenTypeList)
+            break
+        }
+      }
+    })
+  }, [name])
 
-//   return list;
-// };
+  return list
+}
 
-// export const GetSelect = (name: string): [SelectItem[], string] => {
-//   const { auth } = useAuthState();
-//   const [list, setSelect] = useState<SelectItem[]>([{ id: 0, name: "" }]);
-//   const [error, setError] = useState<string>("");
+export const GetSelect = (name: string, token: string): [SelectItem[], string] => {
+  const [list, setSelect] = useState<SelectItem[]>([{ id: 0, name: '' }])
+  const [error, setError] = useState<string>('')
 
-//   useEffect(() => {
-//     axios
-//       .post<GetListResponse>(
-//         URL,
-//         `{"command":{"GetList":"${name}"},"addon":"${auth.user.token}"}`,
-//         {
-//           headers: {
-//             "Content-Type": "application/json",
-//           },
-//         }
-//       )
-//       .then((response) => {
-//         const jsonData = response.data;
-//         if (jsonData?.command === "GetList") {
-//           switch (jsonData?.name) {
-//             case "CompanySelect":
-//               jsonData.object.SelectItem.length > 0
-//                 ? setSelect(jsonData.object.SelectItem)
-//                 : setSelect([{ id: 0, name: "" }]);
-//               break;
-//             case "ContactSelect":
-//               jsonData.object.SelectItem.length > 0
-//                 ? setSelect(jsonData.object.SelectItem)
-//                 : setSelect([{ id: 0, name: "" }]);
-//               break;
-//             case "DepartmentSelect":
-//               jsonData.object.SelectItem.length > 0
-//                 ? setSelect(jsonData.object.SelectItem)
-//                 : setSelect([{ id: 0, name: "" }]);
-//               break;
-//             case "KindSelect":
-//               jsonData.object.SelectItem.length > 0
-//                 ? setSelect(jsonData.object.SelectItem)
-//                 : setSelect([{ id: 0, name: "" }]);
-//               break;
-//             case "PostSelect":
-//               jsonData.object.SelectItem.length > 0
-//                 ? setSelect(jsonData.object.SelectItem)
-//                 : setSelect([{ id: 0, name: "" }]);
-//               break;
-//             case "PostGoSelect":
-//               jsonData.object.SelectItem.length > 0
-//                 ? setSelect(jsonData.object.SelectItem)
-//                 : setSelect([{ id: 0, name: "" }]);
-//               break;
-//             case "RankSelect":
-//               jsonData.object.SelectItem.length > 0
-//                 ? setSelect(jsonData.object.SelectItem)
-//                 : setSelect([{ id: 0, name: "" }]);
-//               break;
-//             case "ScopeSelect":
-//               jsonData.object.SelectItem.length > 0
-//                 ? setSelect(jsonData.object.SelectItem)
-//                 : setSelect([{ id: 0, name: "" }]);
-//               break;
-//             case "SirenTypeSelect":
-//               jsonData.object.SelectItem.length > 0
-//                 ? setSelect(jsonData.object.SelectItem)
-//                 : setSelect([{ id: 0, name: "" }]);
-//               break;
-//             // default:
-//             //   throw new Error('unknown select');
-//           }
-//           // } else {
-//           //   throw new Error('unknown select');
-//         }
-//       })
-//       .catch(() => {
-//         return setError("unknown select");
-//       });
-//   }, [name, auth.user.token]);
+  useEffect(() => {
+    getList(name, token)
+      .then(response => {
+        if (response && response.command === 'GetList') {
+          switch (response.name) {
+            case 'CompanySelect':
+              response.object.SelectItem.length > 0
+                ? setSelect(response.object.SelectItem)
+                : setSelect([{ id: 0, name: '' }])
+              break
+            case 'ContactSelect':
+              response.object.SelectItem.length > 0
+                ? setSelect(response.object.SelectItem)
+                : setSelect([{ id: 0, name: '' }])
+              break
+            case 'DepartmentSelect':
+              response.object.SelectItem.length > 0
+                ? setSelect(response.object.SelectItem)
+                : setSelect([{ id: 0, name: '' }])
+              break
+            case 'KindSelect':
+              response.object.SelectItem.length > 0
+                ? setSelect(response.object.SelectItem)
+                : setSelect([{ id: 0, name: '' }])
+              break
+            case 'PostSelect':
+              response.object.SelectItem.length > 0
+                ? setSelect(response.object.SelectItem)
+                : setSelect([{ id: 0, name: '' }])
+              break
+            case 'PostGoSelect':
+              response.object.SelectItem.length > 0
+                ? setSelect(response.object.SelectItem)
+                : setSelect([{ id: 0, name: '' }])
+              break
+            case 'RankSelect':
+              response.object.SelectItem.length > 0
+                ? setSelect(response.object.SelectItem)
+                : setSelect([{ id: 0, name: '' }])
+              break
+            case 'ScopeSelect':
+              response.object.SelectItem.length > 0
+                ? setSelect(response.object.SelectItem)
+                : setSelect([{ id: 0, name: '' }])
+              break
+            case 'SirenTypeSelect':
+              response.object.SelectItem.length > 0
+                ? setSelect(response.object.SelectItem)
+                : setSelect([{ id: 0, name: '' }])
+              break
+            // default:
+            //   throw new Error('unknown select');
+          }
+          // } else {
+          //   throw new Error('unknown select');
+        }
+      })
+      .catch(() => {
+        return setError('unknown select')
+      })
+  }, [name])
 
-//   return [list, error];
-// };
+  return [list, error]
+}
 
-// export const SetItem = (
-//   id: number,
-//   name: string,
-//   item: Item,
-//   status: Dispatch<SetStateAction<boolean>>,
-//   token: string
-// ): void => {
-//   axios
-//     .post<ModifyItemResponse>(
-//       URL,
-//       `{ "command": { "${id === 0 ? "InsertItem" : "UpdateItem"}": { "${name}": ${JSON.stringify(
-//         item
-//       )} } }, "addon": "${token}" }`,
-//       {
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//       }
-//     )
-//     .then((response) => {
-//       const jsonData = response.data;
-//       const command = id === 0 ? "InsertItem" : "UpdateItem";
-//       if (jsonData?.command === command && jsonData.name === name) {
-//         status(true);
-//       }
-//       return status(false);
-//     })
-//     .catch(() => {
-//       return status(false);
-//     });
-// };
+export const SetItem = (
+  id: number,
+  name: string,
+  item: Item,
+  status: Dispatch<SetStateAction<boolean>>,
+  token: string,
+): void => {
+  setItem(id, name, item, token)
+    .then(response => {
+      const command = id === 0 ? 'InsertItem' : 'UpdateItem'
+      if (response.command === command && response.name === name) {
+        status(true)
+      }
+      return status(false)
+    })
+    .catch(() => {
+      return status(false)
+    })
+}
 
-// export const DelItem = (
-//   id: number,
-//   name: string,
-//   status: Dispatch<SetStateAction<boolean>>,
-//   token: string
-// ): void => {
-//   axios
-//     .post(URL, `{"command":{"DeleteItem":{"name":"${name}","id":${id}}},"addon":"${token}"}`, {
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     })
-//     .then((response) => {
-//       const jsonData = response.data;
-//       if (jsonData?.command === "DeleteItem" && jsonData.name === name) {
-//         status(true);
-//       }
-//       return status(false);
-//     })
-//     .catch(() => {
-//       return status(false);
-//     });
-// };
+export const DelItem = (id: number, name: string, status: Dispatch<SetStateAction<boolean>>, token: string): void => {
+  delItem(id, name, token)
+    .then(response => {
+      if (response.command === 'DeleteItem' && response.name === name) {
+        status(true)
+      }
+      return status(false)
+    })
+    .catch(() => {
+      return status(false)
+    })
+}

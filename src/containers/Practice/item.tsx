@@ -1,35 +1,27 @@
-import { useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 
-import { CompanyIDSelect } from "../../models/company";
-import {
-  ItemFormButtons,
-  NoteInput,
-  ParameterTypes,
-} from "../../models/impersonal";
-import { KindIDSelect } from "../../models/kind";
-import {
-  Practice,
-  PracticeDateInput,
-  PracticeTopicInput,
-} from "../../models/practice";
-import { useAuthState } from "../../services/auth";
-import { DelItem, GetItem, SetItem } from "../../services/fetcher";
+import { CompanyIDSelect } from '../../models/company';
+import { ItemFormButtons, NoteInput, ParameterTypes } from '../../models/impersonal';
+import { KindIDSelect } from '../../models/kind';
+import { Practice, PracticeDateInput, PracticeTopicInput } from '../../models/practice';
+import { useToken } from '../../services/auth';
+import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 
-export const PracticeItem = (): JSX.Element => {
-  const { auth } = useAuthState();
-  const history = useHistory();
-  const { id } = useParams<ParameterTypes>();
-  const [companyID, setCompanyID] = useState<number>();
-  const [kindID, setKindID] = useState<number>();
-  const [topic, setTopic] = useState<string>();
-  const [date, setDate] = useState<string>();
-  const [note, setNote] = useState<string>();
-  const item = GetItem("Practice", id);
-  const [status, setStatus] = useState(false);
+export const PracticeItem = () => {
+  const { token } = useToken()
+  const history = useHistory()
+  const { id } = useParams<ParameterTypes>()
+  const [companyID, setCompanyID] = useState<number>()
+  const [kindID, setKindID] = useState<number>()
+  const [topic, setTopic] = useState<string>()
+  const [date, setDate] = useState<string>()
+  const [note, setNote] = useState<string>()
+  const item = GetItem('Practice', id, token)
+  const [status, setStatus] = useState(false)
 
   const send = (): void => {
-    const NumberID = Number(id);
+    const NumberID = Number(id)
     const practice: Practice = {
       id: NumberID,
       company_id: companyID,
@@ -37,32 +29,32 @@ export const PracticeItem = (): JSX.Element => {
       topic,
       date_of_practice: date,
       note,
-    };
+    }
 
-    SetItem(NumberID, "Practice", practice, setStatus, auth.user.token);
-  };
+    SetItem(NumberID, 'Practice', practice, setStatus, token)
+  }
 
   const del = (): void => {
-    const NumberID = Number(id);
-    DelItem(NumberID, "Practice", setStatus, auth.user.token);
-  };
+    const NumberID = Number(id)
+    DelItem(NumberID, 'Practice', setStatus, token)
+  }
 
   useEffect(() => {
     if (item) {
-      const data = item as Practice;
-      setCompanyID(data.company_id);
-      setKindID(data.kind_id);
-      setTopic(data.topic);
-      setDate(data.date_of_practice);
-      setNote(data.note);
+      const data = item as Practice
+      setCompanyID(data.company_id)
+      setKindID(data.kind_id)
+      setTopic(data.topic)
+      setDate(data.date_of_practice)
+      setNote(data.note)
     }
-  }, [item]);
+  }, [item])
 
   useEffect(() => {
     if (status) {
-      history.go(-1);
+      history.go(-1)
     }
-  }, [history, status]);
+  }, [history, status])
 
   return (
     <div>
@@ -78,5 +70,5 @@ export const PracticeItem = (): JSX.Element => {
         </>
       )}
     </div>
-  );
-};
+  )
+}
