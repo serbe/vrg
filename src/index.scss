@@ -1,13 +1,19 @@
 @charset "utf-8";
-@import '../node_modules/bulma/bulma.sass';
 
-// $size-1: 2.5rem;
-// $size-2: 2.08rem;
-// $size-3: 1.66rem;
-// $size-4: 1.25rem;
-// $size-5: 1.04rem;
-// $size-6: 0.83rem;
-// $size-7: 0.62rem;
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
+@import './variables.scss';
+@import '../node_modules/bulma/sass/utilities/_all.sass';
+@import '../node_modules/bulma/sass/base/_all.sass';
+@import '../node_modules/bulma/sass/elements/_all.sass';
+@import '../node_modules/bulma/sass/form/_all.sass';
+@import '../node_modules/bulma/sass/components/_all.sass';
+@import '../node_modules/bulma/sass/grid/_all.sass';
+@import '../node_modules/bulma/sass/helpers/_all.sass';
+@import '../node_modules/bulma/sass/layout/_all.sass';
+
+// html {
+//   font-size: 0.94em;
+// }
 
 .centered-content {
   max-width: 1024px;
