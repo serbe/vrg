@@ -1,18 +1,16 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useToken } from '~/services/auth';
 
 import { Bar, Data } from '../../components/table';
 import { KindList } from '../../models/kind';
 import { GetList } from '../../services/fetcher';
 
 export const Kinds = () => {
-  const { token } = useToken()
   const history = useHistory()
-  const data = GetList('KindList', token)
+  const data = GetList('KindList')
   const [search, setSearch] = useState('')
 
-  const [paginationData, Paginate] = Data({
+  const { paginationData, Paginate } = Data({
     data,
     search,
   })

@@ -9,11 +9,9 @@ import {
 } from '../../models/education';
 import { ItemFormButtons, NoteInput, ParameterTypes } from '../../models/impersonal';
 import { PostGoIDSelect } from '../../models/post';
-import { useToken } from '../../services/auth';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 
 export const EducationItem = () => {
-  const { token } = useToken()
   const history = useHistory()
   const { id } = useParams<ParameterTypes>()
   const [contactID, setContactID] = useState<number>()
@@ -21,7 +19,7 @@ export const EducationItem = () => {
   const [endDate, setEndDate] = useState<string>()
   const [postID, setPostID] = useState<number>()
   const [note, setNote] = useState<string>()
-  const item = GetItem('Education', id, token)
+  const item = GetItem('Education', id)
   const [status, setStatus] = useState(false)
 
   const send = (): void => {
@@ -35,12 +33,12 @@ export const EducationItem = () => {
       note,
     }
 
-    SetItem(NumberID, 'Education', education, setStatus, token)
+    SetItem(NumberID, 'Education', education, setStatus)
   }
 
   const del = (): void => {
     const NumberID = Number(id)
-    DelItem(NumberID, 'Education', setStatus, token)
+    DelItem(NumberID, 'Education', setStatus)
   }
 
   useEffect(() => {

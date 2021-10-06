@@ -1,18 +1,16 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useToken } from '~/services/auth';
 
 import { Bar, Data } from '../../components/table';
 import { PracticeList } from '../../models/practice';
 import { GetList } from '../../services/fetcher';
 
 export const Practices = () => {
-  const { token } = useToken()
   const history = useHistory()
-  const data = GetList('PracticeList', token)
+  const data = GetList('PracticeList')
   const [search, setSearch] = useState('')
 
-  const [paginationData, Paginate] = Data({
+  const { paginationData, Paginate } = Data({
     data,
     search,
   })

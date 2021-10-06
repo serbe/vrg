@@ -19,7 +19,6 @@ import {
 } from '../../models/impersonal';
 import { PostGoIDSelect, PostIDSelect } from '../../models/post';
 import { RankIDSelect } from '../../models/rank';
-import { useToken } from '../../services/auth';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 import {
   addEmptyString,
@@ -29,7 +28,6 @@ import {
 } from '../../services/utils';
 
 export const ContactItem = () => {
-  const { token } = useToken()
   const history = useHistory()
   const { id } = useParams<ParameterTypes>()
   const [name, setName] = useState<string>()
@@ -44,7 +42,7 @@ export const ContactItem = () => {
   const [phones, setPhones] = useState([''])
   const [faxes, setFaxes] = useState([''])
   const [educations, setEducations] = useState<string[]>([])
-  const item = GetItem('Contact', id, token)
+  const item = GetItem('Contact', id)
   const [status, setStatus] = useState(false)
 
   const send = (): void => {
@@ -64,12 +62,12 @@ export const ContactItem = () => {
       faxes: filterArrayNumber(faxes),
     }
 
-    SetItem(NumberID, 'Contact', contact, setStatus, token)
+    SetItem(NumberID, 'Contact', contact, setStatus)
   }
 
   const del = (): void => {
     const NumberID = Number(id)
-    DelItem(NumberID, 'Contact', setStatus, token)
+    DelItem(NumberID, 'Contact', setStatus)
   }
 
   useEffect(() => {

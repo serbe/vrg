@@ -1,18 +1,16 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useToken } from '~/services/auth';
 
 import { Bar, Data } from '../../components/table';
 import { CertificateList } from '../../models/certificate';
 import { GetList } from '../../services/fetcher';
 
 export const Certificates = () => {
-  const { token } = useToken()
   const history = useHistory()
-  const data = GetList('CertificateList', token)
+  const data = GetList('CertificateList')
   const [search, setSearch] = useState('')
 
-  const [paginationData, Paginate] = Data({
+  const { paginationData, Paginate } = Data({
     data,
     search,
   })

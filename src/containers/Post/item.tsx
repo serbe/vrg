@@ -3,17 +3,15 @@ import { useHistory, useParams } from 'react-router-dom';
 
 import { ItemFormButtons, NoteInput, ParameterTypes } from '../../models/impersonal';
 import { Post, PostGOSwitch, PostNameInput } from '../../models/post';
-import { useToken } from '../../services/auth';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 
 export const PostItem = () => {
-  const { token } = useToken()
   const history = useHistory()
   const { id } = useParams<ParameterTypes>()
   const [name, setName] = useState<string>()
   const [go, setGo] = useState(false)
   const [note, setNote] = useState<string>()
-  const item = GetItem('Post', id, token)
+  const item = GetItem('Post', id)
   const [status, setStatus] = useState(false)
 
   const send = (): void => {
@@ -25,12 +23,12 @@ export const PostItem = () => {
       note,
     }
 
-    SetItem(NumberID, 'Post', post, setStatus, token)
+    SetItem(NumberID, 'Post', post, setStatus)
   }
 
   const del = (): void => {
     const NumberID = Number(id)
-    DelItem(NumberID, 'Post', setStatus, token)
+    DelItem(NumberID, 'Post', setStatus)
   }
 
   useEffect(() => {

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useToken } from '~/services/auth';
 
 import { Bar, Data } from '../../components/table';
 import { SirenTypeList } from '../../models/sirentype';
@@ -8,12 +7,11 @@ import { GetList } from '../../services/fetcher';
 
 /* eslint-disable camelcase */
 export const SirenTypes = () => {
-  const { token } = useToken()
   const history = useHistory()
-  const data = GetList('SirenTypeList', token)
+  const data = GetList('SirenTypeList')
   const [search, setSearch] = useState('')
 
-  const [paginationData, Paginate] = Data({
+  const { paginationData, Paginate } = Data({
     data,
     search,
   })

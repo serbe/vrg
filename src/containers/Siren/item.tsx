@@ -21,11 +21,9 @@ import {
   SirenStageInput,
 } from '../../models/siren';
 import { SirenTypeIDSelect } from '../../models/sirentype';
-import { useToken } from '../../services/auth';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 
 export const SirenItem = () => {
-  const { token } = useToken()
   const history = useHistory()
   const { id } = useParams<ParameterTypes>()
   const [numberID, setNumberID] = useState<number>()
@@ -41,7 +39,7 @@ export const SirenItem = () => {
   const [stage, setStage] = useState<number>()
   const [own, setOwn] = useState<string>()
   const [note, setNote] = useState<string>()
-  const item = GetItem('Siren', id, token)
+  const item = GetItem('Siren', id)
   const [status, setStatus] = useState(false)
 
   const send = (): void => {
@@ -63,12 +61,12 @@ export const SirenItem = () => {
       note,
     }
 
-    SetItem(NumberID, 'Siren', siren, setStatus, token)
+    SetItem(NumberID, 'Siren', siren, setStatus)
   }
 
   const del = (): void => {
     const NumberID = Number(id)
-    DelItem(NumberID, 'Siren', setStatus, token)
+    DelItem(NumberID, 'Siren', setStatus)
   }
 
   useEffect(() => {

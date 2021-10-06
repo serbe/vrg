@@ -13,6 +13,7 @@ import { Rank, RankEmpty, RankList } from '../models/rank';
 import { Scope, ScopeEmpty, ScopeList } from '../models/scope';
 import { Siren, SirenEmpty, SirenList } from '../models/siren';
 import { SirenType, SirenTypeEmpty, SirenTypeList } from '../models/sirentype';
+import { useToken } from './auth';
 
 const URL = (import.meta.env.VITE_APP_JSONURL as string) || '/go/json'
 const loginURL = (import.meta.env.VITE_APP_LOGINURL as string) || '/go/login'
@@ -406,7 +407,8 @@ export const postCheck = (user: User): Promise<User> => {
     .then(() => user)
 }
 
-export const GetItem = (name: string, id: string, token: string): Item => {
+export const GetItem = (name: string, id: string): Item => {
+  const { token } = useToken()
   const [data, setData] = useState<Item>()
 
   useEffect(() => {
@@ -503,7 +505,8 @@ export const GetItem = (name: string, id: string, token: string): Item => {
   return data
 }
 
-export const GetList = (name: string, token: string): List[] => {
+export const GetList = (name: string): List[] => {
+  const { token } = useToken()
   const [list, setList] = useState<List[]>([])
 
   useEffect(() => {
@@ -560,9 +563,10 @@ export const GetList = (name: string, token: string): List[] => {
   return list
 }
 
-export const GetSelect = (name: string, token: string): [SelectItem[], string] => {
+export const GetSelect = (name: string): [SelectItem[], string] => {
   const [list, setSelect] = useState<SelectItem[]>([{ id: 0, name: '' }])
   const [error, setError] = useState<string>('')
+  const { token } = useToken()
 
   useEffect(() => {
     getList(name, token)
@@ -629,13 +633,8 @@ export const GetSelect = (name: string, token: string): [SelectItem[], string] =
   return [list, error]
 }
 
-export const SetItem = (
-  id: number,
-  name: string,
-  item: Item,
-  status: Dispatch<SetStateAction<boolean>>,
-  token: string,
-): void => {
+export const SetItem = (id: number, name: string, item: Item, status: Dispatch<SetStateAction<boolean>>): void => {
+  const { token } = useToken()
   setItem(id, name, item, token)
     .then(response => {
       const command = id === 0 ? 'InsertItem' : 'UpdateItem'
@@ -649,7 +648,8 @@ export const SetItem = (
     })
 }
 
-export const DelItem = (id: number, name: string, status: Dispatch<SetStateAction<boolean>>, token: string): void => {
+export const DelItem = (id: number, name: string, status: Dispatch<SetStateAction<boolean>>): void => {
+  const { token } = useToken()
   delItem(id, name, token)
     .then(response => {
       if (response.command === 'DeleteItem' && response.name === name) {

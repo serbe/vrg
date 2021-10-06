@@ -14,7 +14,6 @@ import {
 } from '../../models/impersonal';
 import { PracticeList, PracticeListForm } from '../../models/practice';
 import { ScopeIDSelect } from '../../models/scope';
-import { useToken } from '../../services/auth';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 import {
   addEmptyString,
@@ -24,7 +23,6 @@ import {
 } from '../../services/utils';
 
 export const CompanyItem = () => {
-  const { token } = useToken()
   const history = useHistory()
   const { id } = useParams<ParameterTypes>()
   const [name, setName] = useState<string>()
@@ -36,7 +34,7 @@ export const CompanyItem = () => {
   const [faxes, setFaxes] = useState([''])
   const [practices, setPractices] = useState<PracticeList[]>([])
   const [contacts, setContacts] = useState<ContactShort[]>([])
-  const item = GetItem('Company', id, token)
+  const item = GetItem('Company', id)
   const [status, setStatus] = useState(false)
 
   const send = (): void => {
@@ -52,12 +50,12 @@ export const CompanyItem = () => {
       faxes: filterArrayNumber(faxes),
     }
 
-    SetItem(NumberID, 'Company', company, setStatus, token)
+    SetItem(NumberID, 'Company', company, setStatus)
   }
 
   const del = (): void => {
     const NumberID = Number(id)
-    DelItem(NumberID, 'Company', setStatus, token)
+    DelItem(NumberID, 'Company', setStatus)
   }
 
   useEffect(() => {

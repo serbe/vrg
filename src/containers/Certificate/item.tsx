@@ -9,11 +9,9 @@ import {
 import { CompanyIDSelect } from '../../models/company';
 import { ContactIDSelect } from '../../models/contact';
 import { ItemFormButtons, NoteInput, ParameterTypes } from '../../models/impersonal';
-import { useToken } from '../../services/auth';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 
 export const CertificateItem = () => {
-  const { token } = useToken()
   const history = useHistory()
   const { id } = useParams<ParameterTypes>()
   const [sNumber, setSNumber] = useState<string>()
@@ -21,7 +19,7 @@ export const CertificateItem = () => {
   const [companyID, setCompanyID] = useState<number>()
   const [certDate, setCertDate] = useState<string>()
   const [note, setNote] = useState<string>()
-  const item = GetItem('Certificate', id, token)
+  const item = GetItem('Certificate', id)
   const [status, setStatus] = useState(false)
 
   const send = (): void => {
@@ -35,12 +33,12 @@ export const CertificateItem = () => {
       note,
     }
 
-    SetItem(NumberID, 'Certificate', certificate, setStatus, token)
+    SetItem(NumberID, 'Certificate', certificate, setStatus)
   }
 
   const del = (): void => {
     const NumberID = Number(id)
-    DelItem(NumberID, 'Certificate', setStatus, token)
+    DelItem(NumberID, 'Certificate', setStatus)
   }
 
   useEffect(() => {

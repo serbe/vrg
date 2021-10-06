@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useToken } from '~/services/auth';
 
 import { Bar, Data } from '../../components/table';
 import { CompanyList } from '../../models/company';
@@ -8,12 +7,11 @@ import { GetList } from '../../services/fetcher';
 import { splitNumbers, splitStrings } from '../../services/utils';
 
 export const Companies = () => {
-  const { token } = useToken()
   const history = useHistory()
-  const data = GetList('CompanyList', token)
+  const data = GetList('CompanyList')
   const [search, setSearch] = useState('')
 
-  const [paginationData, Paginate] = Data({
+  const { paginationData, Paginate } = Data({
     data,
     search,
   })

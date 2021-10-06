@@ -3,16 +3,14 @@ import { useHistory, useParams } from 'react-router-dom';
 
 import { ItemFormButtons, NoteInput, ParameterTypes } from '../../models/impersonal';
 import { Rank, RankNameInput } from '../../models/rank';
-import { useToken } from '../../services/auth';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 
 export const RankItem = () => {
-  const { token } = useToken()
   const history = useHistory()
   const { id } = useParams<ParameterTypes>()
   const [name, setName] = useState<string>()
   const [note, setNote] = useState<string>()
-  const item = GetItem('Rank', id, token)
+  const item = GetItem('Rank', id)
   const [status, setStatus] = useState(false)
 
   const send = (): void => {
@@ -23,12 +21,12 @@ export const RankItem = () => {
       note,
     }
 
-    SetItem(NumberID, 'Rank', rank, setStatus, token)
+    SetItem(NumberID, 'Rank', rank, setStatus)
   }
 
   const del = (): void => {
     const NumberID = Number(id)
-    DelItem(NumberID, 'Rank', setStatus, token)
+    DelItem(NumberID, 'Rank', setStatus)
   }
 
   useEffect(() => {

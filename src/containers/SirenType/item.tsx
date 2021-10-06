@@ -1,19 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { useToken } from '~/services/auth';
 
 import { ItemFormButtons, NoteInput, ParameterTypes } from '../../models/impersonal';
 import { SirenType, SirenTypeNameInput, SirenTypeRadiusInput } from '../../models/sirentype';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 
 export const SirenTypeItem = () => {
-  const { token } = useToken()
   const history = useHistory()
   const { id } = useParams<ParameterTypes>()
   const [name, setName] = useState<string>()
   const [radius, setRadius] = useState<number>()
   const [note, setNote] = useState<string>()
-  const item = GetItem('SirenType', id, token)
+  const item = GetItem('SirenType', id)
   const [status, setStatus] = useState(false)
 
   const send = (): void => {
@@ -25,12 +23,12 @@ export const SirenTypeItem = () => {
       note,
     }
 
-    SetItem(NumberID, 'SirenType', sirenType, setStatus, token)
+    SetItem(NumberID, 'SirenType', sirenType, setStatus)
   }
 
   const del = (): void => {
     const NumberID = Number(id)
-    DelItem(NumberID, 'SirenType', setStatus, token)
+    DelItem(NumberID, 'SirenType', setStatus)
   }
 
   useEffect(() => {

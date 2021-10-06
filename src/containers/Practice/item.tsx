@@ -5,11 +5,9 @@ import { CompanyIDSelect } from '../../models/company';
 import { ItemFormButtons, NoteInput, ParameterTypes } from '../../models/impersonal';
 import { KindIDSelect } from '../../models/kind';
 import { Practice, PracticeDateInput, PracticeTopicInput } from '../../models/practice';
-import { useToken } from '../../services/auth';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 
 export const PracticeItem = () => {
-  const { token } = useToken()
   const history = useHistory()
   const { id } = useParams<ParameterTypes>()
   const [companyID, setCompanyID] = useState<number>()
@@ -17,7 +15,7 @@ export const PracticeItem = () => {
   const [topic, setTopic] = useState<string>()
   const [date, setDate] = useState<string>()
   const [note, setNote] = useState<string>()
-  const item = GetItem('Practice', id, token)
+  const item = GetItem('Practice', id)
   const [status, setStatus] = useState(false)
 
   const send = (): void => {
@@ -31,12 +29,12 @@ export const PracticeItem = () => {
       note,
     }
 
-    SetItem(NumberID, 'Practice', practice, setStatus, token)
+    SetItem(NumberID, 'Practice', practice, setStatus)
   }
 
   const del = (): void => {
     const NumberID = Number(id)
-    DelItem(NumberID, 'Practice', setStatus, token)
+    DelItem(NumberID, 'Practice', setStatus)
   }
 
   useEffect(() => {
