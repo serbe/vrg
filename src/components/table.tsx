@@ -173,15 +173,17 @@ export const Data = ({ data, search }: DataProperties) => {
     return filteredData.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
   }
 
-  return [
-    paginationData,
-    Paginate({
-      currentPage,
-      filteredDataLength,
-      itemsPerPage,
-      setter: setCurrentPage,
-    }),
-  ]
+  return {
+    paginationData: paginationData,
+    Paginate: (
+      <Paginate
+        currentPage={currentPage}
+        filteredDataLength={filteredDataLength}
+        itemsPerPage={itemsPerPage}
+        setter={setCurrentPage}
+      />
+    ),
+  }
 }
 
 export const Bar = ({ name, setter, value }: BarProperties) => {
