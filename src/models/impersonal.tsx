@@ -1,5 +1,6 @@
 import { ChangeEvent, SetStateAction } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Button } from '~/components/button';
 
 import { FormField } from '../components/formfield';
 import { Input, StringInputProperties } from '../components/input';
@@ -140,9 +141,9 @@ export const ItemFormButtons = ({ del, send }: FormButtonsValues) => {
   const SaveButton = () =>
     state.state === 'SIGNED_IN' && state.currentUser.role > 4 ? (
       <div className="control">
-        <button type="button" className="button is-info" onClick={() => send()}>
+        <Button color="info" onClick={() => send()}>
           Сохранить
-        </button>
+        </Button>
       </div>
     ) : (
       <></>
@@ -150,18 +151,15 @@ export const ItemFormButtons = ({ del, send }: FormButtonsValues) => {
 
   const BackButton = () => (
     <div className="control">
-      <button type="button" className="button" onClick={() => history.go(-1)}>
-        Закрыть
-      </button>
+      <Button onClick={() => history.go(-1)}>Закрыть</Button>
     </div>
   )
 
   const DeleteButton = () =>
     state.state === 'SIGNED_IN' && state.currentUser.role > 8 ? (
       <div className="control mla">
-        <button
-          type="button"
-          className="button is-danger"
+        <Button
+          color="danger"
           onClick={() => {
             if (window.confirm('Вы действительно хотите удалить запись?')) {
               del()
@@ -169,7 +167,7 @@ export const ItemFormButtons = ({ del, send }: FormButtonsValues) => {
           }}
         >
           Удалить
-        </button>
+        </Button>
       </div>
     ) : (
       <></>

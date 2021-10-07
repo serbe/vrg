@@ -1,5 +1,6 @@
 import { ChangeEvent, FormEvent, KeyboardEvent, useState } from 'react';
 import { useHistory } from 'react-router';
+import { Button } from '~/components/button';
 import { FormField } from '~/components/formfield';
 import { postLogin } from '~/services/fetcher';
 
@@ -53,9 +54,7 @@ export const Login = () => {
           />
           <div className="field">
             <div className="control">
-              <button type="button" className="button" onClick={() => submit()}>
-                Отправить
-              </button>
+              <Button onClick={() => submit()}>Отправить</Button>
             </div>
           </div>
         </div>
