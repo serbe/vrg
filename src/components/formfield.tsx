@@ -1,33 +1,43 @@
 import { ChangeEvent, KeyboardEvent, MouseEvent } from 'react';
+import { AdditionalColors, InputTypes, Sizes } from '~/models/variables';
 
 import { Input } from './input';
 
 export interface FormFieldProperties {
   autocomplete?: string
   className?: string
+  classNameDiv?: string
   disabled?: boolean
   icon?: string
   iconRight?: string
   label?: string
   name: string
+  onBlur?: (event: ChangeEvent<HTMLInputElement>) => void
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void
   onClick?: (event: MouseEvent<HTMLInputElement, globalThis.MouseEvent>) => void
   onKeyPress?: (event: KeyboardEvent<HTMLInputElement>) => void
   placeholder?: string
   readonly?: boolean
-  rounded?: boolean
-  type?: 'text' | 'password' | 'email' | 'tel'
+  type?: InputTypes
   value?: number | string
+  color?: AdditionalColors
+  size?: Sizes
+  round?: boolean
+  hover?: boolean
+  focus?: boolean
+  load?: boolean
 }
 
 export const FormField = ({
   autocomplete,
   className,
+  classNameDiv,
   disabled,
   icon,
   iconRight,
   label,
   name,
+  onBlur,
   onChange,
   onClick,
   onKeyPress,
@@ -35,6 +45,12 @@ export const FormField = ({
   readonly,
   type,
   value,
+  color,
+  size,
+  round,
+  hover,
+  focus,
+  load,
 }: FormFieldProperties) => {
   return (
     <div className="field">
@@ -46,10 +62,12 @@ export const FormField = ({
       <Input
         autocomplete={autocomplete}
         className={className}
+        classNameDiv={classNameDiv}
         disabled={disabled}
         icon={icon}
         iconRight={iconRight}
         name={name}
+        onBlur={onBlur}
         onChange={onChange}
         onClick={onClick}
         onKeyPress={onKeyPress}
@@ -57,6 +75,12 @@ export const FormField = ({
         readonly={readonly}
         type={type}
         value={value}
+        color={color}
+        size={size}
+        round={round}
+        hover={hover}
+        focus={focus}
+        load={load}
       />
     </div>
   )
