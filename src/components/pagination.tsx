@@ -41,9 +41,7 @@ export const Pagination = ({ currentPage, lastPage, setter }: PaginationProperti
       </button>
     )
 
-  const Item = (itemProperties: ItemProperties) => {
-    const { check, index, link, ellipsis } = itemProperties
-
+  const Item = ({ check, index, link, ellipsis }: ItemProperties) => {
     return check ? (
       <li key={`li${index}`}>
         {ellipsis ? (
