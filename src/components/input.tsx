@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { ChangeEvent, KeyboardEvent, MouseEvent } from 'react';
+import { AdditionalColors, Sizes } from '~/models/variables';
 
 import { Icon } from './icon';
 
@@ -34,6 +35,12 @@ interface InputProperties {
   readonly?: boolean
   type?: 'text' | 'password' | 'email' | 'tel'
   value?: number | string
+  color?: AdditionalColors
+  size?: Sizes
+  round?: boolean
+  hover?: boolean
+  focus?: boolean
+  load?: boolean
 }
 
 export const Input = ({
@@ -52,14 +59,35 @@ export const Input = ({
   readonly,
   type,
   value,
+  color,
+  size,
+  round,
+  hover,
+  focus,
+  load,
 }: InputProperties) => {
-  const divClass = clsx(`control`, classNameDiv, { 'has-icons-left': icon }, { 'has-icons-right': iconRight })
+  const divClass = clsx(
+    'control',
+    classNameDiv,
+    { 'has-icons-left': icon },
+    { 'has-icons-right': iconRight },
+    { 'is-loading': load },
+  )
+  const inputClass = clsx(
+    'input',
+    className,
+    { 'is-rounded': round },
+    { 'is-hovered': hover },
+    { 'is-focused': focus },
+    { [`is-${color}`]: color },
+    { [`is-${size}`]: size },
+  )
 
   return (
     <div className={divClass}>
       <input
         autoComplete={autocomplete}
-        className={`${className || ''} input`}
+        className={inputClass}
         defaultValue={value}
         disabled={disabled}
         id={name}
