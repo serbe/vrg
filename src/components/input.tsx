@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { ChangeEvent, KeyboardEvent, MouseEvent } from 'react';
-import { AdditionalColors, Sizes } from '~/models/variables';
+import { AdditionalColors, InputTypes, Sizes } from '~/models/variables';
 
 import { Icon } from './icon';
 
@@ -33,7 +33,7 @@ interface InputProperties {
   onKeyPress?: (event: KeyboardEvent<HTMLInputElement>) => void
   placeholder?: string
   readonly?: boolean
-  type?: 'text' | 'password' | 'email' | 'tel'
+  type?: InputTypes
   value?: number | string
   color?: AdditionalColors
   size?: Sizes
