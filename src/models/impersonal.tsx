@@ -1,7 +1,7 @@
 import { ChangeEvent, SetStateAction } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button } from '~/components/button';
 
+import { Button } from '../components/button';
 import { FormField } from '../components/formfield';
 import { Input, StringInputProperties } from '../components/input';
 import { Select, SelectValues } from '../components/select';

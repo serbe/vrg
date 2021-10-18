@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
-import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter } from 'react-router-dom';
-import { AuthProvider, checkUser, useAuthState, useSign } from '~/services/auth';
 
 import { NavBar } from './components/navbar';
 import { Router } from './components/routes';
+import { AuthProvider, checkUser, useAuthState, useSign } from './services/auth';
 
 const Main = () => {
   const { signIn, signOut } = useSign()
@@ -12,8 +11,8 @@ const Main = () => {
   useEffect(() => {
     checkUser()
       .then(user => {
-        if (user.token !== '') signIn(user)
-        else signOut()
+        if (user.token !== '') return signIn(user)
+        else return signOut()
       })
       .catch(() => signOut())
   }, [])
@@ -27,14 +26,13 @@ const Main = () => {
       {state.state === 'UNKNOWN' ? (
         <Initializаtion />
       ) : (
-        <>
+        <div className="">
           <NavBar />
-          <div className="container px-4 py-4">
-            {' '}
-            <Router />{' '}
+          <div className="px-4 py-4">
+            <Router />
           </div>
-        </>
-      )}{' '}
+        </div>
+      )}
     </BrowserRouter>
   )
 }
@@ -43,10 +41,8 @@ export default Main
 
 export const App = () => {
   return (
-    <HelmetProvider>
-      <AuthProvider>
-        <Main />
-      </AuthProvider>
-    </HelmetProvider>
+    <AuthProvider>
+      <Main />
+    </AuthProvider>
   )
 }

@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { MouseEvent } from 'react';
-import { AdditionalColors, BasicColors, Sizes } from '~/models/variables';
+
+import { AdditionalColors, BasicColors, Sizes } from '../models/variables';
 
 interface ButtonProperties {
   children?: string

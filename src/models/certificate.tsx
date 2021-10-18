@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
 import { ChangeEvent } from 'react';
-import { StringInputProperties } from '~/components/input';
 
 import { DatePicker, DatePickerValues } from '../components/datepicker';
 import { FormField } from '../components/formfield';
+import { StringInputProperties } from '../components/input';
 
 export type Certificate = {
   id: number

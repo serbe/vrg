@@ -122,6 +122,9 @@ export const ContactItem = () => {
             <div className="column is-one-third">
               <ContactBirthdayInput value={birthday} setter={setBirthday} />
             </div>
+            <div className="column is-one-third">
+              <input type="date" />
+            </div>
           </div>
 
           <div className="columns">

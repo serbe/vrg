@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { User } from '~/models/user';
 
 import { Certificate, CertificateEmpty, CertificateList } from '../models/certificate';
 import { Company, CompanyEmpty, CompanyList } from '../models/company';
@@ -13,6 +12,7 @@ import { Rank, RankEmpty, RankList } from '../models/rank';
 import { Scope, ScopeEmpty, ScopeList } from '../models/scope';
 import { Siren, SirenEmpty, SirenList } from '../models/siren';
 import { SirenType, SirenTypeEmpty, SirenTypeList } from '../models/sirentype';
+import { User } from '../models/user';
 import { useToken } from './auth';
 
 const URL = (import.meta.env.VITE_APP_JSONURL as string) || '/go/json'
@@ -414,51 +414,54 @@ export const GetItem = (name: string, id: string): Item => {
   useEffect(() => {
     const NumberID = Number(id)
     if (NumberID !== 0) {
-      getItem(name, id, token).then(response => {
-        if (response.command === 'GetItem') {
-          switch (response.name) {
-            case 'Certificate':
-              setData(response.object.Certificate)
-              break
-            case 'Company':
-              setData(response.object.Company)
-              break
-            case 'Contact':
-              setData(response.object.Contact)
-              break
-            case 'Department':
-              setData(response.object.Department)
-              break
-            case 'Education':
-              setData(response.object.Education)
-              break
-            case 'Kind':
-              setData(response.object.Kind)
-              break
-            case 'Post':
-              setData(response.object.Post)
-              break
-            case 'Practice':
-              setData(response.object.Practice)
-              break
-            case 'Rank':
-              setData(response.object.Rank)
-              break
-            case 'Scope':
-              setData(response.object.Scope)
-              break
-            case 'Siren':
-              setData(response.object.Siren)
-              break
-            case 'SirenType':
-              setData(response.object.SirenType)
-              break
-            // default:
-            //   throw new Error('unknown item');
+      getItem(name, id, token)
+        .then(response => {
+          if (response.command === 'GetItem') {
+            switch (response.name) {
+              case 'Certificate':
+                setData(response.object.Certificate)
+                break
+              case 'Company':
+                setData(response.object.Company)
+                break
+              case 'Contact':
+                setData(response.object.Contact)
+                break
+              case 'Department':
+                setData(response.object.Department)
+                break
+              case 'Education':
+                setData(response.object.Education)
+                break
+              case 'Kind':
+                setData(response.object.Kind)
+                break
+              case 'Post':
+                setData(response.object.Post)
+                break
+              case 'Practice':
+                setData(response.object.Practice)
+                break
+              case 'Rank':
+                setData(response.object.Rank)
+                break
+              case 'Scope':
+                setData(response.object.Scope)
+                break
+              case 'Siren':
+                setData(response.object.Siren)
+                break
+              case 'SirenType':
+                setData(response.object.SirenType)
+                break
+              // default:
+              //   throw new Error('unknown item');
+            }
           }
-        }
-        // throw new Error('unknown item');
-      })
+          // throw new Error('unknown item');
+          return true
+        })
+        .catch(e => console.log(e))
     } else {
       switch (name) {
         case 'Certificate':
@@ -510,54 +513,57 @@ export const GetList = (name: string): List[] => {
   const [list, setList] = useState<List[]>([])
 
   useEffect(() => {
-    getList(name, token).then(response => {
-      if (response && response.command === 'GetList') {
-        switch (response.name) {
-          case 'CertificateList':
-            setList(response.object.CertificateList)
-            break
-          case 'CompanyList':
-            setList(response.object.CompanyList)
-            break
-          case 'ContactList':
-            setList(response.object.ContactList)
-            break
-          case 'DepartmentList':
-            setList(response.object.DepartmentList)
-            break
-          case 'EducationList':
-            setList(response.object.EducationList)
-            break
-          case 'EducationNear':
-            setList(response.object.EducationShort)
-            break
-          case 'KindList':
-            setList(response.object.KindList)
-            break
-          case 'PostList':
-            setList(response.object.PostList)
-            break
-          case 'PracticeList':
-            setList(response.object.PracticeList)
-            break
-          case 'PracticeNear':
-            setList(response.object.PracticeShort)
-            break
-          case 'RankList':
-            setList(response.object.RankList)
-            break
-          case 'ScopeList':
-            setList(response.object.ScopeList)
-            break
-          case 'SirenList':
-            setList(response.object.SirenList)
-            break
-          case 'SirenTypeList':
-            setList(response.object.SirenTypeList)
-            break
+    getList(name, token)
+      .then(response => {
+        if (response && response.command === 'GetList') {
+          switch (response.name) {
+            case 'CertificateList':
+              setList(response.object.CertificateList)
+              break
+            case 'CompanyList':
+              setList(response.object.CompanyList)
+              break
+            case 'ContactList':
+              setList(response.object.ContactList)
+              break
+            case 'DepartmentList':
+              setList(response.object.DepartmentList)
+              break
+            case 'EducationList':
+              setList(response.object.EducationList)
+              break
+            case 'EducationNear':
+              setList(response.object.EducationShort)
+              break
+            case 'KindList':
+              setList(response.object.KindList)
+              break
+            case 'PostList':
+              setList(response.object.PostList)
+              break
+            case 'PracticeList':
+              setList(response.object.PracticeList)
+              break
+            case 'PracticeNear':
+              setList(response.object.PracticeShort)
+              break
+            case 'RankList':
+              setList(response.object.RankList)
+              break
+            case 'ScopeList':
+              setList(response.object.ScopeList)
+              break
+            case 'SirenList':
+              setList(response.object.SirenList)
+              break
+            case 'SirenTypeList':
+              setList(response.object.SirenTypeList)
+              break
+          }
         }
-      }
-    })
+        return true
+      })
+      .catch(e => console.log(e))
   }, [name])
 
   return list
@@ -624,6 +630,7 @@ export const GetSelect = (name: string): [SelectItem[], string] => {
           // } else {
           //   throw new Error('unknown select');
         }
+        return true
       })
       .catch(() => {
         return setError('unknown select')

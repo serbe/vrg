@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { ChangeEvent, KeyboardEvent, MouseEvent } from 'react';
-import { AdditionalColors, InputTypes, Sizes } from '~/models/variables';
 
+import { AdditionalColors, InputTypes, Sizes } from '../models/variables';
 import { Icon } from './icon';
 
 export interface StringInputProperties {

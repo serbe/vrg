@@ -1,2 +1,2 @@
-export { EducationItem } from "./item";
-export { Educations } from "./list";
+export { EducationItem } from './item'
+export { Educations } from './list'

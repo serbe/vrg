@@ -1,7 +1,7 @@
 import { ChangeEvent } from 'react';
-import { StringInputProperties } from '~/components/input';
 
 import { FormField } from '../components/formfield';
+import { StringInputProperties } from '../components/input';
 import { Select, SelectValues } from '../components/select';
 
 export type Scope = {

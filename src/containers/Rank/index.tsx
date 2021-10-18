@@ -1,2 +1,2 @@
-export { RankItem } from "./item";
-export { Ranks } from "./list";
+export { RankItem } from './item'
+export { Ranks } from './list'

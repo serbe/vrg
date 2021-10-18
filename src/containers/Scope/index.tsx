@@ -1,2 +1,2 @@
-export { ScopeItem } from "./item";
-export { Scopes } from "./list";
+export { ScopeItem } from './item'
+export { Scopes } from './list'

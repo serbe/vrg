@@ -1,10 +1,10 @@
 import { ChangeEvent, FormEvent, KeyboardEvent, useState } from 'react';
 import { useHistory } from 'react-router';
-import { Button } from '~/components/button';
-import { FormField } from '~/components/formfield';
-import { postLogin } from '~/services/fetcher';
 
+import { Button } from '../../components/button';
+import { FormField } from '../../components/formfield';
 import { useSign } from '../../services/auth';
+import { postLogin } from '../../services/fetcher';
 
 export const Login = () => {
   const history = useHistory()
@@ -13,10 +13,12 @@ export const Login = () => {
   const [pass, setPass] = useState('')
 
   const submit = (): void => {
-    postLogin(name, pass).then(response => {
-      signIn({ name: name, role: response.r, token: response.t })
-      history.push('/')
-    })
+    postLogin(name, pass)
+      .then(response => {
+        signIn({ name: name, role: response.r, token: response.t })
+        return history.push('/')
+      })
+      .catch(() => console.log('error'))
   }
 
   const submitHandler = (event: FormEvent<HTMLFormElement>) => {

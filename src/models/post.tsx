@@ -1,7 +1,7 @@
 import { ChangeEvent } from 'react';
-import { BooleanInputProperties, StringInputProperties } from '~/components/input';
 
 import { FormField } from '../components/formfield';
+import { BooleanInputProperties, StringInputProperties } from '../components/input';
 import { Select, SelectValues } from '../components/select';
 
 export type Post = {
