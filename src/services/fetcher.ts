@@ -326,8 +326,7 @@ type CheckResponse = {
   r: boolean
 }
 
-export const getItem = (name: string, id: string, token: string): Promise<GetItemResponse> => {
-  return fetch(URL, {
+export const getItem = (name: string, id: string, token: string): Promise<GetItemResponse> => fetch(URL, {
     method: 'POST',
     mode: 'cors',
     headers: {
@@ -337,10 +336,8 @@ export const getItem = (name: string, id: string, token: string): Promise<GetIte
   })
     .then(response => response.json())
     .then(response => response as GetItemResponse)
-}
 
-export const getList = (name: string, token: string): Promise<GetListResponse> => {
-  return fetch(URL, {
+export const getList = (name: string, token: string): Promise<GetListResponse> => fetch(URL, {
     method: 'POST',
     mode: 'cors',
     headers: {
@@ -350,10 +347,8 @@ export const getList = (name: string, token: string): Promise<GetListResponse> =
   })
     .then(response => response.json())
     .then(response => response as GetListResponse)
-}
 
-export const setItem = (id: number, name: string, item: Item, token: string): Promise<ModifyItemResponse> => {
-  return fetch(URL, {
+export const setItem = (id: number, name: string, item: Item, token: string): Promise<ModifyItemResponse> => fetch(URL, {
     method: 'POST',
     mode: 'cors',
     headers: {
@@ -365,10 +360,8 @@ export const setItem = (id: number, name: string, item: Item, token: string): Pr
   })
     .then(response => response.json())
     .then(response => response as ModifyItemResponse)
-}
 
-export const delItem = (id: number, name: string, token: string): Promise<ModifyItemResponse> => {
-  return fetch(URL, {
+export const delItem = (id: number, name: string, token: string): Promise<ModifyItemResponse> => fetch(URL, {
     method: 'POST',
     mode: 'cors',
     headers: {
@@ -378,10 +371,8 @@ export const delItem = (id: number, name: string, token: string): Promise<Modify
   })
     .then(response => response.json())
     .then(response => response as ModifyItemResponse)
-}
 
-export const postLogin = (name: string, pass: string): Promise<LoginResponse> => {
-  return fetch(loginURL, {
+export const postLogin = (name: string, pass: string): Promise<LoginResponse> => fetch(loginURL, {
     method: 'POST',
     mode: 'cors',
     headers: {
@@ -391,10 +382,8 @@ export const postLogin = (name: string, pass: string): Promise<LoginResponse> =>
   })
     .then(response => response.json())
     .then(response => response as LoginResponse)
-}
 
-export const postCheck = (user: User): Promise<User> => {
-  return fetch(checkURL, {
+export const postCheck = (user: User): Promise<User> => fetch(checkURL, {
     method: 'POST',
     mode: 'cors',
     headers: {
@@ -405,7 +394,6 @@ export const postCheck = (user: User): Promise<User> => {
     .then(response => response.json())
     .then(response => (response as CheckResponse).r)
     .then(() => user)
-}
 
 export const GetItem = (name: string, id: string): Item => {
   const { token } = useToken()
@@ -632,9 +620,7 @@ export const GetSelect = (name: string): [SelectItem[], string] => {
         }
         return true
       })
-      .catch(() => {
-        return setError('unknown select')
-      })
+      .catch(() => setError('unknown select'))
   }, [name])
 
   return [list, error]
@@ -650,9 +636,7 @@ export const SetItem = (id: number, name: string, item: Item, status: Dispatch<S
       }
       return status(false)
     })
-    .catch(() => {
-      return status(false)
-    })
+    .catch(() => status(false))
 }
 
 export const DelItem = (id: number, name: string, status: Dispatch<SetStateAction<boolean>>): void => {
@@ -664,7 +648,5 @@ export const DelItem = (id: number, name: string, status: Dispatch<SetStateActio
       }
       return status(false)
     })
-    .catch(() => {
-      return status(false)
-    })
+    .catch(() => status(false))
 }

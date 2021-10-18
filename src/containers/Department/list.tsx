@@ -15,9 +15,7 @@ export const Departments = () => {
     search,
   })
 
-  const tableData = (): DepartmentList[] => {
-    return paginationData()
-  }
+  const tableData = (): DepartmentList[] => paginationData()
 
   const Body = () => (
     <>

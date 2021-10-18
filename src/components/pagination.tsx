@@ -41,8 +41,7 @@ export const Pagination = ({ currentPage, lastPage, setter }: PaginationProperti
       </button>
     )
 
-  const Item = ({ check, index, link, ellipsis }: ItemProperties) => {
-    return check ? (
+  const Item = ({ check, index, link, ellipsis }: ItemProperties) => check ? (
       <li key={`li${index}`}>
         {ellipsis ? (
           <span className="pagination-ellipsis">&hellip;</span>
@@ -59,7 +58,6 @@ export const Pagination = ({ currentPage, lastPage, setter }: PaginationProperti
     ) : (
       <></>
     )
-  }
 
   return (
     <nav className={navClasses} key="pagination" role="navigation" aria-label="pagination">

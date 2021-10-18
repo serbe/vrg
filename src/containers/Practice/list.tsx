@@ -15,9 +15,7 @@ export const Practices = () => {
     search,
   })
 
-  const tableData = (): PracticeList[] => {
-    return paginationData()
-  }
+  const tableData = (): PracticeList[] => paginationData()
 
   const Body = () => (
     <>

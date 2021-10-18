@@ -1,18 +1,14 @@
 import { RefObject, useEffect } from 'react';
 
-export const filterArrayString = (values: string[]): string[] => {
-  return values.filter((value: string) => value !== '')
-}
+export const filterArrayString = (values: string[]): string[] => values.filter((value: string) => value !== '')
 
-export const filterArrayNumber = (values: string[]): number[] => {
-  return values.map((value: string) => Number(value)).filter((value: number) => value !== 0)
-}
+export const filterArrayNumber = (values: string[]): number[] => values.map((value: string) => Number(value)).filter((value: number) => value !== 0)
 
 export const latrus = (str: string): string => {
   const lat = '`qwertyuiop[]asdfghjkl;\'zxcvbnm,.~QWERTYUIOP{}ASDFGHJKL:"ZXCVBNM<>'
   const rus = 'ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ'
   let word = ''
-  for (let i = 0, L = str.length; i < L; i++) {
+  for (let i = 0, L = str.length; i < L; i += 1) {
     const letter = str[i]
     const pos = lat.indexOf(letter)
     if (i === 0 && pos === -1) {
@@ -52,6 +48,26 @@ export const splitStrings = (items?: string[]) => (
   <>{items && items.map((arrayItem: string, index: number) => <div key={`div${index}`}>{arrayItem}</div>)}</>
 )
 
+export const prettyPhone = (phone: string): string => {
+  let value = phone
+  if (value.length > 0) {
+    value = value.replace(/[^0-9]/g, '')
+    if (value.length === 10) {
+      value = value.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, '+7-$1-$2-$3-$4')
+    }
+    if (value.length === 11) {
+      if (value[0] === '8') {
+        value = `7${value.slice(1)}`
+      }
+      value = value.replace(/(\d)(\d{3})(\d{3})(\d{2})(\d{2})/, '+$1-$2-$3-$4-$5')
+    }
+    if (value.length === 7) {
+      value = value.replace(/(\d{3})(\d{2})(\d{2})/, '$1-$2-$3')
+    }
+  }
+  return value
+}
+
 export const splitNumbers = (items?: number[]) => (
   <>
     {items &&
@@ -65,25 +81,6 @@ export const diffMonth = (month: number, date?: Date): Date => {
   const newDate = date || new Date()
   newDate.setMonth(newDate.getMonth() - month)
   return newDate
-}
-
-export const prettyPhone = (phone: string): string => {
-  if (phone.length > 0) {
-    phone = phone.replace(/[^0-9]/g, '')
-    if (phone.length === 10) {
-      phone = phone.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, '+7-$1-$2-$3-$4')
-    }
-    if (phone.length === 11) {
-      if (phone[0] === '8') {
-        phone = `7${phone.slice(1)}`
-      }
-      phone = phone.replace(/(\d)(\d{3})(\d{3})(\d{2})(\d{2})/, '+$1-$2-$3-$4-$5')
-    }
-    if (phone.length === 7) {
-      phone = phone.replace(/(\d{3})(\d{2})(\d{2})/, '$1-$2-$3')
-    }
-  }
-  return phone
 }
 
 export const trClass = (dateStr: string): string => {

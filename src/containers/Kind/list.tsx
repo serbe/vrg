@@ -15,9 +15,7 @@ export const Kinds = () => {
     search,
   })
 
-  const tableData = (): KindList[] => {
-    return paginationData()
-  }
+  const tableData = (): KindList[] => paginationData()
 
   const Body = () => (
     <>

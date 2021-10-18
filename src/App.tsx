@@ -12,14 +12,12 @@ const Main = () => {
     checkUser()
       .then(user => {
         if (user.token !== '') return signIn(user)
-        else return signOut()
+        return signOut()
       })
       .catch(() => signOut())
   }, [])
 
-  const Initializаtion = () => {
-    return <p className="p-4 w-full h-full text-center">Initializаtion...</p>
-  }
+  const Initializаtion = () => <p className="p-4 w-full h-full text-center">Initializаtion...</p>
 
   return (
     <BrowserRouter>
@@ -39,10 +37,8 @@ const Main = () => {
 
 export default Main
 
-export const App = () => {
-  return (
+export const App = () => (
     <AuthProvider>
       <Main />
     </AuthProvider>
   )
-}

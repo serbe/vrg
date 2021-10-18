@@ -15,7 +15,7 @@ export const Login = () => {
   const submit = (): void => {
     postLogin(name, pass)
       .then(response => {
-        signIn({ name: name, role: response.r, token: response.t })
+        signIn({ name, role: response.r, token: response.t })
         return history.push('/')
       })
       .catch(() => console.log('error'))

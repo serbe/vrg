@@ -15,9 +15,7 @@ export const Educations = () => {
     search,
   })
 
-  const tableData = (): EducationList[] => {
-    return paginationData()
-  }
+  const tableData = (): EducationList[] => paginationData()
 
   const Body = () => (
     <>

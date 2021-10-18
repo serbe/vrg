@@ -15,9 +15,7 @@ export const Ranks = () => {
     search,
   })
 
-  const tableData = (): RankList[] => {
-    return paginationData()
-  }
+  const tableData = (): RankList[] => paginationData()
 
   const Body = () => (
     <>

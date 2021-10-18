@@ -1,16 +1,9 @@
 module.exports = {
+  root: true,
   env: {
     browser: true,
-    es2021: true,
   },
-  extends: [
-    'plugin:react/recommended',
-    'standard',
-    'plugin:promise/recommended',
-    'plugin:import/recommended',
-    'plugin:import/typescript',
-    'prettier',
-  ],
+  extends: ['airbnb', 'airbnb-typescript', 'prettier'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
@@ -18,6 +11,8 @@ module.exports = {
     },
     ecmaVersion: 12,
     sourceType: 'module',
+    tsconfigRootDir: __dirname,
+    project: ['./tsconfig.json']
   },
   settings: {
     react: {

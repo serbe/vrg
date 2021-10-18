@@ -16,9 +16,7 @@ export const Contacts = () => {
     search,
   })
 
-  const tableData = (): ContactList[] => {
-    return paginationData()
-  }
+  const tableData = (): ContactList[] => paginationData()
 
   const Body = () => (
     <>

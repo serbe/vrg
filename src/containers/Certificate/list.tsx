@@ -15,9 +15,7 @@ export const Certificates = () => {
     search,
   })
 
-  const tableData = (): CertificateList[] => {
-    return paginationData()
-  }
+  const tableData = (): CertificateList[] => paginationData()
 
   const Body = () => (
     <>

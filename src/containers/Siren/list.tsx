@@ -16,9 +16,7 @@ export const Sirens = () => {
     search,
   })
 
-  const tableData = (): SirenList[] => {
-    return paginationData()
-  }
+  const tableData = (): SirenList[] => paginationData()
 
   const Body = () => (
     <>

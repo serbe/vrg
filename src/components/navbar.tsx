@@ -111,8 +111,7 @@ const NavbarEnd = ({ user }: { user: User }) => {
   )
 }
 
-const BrandBar = ({ open, setter }: OpenState) => {
-  return (
+const BrandBar = ({ open, setter }: OpenState) => (
     <>
       <NavLink activeClassName="is-active" className="navbar-item" exact to="/">
         ЕДДС
@@ -132,16 +131,13 @@ const BrandBar = ({ open, setter }: OpenState) => {
       </a>
     </>
   )
-}
 
 export const NavBar = () => {
   // const openClassName = (cn: string): string => (open ? `${cn} is-active` : cn);
   const { state } = useAuthState()
   const [open, setOpen] = useState(false)
 
-  const divClass = () => {
-    return open ? 'navbar-menu is-active' : 'navbar-menu'
-  }
+  const divClass = () => open ? 'navbar-menu is-active' : 'navbar-menu'
 
   return state.state === 'SIGNED_IN' ? (
     <nav className="navbar is-dark" role="navigation" aria-label="dropdown navigation">

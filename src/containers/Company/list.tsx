@@ -16,9 +16,7 @@ export const Companies = () => {
     search,
   })
 
-  const tableData = (): CompanyList[] => {
-    return paginationData()
-  }
+  const tableData = (): CompanyList[] => paginationData()
 
   const Body = () => (
     <>

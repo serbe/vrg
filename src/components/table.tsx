@@ -169,12 +169,10 @@ export const Data = ({ data, search }: DataProperties) => {
     }
   }, [search, data])
 
-  const paginationData = (): TableData => {
-    return filteredData.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
-  }
+  const paginationData = (): TableData => filteredData.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
 
   return {
-    paginationData: paginationData,
+    paginationData,
     Paginate: (
       <Paginate
         currentPage={currentPage}

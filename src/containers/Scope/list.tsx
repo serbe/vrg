@@ -15,9 +15,7 @@ export const Scopes = () => {
     search,
   })
 
-  const tableData = (): ScopeList[] => {
-    return paginationData()
-  }
+  const tableData = (): ScopeList[] => paginationData()
 
   const Body = () => (
     <>

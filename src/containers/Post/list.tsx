@@ -15,9 +15,7 @@ export const Posts = () => {
     search,
   })
 
-  const tableData = (): PostList[] => {
-    return paginationData()
-  }
+  const tableData = (): PostList[] => paginationData()
 
   const Body = () => (
     <>

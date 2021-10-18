@@ -51,8 +51,7 @@ export const FormField = ({
   hover,
   focus,
   load,
-}: FormFieldProperties) => {
-  return (
+}: FormFieldProperties) => (
     <div className="field">
       {label && (
         <label className="label" htmlFor={name}>
@@ -84,7 +83,6 @@ export const FormField = ({
       />
     </div>
   )
-}
 
 FormField.defaultProps = {
   type: 'text',
