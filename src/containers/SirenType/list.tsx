@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { Bar, Data } from '../../components/table';
@@ -8,7 +8,7 @@ import { GetList } from '../../services/fetcher';
 /* eslint-disable camelcase */
 export const SirenTypes = () => {
   const history = useHistory()
-  const data = GetList('SirenTypeList')
+  const [data] = GetList('SirenTypeList')
   const [search, setSearch] = useState('')
 
   const { paginationData, Paginate } = Data({
@@ -16,23 +16,24 @@ export const SirenTypes = () => {
     search,
   })
 
-  const tableData = (): SirenTypeList[] => paginationData()
-
-  const Body = () => (
-    <>
-      {tableData().map(siren_type => (
-        <tr
-          key={`tr${siren_type.id}`}
-          onClick={(): void => history.push(`/sirentypes/${siren_type.id}`)}
-          role="gridcell"
-          className="link"
-        >
-          <td>{siren_type.name}</td>
-          <td>{siren_type.radius}</td>
-        </tr>
-      ))}
-    </>
-  )
+  const Body = useCallback(() => {
+    const tableData = (): SirenTypeList[] => paginationData()
+    return (
+      <>
+        {tableData().map(siren_type => (
+          <tr
+            key={`tr${siren_type.id}`}
+            onClick={(): void => history.push(`/sirentypes/${siren_type.id}`)}
+            role="gridcell"
+            className="link"
+          >
+            <td>{siren_type.name}</td>
+            <td>{siren_type.radius}</td>
+          </tr>
+        ))}
+      </>
+    )
+  }, [history, paginationData])
 
   return (
     <>
@@ -50,3 +51,5 @@ export const SirenTypes = () => {
     </>
   )
 }
+
+export default SirenTypes

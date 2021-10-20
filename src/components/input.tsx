@@ -4,21 +4,6 @@ import { ChangeEvent, KeyboardEvent, MouseEvent } from 'react';
 import { AdditionalColors, InputTypes, Sizes } from '../models/variables';
 import { Icon } from './icon';
 
-export interface StringInputProperties {
-  value?: string
-  setter: (value?: string) => void
-}
-
-export interface NumberInputProperties {
-  value?: number
-  setter: (value?: number) => void
-}
-
-export interface BooleanInputProperties {
-  value: boolean
-  setter: (value: boolean) => void
-}
-
 interface InputProperties {
   autocomplete?: string
   className?: string
@@ -110,3 +95,5 @@ export const Input = ({
 Input.defaultProps = {
   type: 'text',
 }
+
+export default Input

@@ -1,12 +1,13 @@
-import { ChangeEvent, SetStateAction } from 'react';
+import { ChangeEvent, SetStateAction, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { Button } from '../components/button';
 import { FormField } from '../components/formfield';
-import { Input, StringInputProperties } from '../components/input';
-import { Select, SelectValues } from '../components/select';
+import { Input } from '../components/input';
+import { Select } from '../components/select';
 import { useAuthState } from '../services/auth';
 import { addEmptyString, prettyPhone } from '../services/utils';
+import { SelectValues, StringInputProperties } from './variables';
 
 export interface ParameterTypes {
   id: string
@@ -24,15 +25,13 @@ export type PhoneValues = {
 
 export const EmailInputs = ({ emails, setter }: EmailValues) => (
   <div className="field">
-    <label className="label" htmlFor="email-1-input">
-      Электронный адрес
-    </label>
+    <label className="label">Электронный адрес</label>
     {emails.map((email, index) => (
       <Input
-        name={`email-${index}-input`}
+        name={`email-${email}-input`}
         type="email"
         icon="envelope"
-        key={`email-${index}`}
+        key={`email-${email}`}
         value={email}
         placeholder="Электронный адрес"
         onBlur={(event): void => {
@@ -50,15 +49,13 @@ export const EmailInputs = ({ emails, setter }: EmailValues) => (
 
 export const PhoneInputs = ({ phones, setter }: PhoneValues) => (
   <div className="field">
-    <label className="label" htmlFor="phone-1-input">
-      Телефон
-    </label>
+    <label className="label">Телефон</label>
     {phones.map((phone, index) => (
       <Input
-        name={`phone-${index}-input`}
+        name={`phone-${phone}-input`}
         type="tel"
         icon="phone"
-        key={`phone-${index}`}
+        key={`phone-${phone}`}
         value={prettyPhone(phone)}
         placeholder="Телефон"
         onBlur={(event): void => {
@@ -76,15 +73,13 @@ export const PhoneInputs = ({ phones, setter }: PhoneValues) => (
 
 export const FaxInputs = ({ phones, setter }: PhoneValues) => (
   <div className="field">
-    <label className="label" htmlFor="fax-1-input">
-      Факс
-    </label>
+    <label className="label">Факс</label>
     {phones.map((fax, index) => (
       <Input
-        name={`fax-${index}-input`}
+        name={`fax-${fax}-input`}
         type="tel"
         icon="fax"
-        key={`fax-${index}`}
+        key={`fax-${fax}`}
         value={prettyPhone(fax)}
         placeholder="Факс"
         onBlur={(event): void => {
@@ -138,40 +133,49 @@ export const ItemFormButtons = ({ del, send }: FormButtonsValues) => {
   const history = useHistory()
   const { state } = useAuthState()
 
-  const SaveButton = () =>
-    state.state === 'SIGNED_IN' && state.currentUser.role > 4 ? (
-      <div className="control">
-        <Button color="info" onClick={() => send()}>
-          Сохранить
-        </Button>
-      </div>
-    ) : (
-      <></>
-    )
-
-  const BackButton = () => (
-    <div className="control">
-      <Button onClick={() => history.go(-1)}>Закрыть</Button>
-    </div>
+  const SaveButton = useCallback(
+    () =>
+      state.state === 'SIGNED_IN' && state.currentUser.role > 4 ? (
+        <div className="control">
+          <Button color="info" onClick={() => send()}>
+            Сохранить
+          </Button>
+        </div>
+      ) : (
+        <></>
+      ),
+    [send, state],
   )
 
-  const DeleteButton = () =>
-    state.state === 'SIGNED_IN' && state.currentUser.role > 8 ? (
-      <div className="control mla">
-        <Button
-          color="danger"
-          onClick={() => {
-            if (window.confirm('Вы действительно хотите удалить запись?')) {
-              del()
-            }
-          }}
-        >
-          Удалить
-        </Button>
+  const BackButton = useCallback(
+    () => (
+      <div className="control">
+        <Button onClick={() => history.go(-1)}>Закрыть</Button>
       </div>
-    ) : (
-      <></>
-    )
+    ),
+    [history],
+  )
+
+  const DeleteButton = useCallback(
+    () =>
+      state.state === 'SIGNED_IN' && state.currentUser.role > 8 ? (
+        <div className="control mla">
+          <Button
+            color="danger"
+            onClick={() => {
+              if (window.confirm('Вы действительно хотите удалить запись?')) {
+                del()
+              }
+            }}
+          >
+            Удалить
+          </Button>
+        </div>
+      ) : (
+        <></>
+      ),
+    [del, state],
+  )
 
   return (
     <div className="field is-grouped">

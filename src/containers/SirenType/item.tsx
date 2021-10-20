@@ -11,7 +11,7 @@ export const SirenTypeItem = () => {
   const [name, setName] = useState<string>()
   const [radius, setRadius] = useState<number>()
   const [note, setNote] = useState<string>()
-  const item = GetItem('SirenType', id)
+  const [item] = GetItem('SirenType', id)
   const [status, setStatus] = useState(false)
 
   const send = (): void => {
@@ -60,3 +60,5 @@ export const SirenTypeItem = () => {
     </div>
   )
 }
+
+export default SirenTypeItem

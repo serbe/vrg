@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { Bar, Data } from '../../components/table';
@@ -7,7 +7,7 @@ import { GetList } from '../../services/fetcher';
 
 export const Certificates = () => {
   const history = useHistory()
-  const data = GetList('CertificateList')
+  const [data] = GetList('CertificateList')
   const [search, setSearch] = useState('')
 
   const { paginationData, Paginate } = Data({
@@ -15,38 +15,39 @@ export const Certificates = () => {
     search,
   })
 
-  const tableData = (): CertificateList[] => paginationData()
-
-  const Body = () => (
-    <>
-      {tableData().map(certificate => (
-        <tr key={`tr${certificate.id}`}>
-          <td
-            onClick={(): void => history.push(`/certificates/${certificate.id}`)}
-            role="gridcell"
-            className="link nowrap"
-          >
-            {certificate.num}
-          </td>
-          <td
-            onClick={(): void => history.push(`/contacts/${certificate.contact_id || 0}`)}
-            role="gridcell"
-            className="link"
-          >
-            {certificate.contact_name}
-          </td>
-          <td
-            onClick={(): void => history.push(`/companies/${certificate.company_id || 0}`)}
-            role="gridcell"
-            className="is-hidden-mobile link"
-          >
-            {certificate.company_name}
-          </td>
-          <td className="nowrap">{certificate.cert_date}</td>
-        </tr>
-      ))}
-    </>
-  )
+  const Body = useCallback(() => {
+    const tableData = (): CertificateList[] => paginationData()
+    return (
+      <>
+        {tableData().map(certificate => (
+          <tr key={`tr${certificate.id}`}>
+            <td
+              onClick={(): void => history.push(`/certificates/${certificate.id}`)}
+              role="gridcell"
+              className="link nowrap"
+            >
+              {certificate.num}
+            </td>
+            <td
+              onClick={(): void => history.push(`/contacts/${certificate.contact_id || 0}`)}
+              role="gridcell"
+              className="link"
+            >
+              {certificate.contact_name}
+            </td>
+            <td
+              onClick={(): void => history.push(`/companies/${certificate.company_id || 0}`)}
+              role="gridcell"
+              className="is-hidden-mobile link"
+            >
+              {certificate.company_name}
+            </td>
+            <td className="nowrap">{certificate.cert_date}</td>
+          </tr>
+        ))}
+      </>
+    )
+  }, [history, paginationData])
 
   return (
     <>
@@ -66,3 +67,5 @@ export const Certificates = () => {
     </>
   )
 }
+
+export default Certificates

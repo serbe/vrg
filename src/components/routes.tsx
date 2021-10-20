@@ -56,3 +56,5 @@ export const Router = () => {
     </Suspense>
   )
 }
+
+export default Router

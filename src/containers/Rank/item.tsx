@@ -10,7 +10,7 @@ export const RankItem = () => {
   const { id } = useParams<ParameterTypes>()
   const [name, setName] = useState<string>()
   const [note, setNote] = useState<string>()
-  const item = GetItem('Rank', id)
+  const [item] = GetItem('Rank', id)
   const [status, setStatus] = useState(false)
 
   const send = (): void => {
@@ -56,3 +56,5 @@ export const RankItem = () => {
     </div>
   )
 }
+
+export default RankItem

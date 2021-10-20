@@ -15,7 +15,7 @@ export const PracticeItem = () => {
   const [topic, setTopic] = useState<string>()
   const [date, setDate] = useState<string>()
   const [note, setNote] = useState<string>()
-  const item = GetItem('Practice', id)
+  const [item] = GetItem('Practice', id)
   const [status, setStatus] = useState(false)
 
   const send = (): void => {
@@ -70,3 +70,5 @@ export const PracticeItem = () => {
     </div>
   )
 }
+
+export default PracticeItem

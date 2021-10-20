@@ -19,7 +19,7 @@ export const EducationItem = () => {
   const [endDate, setEndDate] = useState<string>()
   const [postID, setPostID] = useState<number>()
   const [note, setNote] = useState<string>()
-  const item = GetItem('Education', id)
+  const [item] = GetItem('Education', id)
   const [status, setStatus] = useState(false)
 
   const send = (): void => {
@@ -82,3 +82,5 @@ export const EducationItem = () => {
     </div>
   )
 }
+
+export default EducationItem

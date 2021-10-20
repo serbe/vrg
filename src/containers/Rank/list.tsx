@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { Bar, Data } from '../../components/table';
@@ -7,7 +7,7 @@ import { GetList } from '../../services/fetcher';
 
 export const Ranks = () => {
   const history = useHistory()
-  const data = GetList('RankList')
+  const [data] = GetList('RankList')
   const [search, setSearch] = useState('')
 
   const { paginationData, Paginate } = Data({
@@ -15,22 +15,23 @@ export const Ranks = () => {
     search,
   })
 
-  const tableData = (): RankList[] => paginationData()
-
-  const Body = () => (
-    <>
-      {tableData().map(rank => (
-        <tr
-          key={`tr${rank.id}`}
-          onClick={(): void => history.push(`/ranks/${rank.id}`)}
-          role="gridcell"
-          className="link"
-        >
-          <td className="w250">{rank.name}</td>
-        </tr>
-      ))}
-    </>
-  )
+  const Body = useCallback(() => {
+    const tableData = (): RankList[] => paginationData()
+    return (
+      <>
+        {tableData().map(rank => (
+          <tr
+            key={`tr${rank.id}`}
+            onClick={(): void => history.push(`/ranks/${rank.id}`)}
+            role="gridcell"
+            className="link"
+          >
+            <td className="w250">{rank.name}</td>
+          </tr>
+        ))}
+      </>
+    )
+  }, [history, paginationData])
 
   return (
     <>
@@ -47,3 +48,5 @@ export const Ranks = () => {
     </>
   )
 }
+
+export default Ranks

@@ -19,7 +19,7 @@ export const CertificateItem = () => {
   const [companyID, setCompanyID] = useState<number>()
   const [certDate, setCertDate] = useState<string>()
   const [note, setNote] = useState<string>()
-  const item = GetItem('Certificate', id)
+  const [item] = GetItem('Certificate', id)
   const [status, setStatus] = useState(false)
 
   const send = (): void => {
@@ -74,3 +74,4 @@ export const CertificateItem = () => {
     </div>
   )
 }
+export default CertificateItem

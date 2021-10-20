@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-export interface IconProperties {
+interface IconProperties {
   children?: Element
   className?: string
   color?: 'info' | 'success' | 'warning' | 'danger'
@@ -21,3 +21,5 @@ export const Icon = ({ children, className, color, position, icon }: IconPropert
     </span>
   )
 }
+
+export default Icon

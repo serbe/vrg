@@ -1,10 +1,5 @@
 import { useEffect, useState } from 'react';
 
-export interface DatePickerValues {
-  value?: string
-  setter: (value?: string) => void
-}
-
 interface DatePickerProperties {
   label?: string
   name: string
@@ -145,3 +140,5 @@ export const DatePicker = ({ name, value, setter, label }: DatePickerProperties)
     </div>
   )
 }
+
+export default DatePicker

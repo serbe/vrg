@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useReducer } from 'react';
+import { ChangeEvent, useCallback, useEffect, useReducer } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { useAuthState } from '../services/auth';
@@ -13,14 +13,14 @@ export type SData = {
   id: number
 }
 
-export type PaginateProperties = {
+type PaginateProperties = {
   currentPage: number
   filteredDataLength: number
   itemsPerPage: number
   setter: (value: number) => void
 }
 
-export type DataProperties = {
+type DataProperties = {
   data: List[]
   search: string
 }
@@ -169,7 +169,8 @@ export const Data = ({ data, search }: DataProperties) => {
     }
   }, [search, data])
 
-  const paginationData = (): TableData => filteredData.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
+  const paginationData = (): TableData =>
+    filteredData.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
 
   return {
     paginationData,
@@ -188,14 +189,17 @@ export const Bar = ({ name, setter, value }: BarProperties) => {
   const { state } = useAuthState()
   const history = useHistory()
 
-  const CreateButton = () =>
-    state.state === 'SIGNED_IN' && state.currentUser.role > 2 ? (
-      <div className="control mb-4" key="TableNewItem">
-        <Button onClick={() => history.push(`/${name}/0`)}>Создать</Button>
-      </div>
-    ) : (
-      <></>
-    )
+  const CreateButton = useCallback(
+    () =>
+      state.state === 'SIGNED_IN' && state.currentUser.role > 2 ? (
+        <div className="control mb-4" key="TableNewItem">
+          <Button onClick={() => history.push(`/${name}/0`)}>Создать</Button>
+        </div>
+      ) : (
+        <></>
+      ),
+    [],
+  )
 
   return (
     <div className="field is-grouped">

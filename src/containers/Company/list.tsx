@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { Bar, Data } from '../../components/table';
@@ -8,7 +8,7 @@ import { splitNumbers, splitStrings } from '../../services/utils';
 
 export const Companies = () => {
   const history = useHistory()
-  const data = GetList('CompanyList')
+  const [data] = GetList('CompanyList')
   const [search, setSearch] = useState('')
 
   const { paginationData, Paginate } = Data({
@@ -16,24 +16,25 @@ export const Companies = () => {
     search,
   })
 
-  const tableData = (): CompanyList[] => paginationData()
-
-  const Body = () => (
-    <>
-      {tableData().map(company => (
-        <tr key={`tr${company.id}`}>
-          <td onClick={(): void => history.push(`/companies/${company.id}`)} role="gridcell" className="w250 link">
-            {company.name}
-          </td>
-          <td className="is-hidden-touch w250">{company.address}</td>
-          <td className="is-hidden-mobile w250">{company.scope_name}</td>
-          <td className="w95">{splitNumbers(company.phones)}</td>
-          <td className="is-hidden-touch w95">{splitNumbers(company.faxes)}</td>
-          <td className="is-hidden-touch is-hidden-desktop-only w95">{splitStrings(company.practices)}</td>
-        </tr>
-      ))}
-    </>
-  )
+  const Body = useCallback(() => {
+    const tableData = (): CompanyList[] => paginationData()
+    return (
+      <>
+        {tableData().map(company => (
+          <tr key={`tr${company.id}`}>
+            <td onClick={(): void => history.push(`/companies/${company.id}`)} role="gridcell" className="w250 link">
+              {company.name}
+            </td>
+            <td className="is-hidden-touch w250">{company.address}</td>
+            <td className="is-hidden-mobile w250">{company.scope_name}</td>
+            <td className="w95">{splitNumbers(company.phones)}</td>
+            <td className="is-hidden-touch w95">{splitNumbers(company.faxes)}</td>
+            <td className="is-hidden-touch is-hidden-desktop-only w95">{splitStrings(company.practices)}</td>
+          </tr>
+        ))}
+      </>
+    )
+  }, [history, paginationData])
 
   return (
     <>
@@ -55,3 +56,5 @@ export const Companies = () => {
     </>
   )
 }
+
+export default Companies

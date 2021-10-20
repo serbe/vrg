@@ -11,7 +11,7 @@ export const KindItem = () => {
   const [name, setName] = useState<string>()
   const [shortName, setShortName] = useState<string>()
   const [note, setNote] = useState<string>()
-  const item = GetItem('Kind', id)
+  const [item] = GetItem('Kind', id)
   const [status, setStatus] = useState(false)
 
   const send = (): void => {
@@ -60,3 +60,5 @@ export const KindItem = () => {
     </div>
   )
 }
+
+export default KindItem

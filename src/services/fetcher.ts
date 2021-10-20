@@ -12,14 +12,12 @@ import { Rank, RankEmpty, RankList } from '../models/rank';
 import { Scope, ScopeEmpty, ScopeList } from '../models/scope';
 import { Siren, SirenEmpty, SirenList } from '../models/siren';
 import { SirenType, SirenTypeEmpty, SirenTypeList } from '../models/sirentype';
-import { User } from '../models/user';
 import { useToken } from './auth';
 
 const URL = (import.meta.env.VITE_APP_JSONURL as string) || '/go/json'
 const loginURL = (import.meta.env.VITE_APP_LOGINURL as string) || '/go/login'
-const checkURL = (import.meta.env.VITE_APP_CHECKURL as string) || '/go/check'
 
-export type SelectItem = {
+type SelectItem = {
   id: number
   name: string
 }
@@ -322,11 +320,8 @@ type LoginResponse = {
   r: number
 }
 
-type CheckResponse = {
-  r: boolean
-}
-
-export const getItem = (name: string, id: string, token: string): Promise<GetItemResponse> => fetch(URL, {
+export const getItem = (name: string, id: string, token: string): Promise<GetItemResponse> =>
+  fetch(URL, {
     method: 'POST',
     mode: 'cors',
     headers: {
@@ -337,7 +332,8 @@ export const getItem = (name: string, id: string, token: string): Promise<GetIte
     .then(response => response.json())
     .then(response => response as GetItemResponse)
 
-export const getList = (name: string, token: string): Promise<GetListResponse> => fetch(URL, {
+export const getList = (name: string, token: string): Promise<GetListResponse> =>
+  fetch(URL, {
     method: 'POST',
     mode: 'cors',
     headers: {
@@ -348,7 +344,8 @@ export const getList = (name: string, token: string): Promise<GetListResponse> =
     .then(response => response.json())
     .then(response => response as GetListResponse)
 
-export const setItem = (id: number, name: string, item: Item, token: string): Promise<ModifyItemResponse> => fetch(URL, {
+export const setItem = (id: number, name: string, item: Item, token: string): Promise<ModifyItemResponse> =>
+  fetch(URL, {
     method: 'POST',
     mode: 'cors',
     headers: {
@@ -361,7 +358,8 @@ export const setItem = (id: number, name: string, item: Item, token: string): Pr
     .then(response => response.json())
     .then(response => response as ModifyItemResponse)
 
-export const delItem = (id: number, name: string, token: string): Promise<ModifyItemResponse> => fetch(URL, {
+export const delItem = (id: number, name: string, token: string): Promise<ModifyItemResponse> =>
+  fetch(URL, {
     method: 'POST',
     mode: 'cors',
     headers: {
@@ -372,7 +370,8 @@ export const delItem = (id: number, name: string, token: string): Promise<Modify
     .then(response => response.json())
     .then(response => response as ModifyItemResponse)
 
-export const postLogin = (name: string, pass: string): Promise<LoginResponse> => fetch(loginURL, {
+export const postLogin = (name: string, pass: string): Promise<LoginResponse> =>
+  fetch(loginURL, {
     method: 'POST',
     mode: 'cors',
     headers: {
@@ -383,21 +382,10 @@ export const postLogin = (name: string, pass: string): Promise<LoginResponse> =>
     .then(response => response.json())
     .then(response => response as LoginResponse)
 
-export const postCheck = (user: User): Promise<User> => fetch(checkURL, {
-    method: 'POST',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ t: user.token, r: user.role }),
-  })
-    .then(response => response.json())
-    .then(response => (response as CheckResponse).r)
-    .then(() => user)
-
-export const GetItem = (name: string, id: string): Item => {
+export const GetItem = (name: string, id: string): [Item, string] => {
   const { token } = useToken()
   const [data, setData] = useState<Item>()
+  const [error, setError] = useState<string>('')
 
   useEffect(() => {
     const NumberID = Number(id)
@@ -442,14 +430,13 @@ export const GetItem = (name: string, id: string): Item => {
               case 'SirenType':
                 setData(response.object.SirenType)
                 break
-              // default:
-              //   throw new Error('unknown item');
+              default:
+                break
             }
           }
-          // throw new Error('unknown item');
           return true
         })
-        .catch(e => console.log(e))
+        .catch(() => setError(`unknown list ${name}`))
     } else {
       switch (name) {
         case 'Certificate':
@@ -488,17 +475,18 @@ export const GetItem = (name: string, id: string): Item => {
         case 'SirenType':
           setData(SirenTypeEmpty)
           break
-        // default:
-        //   throw new Error('unknown item');
+        default:
+          break
       }
     }
   }, [id, name])
-  return data
+  return [data, error]
 }
 
-export const GetList = (name: string): List[] => {
+export const GetList = (name: string): [List[], string] => {
   const { token } = useToken()
   const [list, setList] = useState<List[]>([])
+  const [error, setError] = useState<string>('')
 
   useEffect(() => {
     getList(name, token)
@@ -547,14 +535,16 @@ export const GetList = (name: string): List[] => {
             case 'SirenTypeList':
               setList(response.object.SirenTypeList)
               break
+            default:
+              break
           }
         }
         return true
       })
-      .catch(e => console.log(e))
+      .catch(() => setError(`unknown list ${name}`))
   }, [name])
 
-  return list
+  return [list, error]
 }
 
 export const GetSelect = (name: string): [SelectItem[], string] => {
@@ -566,61 +556,45 @@ export const GetSelect = (name: string): [SelectItem[], string] => {
     getList(name, token)
       .then(response => {
         if (response && response.command === 'GetList') {
+          const item =
+            'SelectItem' in response.object && response.object.SelectItem.length > 0
+              ? response.object.SelectItem
+              : [{ id: 0, name: '' }]
           switch (response.name) {
             case 'CompanySelect':
-              response.object.SelectItem.length > 0
-                ? setSelect(response.object.SelectItem)
-                : setSelect([{ id: 0, name: '' }])
+              setSelect(item)
               break
             case 'ContactSelect':
-              response.object.SelectItem.length > 0
-                ? setSelect(response.object.SelectItem)
-                : setSelect([{ id: 0, name: '' }])
+              setSelect(item)
               break
             case 'DepartmentSelect':
-              response.object.SelectItem.length > 0
-                ? setSelect(response.object.SelectItem)
-                : setSelect([{ id: 0, name: '' }])
+              setSelect(item)
               break
             case 'KindSelect':
-              response.object.SelectItem.length > 0
-                ? setSelect(response.object.SelectItem)
-                : setSelect([{ id: 0, name: '' }])
+              setSelect(item)
               break
             case 'PostSelect':
-              response.object.SelectItem.length > 0
-                ? setSelect(response.object.SelectItem)
-                : setSelect([{ id: 0, name: '' }])
+              setSelect(item)
               break
             case 'PostGoSelect':
-              response.object.SelectItem.length > 0
-                ? setSelect(response.object.SelectItem)
-                : setSelect([{ id: 0, name: '' }])
+              setSelect(item)
               break
             case 'RankSelect':
-              response.object.SelectItem.length > 0
-                ? setSelect(response.object.SelectItem)
-                : setSelect([{ id: 0, name: '' }])
+              setSelect(item)
               break
             case 'ScopeSelect':
-              response.object.SelectItem.length > 0
-                ? setSelect(response.object.SelectItem)
-                : setSelect([{ id: 0, name: '' }])
+              setSelect(item)
               break
             case 'SirenTypeSelect':
-              response.object.SelectItem.length > 0
-                ? setSelect(response.object.SelectItem)
-                : setSelect([{ id: 0, name: '' }])
+              setSelect(item)
               break
-            // default:
-            //   throw new Error('unknown select');
+            default:
+              break
           }
-          // } else {
-          //   throw new Error('unknown select');
         }
         return true
       })
-      .catch(() => setError('unknown select'))
+      .catch(() => setError(`unknown select ${name}`))
   }, [name])
 
   return [list, error]

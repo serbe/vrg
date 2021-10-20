@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { Bar, Data } from '../../components/table';
@@ -7,7 +7,7 @@ import { GetList } from '../../services/fetcher';
 
 export const Scopes = () => {
   const history = useHistory()
-  const data = GetList('ScopeList')
+  const [data] = GetList('ScopeList')
   const [search, setSearch] = useState('')
 
   const { paginationData, Paginate } = Data({
@@ -15,22 +15,23 @@ export const Scopes = () => {
     search,
   })
 
-  const tableData = (): ScopeList[] => paginationData()
-
-  const Body = () => (
-    <>
-      {tableData().map(scope => (
-        <tr
-          key={`tr${scope.id}`}
-          onClick={(): void => history.push(`/scopes/${scope.id}`)}
-          role="gridcell"
-          className="link"
-        >
-          <td className="w250">{scope.name}</td>
-        </tr>
-      ))}
-    </>
-  )
+  const Body = useCallback(() => {
+    const tableData = (): ScopeList[] => paginationData()
+    return (
+      <>
+        {tableData().map(scope => (
+          <tr
+            key={`tr${scope.id}`}
+            onClick={(): void => history.push(`/scopes/${scope.id}`)}
+            role="gridcell"
+            className="link"
+          >
+            <td className="w250">{scope.name}</td>
+          </tr>
+        ))}
+      </>
+    )
+  }, [history, paginationData])
 
   return (
     <>
@@ -47,3 +48,5 @@ export const Scopes = () => {
     </>
   )
 }
+
+export default Scopes

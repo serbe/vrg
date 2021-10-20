@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { Bar, Data } from '../../components/table';
@@ -8,7 +8,7 @@ import { splitNumbers } from '../../services/utils';
 
 export const Sirens = () => {
   const history = useHistory()
-  const data = GetList('SirenList')
+  const [data] = GetList('SirenList')
   const [search, setSearch] = useState('')
 
   const { paginationData, Paginate } = Data({
@@ -16,25 +16,26 @@ export const Sirens = () => {
     search,
   })
 
-  const tableData = (): SirenList[] => paginationData()
-
-  const Body = () => (
-    <>
-      {tableData().map(siren => (
-        <tr
-          key={`tr${siren.id}`}
-          onClick={(): void => history.push(`/sirens/${siren.id}`)}
-          role="gridcell"
-          className="link"
-        >
-          <td className="w250">{siren.siren_type_name}</td>
-          <td className="is-hidden-mobile">{siren.address}</td>
-          <td className="is-hidden-touch w250">{siren.contact_name}</td>
-          <td className="w95 nowrap">{splitNumbers(siren.phones)}</td>
-        </tr>
-      ))}
-    </>
-  )
+  const Body = useCallback(() => {
+    const tableData = (): SirenList[] => paginationData()
+    return (
+      <>
+        {tableData().map(siren => (
+          <tr
+            key={`tr${siren.id}`}
+            onClick={(): void => history.push(`/sirens/${siren.id}`)}
+            role="gridcell"
+            className="link"
+          >
+            <td className="w250">{siren.siren_type_name}</td>
+            <td className="is-hidden-mobile">{siren.address}</td>
+            <td className="is-hidden-touch w250">{siren.contact_name}</td>
+            <td className="w95 nowrap">{splitNumbers(siren.phones)}</td>
+          </tr>
+        ))}
+      </>
+    )
+  }, [history, paginationData])
 
   return (
     <>
@@ -54,3 +55,5 @@ export const Sirens = () => {
     </>
   )
 }
+
+export default Sirens

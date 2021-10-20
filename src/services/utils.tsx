@@ -2,7 +2,8 @@ import { RefObject, useEffect } from 'react';
 
 export const filterArrayString = (values: string[]): string[] => values.filter((value: string) => value !== '')
 
-export const filterArrayNumber = (values: string[]): number[] => values.map((value: string) => Number(value)).filter((value: number) => value !== 0)
+export const filterArrayNumber = (values: string[]): number[] =>
+  values.map((value: string) => Number(value)).filter((value: number) => value !== 0)
 
 export const latrus = (str: string): string => {
   const lat = '`qwertyuiop[]asdfghjkl;\'zxcvbnm,.~QWERTYUIOP{}ASDFGHJKL:"ZXCVBNM<>'
@@ -45,7 +46,7 @@ export const numberToString = (values?: number[]): string[] => {
 }
 
 export const splitStrings = (items?: string[]) => (
-  <>{items && items.map((arrayItem: string, index: number) => <div key={`div${index}`}>{arrayItem}</div>)}</>
+  <>{items && items.map((arrayItem: string) => <div key={`div${arrayItem}`}>{arrayItem}</div>)}</>
 )
 
 export const prettyPhone = (phone: string): string => {
@@ -71,9 +72,7 @@ export const prettyPhone = (phone: string): string => {
 export const splitNumbers = (items?: number[]) => (
   <>
     {items &&
-      items.map((arrayItem: number, index: number) => (
-        <div key={`div${index}`}>{prettyPhone(arrayItem.toString(10))}</div>
-      ))}
+      items.map((arrayItem: number) => <div key={`div${arrayItem}`}>{prettyPhone(arrayItem.toString(10))}</div>)}
   </>
 )
 

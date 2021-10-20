@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { Bar, Data } from '../../components/table';
@@ -7,7 +7,7 @@ import { GetList } from '../../services/fetcher';
 
 export const Practices = () => {
   const history = useHistory()
-  const data = GetList('PracticeList')
+  const [data] = GetList('PracticeList')
   const [search, setSearch] = useState('')
 
   const { paginationData, Paginate } = Data({
@@ -15,24 +15,25 @@ export const Practices = () => {
     search,
   })
 
-  const tableData = (): PracticeList[] => paginationData()
-
-  const Body = () => (
-    <>
-      {tableData().map(practice => (
-        <tr
-          key={`tr${practice.id}`}
-          onClick={(): void => history.push(`/practices/${practice.id}`)}
-          role="gridcell"
-          className="link"
-        >
-          <td className="nowrap">{practice.date_str}</td>
-          <td className="w250">{practice.kind_name}</td>
-          <td className="w250 is-hidden-mobile">{practice.company_name}</td>
-        </tr>
-      ))}
-    </>
-  )
+  const Body = useCallback(() => {
+    const tableData = (): PracticeList[] => paginationData()
+    return (
+      <>
+        {tableData().map(practice => (
+          <tr
+            key={`tr${practice.id}`}
+            onClick={(): void => history.push(`/practices/${practice.id}`)}
+            role="gridcell"
+            className="link"
+          >
+            <td className="nowrap">{practice.date_str}</td>
+            <td className="w250">{practice.kind_name}</td>
+            <td className="w250 is-hidden-mobile">{practice.company_name}</td>
+          </tr>
+        ))}
+      </>
+    )
+  }, [history, paginationData])
 
   return (
     <>
@@ -51,3 +52,5 @@ export const Practices = () => {
     </>
   )
 }
+
+export default Practices

@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, KeyboardEvent, useState } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
 import { Button } from '../../components/button';
 import { FormField } from '../../components/formfield';
@@ -11,6 +11,7 @@ export const Login = () => {
   const { signIn } = useSign()
   const [name, setName] = useState('')
   const [pass, setPass] = useState('')
+  const [error, setError] = useState('')
 
   const submit = (): void => {
     postLogin(name, pass)
@@ -18,7 +19,7 @@ export const Login = () => {
         signIn({ name, role: response.r, token: response.t })
         return history.push('/')
       })
-      .catch(() => console.log('error'))
+      .catch(() => setError(`error`))
   }
 
   const submitHandler = (event: FormEvent<HTMLFormElement>) => {
@@ -59,6 +60,7 @@ export const Login = () => {
               <Button onClick={() => submit()}>Отправить</Button>
             </div>
           </div>
+          <div>{error}</div>
         </div>
       </form>
     </div>

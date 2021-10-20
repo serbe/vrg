@@ -1,8 +1,26 @@
 import { createContext, ReactNode, useContext, useMemo, useReducer } from 'react';
 
 import { User } from '../models/user';
-import { postCheck } from './fetcher';
 import { clearStorage, getStorage, setStorage } from './storage';
+
+const checkURL = (import.meta.env.VITE_APP_CHECKURL as string) || '/go/check'
+
+type CheckResponse = {
+  r: boolean
+}
+
+export const postCheck = (user: User): Promise<User> =>
+  fetch(checkURL, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ t: user.token, r: user.role }),
+  })
+    .then(response => response.json())
+    .then(response => (response as CheckResponse).r)
+    .then(() => user)
 
 type AuthState =
   | {
@@ -29,8 +47,14 @@ const AuthReducer = (state: AuthState, action: AuthActions): AuthState => {
       return {
         state: 'SIGNED_OUT',
       }
+    default:
+      return {
+        state: 'SIGNED_OUT',
+      }
   }
 }
+
+export const AuthContext = createContext<AuthContextProps>({ state: { state: 'UNKNOWN' }, dispatch: () => {} })
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(AuthReducer, { state: 'UNKNOWN' })
@@ -50,8 +74,6 @@ type AuthContextProps = {
   state: AuthState
   dispatch: (value: AuthActions) => void
 }
-
-export const AuthContext = createContext<AuthContextProps>({ state: { state: 'UNKNOWN' }, dispatch: () => {} })
 
 const useAuthState = () => {
   const { state } = useContext(AuthContext)

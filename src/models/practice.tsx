@@ -2,10 +2,11 @@
 import { ChangeEvent } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { DatePicker, DatePickerValues } from '../components/datepicker';
+import { DatePicker } from '../components/datepicker';
 import { FormField } from '../components/formfield';
-import { Input, StringInputProperties } from '../components/input';
+import { Input } from '../components/input';
 import { tinyDate, trClass } from '../services/utils';
+import { DatePickerValues, StringInputProperties } from './variables';
 
 export type Practice = {
   id: number
@@ -49,13 +50,11 @@ export const PracticeListForm = ({ practices }: PracticeValues) => {
   const history = useHistory()
   return practices.length > 0 ? (
     <div className="field" key="practices">
-      <label className="label" htmlFor="practice-1">
-        Тренировки
-      </label>
-      {practices.map((practice, index) => (
+      <label className="label">Тренировки</label>
+      {practices.map(practice => (
         <Input
-          name={`practice-${index}`}
-          key={`practice-${index}`}
+          name={`practice-${practice.id}`}
+          key={`practice-${practice.id}`}
           onClick={(): void => history.push(`/practices/${practice.id}`)}
           value={`${practice.date_str || ''} - ${practice.kind_name || ''} - ${practice.topic || ''}`}
           readonly

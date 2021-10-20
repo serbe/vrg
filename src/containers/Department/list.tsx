@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { Bar, Data } from '../../components/table';
@@ -7,7 +7,7 @@ import { GetList } from '../../services/fetcher';
 
 export const Departments = () => {
   const history = useHistory()
-  const data = GetList('DepartmentList')
+  const [data] = GetList('DepartmentList')
   const [search, setSearch] = useState('')
 
   const { paginationData, Paginate } = Data({
@@ -15,22 +15,23 @@ export const Departments = () => {
     search,
   })
 
-  const tableData = (): DepartmentList[] => paginationData()
-
-  const Body = () => (
-    <>
-      {tableData().map(department => (
-        <tr
-          key={`tr${department.id}`}
-          onClick={(): void => history.push(`/departments/${department.id}`)}
-          role="gridcell"
-          className="link"
-        >
-          <td className="w250">{department.name}</td>
-        </tr>
-      ))}
-    </>
-  )
+  const Body = useCallback(() => {
+    const tableData = (): DepartmentList[] => paginationData()
+    return (
+      <>
+        {tableData().map(department => (
+          <tr
+            key={`tr${department.id}`}
+            onClick={(): void => history.push(`/departments/${department.id}`)}
+            role="gridcell"
+            className="link"
+          >
+            <td className="w250">{department.name}</td>
+          </tr>
+        ))}
+      </>
+    )
+  }, [history, paginationData])
 
   return (
     <>
@@ -47,3 +48,5 @@ export const Departments = () => {
     </>
   )
 }
+
+export default Departments

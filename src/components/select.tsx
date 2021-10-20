@@ -2,12 +2,12 @@ import './select.css';
 
 import { ChangeEvent, useEffect, useState } from 'react';
 
-import { GetSelect, SelectItem } from '../services/fetcher';
+import { GetSelect } from '../services/fetcher';
 import { Icon } from './icon';
 
-export interface SelectValues {
-  id?: number
-  setter: (event?: number) => void
+type SelectItem = {
+  id: number
+  name: string
 }
 
 interface SelectProperties {
@@ -122,3 +122,5 @@ export const Select = ({ name, id, label, icon, color, listName, setter }: Selec
     </div>
   )
 }
+
+export default Select

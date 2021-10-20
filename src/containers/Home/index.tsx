@@ -5,8 +5,8 @@ import { PracticeNearList, PracticeShort } from '../../models/practice';
 import { GetList } from '../../services/fetcher';
 
 export const Home = () => {
-  const educations = GetList('EducationNear') as EducationShort[]
-  const practices = GetList('PracticeNear') as PracticeShort[]
+  const [educations] = GetList('EducationNear') as [EducationShort[], string]
+  const [practices] = GetList('PracticeNear') as [PracticeShort[], string]
 
   return (
     <div className="columns">
@@ -19,3 +19,5 @@ export const Home = () => {
     </div>
   )
 }
+
+export default Home
