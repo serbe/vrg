@@ -1,18 +1,18 @@
-import { RefObject, useEffect } from 'react';
+import { RefObject, useEffect } from 'react'
 
 export const filterArrayString = (values: string[]): string[] => values.filter((value: string) => value !== '')
 
 export const filterArrayNumber = (values: string[]): number[] =>
   values.map((value: string) => Number(value)).filter((value: number) => value !== 0)
 
-export const latrus = (str: string): string => {
+export const latrus = (input: string): string => {
   const lat = '`qwertyuiop[]asdfghjkl;\'zxcvbnm,.~QWERTYUIOP{}ASDFGHJKL:"ZXCVBNM<>'
   const rus = 'ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ'
   let word = ''
-  for (let i = 0, L = str.length; i < L; i += 1) {
-    const letter = str[i]
+  for (let index = 0, L = input.length; index < L; index += 1) {
+    const letter = input[index]
     const pos = lat.indexOf(letter)
-    if (i === 0 && pos === -1) {
+    if (index === 0 && pos === -1) {
       return ''
     }
     word += pos === -1 ? letter : rus[pos]
@@ -52,7 +52,7 @@ export const splitStrings = (items?: string[]) => (
 export const prettyPhone = (phone: string): string => {
   let value = phone
   if (value.length > 0) {
-    value = value.replace(/[^0-9]/g, '')
+    value = value.replace(/\D/g, '')
     if (value.length === 10) {
       value = value.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, '+7-$1-$2-$3-$4')
     }
@@ -82,8 +82,8 @@ export const diffMonth = (month: number, date?: Date): Date => {
   return newDate
 }
 
-export const trClass = (dateStr: string): string => {
-  const date = new Date(dateStr)
+export const trClass = (input: string): string => {
+  const date = new Date(input)
   if (date < new Date()) {
     return 'tr-green'
   }
@@ -103,12 +103,12 @@ export const tinyDate = (date: string): string => {
 
 type AnyEvent = MouseEvent | TouchEvent
 
-export const useOnClickOutside = (ref: RefObject<HTMLElement>, handler: (event: AnyEvent) => void): void => {
+export const useOnClickOutside = (reference: RefObject<HTMLElement>, handler: (event: AnyEvent) => void): void => {
   useEffect(() => {
     const listener = (event: AnyEvent): void => {
-      const el = ref?.current
+      const element = reference?.current
 
-      if (!el || el.contains(event.target as Node)) {
+      if (!element || element.contains(event.target as Node)) {
         return
       }
 
@@ -122,5 +122,5 @@ export const useOnClickOutside = (ref: RefObject<HTMLElement>, handler: (event: 
       document.removeEventListener(`mousedown`, listener)
       document.removeEventListener(`touchstart`, listener)
     }
-  }, [ref, handler])
+  }, [reference, handler])
 }

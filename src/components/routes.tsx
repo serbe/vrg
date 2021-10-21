@@ -1,21 +1,21 @@
-import { Suspense } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Suspense } from 'react'
+import { Route, Switch } from 'react-router-dom'
 
-import { CertificateItem, Certificates } from '../containers/Certificate';
-import { Companies, CompanyItem } from '../containers/Company';
-import { ContactItem, Contacts } from '../containers/Contact';
-import { DepartmentItem, Departments } from '../containers/Department';
-import { EducationItem, Educations } from '../containers/Education';
-import { Home } from '../containers/Home';
-import { KindItem, Kinds } from '../containers/Kind';
-import { Login } from '../containers/Login';
-import { PostItem, Posts } from '../containers/Post';
-import { PracticeItem, Practices } from '../containers/Practice';
-import { RankItem, Ranks } from '../containers/Rank';
-import { ScopeItem, Scopes } from '../containers/Scope';
-import { SirenItem, Sirens } from '../containers/Siren';
-import { SirenTypeItem, SirenTypes } from '../containers/SirenType';
-import { useAuthState } from '../services/auth';
+import { CertificateItem, Certificates } from '../containers/Certificate'
+import { Companies, CompanyItem } from '../containers/Company'
+import { ContactItem, Contacts } from '../containers/Contact'
+import { DepartmentItem, Departments } from '../containers/Department'
+import { EducationItem, Educations } from '../containers/Education'
+import { Home } from '../containers/Home'
+import { KindItem, Kinds } from '../containers/Kind'
+import { Login } from '../containers/Login'
+import { PostItem, Posts } from '../containers/Post'
+import { PracticeItem, Practices } from '../containers/Practice'
+import { RankItem, Ranks } from '../containers/Rank'
+import { ScopeItem, Scopes } from '../containers/Scope'
+import { SirenItem, Sirens } from '../containers/Siren'
+import { SirenTypeItem, SirenTypes } from '../containers/SirenType'
+import { useAuthState } from '../services/auth'
 
 const Loading = () => <p className="p-4 w-full h-full text-center">Loading...</p>
 

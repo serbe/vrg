@@ -1,10 +1,10 @@
-import { useCallback, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useCallback, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
-import { Bar, Data } from '../../components/table';
-import { SirenList } from '../../models/siren';
-import { GetList } from '../../services/fetcher';
-import { splitNumbers } from '../../services/utils';
+import { Bar, Data } from '../../components/table'
+import { SirenList } from '../../models/siren'
+import { GetList } from '../../services/fetcher'
+import { splitNumbers } from '../../services/utils'
 
 export const Sirens = () => {
   const history = useHistory()

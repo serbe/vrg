@@ -1,11 +1,11 @@
 /* eslint-disable camelcase */
-import { ChangeEvent } from 'react';
+import { ChangeEvent } from 'react'
 
-import { FormField } from '../components/formfield';
-import { StringInputProperties } from '../components/input';
-import { Select, SelectValues } from '../components/select';
-import { ContactShort } from './contact';
-import { PracticeList } from './practice';
+import { FormField } from '../components/formfield'
+import { Select } from '../components/select'
+import { ContactShort } from './contact'
+import { PracticeList } from './practice'
+import { SelectValues, StringInputProperties } from './variables'
 
 export type Company = {
   id: number

@@ -1,8 +1,8 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent } from 'react'
 
-import { FormField } from '../components/formfield';
-import { StringInputProperties } from '../components/input';
-import { Select, SelectValues } from '../components/select';
+import { FormField } from '../components/formfield'
+import { Select } from '../components/select'
+import { SelectValues, StringInputProperties } from './variables'
 
 export type Department = {
   id: number

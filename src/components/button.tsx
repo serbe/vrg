@@ -1,7 +1,7 @@
-import clsx from 'clsx';
-import { MouseEvent } from 'react';
+import clsx from 'clsx'
+import { MouseEvent } from 'react'
 
-import { AdditionalColors, BasicColors, Sizes } from '../models/variables';
+import { AdditionalColors, BasicColors, Sizes } from '../models/variables'
 
 interface ButtonProperties {
   children?: string
@@ -50,8 +50,8 @@ export const Button = ({
     'is-active': active,
     'is-loading': load,
     'is-static': isstatic,
-    [`is-${color}`]: color,
-    [`is-${size}`]: size,
+    [`is-${color || 'primary'}`]: color,
+    [`is-${size || 'normal'}`]: size,
   })
 
   return href ? (

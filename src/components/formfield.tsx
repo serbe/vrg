@@ -1,7 +1,7 @@
-import { ChangeEvent, KeyboardEvent, MouseEvent } from 'react';
+import { ChangeEvent, KeyboardEvent, MouseEvent } from 'react'
 
-import { AdditionalColors, InputTypes, Sizes } from '../models/variables';
-import { Input } from './input';
+import { AdditionalColors, InputTypes, Sizes } from '../models/variables'
+import { Input } from './input'
 
 interface FormFieldProperties {
   autocomplete?: string

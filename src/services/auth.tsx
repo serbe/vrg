@@ -1,7 +1,7 @@
-import { createContext, ReactNode, useContext, useMemo, useReducer } from 'react';
+import { createContext, ReactNode, useContext, useMemo, useReducer } from 'react'
 
-import { User } from '../models/user';
-import { clearStorage, getStorage, setStorage } from './storage';
+import { User } from '../models/user'
+import { clearStorage, getStorage, setStorage } from './storage'
 
 const checkURL = (import.meta.env.VITE_APP_CHECKURL as string) || '/go/check'
 
@@ -54,7 +54,7 @@ const AuthReducer = (state: AuthState, action: AuthActions): AuthState => {
   }
 }
 
-export const AuthContext = createContext<AuthContextProps>({ state: { state: 'UNKNOWN' }, dispatch: () => {} })
+export const AuthContext = createContext<AuthContextProperties>({ state: { state: 'UNKNOWN' }, dispatch: () => {} })
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(AuthReducer, { state: 'UNKNOWN' })
@@ -70,7 +70,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
 
-type AuthContextProps = {
+type AuthContextProperties = {
   state: AuthState
   dispatch: (value: AuthActions) => void
 }

@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { useState } from 'react'
+import { NavLink } from 'react-router-dom'
 
-import { User } from '../models/user';
-import { useAuthState, useSign } from '../services/auth';
-import { Button } from './button';
+import { User } from '../models/user'
+import { useAuthState, useSign } from '../services/auth'
+import { Button } from './button'
 
 interface Setter {
   setter: (value: boolean) => void

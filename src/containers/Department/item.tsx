@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react'
+import { useHistory, useParams } from 'react-router-dom'
 
-import { Department, DepartmentNameInput } from '../../models/department';
-import { ItemFormButtons, NoteInput, ParameterTypes } from '../../models/impersonal';
-import { DelItem, GetItem, SetItem } from '../../services/fetcher';
+import { Department, DepartmentNameInput } from '../../models/department'
+import { ItemFormButtons, NoteInput, ParameterTypes } from '../../models/impersonal'
+import { DelItem, GetItem, SetItem } from '../../services/fetcher'
 
 export const DepartmentItem = () => {
   const history = useHistory()

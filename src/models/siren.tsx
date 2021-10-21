@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
-import { ChangeEvent } from 'react';
+import { ChangeEvent } from 'react'
 
-import { FormField } from '../components/formfield';
-import { NumberInputProperties, StringInputProperties } from './variables';
+import { FormField } from '../components/formfield'
+import { NumberInputProperties, StringInputProperties } from './variables'
 
 export type Siren = {
   id: number

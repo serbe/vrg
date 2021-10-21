@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
-import { ChangeEvent } from 'react';
+import { ChangeEvent } from 'react'
 
-import { FormField } from '../components/formfield';
-import { Select } from '../components/select';
-import { SelectValues, StringInputProperties } from './variables';
+import { FormField } from '../components/formfield'
+import { Select } from '../components/select'
+import { SelectValues, StringInputProperties } from './variables'
 
 export type Kind = {
   id: number

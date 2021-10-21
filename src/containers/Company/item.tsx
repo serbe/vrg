@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react'
+import { useHistory, useParams } from 'react-router-dom'
 
-import { Company, CompanyNameInput } from '../../models/company';
-import { ContactShort, ContactShortForm } from '../../models/contact';
+import { Company, CompanyNameInput } from '../../models/company'
+import { ContactShort, ContactShortForm } from '../../models/contact'
 import {
   AddressInput,
   EmailInputs,
@@ -11,16 +11,11 @@ import {
   NoteInput,
   ParameterTypes,
   PhoneInputs,
-} from '../../models/impersonal';
-import { PracticeList, PracticeListForm } from '../../models/practice';
-import { ScopeIDSelect } from '../../models/scope';
-import { DelItem, GetItem, SetItem } from '../../services/fetcher';
-import {
-  addEmptyString,
-  filterArrayNumber,
-  filterArrayString,
-  numberToString,
-} from '../../services/utils';
+} from '../../models/impersonal'
+import { PracticeList, PracticeListForm } from '../../models/practice'
+import { ScopeIDSelect } from '../../models/scope'
+import { DelItem, GetItem, SetItem } from '../../services/fetcher'
+import { addEmptyString, filterArrayNumber, filterArrayString, numberToString } from '../../services/utils'
 
 export const CompanyItem = () => {
   const history = useHistory()

@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react'
+import { useHistory, useParams } from 'react-router-dom'
 
-import { CompanyIDSelect } from '../../models/company';
-import { ItemFormButtons, NoteInput, ParameterTypes } from '../../models/impersonal';
-import { KindIDSelect } from '../../models/kind';
-import { Practice, PracticeDateInput, PracticeTopicInput } from '../../models/practice';
-import { DelItem, GetItem, SetItem } from '../../services/fetcher';
+import { CompanyIDSelect } from '../../models/company'
+import { ItemFormButtons, NoteInput, ParameterTypes } from '../../models/impersonal'
+import { KindIDSelect } from '../../models/kind'
+import { Practice, PracticeDateInput, PracticeTopicInput } from '../../models/practice'
+import { DelItem, GetItem, SetItem } from '../../services/fetcher'
 
 export const PracticeItem = () => {
   const history = useHistory()

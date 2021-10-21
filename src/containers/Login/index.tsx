@@ -1,10 +1,14 @@
-import { ChangeEvent, FormEvent, KeyboardEvent, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { ChangeEvent, FormEvent, KeyboardEvent, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
-import { Button } from '../../components/button';
-import { FormField } from '../../components/formfield';
-import { useSign } from '../../services/auth';
-import { postLogin } from '../../services/fetcher';
+import { Button } from '../../components/button'
+import { FormField } from '../../components/formfield'
+import { useSign } from '../../services/auth'
+import { postLogin } from '../../services/fetcher'
+
+const submitHandler = (event: FormEvent<HTMLFormElement>) => {
+  event.preventDefault()
+}
 
 export const Login = () => {
   const history = useHistory()
@@ -20,10 +24,6 @@ export const Login = () => {
         return history.push('/')
       })
       .catch(() => setError(`error`))
-  }
-
-  const submitHandler = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
   }
 
   return (

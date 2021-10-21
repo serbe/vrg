@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react'
+import { useHistory, useParams } from 'react-router-dom'
 
-import { ItemFormButtons, NoteInput, ParameterTypes } from '../../models/impersonal';
-import { Rank, RankNameInput } from '../../models/rank';
-import { DelItem, GetItem, SetItem } from '../../services/fetcher';
+import { ItemFormButtons, NoteInput, ParameterTypes } from '../../models/impersonal'
+import { Rank, RankNameInput } from '../../models/rank'
+import { DelItem, GetItem, SetItem } from '../../services/fetcher'
 
 export const RankItem = () => {
   const history = useHistory()

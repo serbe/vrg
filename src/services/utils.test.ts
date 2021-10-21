@@ -1,54 +1,46 @@
-// import { expect, test } from '@jest/globals';
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+import { addEmptyString, filterArrayNumber, filterArrayString, latrus, numberToString } from './utils'
 
-export const ONE = 1
+test('filterArrayString: remove empty items', () => {
+  const result = filterArrayString(['1', '', '2', ''])
+  expect(result).toHaveLength(2)
+  expect(result[0]).toBe('1')
+  expect(result[1]).toBe('2')
+  expect(result).toEqual(expect.not.arrayContaining(['']))
+})
 
-// import {
-//   addEmptyString,
-//   filterArrayNumber,
-//   filterArrayString,
-//   latrus,
-//   numberToString,
-// } from './utils';
+test('filterArrayNumber: convert strings to numbers and remove 0', () => {
+  const result = filterArrayNumber(['1', '', '2', '', '0'])
+  expect(result).toHaveLength(2)
+  expect(result[0]).toBe(1)
+  expect(result[1]).toBe(2)
+  expect(result).toEqual(expect.not.arrayContaining([0]))
+})
 
-// test('filterArrayString: remove empty items', () => {
-//   const result = filterArrayString(['1', '', '2', ''])
-//   expect(result).toHaveLength(2)
-//   expect(result[0]).toBe('1')
-//   expect(result[1]).toBe('2')
-//   expect(result).toEqual(expect.not.arrayContaining(['']))
-// })
+test('addEmptyString: remove empty items and add empty string to end of array', () => {
+  const result = addEmptyString(['1', '', '2'])
+  expect(result).toHaveLength(3)
+  expect(result[0]).toBe('1')
+  expect(result[1]).toBe('2')
+  expect(result[2]).toBe('')
 
-// test('filterArrayNumber: convert strings to numbers and remove 0', () => {
-//   const result = filterArrayNumber(['1', '', '2', '', '0'])
-//   expect(result).toHaveLength(2)
-//   expect(result[0]).toBe(1)
-//   expect(result[1]).toBe(2)
-//   expect(result).toEqual(expect.not.arrayContaining([0]))
-// })
+  const result2 = addEmptyString()
+  expect(result2).toHaveLength(1)
+  expect(result2[0]).toBe('')
+})
 
-// test('addEmptyString: remove empty items and add empty string to end of array', () => {
-//   const result = addEmptyString(['1', '', '2'])
-//   expect(result).toHaveLength(3)
-//   expect(result[0]).toBe('1')
-//   expect(result[1]).toBe('2')
-//   expect(result[2]).toBe('')
+test('numberToString: convert numbers to strings', () => {
+  const result = numberToString([1, 2, 0])
+  expect(result).toHaveLength(3)
+  expect(result[0]).toBe('1')
+  expect(result[1]).toBe('2')
+  expect(result[2]).toBe('0')
+})
 
-//   const result2 = addEmptyString()
-//   expect(result2).toHaveLength(1)
-//   expect(result2[0]).toBe('')
-// })
-
-// test('numberToString: convert numbers to strings', () => {
-//   const result = numberToString([1, 2, 0])
-//   expect(result).toHaveLength(3)
-//   expect(result[0]).toBe('1')
-//   expect(result[1]).toBe('2')
-//   expect(result[2]).toBe('0')
-// })
-
-// test('latrus: convert latin to cyrillic', () => {
-//   expect(latrus('qwe')).toBe('йцу')
-//   expect(latrus('qwertyuiop[]asdfghjkl;\'zxcvbnm,.QWERTYUIOP{}ASDFGHJKL:"ZXCVBNM<>')).toBe(
-//     'йцукенгшщзхъфывапролджэячсмитьбюЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ',
-//   )
-// })
+test('latrus: convert latin to cyrillic', () => {
+  expect(latrus('qwe')).toBe('йцу')
+  expect(latrus('qwertyuiop[]asdfghjkl;\'zxcvbnm,.QWERTYUIOP{}ASDFGHJKL:"ZXCVBNM<>')).toBe(
+    'йцукенгшщзхъфывапролджэячсмитьбюЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ',
+  )
+})

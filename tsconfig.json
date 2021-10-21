@@ -1,8 +1,13 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "types": ["vite/client", "jest"],
     "target": "ESNext",
+    "useDefineForClassFields": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "types": ["vite/client"],
     "allowJs": false,
     "skipLibCheck": false,
     "esModuleInterop": true,
@@ -14,11 +19,15 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
-    "baseUrl": "./src",
-    "paths": {
-      "~/*": ["./*"]
-    }
+    "jsx": "react-jsx"
   },
-  "include": ["./src", "**/*.config.js"]
+  "include": ["./src"],
+  "exclude": ["node_modules"],
+  "jest": {
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "tsconfig.jest.json"
+      }
+    }
+  }
 }

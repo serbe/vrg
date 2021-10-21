@@ -1,12 +1,12 @@
 /* eslint-disable camelcase */
-import { ChangeEvent } from 'react';
-import { useHistory } from 'react-router-dom';
+import { ChangeEvent } from 'react'
+import { useHistory } from 'react-router-dom'
 
-import { DatePicker } from '../components/datepicker';
-import { FormField } from '../components/formfield';
-import { Input } from '../components/input';
-import { tinyDate, trClass } from '../services/utils';
-import { DatePickerValues, StringInputProperties } from './variables';
+import { DatePicker } from '../components/datepicker'
+import { FormField } from '../components/formfield'
+import { Input } from '../components/input'
+import { tinyDate, trClass } from '../services/utils'
+import { DatePickerValues, StringInputProperties } from './variables'
 
 export type Practice = {
   id: number

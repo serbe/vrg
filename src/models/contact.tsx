@@ -1,12 +1,13 @@
 /* eslint-disable camelcase */
-import { ChangeEvent } from 'react';
-import { useHistory } from 'react-router-dom';
+import { ChangeEvent } from 'react'
+import { useHistory } from 'react-router-dom'
 
-import { DatePicker, DatePickerValues } from '../components/datepicker';
-import { FormField } from '../components/formfield';
-import { Input, StringInputProperties } from '../components/input';
-import { Select, SelectValues } from '../components/select';
-import { diffMonth } from '../services/utils';
+import { DatePicker } from '../components/datepicker'
+import { FormField } from '../components/formfield'
+import { Input } from '../components/input'
+import { Select } from '../components/select'
+import { diffMonth } from '../services/utils'
+import { DatePickerValues, SelectValues, StringInputProperties } from './variables'
 
 export interface ContactEducationsValues {
   educations: string[]
@@ -75,16 +76,14 @@ export const ContactShortForm = ({ contacts }: ContactShortValues) => {
   const history = useHistory()
   return (
     <div className="field" key="contacts">
-      <label className="label" htmlFor="contact-1">
-        Сотрудники
-      </label>
-      {contacts.map((contact, index) => (
+      <label className="label">Сотрудники</label>
+      {contacts.map(contact => (
         <Input
           className="link"
           classNameDiv="pb-1"
           icon="user"
-          key={`contact-${index}`}
-          name={`contact-${index}`}
+          key={`contact-${contact.id}`}
+          name={`contact-${contact.id}`}
           onClick={(): void => history.push(`/contacts/${contact.id}`)}
           readonly
           value={`${contact.name || ''} - ${contact.post_name || ''}`}
@@ -99,8 +98,8 @@ export const ContactIDSelect = ({ id, setter }: SelectValues) => (
   <Select icon="user" id={id} label="Фамилия Имя Отчество" listName="ContactSelect" name="contact" setter={setter} />
 )
 
-const inputClass = (dateStr: string): string => {
-  const date = new Date(dateStr)
+const inputClass = (input: string): string => {
+  const date = new Date(input)
   if (date > new Date()) {
     return 'is-warning'
   }
@@ -114,13 +113,11 @@ const inputClass = (dateStr: string): string => {
 export const ContactEducations = ({ educations }: ContactEducationsValues) =>
   educations.length > 0 ? (
     <div className="field">
-      <label className="label" htmlFor="education-1-input">
-        Даты обучения в УМЦ
-      </label>
-      {educations.map((education, index) => (
+      <label className="label">Даты обучения в УМЦ</label>
+      {educations.map(education => (
         <Input
-          name={`education-${index}-input`}
-          key={`education-${index}`}
+          name={`education-${education}-input`}
+          key={`education-${education}`}
           value={education}
           className={inputClass(education)}
           classNameDiv="pb-1"

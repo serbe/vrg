@@ -1,12 +1,12 @@
-import { ChangeEvent, useCallback, useEffect, useReducer } from 'react';
-import { useHistory } from 'react-router-dom';
+import { ChangeEvent, useCallback, useEffect, useReducer } from 'react'
+import { useHistory } from 'react-router-dom'
 
-import { useAuthState } from '../services/auth';
-import { List } from '../services/fetcher';
-import { latrus } from '../services/utils';
-import { Button } from './button';
-import { Input } from './input';
-import { Pagination } from './pagination';
+import { useAuthState } from '../services/auth'
+import { List } from '../services/fetcher'
+import { latrus } from '../services/utils'
+import { Button } from './button'
+import { Input } from './input'
+import { Pagination } from './pagination'
 
 export type SData = {
   data: string
@@ -198,7 +198,7 @@ export const Bar = ({ name, setter, value }: BarProperties) => {
       ) : (
         <></>
       ),
-    [],
+    [history, name, state],
   )
 
   return (

@@ -1,8 +1,8 @@
-import './index.css';
+import './index.css'
 
-import { EducationNearList, EducationShort } from '../../models/education';
-import { PracticeNearList, PracticeShort } from '../../models/practice';
-import { GetList } from '../../services/fetcher';
+import { EducationNearList, EducationShort } from '../../models/education'
+import { PracticeNearList, PracticeShort } from '../../models/practice'
+import { GetList } from '../../services/fetcher'
 
 export const Home = () => {
   const [educations] = GetList('EducationNear') as [EducationShort[], string]

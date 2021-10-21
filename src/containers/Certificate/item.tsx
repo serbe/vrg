@@ -1,15 +1,11 @@
-import { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react'
+import { useHistory, useParams } from 'react-router-dom'
 
-import {
-  Certificate,
-  CertificateDateInput,
-  CertificateNumberInput,
-} from '../../models/certificate';
-import { CompanyIDSelect } from '../../models/company';
-import { ContactIDSelect } from '../../models/contact';
-import { ItemFormButtons, NoteInput, ParameterTypes } from '../../models/impersonal';
-import { DelItem, GetItem, SetItem } from '../../services/fetcher';
+import { Certificate, CertificateDateInput, CertificateNumberInput } from '../../models/certificate'
+import { CompanyIDSelect } from '../../models/company'
+import { ContactIDSelect } from '../../models/contact'
+import { ItemFormButtons, NoteInput, ParameterTypes } from '../../models/impersonal'
+import { DelItem, GetItem, SetItem } from '../../services/fetcher'
 
 export const CertificateItem = () => {
   const history = useHistory()

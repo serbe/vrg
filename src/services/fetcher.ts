@@ -1,18 +1,18 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
-import { Certificate, CertificateEmpty, CertificateList } from '../models/certificate';
-import { Company, CompanyEmpty, CompanyList } from '../models/company';
-import { Contact, ContactEmpty, ContactList } from '../models/contact';
-import { Department, DepartmentEmpty, DepartmentList } from '../models/department';
-import { Education, EducationEmpty, EducationList, EducationShort } from '../models/education';
-import { Kind, KindEmpty, KindList } from '../models/kind';
-import { Post, PostEmpty, PostList } from '../models/post';
-import { Practice, PracticeEmpty, PracticeList, PracticeShort } from '../models/practice';
-import { Rank, RankEmpty, RankList } from '../models/rank';
-import { Scope, ScopeEmpty, ScopeList } from '../models/scope';
-import { Siren, SirenEmpty, SirenList } from '../models/siren';
-import { SirenType, SirenTypeEmpty, SirenTypeList } from '../models/sirentype';
-import { useToken } from './auth';
+import { Certificate, CertificateEmpty, CertificateList } from '../models/certificate'
+import { Company, CompanyEmpty, CompanyList } from '../models/company'
+import { Contact, ContactEmpty, ContactList } from '../models/contact'
+import { Department, DepartmentEmpty, DepartmentList } from '../models/department'
+import { Education, EducationEmpty, EducationList, EducationShort } from '../models/education'
+import { Kind, KindEmpty, KindList } from '../models/kind'
+import { Post, PostEmpty, PostList } from '../models/post'
+import { Practice, PracticeEmpty, PracticeList, PracticeShort } from '../models/practice'
+import { Rank, RankEmpty, RankList } from '../models/rank'
+import { Scope, ScopeEmpty, ScopeList } from '../models/scope'
+import { Siren, SirenEmpty, SirenList } from '../models/siren'
+import { SirenType, SirenTypeEmpty, SirenTypeList } from '../models/sirentype'
+import { useToken } from './auth'
 
 const URL = (import.meta.env.VITE_APP_JSONURL as string) || '/go/json'
 const loginURL = (import.meta.env.VITE_APP_LOGINURL as string) || '/go/login'
@@ -479,7 +479,7 @@ export const GetItem = (name: string, id: string): [Item, string] => {
           break
       }
     }
-  }, [id, name])
+  }, [id, name, token])
   return [data, error]
 }
 
@@ -542,7 +542,7 @@ export const GetList = (name: string): [List[], string] => {
         return true
       })
       .catch(() => setError(`unknown list ${name}`))
-  }, [name])
+  }, [name, token])
 
   return [list, error]
 }
@@ -595,7 +595,7 @@ export const GetSelect = (name: string): [SelectItem[], string] => {
         return true
       })
       .catch(() => setError(`unknown select ${name}`))
-  }, [name])
+  }, [name, token])
 
   return [list, error]
 }

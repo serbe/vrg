@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 
 interface DatePickerProperties {
   label?: string
@@ -15,8 +15,8 @@ interface DatePickerMonth {
 const listDays = (date: Date): string[] => {
   const days = date.getDate()
   const list = [' ']
-  for (let i = 1; i <= days; i += 1) {
-    list.push(i.toString().length === 1 ? `0${i}` : i.toString())
+  for (let index = 1; index <= days; index += 1) {
+    list.push(index.toString().length === 1 ? `0${index}` : index.toString())
   }
   return list
 }
@@ -43,8 +43,8 @@ const listMonths = (): DatePickerMonth[] => {
 const listYears = (): string[] => {
   const currentYear = new Date().getFullYear()
   const list = [' ']
-  for (let i = currentYear; i > currentYear - 100; i -= 1) {
-    list.push(i.toString())
+  for (let index = currentYear; index > currentYear - 100; index -= 1) {
+    list.push(index.toString())
   }
   return list
 }

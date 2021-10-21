@@ -1,8 +1,8 @@
-import clsx from 'clsx';
-import { ChangeEvent, KeyboardEvent, MouseEvent } from 'react';
+import clsx from 'clsx'
+import { ChangeEvent, KeyboardEvent, MouseEvent } from 'react'
 
-import { AdditionalColors, InputTypes, Sizes } from '../models/variables';
-import { Icon } from './icon';
+import { AdditionalColors, InputTypes, Sizes } from '../models/variables'
+import { Icon } from './icon'
 
 interface InputProperties {
   autocomplete?: string
@@ -64,8 +64,8 @@ export const Input = ({
     { 'is-rounded': round },
     { 'is-hovered': hover },
     { 'is-focused': focus },
-    { [`is-${color}`]: color },
-    { [`is-${size}`]: size },
+    { [`is-${color || 'text'}`]: color },
+    { [`is-${size || 'normal'}`]: size },
   )
 
   return (

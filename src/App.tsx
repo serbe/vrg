@@ -1,9 +1,10 @@
-import { useEffect } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+/* eslint-disable unicorn/filename-case */
+import { useEffect } from 'react'
+import { BrowserRouter } from 'react-router-dom'
 
-import { NavBar } from './components/navbar';
-import { Router } from './components/routes';
-import { AuthProvider, checkUser, useAuthState, useSign } from './services/auth';
+import { NavBar } from './components/navbar'
+import { Router } from './components/routes'
+import { AuthProvider, checkUser, useAuthState, useSign } from './services/auth'
 
 const Main = () => {
   const { signIn, signOut } = useSign()
@@ -15,7 +16,7 @@ const Main = () => {
         return signOut()
       })
       .catch(() => signOut())
-  }, [])
+  }, [signIn, signOut])
 
   const Initializаtion = () => <p className="p-4 w-full h-full text-center">Initializаtion...</p>
 
@@ -38,7 +39,7 @@ const Main = () => {
 export default Main
 
 export const App = () => (
-    <AuthProvider>
-      <Main />
-    </AuthProvider>
-  )
+  <AuthProvider>
+    <Main />
+  </AuthProvider>
+)

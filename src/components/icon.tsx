@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import clsx from 'clsx'
 
 interface IconProperties {
   children?: Element
@@ -10,8 +10,8 @@ interface IconProperties {
 
 export const Icon = ({ children, className, color, position, icon }: IconProperties) => {
   const spanClass = clsx('icon', className, {
-    [`has-text-${color}`]: color,
-    [`is-${position}`]: position,
+    [`has-text-${color || 'info'}`]: color,
+    [`is-${position || 'left'}`]: position,
   })
   const iconClass = clsx('fas', { [`fa-${icon}`]: icon })
 

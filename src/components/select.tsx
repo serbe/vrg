@@ -1,9 +1,9 @@
-import './select.css';
+import './select.css'
 
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react'
 
-import { GetSelect } from '../services/fetcher';
-import { Icon } from './icon';
+import { GetSelect } from '../services/fetcher'
+import { Icon } from './icon'
 
 type SelectItem = {
   id: number

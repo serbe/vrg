@@ -1,13 +1,13 @@
-import { ChangeEvent, SetStateAction, useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
+import { ChangeEvent, SetStateAction, useCallback } from 'react'
+import { useHistory } from 'react-router-dom'
 
-import { Button } from '../components/button';
-import { FormField } from '../components/formfield';
-import { Input } from '../components/input';
-import { Select } from '../components/select';
-import { useAuthState } from '../services/auth';
-import { addEmptyString, prettyPhone } from '../services/utils';
-import { SelectValues, StringInputProperties } from './variables';
+import { Button } from '../components/button'
+import { FormField } from '../components/formfield'
+import { Input } from '../components/input'
+import { Select } from '../components/select'
+import { useAuthState } from '../services/auth'
+import { addEmptyString, prettyPhone } from '../services/utils'
+import { SelectValues, StringInputProperties } from './variables'
 
 export interface ParameterTypes {
   id: string

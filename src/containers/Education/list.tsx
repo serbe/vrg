@@ -1,9 +1,9 @@
-import { useCallback, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useCallback, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
-import { Bar, Data } from '../../components/table';
-import { EducationList } from '../../models/education';
-import { GetList } from '../../services/fetcher';
+import { Bar, Data } from '../../components/table'
+import { EducationList } from '../../models/education'
+import { GetList } from '../../services/fetcher'
 
 export const Educations = () => {
   const history = useHistory()

@@ -1,9 +1,10 @@
 /* eslint-disable camelcase */
-import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom'
 
-import { DatePicker, DatePickerValues } from '../components/datepicker';
-import { Select, SelectValues } from '../components/select';
-import { tinyDate, trClass } from '../services/utils';
+import { DatePicker } from '../components/datepicker'
+import { Select } from '../components/select'
+import { tinyDate, trClass } from '../services/utils'
+import { DatePickerValues, SelectValues } from './variables'
 
 export type Education = {
   id: number

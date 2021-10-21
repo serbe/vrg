@@ -1,14 +1,8 @@
-import { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react'
+import { useHistory, useParams } from 'react-router-dom'
 
-import { CompanyIDSelect } from '../../models/company';
-import {
-  AddressInput,
-  ContactIDSelect,
-  ItemFormButtons,
-  NoteInput,
-  ParameterTypes,
-} from '../../models/impersonal';
+import { CompanyIDSelect } from '../../models/company'
+import { AddressInput, ContactIDSelect, ItemFormButtons, NoteInput, ParameterTypes } from '../../models/impersonal'
 import {
   Siren,
   SirenDeskInput,
@@ -19,9 +13,9 @@ import {
   SirenOwnInput,
   SirenRadioInput,
   SirenStageInput,
-} from '../../models/siren';
-import { SirenTypeIDSelect } from '../../models/sirentype';
-import { DelItem, GetItem, SetItem } from '../../services/fetcher';
+} from '../../models/siren'
+import { SirenTypeIDSelect } from '../../models/sirentype'
+import { DelItem, GetItem, SetItem } from '../../services/fetcher'
 
 export const SirenItem = () => {
   const history = useHistory()
@@ -118,3 +112,5 @@ export const SirenItem = () => {
     </div>
   )
 }
+
+export default SirenItem
