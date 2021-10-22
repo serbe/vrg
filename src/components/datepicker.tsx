@@ -141,4 +141,9 @@ export const DatePicker = ({ name, value, setter, label }: DatePickerProperties)
   )
 }
 
+DatePicker.defaultProps = {
+  label: undefined,
+  value: undefined,
+}
+
 export default DatePicker

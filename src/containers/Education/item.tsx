@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 
-import { Education, EducationEndDateInput, EducationNameSelect, EducationStartDateInput } from '../../models/education'
-import { ItemFormButtons, NoteInput, ParameterTypes } from '../../models/impersonal'
+import { EducationEndDateInput, EducationNameSelect, EducationStartDateInput } from '../../models/education'
+import { ItemFormButtons, NoteInput } from '../../models/impersonal'
 import { PostGoIDSelect } from '../../models/post'
+import { Education, ParameterTypes } from '../../models/types'
 import { DelItem, GetItem, SetItem } from '../../services/fetcher'
 
 export const EducationItem = () => {

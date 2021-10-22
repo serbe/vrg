@@ -1,19 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 
-import { Company, CompanyNameInput } from '../../models/company'
-import { ContactShort, ContactShortForm } from '../../models/contact'
-import {
-  AddressInput,
-  EmailInputs,
-  FaxInputs,
-  ItemFormButtons,
-  NoteInput,
-  ParameterTypes,
-  PhoneInputs,
-} from '../../models/impersonal'
-import { PracticeList, PracticeListForm } from '../../models/practice'
+import { CompanyNameInput } from '../../models/company'
+import { ContactShortForm } from '../../models/contact'
+import { AddressInput, EmailInputs, FaxInputs, ItemFormButtons, NoteInput, PhoneInputs } from '../../models/impersonal'
+import { PracticeListForm } from '../../models/practice'
 import { ScopeIDSelect } from '../../models/scope'
+import { Company, ContactShort, ParameterTypes, PracticeList } from '../../models/types'
 import { DelItem, GetItem, SetItem } from '../../services/fetcher'
 import { addEmptyString, filterArrayNumber, filterArrayString, numberToString } from '../../services/utils'
 

@@ -5,24 +5,6 @@ import { FormField } from '../components/formfield'
 import { Select } from '../components/select'
 import { SelectValues, StringInputProperties } from './variables'
 
-export type Kind = {
-  id: number
-  name?: string
-  short_name?: string
-  note?: string
-}
-
-export const KindEmpty: Kind = {
-  id: 0,
-}
-
-export type KindList = {
-  id: number
-  name?: string
-  short_name?: string
-  note?: string
-}
-
 export const KindNameInput = ({ value, setter }: StringInputProperties) => (
   <FormField
     name="kind-name"

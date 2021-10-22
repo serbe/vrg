@@ -1,7 +1,8 @@
 import './index.css'
 
-import { EducationNearList, EducationShort } from '../../models/education'
-import { PracticeNearList, PracticeShort } from '../../models/practice'
+import { EducationNearList } from '../../models/education'
+import { PracticeNearList } from '../../models/practice'
+import { EducationShort, PracticeShort } from '../../models/types'
 import { GetList } from '../../services/fetcher'
 
 export const Home = () => {

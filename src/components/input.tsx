@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import { ChangeEvent, KeyboardEvent, MouseEvent } from 'react'
 
-import { AdditionalColors, InputTypes, Sizes } from '../models/variables'
+import { AdditionalColors, InputTypes, LinkColor, PrimarylColor, Sizes } from '../models/variables'
 import { Icon } from './icon'
 
 interface InputProperties {
@@ -20,7 +20,7 @@ interface InputProperties {
   readonly?: boolean
   type?: InputTypes
   value?: number | string
-  color?: AdditionalColors
+  color?: AdditionalColors | PrimarylColor | LinkColor
   size?: Sizes
   round?: boolean
   hover?: boolean
@@ -93,7 +93,26 @@ export const Input = ({
 }
 
 Input.defaultProps = {
+  autocomplete: undefined,
+  className: undefined,
+  classNameDiv: undefined,
+  disabled: false,
+  icon: undefined,
+  iconRight: undefined,
+  onBlur: undefined,
+  onChange: undefined,
+  onClick: undefined,
+  onKeyPress: undefined,
+  placeholder: undefined,
+  readonly: false,
   type: 'text',
+  value: undefined,
+  color: undefined,
+  size: undefined,
+  round: false,
+  hover: false,
+  focus: false,
+  load: false,
 }
 
 export default Input

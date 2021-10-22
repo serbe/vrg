@@ -1,4 +1,4 @@
-import { User } from '../models/user'
+import { User } from '../models/types'
 
 export const setStorage = (user: User): void => {
   localStorage.setItem('user', JSON.stringify(user))

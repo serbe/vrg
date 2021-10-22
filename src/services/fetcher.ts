@@ -1,26 +1,50 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
-import { Certificate, CertificateEmpty, CertificateList } from '../models/certificate'
-import { Company, CompanyEmpty, CompanyList } from '../models/company'
-import { Contact, ContactEmpty, ContactList } from '../models/contact'
-import { Department, DepartmentEmpty, DepartmentList } from '../models/department'
-import { Education, EducationEmpty, EducationList, EducationShort } from '../models/education'
-import { Kind, KindEmpty, KindList } from '../models/kind'
-import { Post, PostEmpty, PostList } from '../models/post'
-import { Practice, PracticeEmpty, PracticeList, PracticeShort } from '../models/practice'
-import { Rank, RankEmpty, RankList } from '../models/rank'
-import { Scope, ScopeEmpty, ScopeList } from '../models/scope'
-import { Siren, SirenEmpty, SirenList } from '../models/siren'
-import { SirenType, SirenTypeEmpty, SirenTypeList } from '../models/sirentype'
+import {
+  Certificate,
+  CertificateEmpty,
+  CertificateList,
+  Company,
+  CompanyEmpty,
+  CompanyList,
+  Contact,
+  ContactEmpty,
+  ContactList,
+  Department,
+  DepartmentEmpty,
+  DepartmentList,
+  Education,
+  EducationEmpty,
+  EducationList,
+  EducationShort,
+  Kind,
+  KindEmpty,
+  KindList,
+  Post,
+  PostEmpty,
+  PostList,
+  Practice,
+  PracticeEmpty,
+  PracticeList,
+  PracticeShort,
+  Rank,
+  RankEmpty,
+  RankList,
+  Scope,
+  ScopeEmpty,
+  ScopeList,
+  SelectItem,
+  Siren,
+  SirenEmpty,
+  SirenList,
+  SirenType,
+  SirenTypeEmpty,
+  SirenTypeList,
+} from '../models/types'
 import { useToken } from './auth'
 
 const URL = (import.meta.env.VITE_APP_JSONURL as string) || '/go/json'
 const loginURL = (import.meta.env.VITE_APP_LOGINURL as string) || '/go/login'
-
-type SelectItem = {
-  id: number
-  name: string
-}
 
 export type Item =
   | undefined

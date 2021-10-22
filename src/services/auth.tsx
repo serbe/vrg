@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useContext, useMemo, useReducer } from 'react'
 
-import { User } from '../models/user'
+import { User } from '../models/types'
 import { clearStorage, getStorage, setStorage } from './storage'
 
 const checkURL = (import.meta.env.VITE_APP_CHECKURL as string) || '/go/check'

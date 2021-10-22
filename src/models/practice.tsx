@@ -1,50 +1,13 @@
 /* eslint-disable camelcase */
 import { ChangeEvent } from 'react'
 import { useHistory } from 'react-router-dom'
+import { PracticeShort, PracticeValues } from './types'
 
 import { DatePicker } from '../components/datepicker'
 import { FormField } from '../components/formfield'
 import { Input } from '../components/input'
 import { tinyDate, trClass } from '../services/utils'
 import { DatePickerValues, StringInputProperties } from './variables'
-
-export type Practice = {
-  id: number
-  company_id?: number
-  kind_id?: number
-  topic?: string
-  date_of_practice?: string
-  note?: string
-}
-
-export const PracticeEmpty: Practice = {
-  id: 0,
-}
-
-export type PracticeList = {
-  id: number
-  company_id?: number
-  company_name?: string
-  kind_id?: number
-  kind_name?: string
-  kind_short_name?: string
-  topic?: string
-  date_of_practice?: string
-  date_str?: string
-}
-
-export type PracticeShort = {
-  id: number
-  company_id: number
-  company_name: string
-  kind_id: number
-  kind_short_name: string
-  date_of_practice: string
-}
-
-export interface PracticeValues {
-  practices: PracticeList[]
-}
 
 export const PracticeListForm = ({ practices }: PracticeValues) => {
   const history = useHistory()

@@ -2,16 +2,13 @@ import './select.css'
 
 import { ChangeEvent, useEffect, useState } from 'react'
 
+import { SelectItem } from '../models/types'
+import { AdditionalColors, PrimarylColor } from '../models/variables'
 import { GetSelect } from '../services/fetcher'
 import { Icon } from './icon'
 
-type SelectItem = {
-  id: number
-  name: string
-}
-
 interface SelectProperties {
-  color?: 'primary' | 'info' | 'success' | 'warning' | 'danger'
+  color?: AdditionalColors | PrimarylColor
   icon?: string
   id?: number
   label?: string
@@ -121,6 +118,13 @@ export const Select = ({ name, id, label, icon, color, listName, setter }: Selec
       )}
     </div>
   )
+}
+
+Select.defaultProps = {
+  color: undefined,
+  icon: undefined,
+  id: 0,
+  label: undefined,
 }
 
 export default Select

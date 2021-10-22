@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 
-import { ItemFormButtons, NoteInput, ParameterTypes } from '../../models/impersonal'
-import { Scope, ScopeNameInput } from '../../models/scope'
+import { ItemFormButtons, NoteInput } from '../../models/impersonal'
+import { ScopeNameInput } from '../../models/scope'
+import { ParameterTypes, Scope } from '../../models/types'
 import { DelItem, GetItem, SetItem } from '../../services/fetcher'
 
 export const ScopeItem = () => {

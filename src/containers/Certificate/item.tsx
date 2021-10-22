@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 
-import { Certificate, CertificateDateInput, CertificateNumberInput } from '../../models/certificate'
+import { CertificateDateInput, CertificateNumberInput } from '../../models/certificate'
 import { CompanyIDSelect } from '../../models/company'
 import { ContactIDSelect } from '../../models/contact'
-import { ItemFormButtons, NoteInput, ParameterTypes } from '../../models/impersonal'
+import { ItemFormButtons, NoteInput } from '../../models/impersonal'
+import { Certificate, ParameterTypes } from '../../models/types'
 import { DelItem, GetItem, SetItem } from '../../services/fetcher'
 
 export const CertificateItem = () => {

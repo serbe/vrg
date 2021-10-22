@@ -1,11 +1,13 @@
 import clsx from 'clsx'
 
+import { AdditionalColors, Positions } from '../models/variables'
+
 interface IconProperties {
   children?: Element
   className?: string
-  color?: 'info' | 'success' | 'warning' | 'danger'
+  color?: AdditionalColors
   icon: string
-  position?: 'left' | 'right'
+  position?: Positions
 }
 
 export const Icon = ({ children, className, color, position, icon }: IconProperties) => {
@@ -20,6 +22,13 @@ export const Icon = ({ children, className, color, position, icon }: IconPropert
       <i className={iconClass}>{children}</i>
     </span>
   )
+}
+
+Icon.defaultProps = {
+  children: undefined,
+  className: undefined,
+  color: undefined,
+  position: undefined,
 }
 
 export default Icon

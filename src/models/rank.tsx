@@ -4,22 +4,6 @@ import { FormField } from '../components/formfield'
 import { Select } from '../components/select'
 import { SelectValues, StringInputProperties } from './variables'
 
-export type Rank = {
-  id: number
-  name?: string
-  note?: string
-}
-
-export const RankEmpty: Rank = {
-  id: 0,
-}
-
-export type RankList = {
-  id: number
-  name?: string
-  note?: string
-}
-
 export const RankIDSelect = ({ id, setter }: SelectValues) => (
   <Select icon="tag" id={id} label="Чин" listName="RankSelect" name="rank" setter={setter} />
 )

@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 
 import { CompanyIDSelect } from '../../models/company'
-import { ItemFormButtons, NoteInput, ParameterTypes } from '../../models/impersonal'
+import { ItemFormButtons, NoteInput } from '../../models/impersonal'
 import { KindIDSelect } from '../../models/kind'
-import { Practice, PracticeDateInput, PracticeTopicInput } from '../../models/practice'
+import { PracticeDateInput, PracticeTopicInput } from '../../models/practice'
+import { ParameterTypes, Practice } from '../../models/types'
 import { DelItem, GetItem, SetItem } from '../../services/fetcher'
 
 export const PracticeItem = () => {

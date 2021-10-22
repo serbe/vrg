@@ -1,43 +1,11 @@
 /* eslint-disable camelcase */
 import { useHistory } from 'react-router-dom'
+import { EducationShort } from './types'
 
 import { DatePicker } from '../components/datepicker'
 import { Select } from '../components/select'
 import { tinyDate, trClass } from '../services/utils'
 import { DatePickerValues, SelectValues } from './variables'
-
-export type Education = {
-  id: number
-  contact_id?: number
-  start_date?: string
-  end_date?: string
-  post_id?: number
-  note?: string
-}
-
-export const EducationEmpty: Education = {
-  id: 0,
-}
-
-export type EducationList = {
-  id: number
-  contact_id?: number
-  contact_name?: string
-  start_date?: string
-  end_date?: string
-  start_str?: string
-  end_str?: string
-  post_id?: number
-  post_name?: string
-  note?: string
-}
-
-export type EducationShort = {
-  id: number
-  contact_id: number
-  contact_name: string
-  start_date: string
-}
 
 export const EducationNameSelect = ({ id, setter }: SelectValues) => (
   <Select

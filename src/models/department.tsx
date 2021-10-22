@@ -4,22 +4,6 @@ import { FormField } from '../components/formfield'
 import { Select } from '../components/select'
 import { SelectValues, StringInputProperties } from './variables'
 
-export type Department = {
-  id: number
-  name?: string
-  note?: string
-}
-
-export const DepartmentEmpty: Department = {
-  id: 0,
-}
-
-export type DepartmentList = {
-  id: number
-  name?: string
-  note?: string
-}
-
 export const DepartmentIDSelect = ({ id, setter }: SelectValues) => (
   <Select name="department" label="Отдел" listName="DepartmentSelect" id={id} icon="tag" setter={setter} />
 )

@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { Bar, Data } from '../../components/table'
-import { SirenTypeList } from '../../models/sirentype'
+import { SirenTypeList } from '../../models/types'
 import { GetList } from '../../services/fetcher'
 
 /* eslint-disable camelcase */

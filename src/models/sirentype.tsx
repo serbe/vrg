@@ -4,24 +4,6 @@ import { FormField } from '../components/formfield'
 import { Select } from '../components/select'
 import { NumberInputProperties, SelectValues, StringInputProperties } from './variables'
 
-export type SirenType = {
-  id: number
-  name?: string
-  radius?: number
-  note?: string
-}
-
-export const SirenTypeEmpty: SirenType = {
-  id: 0,
-}
-
-export type SirenTypeList = {
-  id: number
-  name?: string
-  radius?: number
-  note?: string
-}
-
 export const SirenTypeIDSelect = ({ id, setter }: SelectValues) => (
   <Select name="siren_type_id" label="Тип сирены" listName="SirenTypeSelect" id={id} icon="tag" setter={setter} />
 )

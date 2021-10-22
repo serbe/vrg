@@ -7,53 +7,8 @@ import { FormField } from '../components/formfield'
 import { Input } from '../components/input'
 import { Select } from '../components/select'
 import { diffMonth } from '../services/utils'
+import { ContactEducationsValues, ContactShortValues } from './types'
 import { DatePickerValues, SelectValues, StringInputProperties } from './variables'
-
-export interface ContactEducationsValues {
-  educations: string[]
-}
-
-export type Contact = {
-  id: number
-  name?: string
-  company_id?: number
-  department_id?: number
-  post_id?: number
-  post_go_id?: number
-  rank_id?: number
-  birthday?: string
-  note?: string
-  emails?: string[]
-  phones?: number[]
-  faxes?: number[]
-  educations?: string[]
-}
-
-export const ContactEmpty: Contact = {
-  id: 0,
-}
-
-export type ContactList = {
-  id: number
-  name?: string
-  company_id?: number
-  company_name?: string
-  post_name?: string
-  phones?: number[]
-  faxes?: number[]
-}
-
-export type ContactShort = {
-  id: number
-  name?: string
-  department_name?: string
-  post_name?: string
-  post_go_name?: string
-}
-
-export interface ContactShortValues {
-  contacts: ContactShort[]
-}
 
 export const ContactNameInput = ({ value, setter }: StringInputProperties) => (
   <FormField

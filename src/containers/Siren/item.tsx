@@ -2,9 +2,8 @@ import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 
 import { CompanyIDSelect } from '../../models/company'
-import { AddressInput, ContactIDSelect, ItemFormButtons, NoteInput, ParameterTypes } from '../../models/impersonal'
+import { AddressInput, ContactIDSelect, ItemFormButtons, NoteInput } from '../../models/impersonal'
 import {
-  Siren,
   SirenDeskInput,
   SirenLatitudeInput,
   SirenLongtitudeInput,
@@ -15,6 +14,7 @@ import {
   SirenStageInput,
 } from '../../models/siren'
 import { SirenTypeIDSelect } from '../../models/sirentype'
+import { ParameterTypes, Siren } from '../../models/types'
 import { DelItem, GetItem, SetItem } from '../../services/fetcher'
 
 export const SirenItem = () => {

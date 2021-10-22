@@ -2,18 +2,12 @@ import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 
 import { CompanyIDSelect } from '../../models/company'
-import { Contact, ContactBirthdayInput, ContactEducations, ContactNameInput } from '../../models/contact'
+import { ContactBirthdayInput, ContactEducations, ContactNameInput } from '../../models/contact'
 import { DepartmentIDSelect } from '../../models/department'
-import {
-  EmailInputs,
-  FaxInputs,
-  ItemFormButtons,
-  NoteInput,
-  ParameterTypes,
-  PhoneInputs,
-} from '../../models/impersonal'
+import { EmailInputs, FaxInputs, ItemFormButtons, NoteInput, PhoneInputs } from '../../models/impersonal'
 import { PostGoIDSelect, PostIDSelect } from '../../models/post'
 import { RankIDSelect } from '../../models/rank'
+import { Contact, ParameterTypes } from '../../models/types'
 import { DelItem, GetItem, SetItem } from '../../services/fetcher'
 import { addEmptyString, filterArrayNumber, filterArrayString, numberToString } from '../../services/utils'
 

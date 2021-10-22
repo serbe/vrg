@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
-import { User } from '../models/user'
+import { User } from '../models/types'
 import { useAuthState, useSign } from '../services/auth'
 import { Button } from './button'
 

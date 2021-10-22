@@ -49,8 +49,8 @@ module.exports = {
     // "prefer-template": "error",
     // "jsx-quotes": ["error", "prefer-double"],
     // "react/jsx-tag-spacing": "error",
+    'jsx-a11y/label-has-associated-control': 'off',
     'react/require-default-props': 'warn',
     'import/no-cycle': 'warn',
-    'jsx-a11y/label-has-associated-control': 'warn',
   },
 }

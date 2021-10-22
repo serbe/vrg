@@ -1,10 +1,16 @@
 export type BasicColors = 'white' | 'light' | 'dark' | 'black' | 'text' | 'ghost'
 
-export type AdditionalColors = 'primary' | 'link' | 'info' | 'success' | 'warning' | 'danger'
+export type AdditionalColors = 'info' | 'success' | 'warning' | 'danger'
+
+export type PrimarylColor = 'primary'
+
+export type LinkColor = 'link'
 
 export type Sizes = 'small' | 'normal' | 'medium' | 'large'
 
 export type InputTypes = 'text' | 'password' | 'email' | 'tel'
+
+export type Positions = 'left' | 'right'
 
 export interface StringInputProperties {
   value?: string

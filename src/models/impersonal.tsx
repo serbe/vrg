@@ -1,5 +1,6 @@
-import { ChangeEvent, SetStateAction, useCallback } from 'react'
+import { ChangeEvent, useCallback } from 'react'
 import { useHistory } from 'react-router-dom'
+import { EmailValues, PhoneValues } from './types'
 
 import { Button } from '../components/button'
 import { FormField } from '../components/formfield'
@@ -8,20 +9,6 @@ import { Select } from '../components/select'
 import { useAuthState } from '../services/auth'
 import { addEmptyString, prettyPhone } from '../services/utils'
 import { SelectValues, StringInputProperties } from './variables'
-
-export interface ParameterTypes {
-  id: string
-}
-
-export type EmailValues = {
-  emails: string[]
-  setter: (value: SetStateAction<string[]>) => void
-}
-
-export type PhoneValues = {
-  phones: string[]
-  setter: (value: SetStateAction<string[]>) => void
-}
 
 export const EmailInputs = ({ emails, setter }: EmailValues) => (
   <div className="field">

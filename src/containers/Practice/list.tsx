@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { Bar, Data } from '../../components/table'
-import { PracticeList } from '../../models/practice'
+import { PracticeList } from '../../models/types'
 import { GetList } from '../../services/fetcher'
 
 export const Practices = () => {

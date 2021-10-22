@@ -1,12 +1,12 @@
 import clsx from 'clsx'
 import { MouseEvent } from 'react'
 
-import { AdditionalColors, BasicColors, Sizes } from '../models/variables'
+import { AdditionalColors, BasicColors, LinkColor, PrimarylColor, Sizes } from '../models/variables'
 
 interface ButtonProperties {
   children?: string
   className?: string
-  color?: BasicColors | AdditionalColors
+  color?: BasicColors | AdditionalColors | PrimarylColor | LinkColor
   disable?: boolean
   href?: string
   light?: boolean
@@ -63,6 +63,25 @@ export const Button = ({
       {children}
     </button>
   )
+}
+
+Button.defaultProps = {
+  children: undefined,
+  className: undefined,
+  color: undefined,
+  disable: false,
+  href: undefined,
+  light: false,
+  outline: false,
+  invert: false,
+  round: false,
+  hover: false,
+  focus: false,
+  active: false,
+  load: false,
+  isstatic: false,
+  size: undefined,
+  onClick: undefined,
 }
 
 export default Button

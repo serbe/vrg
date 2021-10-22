@@ -5,30 +5,6 @@ import { DatePicker } from '../components/datepicker'
 import { FormField } from '../components/formfield'
 import { DatePickerValues, StringInputProperties } from './variables'
 
-export type Certificate = {
-  id: number
-  num?: string
-  contact_id?: number
-  company_id?: number
-  cert_date?: string
-  note?: string
-}
-
-export const CertificateEmpty: Certificate = {
-  id: 0,
-}
-
-export type CertificateList = {
-  id: number
-  num?: string
-  contact_id?: number
-  contact_name?: string
-  company_id?: number
-  company_name?: string
-  cert_date?: string
-  note?: string
-}
-
 export const CertificateNumberInput = ({ value, setter }: StringInputProperties) => (
   <FormField
     name="num"

@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 
-import { ItemFormButtons, NoteInput, ParameterTypes } from '../../models/impersonal'
-import { Kind, KindNameInput, KindShortNameInput } from '../../models/kind'
+import { ItemFormButtons, NoteInput } from '../../models/impersonal'
+import { KindNameInput, KindShortNameInput } from '../../models/kind'
+import { Kind, ParameterTypes } from '../../models/types'
 import { DelItem, GetItem, SetItem } from '../../services/fetcher'
 
 export const KindItem = () => {

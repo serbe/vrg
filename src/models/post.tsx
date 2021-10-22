@@ -4,24 +4,6 @@ import { FormField } from '../components/formfield'
 import { Select } from '../components/select'
 import { BooleanInputProperties, SelectValues, StringInputProperties } from './variables'
 
-export type Post = {
-  id: number
-  name?: string
-  go?: boolean
-  note?: string
-}
-
-export const PostEmpty: Post = {
-  id: 0,
-}
-
-export type PostList = {
-  id: number
-  name?: string
-  go?: boolean
-  note?: string
-}
-
 export const PostIDSelect = ({ id, setter }: SelectValues) => (
   <Select name="post" label="Должность" listName="PostSelect" id={id} icon="tag" setter={setter} />
 )

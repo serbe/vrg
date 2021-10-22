@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { Bar, Data } from '../../components/table'
-import { ContactList } from '../../models/contact'
+import { ContactList } from '../../models/types'
 import { GetList } from '../../services/fetcher'
 import { splitNumbers } from '../../services/utils'
 

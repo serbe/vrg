@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 
-import { ItemFormButtons, NoteInput, ParameterTypes } from '../../models/impersonal'
-import { SirenType, SirenTypeNameInput, SirenTypeRadiusInput } from '../../models/sirentype'
+import { ItemFormButtons, NoteInput } from '../../models/impersonal'
+import { SirenTypeNameInput, SirenTypeRadiusInput } from '../../models/sirentype'
+import { ParameterTypes, SirenType } from '../../models/types'
 import { DelItem, GetItem, SetItem } from '../../services/fetcher'
 
 export const SirenTypeItem = () => {

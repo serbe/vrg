@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { Bar, Data } from '../../components/table'
-import { ScopeList } from '../../models/scope'
+import { ScopeList } from '../../models/types'
 import { GetList } from '../../services/fetcher'
 
 export const Scopes = () => {
