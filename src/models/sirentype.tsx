@@ -1,12 +1,11 @@
-import { ChangeEvent } from 'react'
-
-import { FormField } from '../components/formfield'
-import { Select } from '../components/select'
-import { NumberInputProperties, SelectValues, StringInputProperties } from './variables'
+import { ChangeEvent } from 'react';
+import { FormField } from '../components/formfield';
+import { Select } from '../components/select';
+import { NumberInputProperties, SelectValues, StringInputProperties } from './variables';
 
 export const SirenTypeIDSelect = ({ id, setter }: SelectValues) => (
   <Select name="siren_type_id" label="Тип сирены" listName="SirenTypeSelect" id={id} icon="tag" setter={setter} />
-)
+);
 
 export const SirenTypeNameInput = ({ value, setter }: StringInputProperties) => (
   <FormField
@@ -19,7 +18,7 @@ export const SirenTypeNameInput = ({ value, setter }: StringInputProperties) => 
     icon="tag"
     autocomplete="off"
   />
-)
+);
 
 export const SirenTypeRadiusInput = ({ value, setter }: NumberInputProperties) => (
   <FormField
@@ -30,4 +29,4 @@ export const SirenTypeRadiusInput = ({ value, setter }: NumberInputProperties) =
     icon="tag"
     autocomplete="off"
   />
-)
+);

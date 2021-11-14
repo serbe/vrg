@@ -1,13 +1,12 @@
-import './index.css'
-
-import { EducationNearList } from '../../models/education'
-import { PracticeNearList } from '../../models/practice'
-import { EducationShort, PracticeShort } from '../../models/types'
-import { GetList } from '../../services/fetcher'
+import { EducationNearList } from '../../models/education';
+import { PracticeNearList } from '../../models/practice';
+import { EducationShort, PracticeShort } from '../../models/types';
+import { GetList } from '../../services/fetcher';
+import './index.css';
 
 export const Home = () => {
-  const [educations] = GetList('EducationNear') as [EducationShort[], string]
-  const [practices] = GetList('PracticeNear') as [PracticeShort[], string]
+  const [educations] = GetList('EducationNear') as [EducationShort[], string];
+  const [practices] = GetList('PracticeNear') as [PracticeShort[], string];
 
   return (
     <div className="columns">
@@ -18,7 +17,7 @@ export const Home = () => {
         <PracticeNearList list={practices} />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

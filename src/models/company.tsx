@@ -1,9 +1,8 @@
 /* eslint-disable camelcase */
-import { ChangeEvent } from 'react'
-
-import { FormField } from '../components/formfield'
-import { Select } from '../components/select'
-import { SelectValues, StringInputProperties } from './variables'
+import { ChangeEvent } from 'react';
+import { FormField } from '../components/formfield';
+import { Select } from '../components/select';
+import { SelectValues, StringInputProperties } from './variables';
 
 export const CompanyIDSelect = ({ id, setter }: SelectValues) => (
   <Select
@@ -14,7 +13,7 @@ export const CompanyIDSelect = ({ id, setter }: SelectValues) => (
     icon="building"
     setter={setter}
   />
-)
+);
 
 export const CompanyNameInput = ({ value, setter }: StringInputProperties) => (
   <FormField
@@ -27,4 +26,4 @@ export const CompanyNameInput = ({ value, setter }: StringInputProperties) => (
     icon="building"
     autocomplete="off"
   />
-)
+);

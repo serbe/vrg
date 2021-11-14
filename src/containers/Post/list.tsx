@@ -1,31 +1,25 @@
-import { useCallback, useState } from 'react'
-import { useHistory } from 'react-router-dom'
-
-import { Bar, Data } from '../../components/table'
-import { PostList } from '../../models/types'
-import { GetList } from '../../services/fetcher'
+import { useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Bar, Data } from '../../components/table';
+import { PostList } from '../../models/types';
+import { GetList } from '../../services/fetcher';
 
 export const Posts = () => {
-  const history = useHistory()
-  const [data] = GetList('PostList')
-  const [search, setSearch] = useState('')
+  const navigate = useNavigate();
+  const [data] = GetList('PostList');
+  const [search, setSearch] = useState('');
 
   const { paginationData, Paginate } = Data({
     data,
     search,
-  })
+  });
 
   const Body = useCallback(() => {
-    const tableData = (): PostList[] => paginationData()
+    const tableData = (): PostList[] => paginationData();
     return (
       <>
-        {tableData().map(post => (
-          <tr
-            key={`tr${post.id}`}
-            onClick={(): void => history.push(`/posts/${post.id}`)}
-            role="gridcell"
-            className="link"
-          >
+        {tableData().map((post) => (
+          <tr key={`tr${post.id}`} onClick={(): void => navigate(`/posts/${post.id}`)} role="gridcell" className="link">
             <td>{post.name}</td>
             <td className="w9">
               <input type="checkbox" checked={post.go} readOnly />
@@ -33,8 +27,8 @@ export const Posts = () => {
           </tr>
         ))}
       </>
-    )
-  }, [history, paginationData])
+    );
+  }, [history, paginationData]);
 
   return (
     <>
@@ -50,7 +44,7 @@ export const Posts = () => {
       </table>
       {Paginate}
     </>
-  )
-}
+  );
+};
 
-export default Posts
+export default Posts;

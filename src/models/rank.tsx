@@ -1,12 +1,11 @@
-import { ChangeEvent } from 'react'
-
-import { FormField } from '../components/formfield'
-import { Select } from '../components/select'
-import { SelectValues, StringInputProperties } from './variables'
+import { ChangeEvent } from 'react';
+import { FormField } from '../components/formfield';
+import { Select } from '../components/select';
+import { SelectValues, StringInputProperties } from './variables';
 
 export const RankIDSelect = ({ id, setter }: SelectValues) => (
   <Select icon="tag" id={id} label="Чин" listName="RankSelect" name="rank" setter={setter} />
-)
+);
 
 export const RankNameInput = ({ value, setter }: StringInputProperties) => (
   <FormField
@@ -19,4 +18,4 @@ export const RankNameInput = ({ value, setter }: StringInputProperties) => (
     value={value}
     autocomplete="off"
   />
-)
+);

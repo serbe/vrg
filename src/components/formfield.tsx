@@ -1,31 +1,30 @@
-import { ChangeEvent, KeyboardEvent, MouseEvent } from 'react'
-
-import { AdditionalColors, InputTypes, LinkColor, PrimarylColor, Sizes } from '../models/variables'
-import { Input } from './input'
+import { ChangeEvent, KeyboardEvent, MouseEvent } from 'react';
+import { AdditionalColors, InputTypes, LinkColor, PrimarylColor, Sizes } from '../models/variables';
+import { Input } from './input';
 
 interface FormFieldProperties {
-  autocomplete?: string
-  className?: string
-  classNameDiv?: string
-  disabled?: boolean
-  icon?: string
-  iconRight?: string
-  label?: string
-  name: string
-  onBlur?: (event: ChangeEvent<HTMLInputElement>) => void
-  onChange?: (event: ChangeEvent<HTMLInputElement>) => void
-  onClick?: (event: MouseEvent<HTMLInputElement, globalThis.MouseEvent>) => void
-  onKeyPress?: (event: KeyboardEvent<HTMLInputElement>) => void
-  placeholder?: string
-  readonly?: boolean
-  type?: InputTypes
-  value?: number | string
-  color?: AdditionalColors | PrimarylColor | LinkColor
-  size?: Sizes
-  round?: boolean
-  hover?: boolean
-  focus?: boolean
-  load?: boolean
+  autocomplete?: string;
+  className?: string;
+  classNameDiv?: string;
+  disabled?: boolean;
+  icon?: string;
+  iconRight?: string;
+  label?: string;
+  name: string;
+  onBlur?: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  onClick?: (event: MouseEvent<HTMLInputElement>) => void;
+  onKeyPress?: (event: KeyboardEvent<HTMLInputElement>) => void;
+  placeholder?: string;
+  readonly?: boolean;
+  type?: InputTypes;
+  value?: number | string;
+  color?: AdditionalColors | PrimarylColor | LinkColor;
+  size?: Sizes;
+  round?: boolean;
+  hover?: boolean;
+  focus?: boolean;
+  load?: boolean;
 }
 
 export const FormField = ({
@@ -82,7 +81,7 @@ export const FormField = ({
       load={load}
     />
   </div>
-)
+);
 
 FormField.defaultProps = {
   autocomplete: undefined,
@@ -106,6 +105,6 @@ FormField.defaultProps = {
   hover: false,
   focus: false,
   load: false,
-}
+};
 
-export default FormField
+export default FormField;

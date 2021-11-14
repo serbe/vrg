@@ -1,30 +1,29 @@
-import { ChangeEvent, FormEvent, KeyboardEvent, useState } from 'react'
-import { useHistory } from 'react-router-dom'
-
-import { Button } from '../../components/button'
-import { FormField } from '../../components/formfield'
-import { useSign } from '../../services/auth'
-import { postLogin } from '../../services/fetcher'
+import { ChangeEvent, FormEvent, KeyboardEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '../../components/button';
+import { FormField } from '../../components/formfield';
+import { useSign } from '../../services/auth';
+import { postLogin } from '../../services/fetcher';
 
 const submitHandler = (event: FormEvent<HTMLFormElement>) => {
-  event.preventDefault()
-}
+  event.preventDefault();
+};
 
 export const Login = () => {
-  const history = useHistory()
-  const { signIn } = useSign()
-  const [name, setName] = useState('')
-  const [pass, setPass] = useState('')
-  const [error, setError] = useState('')
+  const navigate = useNavigate();
+  const { signIn } = useSign();
+  const [name, setName] = useState('');
+  const [pass, setPass] = useState('');
+  const [error, setError] = useState('');
 
   const submit = (): void => {
     postLogin(name, pass)
-      .then(response => {
-        signIn({ name, role: response.r, token: response.t })
-        return history.push('/')
+      .then((response) => {
+        signIn({ name, role: response.r, token: response.t });
+        return navigate('/');
       })
-      .catch(() => setError(`error`))
-  }
+      .catch(() => setError(`error`));
+  };
 
   return (
     <div className="container w300">
@@ -38,7 +37,7 @@ export const Login = () => {
             label="Имя пользователя"
             autocomplete="udds-password"
             onChange={(event: ChangeEvent<HTMLInputElement>): void => {
-              setName(event.target.value)
+              setName(event.target.value);
             }}
           />
           <FormField
@@ -47,11 +46,11 @@ export const Login = () => {
             icon="key"
             label="Пароль"
             onChange={(event: ChangeEvent<HTMLInputElement>): void => {
-              setPass(event.target.value)
+              setPass(event.target.value);
             }}
             onKeyPress={(event: KeyboardEvent<HTMLInputElement>): void => {
               if (event.key === 'Enter') {
-                submit()
+                submit();
               }
             }}
           />
@@ -64,7 +63,7 @@ export const Login = () => {
         </div>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

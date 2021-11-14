@@ -1,37 +1,31 @@
-import { useCallback, useState } from 'react'
-import { useHistory } from 'react-router-dom'
-
-import { Bar, Data } from '../../components/table'
-import { RankList } from '../../models/types'
-import { GetList } from '../../services/fetcher'
+import { useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Bar, Data } from '../../components/table';
+import { RankList } from '../../models/types';
+import { GetList } from '../../services/fetcher';
 
 export const Ranks = () => {
-  const history = useHistory()
-  const [data] = GetList('RankList')
-  const [search, setSearch] = useState('')
+  const navigate = useNavigate();
+  const [data] = GetList('RankList');
+  const [search, setSearch] = useState('');
 
   const { paginationData, Paginate } = Data({
     data,
     search,
-  })
+  });
 
   const Body = useCallback(() => {
-    const tableData = (): RankList[] => paginationData()
+    const tableData = (): RankList[] => paginationData();
     return (
       <>
-        {tableData().map(rank => (
-          <tr
-            key={`tr${rank.id}`}
-            onClick={(): void => history.push(`/ranks/${rank.id}`)}
-            role="gridcell"
-            className="link"
-          >
+        {tableData().map((rank) => (
+          <tr key={`tr${rank.id}`} onClick={(): void => navigate(`/ranks/${rank.id}`)} role="gridcell" className="link">
             <td className="w250">{rank.name}</td>
           </tr>
         ))}
       </>
-    )
-  }, [history, paginationData])
+    );
+  }, [history, paginationData]);
 
   return (
     <>
@@ -46,7 +40,7 @@ export const Ranks = () => {
       </table>
       {Paginate}
     </>
-  )
-}
+  );
+};
 
-export default Ranks
+export default Ranks;

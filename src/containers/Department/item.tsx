@@ -1,48 +1,47 @@
-import { useEffect, useState } from 'react'
-import { useHistory, useParams } from 'react-router-dom'
-
-import { DepartmentNameInput } from '../../models/department'
-import { ItemFormButtons, NoteInput } from '../../models/impersonal'
-import { Department, ParameterTypes } from '../../models/types'
-import { DelItem, GetItem, SetItem } from '../../services/fetcher'
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { DepartmentNameInput } from '../../models/department';
+import { ItemFormButtons, NoteInput } from '../../models/impersonal';
+import { Department } from '../../models/types';
+import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 
 export const DepartmentItem = () => {
-  const history = useHistory()
-  const { id } = useParams<ParameterTypes>()
-  const [name, setName] = useState<string>()
-  const [note, setNote] = useState<string>()
-  const [item] = GetItem('Department', id)
-  const [status, setStatus] = useState(false)
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const [name, setName] = useState<string>();
+  const [note, setNote] = useState<string>();
+  const [item] = GetItem('Department', id);
+  const [status, setStatus] = useState(false);
 
   const send = (): void => {
-    const NumberID = Number(id)
+    const NumberID = Number(id);
     const department: Department = {
       id: NumberID,
       name,
       note,
-    }
+    };
 
-    SetItem(NumberID, 'Department', department, setStatus)
-  }
+    SetItem(NumberID, 'Department', department, setStatus);
+  };
 
   const del = (): void => {
-    const NumberID = Number(id)
-    DelItem(NumberID, 'Department', setStatus)
-  }
+    const NumberID = Number(id);
+    DelItem(NumberID, 'Department', setStatus);
+  };
 
   useEffect(() => {
     if (item) {
-      const data = item as Department
-      setName(data.name)
-      setNote(data.note)
+      const data = item as Department;
+      setName(data.name);
+      setNote(data.note);
     }
-  }, [item])
+  }, [item]);
 
   useEffect(() => {
     if (status) {
-      history.go(-1)
+      navigate(-1);
     }
-  }, [history, status])
+  }, [navigate, status]);
 
   return (
     <div>
@@ -55,7 +54,7 @@ export const DepartmentItem = () => {
         </>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default DepartmentItem
+export default DepartmentItem;

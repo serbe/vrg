@@ -1,12 +1,11 @@
-import { ChangeEvent } from 'react'
-
-import { FormField } from '../components/formfield'
-import { Select } from '../components/select'
-import { SelectValues, StringInputProperties } from './variables'
+import { ChangeEvent } from 'react';
+import { FormField } from '../components/formfield';
+import { Select } from '../components/select';
+import { SelectValues, StringInputProperties } from './variables';
 
 export const DepartmentIDSelect = ({ id, setter }: SelectValues) => (
   <Select name="department" label="Отдел" listName="DepartmentSelect" id={id} icon="tag" setter={setter} />
-)
+);
 
 export const DepartmentNameInput = ({ value, setter }: StringInputProperties) => (
   <FormField
@@ -19,4 +18,4 @@ export const DepartmentNameInput = ({ value, setter }: StringInputProperties) =>
     icon="tag"
     autocomplete="off"
   />
-)
+);

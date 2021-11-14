@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react'
-import { useHistory, useParams } from 'react-router-dom'
-
-import { CompanyIDSelect } from '../../models/company'
-import { AddressInput, ContactIDSelect, ItemFormButtons, NoteInput } from '../../models/impersonal'
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { CompanyIDSelect } from '../../models/company';
+import { AddressInput, ContactIDSelect, ItemFormButtons, NoteInput } from '../../models/impersonal';
 import {
   SirenDeskInput,
   SirenLatitudeInput,
@@ -12,32 +11,32 @@ import {
   SirenOwnInput,
   SirenRadioInput,
   SirenStageInput,
-} from '../../models/siren'
-import { SirenTypeIDSelect } from '../../models/sirentype'
-import { ParameterTypes, Siren } from '../../models/types'
-import { DelItem, GetItem, SetItem } from '../../services/fetcher'
+} from '../../models/siren';
+import { SirenTypeIDSelect } from '../../models/sirentype';
+import { Siren } from '../../models/types';
+import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 
 export const SirenItem = () => {
-  const history = useHistory()
-  const { id } = useParams<ParameterTypes>()
-  const [numberID, setNumberID] = useState<number>()
-  const [numberPassport, setNumberPassport] = useState<string>()
-  const [sirenTypeID, setSirenTypeID] = useState<number>()
-  const [address, setAddress] = useState<string>()
-  const [radio, setRadio] = useState<string>()
-  const [desk, setDesk] = useState<string>()
-  const [contactID, setContactID] = useState<number>()
-  const [companyID, setCompanyID] = useState<number>()
-  const [latitude, setLatitude] = useState<string>()
-  const [longitude, setLongitude] = useState<string>()
-  const [stage, setStage] = useState<number>()
-  const [own, setOwn] = useState<string>()
-  const [note, setNote] = useState<string>()
-  const [item] = GetItem('Siren', id)
-  const [status, setStatus] = useState(false)
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const [numberID, setNumberID] = useState<number>();
+  const [numberPassport, setNumberPassport] = useState<string>();
+  const [sirenTypeID, setSirenTypeID] = useState<number>();
+  const [address, setAddress] = useState<string>();
+  const [radio, setRadio] = useState<string>();
+  const [desk, setDesk] = useState<string>();
+  const [contactID, setContactID] = useState<number>();
+  const [companyID, setCompanyID] = useState<number>();
+  const [latitude, setLatitude] = useState<string>();
+  const [longitude, setLongitude] = useState<string>();
+  const [stage, setStage] = useState<number>();
+  const [own, setOwn] = useState<string>();
+  const [note, setNote] = useState<string>();
+  const [item] = GetItem('Siren', id);
+  const [status, setStatus] = useState(false);
 
   const send = (): void => {
-    const NumberID = Number(id)
+    const NumberID = Number(id);
     const siren: Siren = {
       id: NumberID,
       num_id: numberID,
@@ -53,40 +52,40 @@ export const SirenItem = () => {
       stage,
       own,
       note,
-    }
+    };
 
-    SetItem(NumberID, 'Siren', siren, setStatus)
-  }
+    SetItem(NumberID, 'Siren', siren, setStatus);
+  };
 
   const del = (): void => {
-    const NumberID = Number(id)
-    DelItem(NumberID, 'Siren', setStatus)
-  }
+    const NumberID = Number(id);
+    DelItem(NumberID, 'Siren', setStatus);
+  };
 
   useEffect(() => {
     if (item) {
-      const data = item as Siren
-      setNumberID(data.num_id)
-      setNumberPassport(data.num_pass)
-      setSirenTypeID(data.siren_type_id)
-      setAddress(data.address)
-      setRadio(data.radio)
-      setDesk(data.desk)
-      setContactID(data.contact_id)
-      setCompanyID(data.company_id)
-      setLatitude(data.latitude)
-      setLongitude(data.longitude)
-      setStage(data.stage)
-      setOwn(data.own)
-      setNote(data.note)
+      const data = item as Siren;
+      setNumberID(data.num_id);
+      setNumberPassport(data.num_pass);
+      setSirenTypeID(data.siren_type_id);
+      setAddress(data.address);
+      setRadio(data.radio);
+      setDesk(data.desk);
+      setContactID(data.contact_id);
+      setCompanyID(data.company_id);
+      setLatitude(data.latitude);
+      setLongitude(data.longitude);
+      setStage(data.stage);
+      setOwn(data.own);
+      setNote(data.note);
     }
-  }, [item])
+  }, [item]);
 
   useEffect(() => {
     if (status) {
-      history.go(-1)
+      navigate(-1);
     }
-  }, [history, status])
+  }, [navigate, status]);
 
   return (
     <div>
@@ -110,7 +109,7 @@ export const SirenItem = () => {
         </>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default SirenItem
+export default SirenItem;

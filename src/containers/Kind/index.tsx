@@ -1,2 +1,2 @@
-export { KindItem } from './item'
-export { Kinds } from './list'
+export { KindItem } from './item';
+export { Kinds } from './list';

@@ -1,31 +1,30 @@
-import clsx from 'clsx'
-import { ChangeEvent, KeyboardEvent, MouseEvent } from 'react'
-
-import { AdditionalColors, InputTypes, LinkColor, PrimarylColor, Sizes } from '../models/variables'
-import { Icon } from './icon'
+import clsx from 'clsx';
+import { ChangeEvent, KeyboardEvent, MouseEvent } from 'react';
+import { AdditionalColors, InputTypes, LinkColor, PrimarylColor, Sizes } from '../models/variables';
+import { Icon } from './icon';
 
 interface InputProperties {
-  autocomplete?: string
-  className?: string
-  classNameDiv?: string
-  disabled?: boolean
-  icon?: string
-  iconRight?: string
-  name: string
-  onBlur?: (event: ChangeEvent<HTMLInputElement>) => void
-  onChange?: (event: ChangeEvent<HTMLInputElement>) => void
-  onClick?: (event: MouseEvent<HTMLInputElement, globalThis.MouseEvent>) => void
-  onKeyPress?: (event: KeyboardEvent<HTMLInputElement>) => void
-  placeholder?: string
-  readonly?: boolean
-  type?: InputTypes
-  value?: number | string
-  color?: AdditionalColors | PrimarylColor | LinkColor
-  size?: Sizes
-  round?: boolean
-  hover?: boolean
-  focus?: boolean
-  load?: boolean
+  autocomplete?: string;
+  className?: string;
+  classNameDiv?: string;
+  disabled?: boolean;
+  icon?: string;
+  iconRight?: string;
+  name: string;
+  onBlur?: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  onClick?: (event: MouseEvent<HTMLInputElement>) => void;
+  onKeyPress?: (event: KeyboardEvent<HTMLInputElement>) => void;
+  placeholder?: string;
+  readonly?: boolean;
+  type?: InputTypes;
+  value?: number | string;
+  color?: AdditionalColors | PrimarylColor | LinkColor;
+  size?: Sizes;
+  round?: boolean;
+  hover?: boolean;
+  focus?: boolean;
+  load?: boolean;
 }
 
 export const Input = ({
@@ -57,7 +56,7 @@ export const Input = ({
     { 'has-icons-left': icon },
     { 'has-icons-right': iconRight },
     { 'is-loading': load },
-  )
+  );
   const inputClass = clsx(
     'input',
     className,
@@ -66,7 +65,7 @@ export const Input = ({
     { 'is-focused': focus },
     { [`is-${color || 'text'}`]: color },
     { [`is-${size || 'normal'}`]: size },
-  )
+  );
 
   return (
     <div className={divClass}>
@@ -89,8 +88,8 @@ export const Input = ({
       {icon && <Icon position="left" icon={icon} />}
       {iconRight && <Icon position="right" icon={iconRight} />}
     </div>
-  )
-}
+  );
+};
 
 Input.defaultProps = {
   autocomplete: undefined,
@@ -113,6 +112,6 @@ Input.defaultProps = {
   hover: false,
   focus: false,
   load: false,
-}
+};
 
-export default Input
+export default Input;

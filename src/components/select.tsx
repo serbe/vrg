@@ -1,66 +1,64 @@
-import './select.css'
-
-import { ChangeEvent, useEffect, useState } from 'react'
-
-import { SelectItem } from '../models/types'
-import { AdditionalColors, PrimarylColor } from '../models/variables'
-import { GetSelect } from '../services/fetcher'
-import { Icon } from './icon'
+import { ChangeEvent, useEffect, useState } from 'react';
+import { SelectItem } from '../models/types';
+import { AdditionalColors, PrimarylColor } from '../models/variables';
+import { GetSelect } from '../services/fetcher';
+import { Icon } from './icon';
+import './select.css';
 
 interface SelectProperties {
-  color?: AdditionalColors | PrimarylColor
-  icon?: string
-  id?: number
-  label?: string
-  listName: string
-  name: string
-  setter: (event?: number) => void
+  color?: AdditionalColors | PrimarylColor;
+  icon?: string;
+  id?: number;
+  label?: string;
+  listName: string;
+  name: string;
+  setter: (event?: number) => void;
 }
 
 export const Select = ({ name, id, label, icon, color, listName, setter }: SelectProperties) => {
-  const [opened, setOpened] = useState(false)
-  const [itemID, setItemID] = useState(id || 0)
-  const [list, error] = GetSelect(listName)
-  const [value, setValue] = useState<string>()
+  const [opened, setOpened] = useState(false);
+  const [itemID, setItemID] = useState(id || 0);
+  const [list, error] = GetSelect(listName);
+  const [value, setValue] = useState<string>();
 
   useEffect(() => {
     if (itemID === 0 && id) {
-      setItemID(id)
+      setItemID(id);
     }
     if (list[0].id !== 0) {
-      list.unshift({ id: 0, name: '' })
+      list.unshift({ id: 0, name: '' });
     }
     if (!id && id === 0) {
-      setValue('')
+      setValue('');
     } else {
-      const currentItem = list.find(item => item.id === id)
-      setValue(currentItem?.name || '')
+      const currentItem = list.find((item) => item.id === id);
+      setValue(currentItem?.name || '');
     }
-  }, [list, id, itemID])
+  }, [list, id, itemID]);
 
   const currentValue = (): string => {
     if (opened) {
-      return value || ''
+      return value || '';
     }
-    const currentItem = list.find(item => item.id === itemID)
-    return currentItem?.name || ''
-  }
+    const currentItem = list.find((item) => item.id === itemID);
+    return currentItem?.name || '';
+  };
 
   const filteredList = (): SelectItem[] => {
-    const inputValue = currentValue()
+    const inputValue = currentValue();
 
     if (inputValue.trim().length === 0) {
-      return list
+      return list;
     }
 
-    const inputArray = inputValue.split(' ')
+    const inputArray = inputValue.split(' ');
 
     return list.filter(
-      listItem =>
+      (listItem) =>
         listItem.name === '' ||
         inputArray.every((listItemValue: string) => new RegExp(listItemValue, 'i').exec(listItem.name)),
-    )
-  }
+    );
+  };
 
   return (
     <div className="field" key={name}>
@@ -82,13 +80,13 @@ export const Select = ({ name, id, label, icon, color, listName, setter }: Selec
           type="text"
           value={currentValue()}
           onChange={(event: ChangeEvent<HTMLInputElement>): void => {
-            setValue(event.target.value)
+            setValue(event.target.value);
           }}
           onFocus={(): void => {
-            setOpened(true)
+            setOpened(true);
           }}
           onBlur={(): void => {
-            setTimeout(() => setOpened(false), 300)
+            setTimeout(() => setOpened(false), 300);
           }}
           key={`${name}-input`}
           autoComplete="off"
@@ -104,9 +102,9 @@ export const Select = ({ name, id, label, icon, color, listName, setter }: Selec
               className="select-item"
               key={`${name}-${ListItem.id}`}
               onMouseDown={(): void => {
-                setItemID(ListItem.id)
-                setValue(ListItem.name)
-                setter(ListItem.id === 0 ? undefined : ListItem.id)
+                setItemID(ListItem.id);
+                setValue(ListItem.name);
+                setter(ListItem.id === 0 ? undefined : ListItem.id);
               }}
               role="row"
               tabIndex={index}
@@ -117,14 +115,14 @@ export const Select = ({ name, id, label, icon, color, listName, setter }: Selec
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
 Select.defaultProps = {
   color: undefined,
   icon: undefined,
   id: 0,
   label: undefined,
-}
+};
 
-export default Select
+export default Select;

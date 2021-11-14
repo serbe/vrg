@@ -1,25 +1,24 @@
-import clsx from 'clsx'
-import { MouseEvent } from 'react'
-
-import { AdditionalColors, BasicColors, LinkColor, PrimarylColor, Sizes } from '../models/variables'
+import clsx from 'clsx';
+import { MouseEvent } from 'react';
+import { AdditionalColors, BasicColors, LinkColor, PrimarylColor, Sizes } from '../models/variables';
 
 interface ButtonProperties {
-  children?: string
-  className?: string
-  color?: BasicColors | AdditionalColors | PrimarylColor | LinkColor
-  disable?: boolean
-  href?: string
-  light?: boolean
-  outline?: boolean
-  invert?: boolean
-  round?: boolean
-  hover?: boolean
-  focus?: boolean
-  active?: boolean
-  load?: boolean
-  isstatic?: boolean
-  size?: Sizes
-  onClick?: (event: MouseEvent<HTMLAnchorElement | HTMLButtonElement | HTMLInputElement, globalThis.MouseEvent>) => void
+  children?: string;
+  className?: string;
+  color?: BasicColors | AdditionalColors | PrimarylColor | LinkColor;
+  disable?: boolean;
+  href?: string;
+  light?: boolean;
+  outline?: boolean;
+  invert?: boolean;
+  round?: boolean;
+  hover?: boolean;
+  focus?: boolean;
+  active?: boolean;
+  load?: boolean;
+  isstatic?: boolean;
+  size?: Sizes;
+  onClick?: (event: MouseEvent<HTMLAnchorElement | HTMLButtonElement | HTMLInputElement>) => void;
 }
 
 export const Button = ({
@@ -52,7 +51,7 @@ export const Button = ({
     'is-static': isstatic,
     [`is-${color || 'primary'}`]: color,
     [`is-${size || 'normal'}`]: size,
-  })
+  });
 
   return href ? (
     <a href={href} onClick={onClick} className={buttonClass}>
@@ -62,8 +61,8 @@ export const Button = ({
     <button type="button" disabled={disable} onClick={onClick} className={buttonClass}>
       {children}
     </button>
-  )
-}
+  );
+};
 
 Button.defaultProps = {
   children: undefined,
@@ -82,6 +81,6 @@ Button.defaultProps = {
   isstatic: false,
   size: undefined,
   onClick: undefined,
-}
+};
 
-export default Button
+export default Button;

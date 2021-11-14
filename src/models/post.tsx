@@ -1,16 +1,15 @@
-import { ChangeEvent } from 'react'
-
-import { FormField } from '../components/formfield'
-import { Select } from '../components/select'
-import { BooleanInputProperties, SelectValues, StringInputProperties } from './variables'
+import { ChangeEvent } from 'react';
+import { FormField } from '../components/formfield';
+import { Select } from '../components/select';
+import { BooleanInputProperties, SelectValues, StringInputProperties } from './variables';
 
 export const PostIDSelect = ({ id, setter }: SelectValues) => (
   <Select name="post" label="Должность" listName="PostSelect" id={id} icon="tag" setter={setter} />
-)
+);
 
 export const PostGoIDSelect = ({ id, setter }: SelectValues) => (
   <Select name="post-go" label="Должность ГО ЧС" listName="PostGoSelect" id={id} icon="tag" setter={setter} />
-)
+);
 
 export const PostNameInput = ({ value, setter }: StringInputProperties) => (
   <FormField
@@ -23,7 +22,7 @@ export const PostNameInput = ({ value, setter }: StringInputProperties) => (
     icon="tag"
     autocomplete="off"
   />
-)
+);
 
 export const PostGOSwitch = ({ value, setter }: BooleanInputProperties) => (
   <div className="field">
@@ -41,4 +40,4 @@ export const PostGOSwitch = ({ value, setter }: BooleanInputProperties) => (
       </label>
     </div>
   </div>
-)
+);

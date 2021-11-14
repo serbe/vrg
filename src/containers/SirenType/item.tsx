@@ -1,51 +1,50 @@
-import { useEffect, useState } from 'react'
-import { useHistory, useParams } from 'react-router-dom'
-
-import { ItemFormButtons, NoteInput } from '../../models/impersonal'
-import { SirenTypeNameInput, SirenTypeRadiusInput } from '../../models/sirentype'
-import { ParameterTypes, SirenType } from '../../models/types'
-import { DelItem, GetItem, SetItem } from '../../services/fetcher'
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { ItemFormButtons, NoteInput } from '../../models/impersonal';
+import { SirenTypeNameInput, SirenTypeRadiusInput } from '../../models/sirentype';
+import { SirenType } from '../../models/types';
+import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 
 export const SirenTypeItem = () => {
-  const history = useHistory()
-  const { id } = useParams<ParameterTypes>()
-  const [name, setName] = useState<string>()
-  const [radius, setRadius] = useState<number>()
-  const [note, setNote] = useState<string>()
-  const [item] = GetItem('SirenType', id)
-  const [status, setStatus] = useState(false)
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const [name, setName] = useState<string>();
+  const [radius, setRadius] = useState<number>();
+  const [note, setNote] = useState<string>();
+  const [item] = GetItem('SirenType', id);
+  const [status, setStatus] = useState(false);
 
   const send = (): void => {
-    const NumberID = Number(id)
+    const NumberID = Number(id);
     const sirenType: SirenType = {
       id: NumberID,
       name,
       radius,
       note,
-    }
+    };
 
-    SetItem(NumberID, 'SirenType', sirenType, setStatus)
-  }
+    SetItem(NumberID, 'SirenType', sirenType, setStatus);
+  };
 
   const del = (): void => {
-    const NumberID = Number(id)
-    DelItem(NumberID, 'SirenType', setStatus)
-  }
+    const NumberID = Number(id);
+    DelItem(NumberID, 'SirenType', setStatus);
+  };
 
   useEffect(() => {
     if (item) {
-      const data = item as SirenType
-      setName(data.name)
-      setRadius(data.radius)
-      setNote(data.note)
+      const data = item as SirenType;
+      setName(data.name);
+      setRadius(data.radius);
+      setNote(data.note);
     }
-  }, [item, history, status])
+  }, [item, history, status]);
 
   useEffect(() => {
     if (status) {
-      history.go(-1)
+      navigate(-1);
     }
-  }, [history, status])
+  }, [navigate, status]);
 
   return (
     <div>
@@ -59,7 +58,7 @@ export const SirenTypeItem = () => {
         </>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default SirenTypeItem
+export default SirenTypeItem;

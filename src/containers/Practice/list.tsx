@@ -1,28 +1,27 @@
-import { useCallback, useState } from 'react'
-import { useHistory } from 'react-router-dom'
-
-import { Bar, Data } from '../../components/table'
-import { PracticeList } from '../../models/types'
-import { GetList } from '../../services/fetcher'
+import { useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Bar, Data } from '../../components/table';
+import { PracticeList } from '../../models/types';
+import { GetList } from '../../services/fetcher';
 
 export const Practices = () => {
-  const history = useHistory()
-  const [data] = GetList('PracticeList')
-  const [search, setSearch] = useState('')
+  const navigate = useNavigate();
+  const [data] = GetList('PracticeList');
+  const [search, setSearch] = useState('');
 
   const { paginationData, Paginate } = Data({
     data,
     search,
-  })
+  });
 
   const Body = useCallback(() => {
-    const tableData = (): PracticeList[] => paginationData()
+    const tableData = (): PracticeList[] => paginationData();
     return (
       <>
-        {tableData().map(practice => (
+        {tableData().map((practice) => (
           <tr
             key={`tr${practice.id}`}
-            onClick={(): void => history.push(`/practices/${practice.id}`)}
+            onClick={(): void => navigate(`/practices/${practice.id}`)}
             role="gridcell"
             className="link"
           >
@@ -32,8 +31,8 @@ export const Practices = () => {
           </tr>
         ))}
       </>
-    )
-  }, [history, paginationData])
+    );
+  }, [history, paginationData]);
 
   return (
     <>
@@ -50,7 +49,7 @@ export const Practices = () => {
       </table>
       {Paginate}
     </>
-  )
-}
+  );
+};
 
-export default Practices
+export default Practices;

@@ -1,29 +1,28 @@
-import { useCallback, useState } from 'react'
-import { useHistory } from 'react-router-dom'
-
-import { Bar, Data } from '../../components/table'
-import { SirenTypeList } from '../../models/types'
-import { GetList } from '../../services/fetcher'
+import { useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Bar, Data } from '../../components/table';
+import { SirenTypeList } from '../../models/types';
+import { GetList } from '../../services/fetcher';
 
 /* eslint-disable camelcase */
 export const SirenTypes = () => {
-  const history = useHistory()
-  const [data] = GetList('SirenTypeList')
-  const [search, setSearch] = useState('')
+  const navigate = useNavigate();
+  const [data] = GetList('SirenTypeList');
+  const [search, setSearch] = useState('');
 
   const { paginationData, Paginate } = Data({
     data,
     search,
-  })
+  });
 
   const Body = useCallback(() => {
-    const tableData = (): SirenTypeList[] => paginationData()
+    const tableData = (): SirenTypeList[] => paginationData();
     return (
       <>
-        {tableData().map(siren_type => (
+        {tableData().map((siren_type) => (
           <tr
             key={`tr${siren_type.id}`}
-            onClick={(): void => history.push(`/sirentypes/${siren_type.id}`)}
+            onClick={(): void => navigate(`/sirentypes/${siren_type.id}`)}
             role="gridcell"
             className="link"
           >
@@ -32,8 +31,8 @@ export const SirenTypes = () => {
           </tr>
         ))}
       </>
-    )
-  }, [history, paginationData])
+    );
+  }, [history, paginationData]);
 
   return (
     <>
@@ -49,7 +48,7 @@ export const SirenTypes = () => {
       </table>
       {Paginate}
     </>
-  )
-}
+  );
+};
 
-export default SirenTypes
+export default SirenTypes;

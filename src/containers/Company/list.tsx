@@ -1,28 +1,27 @@
-import { useCallback, useState } from 'react'
-import { useHistory } from 'react-router-dom'
-
-import { Bar, Data } from '../../components/table'
-import { CompanyList } from '../../models/types'
-import { GetList } from '../../services/fetcher'
-import { splitNumbers, splitStrings } from '../../services/utils'
+import { useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Bar, Data } from '../../components/table';
+import { CompanyList } from '../../models/types';
+import { GetList } from '../../services/fetcher';
+import { splitNumbers, splitStrings } from '../../services/utils';
 
 export const Companies = () => {
-  const history = useHistory()
-  const [data] = GetList('CompanyList')
-  const [search, setSearch] = useState('')
+  const navigate = useNavigate();
+  const [data] = GetList('CompanyList');
+  const [search, setSearch] = useState('');
 
   const { paginationData, Paginate } = Data({
     data,
     search,
-  })
+  });
 
   const Body = useCallback(() => {
-    const tableData = (): CompanyList[] => paginationData()
+    const tableData = (): CompanyList[] => paginationData();
     return (
       <>
-        {tableData().map(company => (
+        {tableData().map((company) => (
           <tr key={`tr${company.id}`}>
-            <td onClick={(): void => history.push(`/companies/${company.id}`)} role="gridcell" className="w250 link">
+            <td onClick={(): void => navigate(`/companies/${company.id}`)} role="gridcell" className="w250 link">
               {company.name}
             </td>
             <td className="is-hidden-touch w250">{company.address}</td>
@@ -33,8 +32,8 @@ export const Companies = () => {
           </tr>
         ))}
       </>
-    )
-  }, [history, paginationData])
+    );
+  }, [history, paginationData]);
 
   return (
     <>
@@ -54,7 +53,7 @@ export const Companies = () => {
       </table>
       {Paginate}
     </>
-  )
-}
+  );
+};
 
-export default Companies
+export default Companies;

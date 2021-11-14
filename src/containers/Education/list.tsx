@@ -1,28 +1,27 @@
-import { useCallback, useState } from 'react'
-import { useHistory } from 'react-router-dom'
-
-import { Bar, Data } from '../../components/table'
-import { EducationList } from '../../models/types'
-import { GetList } from '../../services/fetcher'
+import { useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Bar, Data } from '../../components/table';
+import { EducationList } from '../../models/types';
+import { GetList } from '../../services/fetcher';
 
 export const Educations = () => {
-  const history = useHistory()
-  const [data] = GetList('EducationList')
-  const [search, setSearch] = useState('')
+  const navigate = useNavigate();
+  const [data] = GetList('EducationList');
+  const [search, setSearch] = useState('');
 
   const { paginationData, Paginate } = Data({
     data,
     search,
-  })
+  });
 
   const Body = useCallback(() => {
-    const tableData = (): EducationList[] => paginationData()
+    const tableData = (): EducationList[] => paginationData();
     return (
       <>
-        {tableData().map(education => (
+        {tableData().map((education) => (
           <tr
             key={`tr${education.id}`}
-            onClick={(): void => history.push(`/educations/${education.id}`)}
+            onClick={(): void => navigate(`/educations/${education.id}`)}
             role="gridcell"
             className="link"
           >
@@ -33,8 +32,8 @@ export const Educations = () => {
           </tr>
         ))}
       </>
-    )
-  }, [history, paginationData])
+    );
+  }, [history, paginationData]);
 
   return (
     <>
@@ -52,7 +51,7 @@ export const Educations = () => {
       </table>
       {Paginate}
     </>
-  )
-}
+  );
+};
 
-export default Educations
+export default Educations;

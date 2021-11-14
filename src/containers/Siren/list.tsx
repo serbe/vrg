@@ -1,29 +1,28 @@
-import { useCallback, useState } from 'react'
-import { useHistory } from 'react-router-dom'
-
-import { Bar, Data } from '../../components/table'
-import { SirenList } from '../../models/types'
-import { GetList } from '../../services/fetcher'
-import { splitNumbers } from '../../services/utils'
+import { useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Bar, Data } from '../../components/table';
+import { SirenList } from '../../models/types';
+import { GetList } from '../../services/fetcher';
+import { splitNumbers } from '../../services/utils';
 
 export const Sirens = () => {
-  const history = useHistory()
-  const [data] = GetList('SirenList')
-  const [search, setSearch] = useState('')
+  const navigate = useNavigate();
+  const [data] = GetList('SirenList');
+  const [search, setSearch] = useState('');
 
   const { paginationData, Paginate } = Data({
     data,
     search,
-  })
+  });
 
   const Body = useCallback(() => {
-    const tableData = (): SirenList[] => paginationData()
+    const tableData = (): SirenList[] => paginationData();
     return (
       <>
-        {tableData().map(siren => (
+        {tableData().map((siren) => (
           <tr
             key={`tr${siren.id}`}
-            onClick={(): void => history.push(`/sirens/${siren.id}`)}
+            onClick={(): void => navigate(`/sirens/${siren.id}`)}
             role="gridcell"
             className="link"
           >
@@ -34,8 +33,8 @@ export const Sirens = () => {
           </tr>
         ))}
       </>
-    )
-  }, [history, paginationData])
+    );
+  }, [history, paginationData]);
 
   return (
     <>
@@ -53,7 +52,7 @@ export const Sirens = () => {
       </table>
       {Paginate}
     </>
-  )
-}
+  );
+};
 
-export default Sirens
+export default Sirens;

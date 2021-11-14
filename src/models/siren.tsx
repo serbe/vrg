@@ -1,8 +1,7 @@
 /* eslint-disable camelcase */
-import { ChangeEvent } from 'react'
-
-import { FormField } from '../components/formfield'
-import { NumberInputProperties, StringInputProperties } from './variables'
+import { ChangeEvent } from 'react';
+import { FormField } from '../components/formfield';
+import { NumberInputProperties, StringInputProperties } from './variables';
 
 export const SirenNumberIDInput = ({ value, setter }: NumberInputProperties) => (
   <FormField
@@ -13,7 +12,7 @@ export const SirenNumberIDInput = ({ value, setter }: NumberInputProperties) => 
     icon="tag"
     autocomplete="off"
   />
-)
+);
 
 export const SirenNumberPassportInput = ({ value, setter }: StringInputProperties) => (
   <FormField
@@ -26,7 +25,7 @@ export const SirenNumberPassportInput = ({ value, setter }: StringInputPropertie
     icon="tag"
     autocomplete="off"
   />
-)
+);
 
 export const SirenRadioInput = ({ value, setter }: StringInputProperties) => (
   <FormField
@@ -39,7 +38,7 @@ export const SirenRadioInput = ({ value, setter }: StringInputProperties) => (
     icon="tag"
     autocomplete="off"
   />
-)
+);
 
 export const SirenDeskInput = ({ value, setter }: StringInputProperties) => (
   <FormField
@@ -52,7 +51,7 @@ export const SirenDeskInput = ({ value, setter }: StringInputProperties) => (
     icon="tag"
     autocomplete="off"
   />
-)
+);
 
 export const SirenLatitudeInput = ({ value, setter }: StringInputProperties) => (
   <FormField
@@ -65,7 +64,7 @@ export const SirenLatitudeInput = ({ value, setter }: StringInputProperties) => 
     icon="tag"
     autocomplete="off"
   />
-)
+);
 
 export const SirenLongtitudeInput = ({ value, setter }: StringInputProperties) => (
   <FormField
@@ -78,7 +77,7 @@ export const SirenLongtitudeInput = ({ value, setter }: StringInputProperties) =
     icon="tag"
     autocomplete="off"
   />
-)
+);
 
 export const SirenStageInput = ({ value, setter }: NumberInputProperties) => (
   <FormField
@@ -89,7 +88,7 @@ export const SirenStageInput = ({ value, setter }: NumberInputProperties) => (
     icon="tag"
     autocomplete="off"
   />
-)
+);
 
 export const SirenOwnInput = ({ value, setter }: StringInputProperties) => (
   <FormField
@@ -102,4 +101,4 @@ export const SirenOwnInput = ({ value, setter }: StringInputProperties) => (
     icon="tag"
     autocomplete="off"
   />
-)
+);

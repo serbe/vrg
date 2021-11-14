@@ -1,28 +1,27 @@
-import { useCallback, useState } from 'react'
-import { useHistory } from 'react-router-dom'
-
-import { Bar, Data } from '../../components/table'
-import { ScopeList } from '../../models/types'
-import { GetList } from '../../services/fetcher'
+import { useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Bar, Data } from '../../components/table';
+import { ScopeList } from '../../models/types';
+import { GetList } from '../../services/fetcher';
 
 export const Scopes = () => {
-  const history = useHistory()
-  const [data] = GetList('ScopeList')
-  const [search, setSearch] = useState('')
+  const navigate = useNavigate();
+  const [data] = GetList('ScopeList');
+  const [search, setSearch] = useState('');
 
   const { paginationData, Paginate } = Data({
     data,
     search,
-  })
+  });
 
   const Body = useCallback(() => {
-    const tableData = (): ScopeList[] => paginationData()
+    const tableData = (): ScopeList[] => paginationData();
     return (
       <>
-        {tableData().map(scope => (
+        {tableData().map((scope) => (
           <tr
             key={`tr${scope.id}`}
-            onClick={(): void => history.push(`/scopes/${scope.id}`)}
+            onClick={(): void => navigate(`/scopes/${scope.id}`)}
             role="gridcell"
             className="link"
           >
@@ -30,8 +29,8 @@ export const Scopes = () => {
           </tr>
         ))}
       </>
-    )
-  }, [history, paginationData])
+    );
+  }, [history, paginationData]);
 
   return (
     <>
@@ -46,7 +45,7 @@ export const Scopes = () => {
       </table>
       {Paginate}
     </>
-  )
-}
+  );
+};
 
-export default Scopes
+export default Scopes;

@@ -1,14 +1,13 @@
-import { ChangeEvent, useCallback } from 'react'
-import { useHistory } from 'react-router-dom'
-import { EmailValues, PhoneValues } from './types'
-
-import { Button } from '../components/button'
-import { FormField } from '../components/formfield'
-import { Input } from '../components/input'
-import { Select } from '../components/select'
-import { useAuthState } from '../services/auth'
-import { addEmptyString, prettyPhone } from '../services/utils'
-import { SelectValues, StringInputProperties } from './variables'
+import { ChangeEvent, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '../components/button';
+import { FormField } from '../components/formfield';
+import { Input } from '../components/input';
+import { Select } from '../components/select';
+import { useAuthState } from '../services/auth';
+import { addEmptyString, prettyPhone } from '../services/utils';
+import { EmailValues, PhoneValues } from './types';
+import { SelectValues, StringInputProperties } from './variables';
 
 export const EmailInputs = ({ emails, setter }: EmailValues) => (
   <div className="field">
@@ -22,17 +21,17 @@ export const EmailInputs = ({ emails, setter }: EmailValues) => (
         value={email}
         placeholder="Электронный адрес"
         onBlur={(event): void => {
-          let values = emails
-          values[index] = event.target.value
-          values = addEmptyString(values)
-          setter(values)
+          let values = emails;
+          values[index] = event.target.value;
+          values = addEmptyString(values);
+          setter(values);
         }}
         classNameDiv="pb-1"
         autocomplete="off"
       />
     ))}
   </div>
-)
+);
 
 export const PhoneInputs = ({ phones, setter }: PhoneValues) => (
   <div className="field">
@@ -46,17 +45,17 @@ export const PhoneInputs = ({ phones, setter }: PhoneValues) => (
         value={prettyPhone(phone)}
         placeholder="Телефон"
         onBlur={(event): void => {
-          let values = phones
-          values[index] = event.target.value
-          values = addEmptyString(values)
-          setter(values)
+          let values = phones;
+          values[index] = event.target.value;
+          values = addEmptyString(values);
+          setter(values);
         }}
         classNameDiv="pb-1"
         autocomplete="off"
       />
     ))}
   </div>
-)
+);
 
 export const FaxInputs = ({ phones, setter }: PhoneValues) => (
   <div className="field">
@@ -70,30 +69,30 @@ export const FaxInputs = ({ phones, setter }: PhoneValues) => (
         value={prettyPhone(fax)}
         placeholder="Факс"
         onBlur={(event): void => {
-          let values = phones
-          values[index] = event.target.value
-          values = addEmptyString(values)
-          setter(values)
+          let values = phones;
+          values[index] = event.target.value;
+          values = addEmptyString(values);
+          setter(values);
         }}
         classNameDiv="pb-1"
         autocomplete="off"
       />
     ))}
   </div>
-)
+);
 
 export const NoteInput = ({ value, setter }: StringInputProperties) => (
   <FormField
     name="note"
     value={value}
     onChange={(event: ChangeEvent<HTMLInputElement>): void => {
-      setter(event.target.value === '' ? undefined : event.target.value)
+      setter(event.target.value === '' ? undefined : event.target.value);
     }}
     label="Заметки"
     icon="comment"
     autocomplete="off"
   />
-)
+);
 
 export const AddressInput = ({ value, setter }: StringInputProperties) => (
   <FormField
@@ -105,20 +104,20 @@ export const AddressInput = ({ value, setter }: StringInputProperties) => (
     label="Адрес"
     icon="address-card"
   />
-)
+);
 
 export const ContactIDSelect = ({ id, setter }: SelectValues) => (
   <Select name="contact" label="Контактное лицо" listName="ContactSelect" id={id} icon="user" setter={setter} />
-)
+);
 
 interface FormButtonsValues {
-  del: () => void
-  send: () => void
+  del: () => void;
+  send: () => void;
 }
 
 export const ItemFormButtons = ({ del, send }: FormButtonsValues) => {
-  const history = useHistory()
-  const { state } = useAuthState()
+  const navigate = useNavigate();
+  const { state } = useAuthState();
 
   const SaveButton = useCallback(
     () =>
@@ -128,20 +127,18 @@ export const ItemFormButtons = ({ del, send }: FormButtonsValues) => {
             Сохранить
           </Button>
         </div>
-      ) : (
-        <></>
-      ),
+      ) : null,
     [send, state],
-  )
+  );
 
   const BackButton = useCallback(
     () => (
       <div className="control">
-        <Button onClick={() => history.go(-1)}>Закрыть</Button>
+        <Button onClick={() => navigate(-1)}>Закрыть</Button>
       </div>
     ),
     [history],
-  )
+  );
 
   const DeleteButton = useCallback(
     () =>
@@ -151,18 +148,16 @@ export const ItemFormButtons = ({ del, send }: FormButtonsValues) => {
             color="danger"
             onClick={() => {
               if (window.confirm('Вы действительно хотите удалить запись?')) {
-                del()
+                del();
               }
             }}
           >
             Удалить
           </Button>
         </div>
-      ) : (
-        <></>
-      ),
+      ) : null,
     [del, state],
-  )
+  );
 
   return (
     <div className="field is-grouped">
@@ -170,5 +165,5 @@ export const ItemFormButtons = ({ del, send }: FormButtonsValues) => {
       <BackButton />
       <DeleteButton />
     </div>
-  )
-}
+  );
+};

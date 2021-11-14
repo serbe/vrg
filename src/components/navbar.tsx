@@ -1,24 +1,23 @@
-import { useState } from 'react'
-import { NavLink } from 'react-router-dom'
-
-import { User } from '../models/types'
-import { useAuthState, useSign } from '../services/auth'
-import { Button } from './button'
+import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import { User } from '../models/types';
+import { useAuthState, useSign } from '../services/auth';
+import { Button } from './button';
 
 interface Setter {
-  setter: (value: boolean) => void
+  setter: (value: boolean) => void;
 }
 
 interface OpenState {
-  open: boolean
-  setter: (value: boolean) => void
+  open: boolean;
+  setter: (value: boolean) => void;
 }
 
 const mainItems = [
   { link: '/contacts', name: 'Контакты' },
   { link: '/companies', name: 'Организации' },
   { link: '/sirens', name: 'Сирены' },
-]
+];
 
 const dropdownItems = [
   { link: '/departments', name: 'Отделы' },
@@ -30,7 +29,7 @@ const dropdownItems = [
   { link: '/scopes', name: 'Сферы' },
   { link: '/certificates', name: 'Удостоверения' },
   { link: '/sirentypes', name: 'Типы сирен' },
-]
+];
 
 const NavbarNotLogged = () => (
   <nav className="navbar is-dark" role="navigation">
@@ -40,11 +39,11 @@ const NavbarNotLogged = () => (
       </NavLink>
     </div>
   </nav>
-)
+);
 
 const MainItems = (value: Setter) => (
   <>
-    {mainItems.map(item => (
+    {mainItems.map((item) => (
       <NavLink
         activeClassName="is-active"
         className="navbar-item"
@@ -56,11 +55,11 @@ const MainItems = (value: Setter) => (
       </NavLink>
     ))}
   </>
-)
+);
 
 const NavbarDropdown = ({ setter }: Setter) => (
   <div className="navbar-dropdown" key="navbar-dropdown">
-    {dropdownItems.map(item => (
+    {dropdownItems.map((item) => (
       <NavLink
         activeClassName="is-active"
         className="navbar-item"
@@ -72,7 +71,7 @@ const NavbarDropdown = ({ setter }: Setter) => (
       </NavLink>
     ))}
   </div>
-)
+);
 
 const NavBarStart = ({ setter }: Setter) => (
   <div className="navbar-start" key="navbar-start">
@@ -84,10 +83,10 @@ const NavBarStart = ({ setter }: Setter) => (
       <NavbarDropdown setter={setter} />
     </div>
   </div>
-)
+);
 
 const NavbarEnd = ({ user }: { user: User }) => {
-  const { signOut } = useSign()
+  const { signOut } = useSign();
   return (
     <div className="navbar-end" key="navbar-end">
       <div className="navbar-item has-dropdown is-hoverable">
@@ -99,7 +98,7 @@ const NavbarEnd = ({ user }: { user: User }) => {
             <Button
               className="is-link"
               onClick={() => {
-                signOut()
+                signOut();
               }}
             >
               Выход
@@ -108,8 +107,8 @@ const NavbarEnd = ({ user }: { user: User }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const BrandBar = ({ open, setter }: OpenState) => (
   <>
@@ -130,14 +129,14 @@ const BrandBar = ({ open, setter }: OpenState) => (
       <span aria-hidden="true" />
     </a>
   </>
-)
+);
 
-export const NavBar = (): JSX.Element => {
+export const NavBar = () => {
   // const openClassName = (cn: string): string => (open ? `${cn} is-active` : cn);
-  const { state } = useAuthState()
-  const [open, setOpen] = useState(false)
+  const { state } = useAuthState();
+  const [open, setOpen] = useState(false);
 
-  const divClass = () => (open ? 'navbar-menu is-active' : 'navbar-menu')
+  const divClass = () => (open ? 'navbar-menu is-active' : 'navbar-menu');
 
   return state.state === 'SIGNED_IN' ? (
     <nav className="navbar is-dark" role="navigation" aria-label="dropdown navigation">
@@ -153,7 +152,7 @@ export const NavBar = (): JSX.Element => {
     </nav>
   ) : (
     <NavbarNotLogged />
-  )
-}
+  );
+};
 
-export default NavBar
+export default NavBar;

@@ -1,23 +1,23 @@
-import { User } from '../models/types'
+import { User } from '../models/types';
 
 export const setStorage = (user: User): void => {
-  localStorage.setItem('user', JSON.stringify(user))
-}
+  localStorage.setItem('user', JSON.stringify(user));
+};
 
 export const clearStorage = (): void => {
-  localStorage.removeItem('user')
-}
+  localStorage.removeItem('user');
+};
 
 export const getStorage = (): User => {
-  const userStorage: string | null = localStorage.getItem('user')
-  const user: User = { role: 0, name: '', token: '' }
+  const userStorage: string | null = localStorage.getItem('user');
+  const user: User = { role: 0, name: '', token: '' };
   if (userStorage) {
-    const u = JSON.parse(userStorage) as User | undefined
+    const u = JSON.parse(userStorage) as User | undefined;
     if (u) {
-      user.name = u.name
-      user.role = u.role
-      user.token = u.token
+      user.name = u.name;
+      user.role = u.role;
+      user.token = u.token;
     }
   }
-  return user
-}
+  return user;
+};

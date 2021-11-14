@@ -1,32 +1,31 @@
-import { useCallback, useState } from 'react'
-import { useHistory } from 'react-router-dom'
-
-import { Bar, Data } from '../../components/table'
-import { ContactList } from '../../models/types'
-import { GetList } from '../../services/fetcher'
-import { splitNumbers } from '../../services/utils'
+import { useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Bar, Data } from '../../components/table';
+import { ContactList } from '../../models/types';
+import { GetList } from '../../services/fetcher';
+import { splitNumbers } from '../../services/utils';
 
 export const Contacts = () => {
-  const history = useHistory()
-  const [data] = GetList('ContactList')
-  const [search, setSearch] = useState('')
+  const navigate = useNavigate();
+  const [data] = GetList('ContactList');
+  const [search, setSearch] = useState('');
 
   const { paginationData, Paginate } = Data({
     data,
     search,
-  })
+  });
 
   const Body = useCallback(() => {
-    const tableData = (): ContactList[] => paginationData()
+    const tableData = (): ContactList[] => paginationData();
     return (
       <>
-        {tableData().map(contact => (
+        {tableData().map((contact) => (
           <tr key={`tr${contact.id}`}>
-            <td onClick={(): void => history.push(`/contacts/${contact.id}`)} role="gridcell" className="w250 link">
+            <td onClick={(): void => navigate(`/contacts/${contact.id}`)} role="gridcell" className="w250 link">
               {contact.name}
             </td>
             <td
-              onClick={(): void => history.push(`/companies/${contact.company_id || 0}`)}
+              onClick={(): void => navigate(`/companies/${contact.company_id || 0}`)}
               role="gridcell"
               className="is-hidden-mobile w250 link"
             >
@@ -38,8 +37,8 @@ export const Contacts = () => {
           </tr>
         ))}
       </>
-    )
-  }, [history, paginationData])
+    );
+  }, [history, paginationData]);
 
   return (
     <>
@@ -58,7 +57,7 @@ export const Contacts = () => {
       </table>
       {Paginate}
     </>
-  )
-}
+  );
+};
 
-export default Contacts
+export default Contacts;
