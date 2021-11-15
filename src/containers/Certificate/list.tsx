@@ -1,4 +1,5 @@
-import { useCallback, useState } from 'react';
+import { Table, Tbody, Td, Th, Tr } from '@chakra-ui/react';
+import { ReactNode, useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Bar, Data } from '../../components/table';
 import { CertificateList } from '../../models/types';
@@ -14,54 +15,49 @@ export const Certificates = () => {
     search,
   });
 
-  const Body = useCallback(() => {
-    const tableData = (): CertificateList[] => paginationData();
-    return (
-      <>
-        {tableData().map((certificate) => (
-          <tr key={`tr${certificate.id}`}>
-            <td
-              onClick={(): void => navigate(`/certificates/${certificate.id}`)}
-              role="gridcell"
-              className="link nowrap"
-            >
-              {certificate.num}
-            </td>
-            <td
-              onClick={(): void => navigate(`/contacts/${certificate.contact_id || 0}`)}
-              role="gridcell"
-              className="link"
-            >
-              {certificate.contact_name}
-            </td>
-            <td
-              onClick={(): void => navigate(`/companies/${certificate.company_id || 0}`)}
-              role="gridcell"
-              className="is-hidden-mobile link"
-            >
-              {certificate.company_name}
-            </td>
-            <td className="nowrap">{certificate.cert_date}</td>
-          </tr>
-        ))}
-      </>
-    );
-  }, [history, paginationData]);
+  const Body = useCallback(
+    ({ children }: { children: ReactNode }) => {
+      const tableData = (): CertificateList[] => paginationData();
+      return (
+        <Tbody>
+          {children}
+          {tableData().map((certificate) => (
+            <Tr key={`tr${certificate.id}`}>
+              <Td onClick={(): void => navigate(`/certificates/${certificate.id}`)} className="link nowrap">
+                {certificate.num}
+              </Td>
+              <Td onClick={(): void => navigate(`/contacts/${certificate.contact_id || 0}`)} className="link">
+                {certificate.contact_name}
+              </Td>
+              <Td
+                onClick={(): void => navigate(`/companies/${certificate.company_id || 0}`)}
+                className="link"
+                display={{ base: 'none', lg: 'table-cell' }}
+              >
+                {certificate.company_name}
+              </Td>
+              <Td className="nowrap">{certificate.cert_date}</Td>
+            </Tr>
+          ))}
+        </Tbody>
+      );
+    },
+    [history, paginationData],
+  );
 
   return (
     <>
       <Bar value={search} setter={setSearch} name="certificates" />
-      <table className="table is-narrow is-fullwidth">
-        <tbody>
-          <tr>
-            <th>Номер</th>
-            <th>Фамилия Имя Отчество</th>
-            <th className="is-hidden-mobile">Учебно-методический центр</th>
-            <th>Дата</th>
-          </tr>
-          <Body />
-        </tbody>
-      </table>
+      <Table size="sm">
+        <Body>
+          <Tr>
+            <Th>Номер</Th>
+            <Th>Фамилия Имя Отчество</Th>
+            <Th display={{ base: 'none', lg: 'table-cell' }}>Учебно-методический центр</Th>
+            <Th>Дата</Th>
+          </Tr>
+        </Body>
+      </Table>
       {Paginate}
     </>
   );

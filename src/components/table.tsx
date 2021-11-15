@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useEffect, useReducer } from 'react';
+import { ChangeEvent, ReactElement, useCallback, useEffect, useReducer } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthState } from '../services/auth';
 import { List } from '../services/fetcher';
@@ -105,7 +105,7 @@ const paginateReducer = (state: PaginateState, action: PaginateAction): Paginate
   }
 };
 
-export const Paginate = ({ filteredDataLength, itemsPerPage, currentPage, setter }: PaginateProperties) => {
+const Paginate = ({ filteredDataLength, itemsPerPage, currentPage, setter }: PaginateProperties) => {
   const receiveChildValue = (value: number): void => {
     setter(value - 1);
   };
@@ -118,7 +118,13 @@ export const Paginate = ({ filteredDataLength, itemsPerPage, currentPage, setter
   ) : null;
 };
 
-export const Data = ({ data, search }: DataProperties) => {
+export const Data = ({
+  data,
+  search,
+}: DataProperties): {
+  paginationData: () => List[];
+  Paginate: ReactElement;
+} => {
   type TableData = typeof data;
 
   const [{ filteredData, currentPage, filteredDataLength, itemsPerPage }, dispatch] = useReducer(

@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from 'react';
+
 export type BasicColors = 'white' | 'light' | 'dark' | 'black' | 'text' | 'ghost';
 
 export type AdditionalColors = 'info' | 'success' | 'warning' | 'danger';
@@ -33,6 +35,6 @@ export interface SelectValues {
 }
 
 export interface DatePickerValues {
-  value?: string;
-  setter: (value?: string) => void;
+  value: Date;
+  setter: Dispatch<SetStateAction<Date>>;
 }

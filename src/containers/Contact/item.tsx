@@ -1,3 +1,4 @@
+import { Box, Container, VStack, Wrap, WrapItem } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { CompanyIDSelect } from '../../models/company';
@@ -27,6 +28,7 @@ export const ContactItem = () => {
   const [educations, setEducations] = useState<string[]>([]);
   const [item] = GetItem('Contact', id);
   const [status, setStatus] = useState(false);
+  const [date, setDate] = useState(new Date());
 
   const send = (): void => {
     const NumberID = Number(id);
@@ -78,57 +80,65 @@ export const ContactItem = () => {
   }, [navigate, status]);
 
   return (
-    <div>
+    <Container maxW="full" mt={0} centerContent overflow="hidden">
       {item && (
-        <>
-          <ContactNameInput value={name} setter={setName} />
-          <CompanyIDSelect id={companyID} setter={setCompanyID} />
+        <Wrap>
+          <WrapItem>
+            <Box bg="white" borderRadius="lg">
+              <Box m={8} color="#0B0E3F">
+                <VStack spacing={5}>
+                  <ContactNameInput value={name} setter={setName} />
+                  <CompanyIDSelect id={companyID} setter={setCompanyID} />
 
-          <div className="columns">
-            <div className="column is-half">
-              <PostIDSelect id={postID} setter={setPostID} />
-            </div>
-            <div className="column is-half">
-              <DepartmentIDSelect id={departmentID} setter={setDepartmentID} />
-            </div>
-          </div>
-          <div className="columns">
-            <div className="column is-half">
-              <PostGoIDSelect id={postGoID} setter={setPostGoID} />
-            </div>
-            <div className="column is-half">
-              <RankIDSelect id={rankID} setter={setRankID} />
-            </div>
-          </div>
+                  <div className="columns">
+                    <div className="column is-half">
+                      <PostIDSelect id={postID} setter={setPostID} />
+                    </div>
+                    <div className="column is-half">
+                      <DepartmentIDSelect id={departmentID} setter={setDepartmentID} />
+                    </div>
+                  </div>
+                  <div className="columns">
+                    <div className="column is-half">
+                      <PostGoIDSelect id={postGoID} setter={setPostGoID} />
+                    </div>
+                    <div className="column is-half">
+                      <RankIDSelect id={rankID} setter={setRankID} />
+                    </div>
+                  </div>
 
-          <div className="columns">
-            <div className="column is-one-third">
-              <ContactBirthdayInput value={birthday} setter={setBirthday} />
-            </div>
-            <div className="column is-one-third">
-              <input type="date" />
-            </div>
-          </div>
+                  <div className="columns">
+                    <div className="column is-one-third">
+                      <ContactBirthdayInput value={date} setter={setDate} />
+                    </div>
+                    <div className="column is-one-third">
+                      <input type="date" />
+                    </div>
+                  </div>
 
-          <div className="columns">
-            <div className="column">
-              <EmailInputs emails={emails} setter={setEmails} />
-            </div>
-            <div className="column">
-              <PhoneInputs phones={phones} setter={setPhones} />
-            </div>
-            <div className="column">
-              <FaxInputs phones={faxes} setter={setFaxes} />
-            </div>
-          </div>
+                  <div className="columns">
+                    <div className="column">
+                      <EmailInputs emails={emails} setter={setEmails} />
+                    </div>
+                    <div className="column">
+                      <PhoneInputs phones={phones} setter={setPhones} />
+                    </div>
+                    <div className="column">
+                      <FaxInputs phones={faxes} setter={setFaxes} />
+                    </div>
+                  </div>
 
-          <ContactEducations educations={educations} />
-          <NoteInput value={note} setter={setNote} />
+                  <ContactEducations educations={educations} />
+                  <NoteInput value={note} setter={setNote} />
 
-          <ItemFormButtons send={send} del={del} />
-        </>
+                  <ItemFormButtons send={send} del={del} />
+                </VStack>
+              </Box>
+            </Box>
+          </WrapItem>
+        </Wrap>
       )}
-    </div>
+    </Container>
   );
 };
 

@@ -1,3 +1,4 @@
+import { Box, Flex, Spacer } from '@chakra-ui/react';
 import { EducationNearList } from '../../models/education';
 import { PracticeNearList } from '../../models/practice';
 import { EducationShort, PracticeShort } from '../../models/types';
@@ -9,14 +10,15 @@ export const Home = () => {
   const [practices] = GetList('PracticeNear') as [PracticeShort[], string];
 
   return (
-    <div className="columns">
-      <div className="column is-4">
+    <Flex>
+      <Box flex="1">
         <EducationNearList list={educations} />
-      </div>
-      <div className="column is-4 is-offset-4">
+      </Box>
+      <Spacer />
+      <Box flex="1">
         <PracticeNearList list={practices} />
-      </div>
-    </div>
+      </Box>
+    </Flex>
   );
 };
 

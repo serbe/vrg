@@ -1,8 +1,10 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { Navbar } from './components/nb';
-// import { Router } from './components/routes';
+import { Navbar } from './components/navbar';
+import { Router } from './components/routes';
+import Login from './containers/Login';
+import './index.scss';
 import { AuthProvider, checkUser, useAuthState, useSign } from './services/auth';
 
 const Initializаtion = () => <p className="p-4 w-full h-full text-center">Initializаtion...</p>;
@@ -10,24 +12,27 @@ const Initializаtion = () => <p className="p-4 w-full h-full text-center">Initi
 const Main = () => {
   const { signIn, signOut } = useSign();
   const { state } = useAuthState();
+
   useEffect(() => {
     checkUser()
       .then((user) => {
         if (user.token !== '') return signIn(user);
-        return signOut();
+        signOut();
+        return;
       })
       .catch(() => signOut());
-  }, [signIn, signOut]);
+  }, []);
 
   return (
     <BrowserRouter>
       {state.state === 'UNKNOWN' ? (
         <Initializаtion />
+      ) : state.state === 'SIGNED_IN' ? (
+        <Navbar>
+          <Router />
+        </Navbar>
       ) : (
-        <div className="">
-          <Navbar />
-          <div className="px-4 py-4">{/* <Router /> */}</div>
-        </div>
+        <Login />
       )}
     </BrowserRouter>
   );

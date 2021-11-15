@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+import { Table, Tbody, Td, Tr } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { DatePicker } from '../components/datepicker';
 import { Select } from '../components/select';
@@ -28,23 +29,26 @@ export const EducationEndDateInput = ({ value, setter }: DatePickerValues) => (
 export const EducationNearList = ({ list }: { list: EducationShort[] }) => {
   const navigate = useNavigate();
   return (
-    <table className="table is-narrow">
-      <tbody>
+    <Table size="sm">
+      <Tbody bg="white">
         {list.map((row) => (
-          <tr key={row.id} className={trClass(row.start_date)}>
-            <td className="has-text-black" onMouseDown={(): void => navigate(`/educations/${row.id}`)} role="gridcell">
+          <Tr key={row.id} className={trClass(row.start_date)}>
+            <Td
+              className="has-text-black small-border"
+              onMouseDown={(): void => navigate(`/educations/${row.id}`)}
+              w="5%"
+            >
               {tinyDate(row.start_date)}
-            </td>
-            <td
-              className="has-text-black"
+            </Td>
+            <Td
+              className="has-text-black small-border"
               onMouseDown={(): void => navigate(`/contacts/${row.contact_id}`)}
-              role="gridcell"
             >
               {row.contact_name}
-            </td>
-          </tr>
+            </Td>
+          </Tr>
         ))}
-      </tbody>
-    </table>
+      </Tbody>
+    </Table>
   );
 };

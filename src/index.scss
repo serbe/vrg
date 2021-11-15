@@ -1,55 +1,44 @@
-@charset "utf-8";
-
-@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
-@import './variables.scss';
-@import '../node_modules/bulma/sass/utilities/_all.sass';
-@import '../node_modules/bulma/sass/base/_all.sass';
-@import '../node_modules/bulma/sass/elements/_all.sass';
-@import '../node_modules/bulma/sass/form/_all.sass';
-@import '../node_modules/bulma/sass/components/_all.sass';
-@import '../node_modules/bulma/sass/grid/_all.sass';
-@import '../node_modules/bulma/sass/helpers/_all.sass';
-@import '../node_modules/bulma/sass/layout/_all.sass';
-
-// html {
-//   font-size: 0.94em;
-// }
-
-.centered-content {
-  max-width: 1024px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.w250 {
-  min-width: 250px !important;
-  max-width: 80% !important;
-}
-
-.fixed {
-  table-layout: fixed;
-}
-
-.w95 {
-  width: 130px !important;
-}
-
-.full-width {
-  width: 100%;
-}
-
-.link {
-  cursor: pointer;
+.small-border {
+  padding-inline-start: 0.3rem;
+  padding-inline-end: 0.3rem;
 }
 
 .nowrap {
   white-space: nowrap;
 }
 
-.w300 {
-  width: 300px;
+.tr-green td {
+  border-color: hsl(141, 71%, 48%) !important;
 }
 
-.mla {
-  margin-left: auto;
+.tr-red td {
+  border-color: hsl(348, 100%, 61%) !important;
+}
+
+.tr-yellow td {
+  border-color: hsl(48, 100%, 67%) !important;
+}
+
+.tr-green:hover {
+  background-color: hsl(141, 71%, 48%) !important;
+}
+
+.tr-red:hover {
+  background-color: hsl(348, 100%, 61%) !important;
+}
+
+.tr-yellow:hover {
+  background-color: hsl(48, 100%, 67%) !important;
+}
+
+.tr-green td:first-child {
+  background-color: hsl(141, 71%, 48%) !important;
+}
+
+.tr-red td:first-child {
+  background-color: hsl(348, 100%, 61%) !important;
+}
+
+.tr-yellow td:first-child {
+  background-color: hsl(48, 100%, 67%) !important;
 }
