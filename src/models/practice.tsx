@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-import { Table, Tbody, Td, Tr } from '@chakra-ui/react';
 import { ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DatePicker } from '../components/datepicker';
@@ -49,34 +48,26 @@ export const PracticeDateInput = ({ value, setter }: DatePickerValues) => (
 export const PracticeNearList = ({ list }: { list: PracticeShort[] }) => {
   const navigate = useNavigate();
   return (
-    <Table variant="simple" size="sm">
-      <Tbody bg="white">
+    <table className="table is-narrow">
+      <tbody>
         {list.map((row) => (
-          <Tr key={row.id} className={trClass(row.date_of_practice)}>
-            <Td
-              className="has-text-black small-border"
-              onMouseDown={(): void => navigate(`/practices/${row.id}`)}
-              role="gridcell"
-            >
+          <tr key={row.id} className={trClass(row.date_of_practice)}>
+            <td className="has-text-black" onMouseDown={(): void => navigate(`/practices/${row.id}`)} role="gridcell">
               {tinyDate(row.date_of_practice)}
-            </Td>
-            <Td
-              className="has-text-black small-border"
-              onMouseDown={(): void => navigate(`/kinds/${row.kind_id}`)}
-              role="gridcell"
-            >
+            </td>
+            <td className="has-text-black" onMouseDown={(): void => navigate(`/kinds/${row.kind_id}`)} role="gridcell">
               {row.kind_short_name}
-            </Td>
-            <Td
-              className="has-text-black small-border"
+            </td>
+            <td
+              className="has-text-black"
               onMouseDown={(): void => navigate(`/companies/${row.company_id}`)}
               role="gridcell"
             >
               {row.company_name}
-            </Td>
-          </Tr>
+            </td>
+          </tr>
         ))}
-      </Tbody>
-    </Table>
+      </tbody>
+    </table>
   );
 };

@@ -1,4 +1,3 @@
-import { ChakraProvider } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Navbar } from './components/navbar';
@@ -28,9 +27,12 @@ const Main = () => {
       {state.state === 'UNKNOWN' ? (
         <Initializаtion />
       ) : state.state === 'SIGNED_IN' ? (
-        <Navbar>
-          <Router />
-        </Navbar>
+        <div>
+          <Navbar />
+          <div className="p-4">
+            <Router />
+          </div>
+        </div>
       ) : (
         <Login />
       )}
@@ -42,8 +44,6 @@ export default Main;
 
 export const App = () => (
   <AuthProvider>
-    <ChakraProvider>
-      <Main />
-    </ChakraProvider>
+    <Main />
   </AuthProvider>
 );
