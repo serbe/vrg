@@ -1,15 +1,19 @@
-import { ChangeEvent, KeyboardEvent, MouseEvent } from 'react';
-import { AdditionalColors, InputTypes, LinkColor, PrimarylColor, Sizes } from '../models/variables';
+import type { ChangeEvent, KeyboardEvent, MouseEvent } from 'react';
+import type { AdditionalColors, InputTypes, LinkColor, PrimarylColor, Sizes } from '../models/variables';
 import { Input } from './input';
 
 interface FormFieldProperties {
   autocomplete?: string;
   className?: string;
   classNameDiv?: string;
+  color?: AdditionalColors | LinkColor | PrimarylColor;
   disabled?: boolean;
+  focus?: boolean;
+  hover?: boolean;
   icon?: string;
   iconRight?: string;
   label?: string;
+  load?: boolean;
   name: string;
   onBlur?: (event: ChangeEvent<HTMLInputElement>) => void;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -17,24 +21,24 @@ interface FormFieldProperties {
   onKeyPress?: (event: KeyboardEvent<HTMLInputElement>) => void;
   placeholder?: string;
   readonly?: boolean;
+  round?: boolean;
+  size?: Sizes;
   type?: InputTypes;
   value?: number | string;
-  color?: AdditionalColors | PrimarylColor | LinkColor;
-  size?: Sizes;
-  round?: boolean;
-  hover?: boolean;
-  focus?: boolean;
-  load?: boolean;
 }
 
 export const FormField = ({
   autocomplete,
   className,
   classNameDiv,
+  color,
   disabled,
+  focus,
+  hover,
   icon,
   iconRight,
   label,
+  load,
   name,
   onBlur,
   onChange,
@@ -42,17 +46,13 @@ export const FormField = ({
   onKeyPress,
   placeholder,
   readonly,
+  round,
+  size,
   type,
   value,
-  color,
-  size,
-  round,
-  hover,
-  focus,
-  load,
-}: FormFieldProperties) => (
+}: FormFieldProperties): JSX.Element => (
   <div className="field">
-    {label && (
+    {label != null && (
       <label className="label" htmlFor={name}>
         {label}
       </label>
@@ -61,9 +61,13 @@ export const FormField = ({
       autocomplete={autocomplete}
       className={className}
       classNameDiv={classNameDiv}
+      color={color}
       disabled={disabled}
+      focus={focus}
+      hover={hover}
       icon={icon}
       iconRight={iconRight}
+      load={load}
       name={name}
       onBlur={onBlur}
       onChange={onChange}
@@ -71,40 +75,34 @@ export const FormField = ({
       onKeyPress={onKeyPress}
       placeholder={placeholder}
       readonly={readonly}
+      round={round}
+      size={size}
       type={type}
       value={value}
-      color={color}
-      size={size}
-      round={round}
-      hover={hover}
-      focus={focus}
-      load={load}
     />
   </div>
 );
 
 FormField.defaultProps = {
-  autocomplete: undefined,
-  className: undefined,
-  classNameDiv: undefined,
+  autocomplete: null,
+  className: null,
+  classNameDiv: null,
+  color: null,
   disabled: false,
-  icon: undefined,
-  iconRight: undefined,
-  label: undefined,
-  onBlur: undefined,
-  onChange: undefined,
-  onClick: undefined,
-  onKeyPress: undefined,
-  placeholder: undefined,
-  readonly: false,
-  type: 'text',
-  value: undefined,
-  color: undefined,
-  size: undefined,
-  round: false,
-  hover: false,
   focus: false,
+  hover: false,
+  icon: null,
+  iconRight: null,
+  label: null,
   load: false,
+  onBlur: null,
+  onChange: null,
+  onClick: null,
+  onKeyPress: null,
+  placeholder: null,
+  readonly: false,
+  round: false,
+  size: null,
+  type: 'text',
+  value: null,
 };
-
-export default FormField;

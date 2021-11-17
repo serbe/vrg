@@ -1,29 +1,29 @@
 /* eslint-disable camelcase */
-import { ChangeEvent } from 'react';
+import type { ChangeEvent } from 'react';
 import { FormField } from '../components/formfield';
 import { Select } from '../components/select';
-import { SelectValues, StringInputProperties } from './variables';
+import type { SelectValues, StringInputProperties } from './variables';
 
-export const CompanyIDSelect = ({ id, setter }: SelectValues) => (
+export const CompanyIDSelect = ({ id, setter }: SelectValues): JSX.Element => (
   <Select
-    name="company-select"
+    icon="building"
+    id={id}
     label="Наименование организации"
     listName="CompanySelect"
-    id={id}
-    icon="building"
+    name="company-select"
     setter={setter}
   />
 );
 
-export const CompanyNameInput = ({ value, setter }: StringInputProperties) => (
+export const CompanyNameInput = ({ value, setter }: StringInputProperties): JSX.Element => (
   <FormField
-    name="company-name"
-    value={value}
-    onChange={(event: ChangeEvent<HTMLInputElement>): void =>
-      setter(event.target.value === '' ? undefined : event.target.value)
-    }
-    label="Наименование организации"
-    icon="building"
     autocomplete="off"
+    icon="building"
+    label="Наименование организации"
+    name="company-name"
+    onChange={(event: ChangeEvent<HTMLInputElement>): void => {
+      setter(event.target.value === '' ? undefined : event.target.value);
+    }}
+    value={value}
   />
 );

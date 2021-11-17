@@ -1,4 +1,4 @@
-import { User } from '../models/types';
+import type { User } from '../models/types';
 
 export const setStorage = (user: User): void => {
   localStorage.setItem('vrg-user', JSON.stringify(user));
@@ -11,8 +11,8 @@ export const clearStorage = (): void => {
 export const getStorage = (): User => {
   const userStorage: string | null = localStorage.getItem('vrg-user');
   const user: User = { role: 0, name: '', token: '' };
-  if (userStorage) {
-    const u = JSON.parse(userStorage) as User | undefined;
+  if (userStorage != null) {
+    const u = JSON.parse(userStorage) as User | null;
     if (u) {
       user.name = u.name;
       user.role = u.role;

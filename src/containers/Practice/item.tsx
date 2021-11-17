@@ -4,10 +4,10 @@ import { CompanyIDSelect } from '../../models/company';
 import { ItemFormButtons, NoteInput } from '../../models/impersonal';
 import { KindIDSelect } from '../../models/kind';
 import { PracticeDateInput, PracticeTopicInput } from '../../models/practice';
-import { Practice } from '../../models/types';
+import type { Practice } from '../../models/types';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 
-export const PracticeItem = () => {
+export const PracticeItem = (): JSX.Element => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [companyID, setCompanyID] = useState<number>();
@@ -60,15 +60,13 @@ export const PracticeItem = () => {
         <>
           <CompanyIDSelect id={companyID} setter={setCompanyID} />
           <KindIDSelect id={kindID} setter={setKindID} />
-          <PracticeTopicInput value={topic} setter={setTopic} />
-          <PracticeDateInput value={date} setter={setDate} />
-          <NoteInput value={note} setter={setNote} />
+          <PracticeTopicInput setter={setTopic} value={topic} />
+          <PracticeDateInput setter={setDate} value={date} />
+          <NoteInput setter={setNote} value={note} />
 
-          <ItemFormButtons send={send} del={del} />
+          <ItemFormButtons del={del} send={send} />
         </>
       )}
     </div>
   );
 };
-
-export default PracticeItem;

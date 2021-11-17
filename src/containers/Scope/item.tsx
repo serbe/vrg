@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ItemFormButtons, NoteInput } from '../../models/impersonal';
 import { ScopeNameInput } from '../../models/scope';
-import { Scope } from '../../models/types';
+import type { Scope } from '../../models/types';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 
-export const ScopeItem = () => {
+export const ScopeItem = (): JSX.Element => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [name, setName] = useState<string>();
@@ -47,14 +47,12 @@ export const ScopeItem = () => {
     <div>
       {item && (
         <>
-          <ScopeNameInput value={name} setter={setName} />
-          <NoteInput value={note} setter={setNote} />
+          <ScopeNameInput setter={setName} value={name} />
+          <NoteInput setter={setNote} value={note} />
 
-          <ItemFormButtons send={send} del={del} />
+          <ItemFormButtons del={del} send={send} />
         </>
       )}
     </div>
   );
 };
-
-export default ScopeItem;

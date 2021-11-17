@@ -1,38 +1,40 @@
-export type BasicColors = 'white' | 'light' | 'dark' | 'black' | 'text' | 'ghost';
+import type { Dispatch, SetStateAction } from 'react';
 
-export type AdditionalColors = 'info' | 'success' | 'warning' | 'danger';
+export type BasicColors = 'black' | 'dark' | 'ghost' | 'light' | 'text' | 'white';
+
+export type AdditionalColors = 'danger' | 'info' | 'success' | 'warning';
 
 export type PrimarylColor = 'primary';
 
 export type LinkColor = 'link';
 
-export type Sizes = 'small' | 'normal' | 'medium' | 'large';
+export type Sizes = 'large' | 'medium' | 'normal' | 'small';
 
-export type InputTypes = 'text' | 'password' | 'email' | 'tel';
+export type InputTypes = 'email' | 'password' | 'tel' | 'text';
 
 export type Positions = 'left' | 'right';
 
 export interface StringInputProperties {
   value?: string;
-  setter: (value?: string) => void;
+  setter: Dispatch<SetStateAction<string | undefined>>;
 }
 
 export interface NumberInputProperties {
   value?: number;
-  setter: (value?: number) => void;
+  setter: Dispatch<SetStateAction<number | undefined>>;
 }
 
 export interface BooleanInputProperties {
   value: boolean;
-  setter: (value: boolean) => void;
+  setter: Dispatch<SetStateAction<boolean>>;
 }
 
 export interface SelectValues {
   id?: number;
-  setter: (event?: number) => void;
+  setter: Dispatch<SetStateAction<number | undefined>>;
 }
 
 export interface DatePickerValues {
   value?: string;
-  setter: (value?: string) => void;
+  setter: Dispatch<SetStateAction<string | undefined>>;
 }

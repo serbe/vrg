@@ -1,21 +1,21 @@
 /* eslint-disable camelcase */
-import { ChangeEvent } from 'react';
+import type { ChangeEvent } from 'react';
 import { DatePicker } from '../components/datepicker';
 import { FormField } from '../components/formfield';
-import { DatePickerValues, StringInputProperties } from './variables';
+import type { DatePickerValues, StringInputProperties } from './variables';
 
-export const CertificateNumberInput = ({ value, setter }: StringInputProperties) => (
+export const CertificateNumberInput = ({ value, setter }: StringInputProperties): JSX.Element => (
   <FormField
-    name="num"
-    value={value}
-    onChange={(event: ChangeEvent<HTMLInputElement>): void =>
-      setter(event.target.value === '' ? undefined : event.target.value)
-    }
-    label="Серийный номер удостоверения"
     icon="tag"
+    label="Серийный номер удостоверения"
+    name="num"
+    onChange={(event: ChangeEvent<HTMLInputElement>): void => {
+      setter(event.target.value === '' ? undefined : event.target.value);
+    }}
+    value={value}
   />
 );
 
-export const CertificateDateInput = ({ value, setter }: DatePickerValues) => (
-  <DatePicker name="cert-date" label="Дата выдачи" value={value} setter={setter} />
+export const CertificateDateInput = ({ value, setter }: DatePickerValues): JSX.Element => (
+  <DatePicker label="Дата выдачи" name="cert-date" setter={setter} value={value} />
 );

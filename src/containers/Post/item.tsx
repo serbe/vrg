@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ItemFormButtons, NoteInput } from '../../models/impersonal';
 import { PostGOSwitch, PostNameInput } from '../../models/post';
-import { Post } from '../../models/types';
+import type { Post } from '../../models/types';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 
-export const PostItem = () => {
+export const PostItem = (): JSX.Element => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [name, setName] = useState<string>();
@@ -35,7 +35,7 @@ export const PostItem = () => {
     if (item) {
       const data = item as Post;
       setName(data.name);
-      setGo(data.go || false);
+      setGo(data.go ?? false);
       setNote(data.note);
     }
   }, [item]);
@@ -50,15 +50,13 @@ export const PostItem = () => {
     <div>
       {item && (
         <>
-          <PostNameInput value={name} setter={setName} />
-          <PostGOSwitch value={go} setter={setGo} />
-          <NoteInput value={note} setter={setNote} />
+          <PostNameInput setter={setName} value={name} />
+          <PostGOSwitch setter={setGo} value={go} />
+          <NoteInput setter={setNote} value={note} />
 
-          <ItemFormButtons send={send} del={del} />
+          <ItemFormButtons del={del} send={send} />
         </>
       )}
     </div>
   );
 };
-
-export default PostItem;

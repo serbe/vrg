@@ -3,10 +3,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { EducationEndDateInput, EducationNameSelect, EducationStartDateInput } from '../../models/education';
 import { ItemFormButtons, NoteInput } from '../../models/impersonal';
 import { PostGoIDSelect } from '../../models/post';
-import { Education } from '../../models/types';
+import type { Education } from '../../models/types';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 
-export const EducationItem = () => {
+export const EducationItem = (): JSX.Element => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [contactID, setContactID] = useState<number>();
@@ -62,20 +62,18 @@ export const EducationItem = () => {
 
           <div className="columns">
             <div className="column">
-              <EducationStartDateInput value={startDate} setter={setStartDate} />
+              <EducationStartDateInput setter={setStartDate} value={startDate} />
             </div>
             <div className="column">
-              <EducationEndDateInput value={endDate} setter={setEndDate} />
+              <EducationEndDateInput setter={setEndDate} value={endDate} />
             </div>
           </div>
 
-          <NoteInput value={note} setter={setNote} />
+          <NoteInput setter={setNote} value={note} />
 
-          <ItemFormButtons send={send} del={del} />
+          <ItemFormButtons del={del} send={send} />
         </>
       )}
     </div>
   );
 };
-
-export default EducationItem;

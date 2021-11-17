@@ -1,10 +1,10 @@
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Bar, Data } from '../../components/table';
-import { RankList } from '../../models/types';
+import type { RankList } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 
-export const Ranks = () => {
+export const Ranks = (): JSX.Element => {
   const navigate = useNavigate();
   const [data] = GetList('RankList');
   const [search, setSearch] = useState('');
@@ -19,7 +19,14 @@ export const Ranks = () => {
     return (
       <>
         {tableData().map((rank) => (
-          <tr key={`tr${rank.id}`} onClick={(): void => navigate(`/ranks/${rank.id}`)} role="gridcell" className="link">
+          <tr
+            className="link"
+            key={`tr${rank.id}`}
+            onClick={(): void => {
+              navigate(`/ranks/${rank.id}`);
+            }}
+            role="gridcell"
+          >
             <td className="w250">{rank.name}</td>
           </tr>
         ))}
@@ -29,7 +36,7 @@ export const Ranks = () => {
 
   return (
     <>
-      <Bar value={search} setter={setSearch} name="ranks" />
+      <Bar name="ranks" setter={setSearch} value={search} />
       <table className="table is-narrow is-fullwidth">
         <tbody>
           <tr>
@@ -42,5 +49,3 @@ export const Ranks = () => {
     </>
   );
 };
-
-export default Ranks;

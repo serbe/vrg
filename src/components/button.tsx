@@ -1,86 +1,84 @@
 import clsx from 'clsx';
-import { MouseEvent } from 'react';
-import { AdditionalColors, BasicColors, LinkColor, PrimarylColor, Sizes } from '../models/variables';
+import type { MouseEventHandler } from 'react';
+import type { AdditionalColors, BasicColors, LinkColor, PrimarylColor, Sizes } from '../models/variables';
 
 interface ButtonProperties {
+  active?: boolean;
   children?: string;
   className?: string;
-  color?: BasicColors | AdditionalColors | PrimarylColor | LinkColor;
+  color?: AdditionalColors | BasicColors | LinkColor | PrimarylColor;
   disable?: boolean;
-  href?: string;
-  light?: boolean;
-  outline?: boolean;
-  invert?: boolean;
-  round?: boolean;
-  hover?: boolean;
   focus?: boolean;
-  active?: boolean;
-  load?: boolean;
+  hover?: boolean;
+  href?: string;
+  invert?: boolean;
   isstatic?: boolean;
+  light?: boolean;
+  load?: boolean;
+  onClick?: MouseEventHandler<HTMLAnchorElement | HTMLButtonElement | HTMLInputElement>;
+  outline?: boolean;
+  round?: boolean;
   size?: Sizes;
-  onClick?: (event: MouseEvent<HTMLAnchorElement | HTMLButtonElement | HTMLInputElement>) => void;
 }
 
 export const Button = ({
+  active,
   children,
   className,
   color,
   disable,
+  focus,
+  hover,
   href,
-  light,
-  outline,
   invert,
+  isstatic,
+  light,
+  load,
+  onClick,
+  outline,
   round,
   size,
-  hover,
-  focus,
-  active,
-  load,
-  isstatic,
-  onClick,
-}: ButtonProperties) => {
+}: ButtonProperties): JSX.Element => {
   const buttonClass = clsx(`button`, className, {
-    'is-light': light,
-    'is-outlined': outline,
-    'is-inverted': invert,
-    'is-rounded': round,
-    'is-hovered': hover,
-    'is-focused': focus,
     'is-active': active,
+    'is-focused': focus,
+    'is-hovered': hover,
+    'is-inverted': invert,
+    'is-light': light,
     'is-loading': load,
+    'is-outlined': outline,
+    'is-rounded': round,
     'is-static': isstatic,
-    [`is-${color || 'primary'}`]: color,
-    [`is-${size || 'normal'}`]: size,
+    [`is-${color ?? 'primary'}`]: color,
+    [`is-${size ?? 'normal'}`]: size,
   });
 
-  return href ? (
-    <a href={href} onClick={onClick} className={buttonClass}>
+  return href != null ? (
+    <a className={buttonClass} href={href} onClick={onClick}>
       {children}
     </a>
   ) : (
-    <button type="button" disabled={disable} onClick={onClick} className={buttonClass}>
+    <button className={buttonClass} disabled={disable} onClick={onClick} type="button">
       {children}
     </button>
   );
 };
 
 Button.defaultProps = {
-  children: undefined,
-  className: undefined,
-  color: undefined,
-  disable: false,
-  href: undefined,
-  light: false,
-  outline: false,
-  invert: false,
-  round: false,
-  hover: false,
-  focus: false,
   active: false,
-  load: false,
+  children: null,
+  className: null,
+  color: null,
+  disable: false,
+  focus: false,
+  hover: false,
+  href: null,
+  invert: false,
   isstatic: false,
-  size: undefined,
-  onClick: undefined,
+  light: false,
+  load: false,
+  onClick: null,
+  outline: false,
+  round: false,
+  size: null,
 };
-
-export default Button;

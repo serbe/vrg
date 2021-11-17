@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ItemFormButtons, NoteInput } from '../../models/impersonal';
 import { KindNameInput, KindShortNameInput } from '../../models/kind';
-import { Kind } from '../../models/types';
+import type { Kind } from '../../models/types';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 
-export const KindItem = () => {
+export const KindItem = (): JSX.Element => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [name, setName] = useState<string>();
@@ -50,15 +50,13 @@ export const KindItem = () => {
     <div>
       {item && (
         <>
-          <KindNameInput value={name} setter={setName} />
-          <KindShortNameInput value={shortName} setter={setShortName} />
-          <NoteInput value={note} setter={setNote} />
+          <KindNameInput setter={setName} value={name} />
+          <KindShortNameInput setter={setShortName} value={shortName} />
+          <NoteInput setter={setNote} value={note} />
 
-          <ItemFormButtons send={send} del={del} />
+          <ItemFormButtons del={del} send={send} />
         </>
       )}
     </div>
   );
 };
-
-export default KindItem;

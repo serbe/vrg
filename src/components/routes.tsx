@@ -1,4 +1,5 @@
-import { ReactElement, Suspense } from 'react';
+import type { ReactElement } from 'react';
+import { Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { CertificateItem, Certificates } from '../containers/Certificate';
 import { Companies, CompanyItem } from '../containers/Company';
@@ -49,16 +50,14 @@ const routerList: RouterProps[] = [
   { path: '/sirentypes/:id', element: <SirenTypeItem /> },
 ];
 
-const Loading = () => <p className="p-4 w-full h-full text-center">Loading...</p>;
+const Loading = (): JSX.Element => <p className="p-4 w-full h-full text-center">Loading...</p>;
 
-export const Router = () => (
+export const Router = (): JSX.Element => (
   <Suspense fallback={<Loading />}>
     <Routes>
       {routerList.map((item) => (
-        <Route path={item.path} element={item.element} key={item.path} />
+        <Route element={item.element} key={item.path} path={item.path} />
       ))}
     </Routes>
   </Suspense>
 );
-
-export default Router;

@@ -1,5 +1,6 @@
-import { createContext, ReactNode, useContext, useMemo, useReducer } from 'react';
-import { User } from '../models/types';
+import type { Dispatch, ReactNode } from 'react';
+import { createContext, useContext, useMemo, useReducer } from 'react';
+import type { User } from '../models/types';
 import { clearStorage, getStorage, setStorage } from './storage';
 
 const checkURL = (import.meta.env.VITE_APP_CHECKURL as string) || '/go/check';
@@ -8,7 +9,7 @@ interface CheckResponse {
   r: boolean;
 }
 
-export const postCheck = (user: User): Promise<User> =>
+export const postCheck = async (user: User): Promise<User> =>
   fetch(checkURL, {
     method: 'POST',
     mode: 'cors',
@@ -17,7 +18,7 @@ export const postCheck = (user: User): Promise<User> =>
     },
     body: JSON.stringify({ t: user.token, r: user.role }),
   })
-    .then((response) => response.json())
+    .then(async (response) => response.json())
     .then((response) => (response as CheckResponse).r)
     .then(() => user);
 
@@ -53,9 +54,14 @@ const AuthReducer = (state: AuthState, action: AuthActions): AuthState => {
   }
 };
 
-export const AuthContext = createContext<AuthContextProperties>({ state: { state: 'UNKNOWN' }, dispatch: () => {} });
+export const AuthContext = createContext<AuthContextProperties>({
+  state: { state: 'UNKNOWN' },
+  dispatch: () => {
+    return null;
+  },
+});
 
-const AuthProvider = ({ children }: { children: ReactNode }) => {
+const AuthProvider = ({ children }: { children: ReactNode }): JSX.Element => {
   const [state, dispatch] = useReducer(AuthReducer, { state: 'UNKNOWN' });
 
   const value = useMemo(
@@ -71,22 +77,24 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
 interface AuthContextProperties {
   state: AuthState;
-  dispatch: (value: AuthActions) => void;
+  dispatch: Dispatch<AuthActions>;
 }
 
-const useAuthState = () => {
+const useAuthState = (): { state: AuthState } => {
   const { state } = useContext(AuthContext);
   return {
     state,
   };
 };
 
-const useAuthDispatch = () => {
+const useAuthDispatch = (): {
+  dispatch: Dispatch<AuthActions>;
+} => {
   const { dispatch } = useContext(AuthContext);
   return { dispatch };
 };
 
-const useAuth = () => {
+const useAuth = (): AuthContextProperties => {
   const { state, dispatch } = useContext(AuthContext);
   return {
     state,
@@ -94,13 +102,16 @@ const useAuth = () => {
   };
 };
 
-const useSign = () => {
+const useSign = (): {
+  signIn: (user: User) => void;
+  signOut: () => void;
+} => {
   const { dispatch } = useAuthDispatch();
-  const signIn = (user: User) => {
+  const signIn = (user: User): void => {
     dispatch({ type: 'SIGN_IN', payload: { user } });
     setStorage(user);
   };
-  const signOut = () => {
+  const signOut = (): void => {
     dispatch({ type: 'SIGN_OUT' });
     clearStorage();
   };
@@ -110,12 +121,14 @@ const useSign = () => {
   };
 };
 
-const checkUser = (): Promise<User> => {
+const checkUser = async (): Promise<User> => {
   const user = getStorage();
   return postCheck(user);
 };
 
-const useToken = () => {
+const useToken = (): {
+  token: string;
+} => {
   const { state } = useContext(AuthContext);
   const token = state.state === 'SIGNED_IN' ? state.currentUser.token : '';
   return { token };

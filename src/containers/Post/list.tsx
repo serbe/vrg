@@ -1,10 +1,10 @@
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Bar, Data } from '../../components/table';
-import { PostList } from '../../models/types';
+import type { PostList } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 
-export const Posts = () => {
+export const Posts = (): JSX.Element => {
   const navigate = useNavigate();
   const [data] = GetList('PostList');
   const [search, setSearch] = useState('');
@@ -19,10 +19,17 @@ export const Posts = () => {
     return (
       <>
         {tableData().map((post) => (
-          <tr key={`tr${post.id}`} onClick={(): void => navigate(`/posts/${post.id}`)} role="gridcell" className="link">
+          <tr
+            className="link"
+            key={`tr${post.id}`}
+            onClick={(): void => {
+              navigate(`/posts/${post.id}`);
+            }}
+            role="gridcell"
+          >
             <td>{post.name}</td>
             <td className="w9">
-              <input type="checkbox" checked={post.go} readOnly />
+              <input checked={post.go} readOnly type="checkbox" />
             </td>
           </tr>
         ))}
@@ -32,7 +39,7 @@ export const Posts = () => {
 
   return (
     <>
-      <Bar value={search} setter={setSearch} name="posts" />
+      <Bar name="posts" setter={setSearch} value={search} />
       <table className="table is-narrow is-fullwidth">
         <tbody>
           <tr>
@@ -46,5 +53,3 @@ export const Posts = () => {
     </>
   );
 };
-
-export default Posts;

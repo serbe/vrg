@@ -1,10 +1,10 @@
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Bar, Data } from '../../components/table';
-import { KindList } from '../../models/types';
+import type { KindList } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 
-export const Kinds = () => {
+export const Kinds = (): JSX.Element => {
   const navigate = useNavigate();
   const [data] = GetList('KindList');
   const [search, setSearch] = useState('');
@@ -19,7 +19,14 @@ export const Kinds = () => {
     return (
       <>
         {tableData().map((kind) => (
-          <tr key={`tr${kind.id}`} onClick={(): void => navigate(`/kinds/${kind.id}`)} role="gridcell" className="link">
+          <tr
+            className="link"
+            key={`tr${kind.id}`}
+            onClick={(): void => {
+              navigate(`/kinds/${kind.id}`);
+            }}
+            role="gridcell"
+          >
             <td className="w250">{kind.name}</td>
             <td className="w250">{kind.short_name}</td>
           </tr>
@@ -30,7 +37,7 @@ export const Kinds = () => {
 
   return (
     <>
-      <Bar value={search} setter={setSearch} name="kinds" />
+      <Bar name="kinds" setter={setSearch} value={search} />
       <table className="table is-narrow is-fullwidth">
         <tbody>
           <tr>
@@ -44,5 +51,3 @@ export const Kinds = () => {
     </>
   );
 };
-
-export default Kinds;

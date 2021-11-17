@@ -1,44 +1,48 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import {
+/* eslint-disable @typescript-eslint/naming-convention */
+import type { Dispatch, SetStateAction } from 'react';
+import { useEffect, useState } from 'react';
+import type {
   Certificate,
-  CertificateEmpty,
   CertificateList,
   Company,
-  CompanyEmpty,
   CompanyList,
   Contact,
-  ContactEmpty,
   ContactList,
   Department,
-  DepartmentEmpty,
   DepartmentList,
   Education,
-  EducationEmpty,
   EducationList,
   EducationShort,
   Kind,
-  KindEmpty,
   KindList,
   Post,
-  PostEmpty,
   PostList,
   Practice,
-  PracticeEmpty,
   PracticeList,
   PracticeShort,
   Rank,
-  RankEmpty,
   RankList,
   Scope,
-  ScopeEmpty,
   ScopeList,
   SelectItem,
   Siren,
-  SirenEmpty,
   SirenList,
   SirenType,
-  SirenTypeEmpty,
   SirenTypeList,
+} from '../models/types';
+import {
+  CertificateEmpty,
+  CompanyEmpty,
+  ContactEmpty,
+  DepartmentEmpty,
+  EducationEmpty,
+  KindEmpty,
+  PostEmpty,
+  PracticeEmpty,
+  RankEmpty,
+  ScopeEmpty,
+  SirenEmpty,
+  SirenTypeEmpty,
 } from '../models/types';
 import { useToken } from './auth';
 
@@ -46,7 +50,6 @@ const URL = (import.meta.env.VITE_APP_JSONURL as string) || '/go/json';
 const loginURL = (import.meta.env.VITE_APP_LOGINURL as string) || '/go/login';
 
 export type Item =
-  | undefined
   | Certificate
   | Company
   | Contact
@@ -58,7 +61,8 @@ export type Item =
   | Rank
   | Scope
   | Siren
-  | SirenType;
+  | SirenType
+  | null;
 
 export type List =
   | CertificateList
@@ -77,7 +81,6 @@ export type List =
   | SirenTypeList;
 
 type GetListResponse =
-  | undefined
   | {
       command: 'GetList';
       name: 'CertificateList';
@@ -215,66 +218,67 @@ type GetListResponse =
       name: 'SirenTypeSelect';
       object: { SelectItem: SelectItem[] };
       error: string;
-    };
+    }
+  | null;
 
 type ModifyItemResponse =
   | {
-      command: 'InsertItem' | 'UpdateItem' | 'DeleteItem';
+      command: 'DeleteItem' | 'InsertItem' | 'UpdateItem';
       name: 'Certificate';
       error: string;
     }
   | {
-      command: 'InsertItem' | 'UpdateItem' | 'DeleteItem';
+      command: 'DeleteItem' | 'InsertItem' | 'UpdateItem';
       name: 'Company';
       error: string;
     }
   | {
-      command: 'InsertItem' | 'UpdateItem' | 'DeleteItem';
+      command: 'DeleteItem' | 'InsertItem' | 'UpdateItem';
       name: 'Contact';
       error: string;
     }
   | {
-      command: 'InsertItem' | 'UpdateItem' | 'DeleteItem';
+      command: 'DeleteItem' | 'InsertItem' | 'UpdateItem';
       name: 'Department';
       error: string;
     }
   | {
-      command: 'InsertItem' | 'UpdateItem' | 'DeleteItem';
+      command: 'DeleteItem' | 'InsertItem' | 'UpdateItem';
       name: 'Education';
       error: string;
     }
   | {
-      command: 'InsertItem' | 'UpdateItem' | 'DeleteItem';
+      command: 'DeleteItem' | 'InsertItem' | 'UpdateItem';
       name: 'Kind';
       error: string;
     }
   | {
-      command: 'InsertItem' | 'UpdateItem' | 'DeleteItem';
+      command: 'DeleteItem' | 'InsertItem' | 'UpdateItem';
       name: 'Post';
       error: string;
     }
   | {
-      command: 'InsertItem' | 'UpdateItem' | 'DeleteItem';
+      command: 'DeleteItem' | 'InsertItem' | 'UpdateItem';
       name: 'Practice';
       error: string;
     }
   | {
-      command: 'InsertItem' | 'UpdateItem' | 'DeleteItem';
+      command: 'DeleteItem' | 'InsertItem' | 'UpdateItem';
       name: 'Rank';
       error: string;
     }
   | {
-      command: 'InsertItem' | 'UpdateItem' | 'DeleteItem';
+      command: 'DeleteItem' | 'InsertItem' | 'UpdateItem';
       name: 'Scope';
       error: string;
     }
   | {
-      command: 'InsertItem' | 'UpdateItem' | 'DeleteItem';
+      command: 'DeleteItem' | 'InsertItem' | 'UpdateItem';
       name: 'Siren';
       error: string;
     }
   | {
-      command: 'InsertItem' | 'UpdateItem' | 'DeleteItem';
+      command: 'DeleteItem' | 'InsertItem' | 'UpdateItem';
       name: 'SirenType';
       error: string;
     };
@@ -310,15 +314,12 @@ type GetItemResponse =
       object: { Education: Education };
       error: string;
     }
-  | { command: 'GetItem'; name: 'Kind'; object: { Kind: Kind }; error: string }
-  | { command: 'GetItem'; name: 'Post'; object: { Post: Post }; error: string }
   | {
       command: 'GetItem';
       name: 'Practice';
       object: { Practice: Practice };
       error: string;
     }
-  | { command: 'GetItem'; name: 'Rank'; object: { Rank: Rank }; error: string }
   | {
       command: 'GetItem';
       name: 'Scope';
@@ -336,14 +337,17 @@ type GetItemResponse =
       name: 'SirenType';
       object: { SirenType: SirenType };
       error: string;
-    };
+    }
+  | { command: 'GetItem'; name: 'Kind'; object: { Kind: Kind }; error: string }
+  | { command: 'GetItem'; name: 'Post'; object: { Post: Post }; error: string }
+  | { command: 'GetItem'; name: 'Rank'; object: { Rank: Rank }; error: string };
 
 interface LoginResponse {
   t: string;
   r: number;
 }
 
-export const getItem = (name: string, id: string, token: string): Promise<GetItemResponse> =>
+export const getItem = async (name: string, id: string, token: string): Promise<GetItemResponse> =>
   fetch(URL, {
     method: 'POST',
     mode: 'cors',
@@ -352,10 +356,10 @@ export const getItem = (name: string, id: string, token: string): Promise<GetIte
     },
     body: `{"command":{"GetItem":{"name":"${name}","id":${Number(id)}}},"addon":"${token}"}`,
   })
-    .then((response) => response.json())
+    .then(async (response) => response.json())
     .then((response) => response as GetItemResponse);
 
-export const getList = (name: string, token: string): Promise<GetListResponse> =>
+export const getList = async (name: string, token: string): Promise<GetListResponse> =>
   fetch(URL, {
     method: 'POST',
     mode: 'cors',
@@ -364,10 +368,10 @@ export const getList = (name: string, token: string): Promise<GetListResponse> =
     },
     body: `{"command":{"GetList":"${name}"},"addon":"${token}"}`,
   })
-    .then((response) => response.json())
+    .then(async (response) => response.json())
     .then((response) => response as GetListResponse);
 
-export const setItem = (id: number, name: string, item: Item, token: string): Promise<ModifyItemResponse> =>
+export const setItem = async (id: number, name: string, item: Item, token: string): Promise<ModifyItemResponse> =>
   fetch(URL, {
     method: 'POST',
     mode: 'cors',
@@ -378,10 +382,10 @@ export const setItem = (id: number, name: string, item: Item, token: string): Pr
       item,
     )} } }, "addon": "${token}" }`,
   })
-    .then((response) => response.json())
+    .then(async (response) => response.json())
     .then((response) => response as ModifyItemResponse);
 
-export const delItem = (id: number, name: string, token: string): Promise<ModifyItemResponse> =>
+export const delItem = async (id: number, name: string, token: string): Promise<ModifyItemResponse> =>
   fetch(URL, {
     method: 'POST',
     mode: 'cors',
@@ -390,10 +394,10 @@ export const delItem = (id: number, name: string, token: string): Promise<Modify
     },
     body: `{"command":{"Delete":{"name":"${name}","id":${id}}},"addon":"${token}"}`,
   })
-    .then((response) => response.json())
+    .then(async (response) => response.json())
     .then((response) => response as ModifyItemResponse);
 
-export const postLogin = (name: string, pass: string): Promise<LoginResponse> =>
+export const postLogin = async (name: string, pass: string): Promise<LoginResponse> =>
   fetch(loginURL, {
     method: 'POST',
     mode: 'cors',
@@ -402,64 +406,64 @@ export const postLogin = (name: string, pass: string): Promise<LoginResponse> =>
     },
     body: JSON.stringify({ u: name, p: btoa(pass) }),
   })
-    .then((response) => response.json())
+    .then(async (response) => response.json())
     .then((response) => response as LoginResponse);
 
-export const GetItem = (name: string, id: string | undefined): [Item, string] => {
+export const GetItem = (name: string, id?: string): [Item, string] => {
   const { token } = useToken();
-  const [data, setData] = useState<Item>();
+  const [data, setData] = useState<Item>(null);
   const [error, setError] = useState<string>('');
 
   useEffect(() => {
     const NumberID = Number(id);
-    if (NumberID !== 0 && id) {
+    if (NumberID !== 0 && id != null) {
       getItem(name, id, token)
         .then((response) => {
-          if (response.command === 'GetItem') {
-            switch (response.name) {
-              case 'Certificate':
-                setData(response.object.Certificate);
-                break;
-              case 'Company':
-                setData(response.object.Company);
-                break;
-              case 'Contact':
-                setData(response.object.Contact);
-                break;
-              case 'Department':
-                setData(response.object.Department);
-                break;
-              case 'Education':
-                setData(response.object.Education);
-                break;
-              case 'Kind':
-                setData(response.object.Kind);
-                break;
-              case 'Post':
-                setData(response.object.Post);
-                break;
-              case 'Practice':
-                setData(response.object.Practice);
-                break;
-              case 'Rank':
-                setData(response.object.Rank);
-                break;
-              case 'Scope':
-                setData(response.object.Scope);
-                break;
-              case 'Siren':
-                setData(response.object.Siren);
-                break;
-              case 'SirenType':
-                setData(response.object.SirenType);
-                break;
-              default:
-                break;
-            }
+          switch (response.name) {
+            case 'Certificate':
+              setData(response.object.Certificate);
+              break;
+            case 'Company':
+              setData(response.object.Company);
+              break;
+            case 'Contact':
+              setData(response.object.Contact);
+              break;
+            case 'Department':
+              setData(response.object.Department);
+              break;
+            case 'Education':
+              setData(response.object.Education);
+              break;
+            case 'Kind':
+              setData(response.object.Kind);
+              break;
+            case 'Post':
+              setData(response.object.Post);
+              break;
+            case 'Practice':
+              setData(response.object.Practice);
+              break;
+            case 'Rank':
+              setData(response.object.Rank);
+              break;
+            case 'Scope':
+              setData(response.object.Scope);
+              break;
+            case 'Siren':
+              setData(response.object.Siren);
+              break;
+            case 'SirenType':
+              setData(response.object.SirenType);
+              break;
+            default:
+              break;
           }
           return true;
         })
-        .catch(() => setError(`unknown list ${name}`));
+        .catch(() => {
+          setError(`unknown list ${name}`);
+        });
     } else {
       switch (name) {
         case 'Certificate':
@@ -514,7 +518,7 @@ export const GetList = (name: string): [List[], string] => {
   useEffect(() => {
     getList(name, token)
       .then((response) => {
-        if (response && response.command === 'GetList') {
+        if (response) {
           switch (response.name) {
             case 'CertificateList':
               setList(response.object.CertificateList);
@@ -564,7 +568,9 @@ export const GetList = (name: string): [List[], string] => {
         }
         return true;
       })
-      .catch(() => setError(`unknown list ${name}`));
+      .catch(() => {
+        setError(`unknown list ${name}`);
+      });
   }, [name, token]);
 
   return [list, error];
@@ -578,7 +584,7 @@ export const GetSelect = (name: string): [SelectItem[], string] => {
   useEffect(() => {
     getList(name, token)
       .then((response) => {
-        if (response && response.command === 'GetList') {
+        if (response) {
           const item =
             'SelectItem' in response.object && response.object.SelectItem.length > 0
               ? response.object.SelectItem
@@ -617,7 +623,9 @@ export const GetSelect = (name: string): [SelectItem[], string] => {
         }
         return true;
       })
-      .catch(() => setError(`unknown select ${name}`));
+      .catch(() => {
+        setError(`unknown select ${name}`);
+      });
   }, [name, token]);
 
   return [list, error];
@@ -631,9 +639,11 @@ export const SetItem = (id: number, name: string, item: Item, status: Dispatch<S
       if (response.command === command && response.name === name) {
         status(true);
       }
-      return status(false);
+      status(false);
     })
-    .catch(() => status(false));
+    .catch(() => {
+      status(false);
+    });
 };
 
 export const DelItem = (id: number, name: string, status: Dispatch<SetStateAction<boolean>>): void => {
@@ -643,7 +653,9 @@ export const DelItem = (id: number, name: string, status: Dispatch<SetStateActio
       if (response.command === 'DeleteItem' && response.name === name) {
         status(true);
       }
-      return status(false);
+      status(false);
     })
-    .catch(() => status(false));
+    .catch(() => {
+      status(false);
+    });
 };

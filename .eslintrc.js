@@ -1,5 +1,24 @@
 module.exports = {
-  extends: ['alloy', 'alloy/react', 'alloy/typescript'],
+  root: true,
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    tsconfigRootDir: __dirname,
+    project: ['./tsconfig.json'],
+  },
+  plugins: ['@typescript-eslint', 'react-hooks'],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/all',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking',
+    'plugin:react/all',
+    'plugin:jsx-a11y/recommended',
+    'plugin:react/jsx-runtime',
+    'plugin:react-hooks/recommended',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
+    'plugin:prettier/recommended',
+  ],
+  // extends: ['alloy', 'alloy/react', 'alloy/typescript'],
   env: {
     // Your environments (which contains several predefined global variables)
     //
@@ -16,14 +35,29 @@ module.exports = {
   },
   rules: {
     // Customize your rules
-    'spaced-comment': [
-      'error',
-      'always',
-      {
-        markers: ['/'],
-      },
-    ],
-    'max-params': ['error', 4],
+    // 'spaced-comment': [
+    //   'error',
+    //   'always',
+    //   {
+    //     markers: ['/'],
+    //   },
+    // ],
+    // 'max-params': ['error', 4],
+    '@typescript-eslint/explicit-function-return-type': 'warn',
+    'jsx-a11y/label-has-associated-control': 'off',
+    '@typescript-eslint/no-magic-numbers': 'off',
+    '@typescript-eslint/prefer-readonly-parameter-types': 'off',
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
+    '@typescript-eslint/no-type-alias': 'off',
+    '@typescript-eslint/naming-convention': 'off',
+    'react/no-multi-comp': 'off',
+    'react/function-component-definition': 'off',
+    'react/jsx-no-literals': 'off',
+    'react/forbid-component-props': 'warn',
+    'react/jsx-no-bind': 'off',
+    'react/jsx-max-depth': ['warn', { max: 5 }],
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
   },
   settings: {
     react: {

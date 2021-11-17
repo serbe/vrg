@@ -1,4 +1,5 @@
-import { ChangeEvent, useCallback } from 'react';
+import type { ChangeEvent } from 'react';
+import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/button';
 import { FormField } from '../components/formfield';
@@ -6,108 +7,108 @@ import { Input } from '../components/input';
 import { Select } from '../components/select';
 import { useAuthState } from '../services/auth';
 import { addEmptyString, prettyPhone } from '../services/utils';
-import { EmailValues, PhoneValues } from './types';
-import { SelectValues, StringInputProperties } from './variables';
+import type { EmailValues, PhoneValues } from './types';
+import type { SelectValues, StringInputProperties } from './variables';
 
-export const EmailInputs = ({ emails, setter }: EmailValues) => (
+export const EmailInputs = ({ emails, setter }: EmailValues): JSX.Element => (
   <div className="field">
     <label className="label">Электронный адрес</label>
     {emails.map((email, index) => (
       <Input
-        name={`email-${email}-input`}
-        type="email"
+        autocomplete="off"
+        classNameDiv="pb-1"
         icon="envelope"
         key={`email-${email}`}
-        value={email}
-        placeholder="Электронный адрес"
+        name={`email-${email}-input`}
         onBlur={(event): void => {
           let values = emails;
           values[index] = event.target.value;
           values = addEmptyString(values);
           setter(values);
         }}
-        classNameDiv="pb-1"
-        autocomplete="off"
+        placeholder="Электронный адрес"
+        type="email"
+        value={email}
       />
     ))}
   </div>
 );
 
-export const PhoneInputs = ({ phones, setter }: PhoneValues) => (
+export const PhoneInputs = ({ phones, setter }: PhoneValues): JSX.Element => (
   <div className="field">
     <label className="label">Телефон</label>
     {phones.map((phone, index) => (
       <Input
-        name={`phone-${phone}-input`}
-        type="tel"
+        autocomplete="off"
+        classNameDiv="pb-1"
         icon="phone"
         key={`phone-${phone}`}
-        value={prettyPhone(phone)}
-        placeholder="Телефон"
+        name={`phone-${phone}-input`}
         onBlur={(event): void => {
           let values = phones;
           values[index] = event.target.value;
           values = addEmptyString(values);
           setter(values);
         }}
-        classNameDiv="pb-1"
-        autocomplete="off"
+        placeholder="Телефон"
+        type="tel"
+        value={prettyPhone(phone)}
       />
     ))}
   </div>
 );
 
-export const FaxInputs = ({ phones, setter }: PhoneValues) => (
+export const FaxInputs = ({ phones, setter }: PhoneValues): JSX.Element => (
   <div className="field">
     <label className="label">Факс</label>
     {phones.map((fax, index) => (
       <Input
-        name={`fax-${fax}-input`}
-        type="tel"
+        autocomplete="off"
+        classNameDiv="pb-1"
         icon="fax"
         key={`fax-${fax}`}
-        value={prettyPhone(fax)}
-        placeholder="Факс"
+        name={`fax-${fax}-input`}
         onBlur={(event): void => {
           let values = phones;
           values[index] = event.target.value;
           values = addEmptyString(values);
           setter(values);
         }}
-        classNameDiv="pb-1"
-        autocomplete="off"
+        placeholder="Факс"
+        type="tel"
+        value={prettyPhone(fax)}
       />
     ))}
   </div>
 );
 
-export const NoteInput = ({ value, setter }: StringInputProperties) => (
+export const NoteInput = ({ value, setter }: StringInputProperties): JSX.Element => (
   <FormField
+    autocomplete="off"
+    icon="comment"
+    label="Заметки"
     name="note"
-    value={value}
     onChange={(event: ChangeEvent<HTMLInputElement>): void => {
       setter(event.target.value === '' ? undefined : event.target.value);
     }}
-    label="Заметки"
-    icon="comment"
-    autocomplete="off"
-  />
-);
-
-export const AddressInput = ({ value, setter }: StringInputProperties) => (
-  <FormField
-    name="address"
     value={value}
-    onChange={(event: ChangeEvent<HTMLInputElement>): void =>
-      setter(event.target.value === '' ? undefined : event.target.value)
-    }
-    label="Адрес"
-    icon="address-card"
   />
 );
 
-export const ContactIDSelect = ({ id, setter }: SelectValues) => (
-  <Select name="contact" label="Контактное лицо" listName="ContactSelect" id={id} icon="user" setter={setter} />
+export const AddressInput = ({ value, setter }: StringInputProperties): JSX.Element => (
+  <FormField
+    icon="address-card"
+    label="Адрес"
+    name="address"
+    onChange={(event: ChangeEvent<HTMLInputElement>): void => {
+      setter(event.target.value === '' ? undefined : event.target.value);
+    }}
+    value={value}
+  />
+);
+
+export const ContactIDSelect = ({ id, setter }: SelectValues): JSX.Element => (
+  <Select icon="user" id={id} label="Контактное лицо" listName="ContactSelect" name="contact" setter={setter} />
 );
 
 interface FormButtonsValues {
@@ -115,7 +116,7 @@ interface FormButtonsValues {
   send: () => void;
 }
 
-export const ItemFormButtons = ({ del, send }: FormButtonsValues) => {
+export const ItemFormButtons = ({ del, send }: FormButtonsValues): JSX.Element => {
   const navigate = useNavigate();
   const { state } = useAuthState();
 
@@ -123,7 +124,12 @@ export const ItemFormButtons = ({ del, send }: FormButtonsValues) => {
     () =>
       state.state === 'SIGNED_IN' && state.currentUser.role > 4 ? (
         <div className="control">
-          <Button color="info" onClick={() => send()}>
+          <Button
+            color="info"
+            onClick={(): void => {
+              send();
+            }}
+          >
             Сохранить
           </Button>
         </div>
@@ -134,7 +140,13 @@ export const ItemFormButtons = ({ del, send }: FormButtonsValues) => {
   const BackButton = useCallback(
     () => (
       <div className="control">
-        <Button onClick={() => navigate(-1)}>Закрыть</Button>
+        <Button
+          onClick={(): void => {
+            navigate(-1);
+          }}
+        >
+          Закрыть
+        </Button>
       </div>
     ),
     [history],
@@ -146,7 +158,7 @@ export const ItemFormButtons = ({ del, send }: FormButtonsValues) => {
         <div className="control mla">
           <Button
             color="danger"
-            onClick={() => {
+            onClick={(): void => {
               if (window.confirm('Вы действительно хотите удалить запись?')) {
                 del();
               }

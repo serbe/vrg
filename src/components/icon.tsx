@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { AdditionalColors, Positions } from '../models/variables';
+import type { AdditionalColors, Positions } from '../models/variables';
 
 interface IconProperties {
   children?: Element;
@@ -9,10 +9,10 @@ interface IconProperties {
   position?: Positions;
 }
 
-export const Icon = ({ children, className, color, position, icon }: IconProperties) => {
+export const Icon = ({ children, className, color, position, icon }: IconProperties): JSX.Element => {
   const spanClass = clsx('icon', className, {
-    [`has-text-${color || 'info'}`]: color,
-    [`is-${position || 'left'}`]: position,
+    [`has-text-${color ?? 'info'}`]: color,
+    [`is-${position ?? 'left'}`]: position,
   });
   const iconClass = clsx('fas', { [`fa-${icon}`]: icon });
 
@@ -24,10 +24,8 @@ export const Icon = ({ children, className, color, position, icon }: IconPropert
 };
 
 Icon.defaultProps = {
-  children: undefined,
-  className: undefined,
-  color: undefined,
-  position: undefined,
+  children: null,
+  className: null,
+  color: null,
+  position: null,
 };
-
-export default Icon;

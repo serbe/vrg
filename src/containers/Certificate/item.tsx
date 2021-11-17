@@ -4,10 +4,10 @@ import { CertificateDateInput, CertificateNumberInput } from '../../models/certi
 import { CompanyIDSelect } from '../../models/company';
 import { ContactIDSelect } from '../../models/contact';
 import { ItemFormButtons, NoteInput } from '../../models/impersonal';
-import { Certificate } from '../../models/types';
+import type { Certificate } from '../../models/types';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 
-export const CertificateItem = () => {
+export const CertificateItem = (): JSX.Element => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [sNumber, setSNumber] = useState<string>();
@@ -58,16 +58,15 @@ export const CertificateItem = () => {
     <div>
       {item && (
         <>
-          <CertificateNumberInput value={sNumber} setter={setSNumber} />
+          <CertificateNumberInput setter={setSNumber} value={sNumber} />
           <ContactIDSelect id={contactID} setter={setContactID} />
           <CompanyIDSelect id={companyID} setter={setCompanyID} />
-          <CertificateDateInput value={certDate} setter={setCertDate} />
-          <NoteInput value={note} setter={setNote} />
+          <CertificateDateInput setter={setCertDate} value={certDate} />
+          <NoteInput setter={setNote} value={note} />
 
-          <ItemFormButtons send={send} del={del} />
+          <ItemFormButtons del={del} send={send} />
         </>
       )}
     </div>
   );
 };
-export default CertificateItem;

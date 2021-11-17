@@ -13,10 +13,10 @@ import {
   SirenStageInput,
 } from '../../models/siren';
 import { SirenTypeIDSelect } from '../../models/sirentype';
-import { Siren } from '../../models/types';
+import type { Siren } from '../../models/types';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 
-export const SirenItem = () => {
+export const SirenItem = (): JSX.Element => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [numberID, setNumberID] = useState<number>();
@@ -91,25 +91,23 @@ export const SirenItem = () => {
     <div>
       {item && (
         <>
-          <SirenNumberIDInput value={numberID} setter={setNumberID} />
-          <SirenNumberPassportInput value={numberPassport} setter={setNumberPassport} />
+          <SirenNumberIDInput setter={setNumberID} value={numberID} />
+          <SirenNumberPassportInput setter={setNumberPassport} value={numberPassport} />
           <SirenTypeIDSelect id={sirenTypeID} setter={setSirenTypeID} />
-          <AddressInput value={address} setter={setAddress} />
-          <SirenRadioInput value={radio} setter={setRadio} />
-          <SirenDeskInput value={desk} setter={setDesk} />
+          <AddressInput setter={setAddress} value={address} />
+          <SirenRadioInput setter={setRadio} value={radio} />
+          <SirenDeskInput setter={setDesk} value={desk} />
           <ContactIDSelect id={contactID} setter={setContactID} />
           <CompanyIDSelect id={companyID} setter={setCompanyID} />
-          <SirenLatitudeInput value={latitude} setter={setLatitude} />
-          <SirenLongtitudeInput value={longitude} setter={setLongitude} />
-          <SirenStageInput value={stage} setter={setStage} />
-          <SirenOwnInput value={own} setter={setOwn} />
-          <NoteInput value={note} setter={setNote} />
+          <SirenLatitudeInput setter={setLatitude} value={latitude} />
+          <SirenLongtitudeInput setter={setLongitude} value={longitude} />
+          <SirenStageInput setter={setStage} value={stage} />
+          <SirenOwnInput setter={setOwn} value={own} />
+          <NoteInput setter={setNote} value={note} />
 
-          <ItemFormButtons send={send} del={del} />
+          <ItemFormButtons del={del} send={send} />
         </>
       )}
     </div>
   );
 };
-
-export default SirenItem;

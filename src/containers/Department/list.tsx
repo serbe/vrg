@@ -1,10 +1,10 @@
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Bar, Data } from '../../components/table';
-import { DepartmentList } from '../../models/types';
+import type { DepartmentList } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 
-export const Departments = () => {
+export const Departments = (): JSX.Element => {
   const navigate = useNavigate();
   const [data] = GetList('DepartmentList');
   const [search, setSearch] = useState('');
@@ -20,10 +20,12 @@ export const Departments = () => {
       <>
         {tableData().map((department) => (
           <tr
-            key={`tr${department.id}`}
-            onClick={(): void => navigate(`/departments/${department.id}`)}
-            role="gridcell"
             className="link"
+            key={`tr${department.id}`}
+            onClick={(): void => {
+              navigate(`/departments/${department.id}`);
+            }}
+            role="gridcell"
           >
             <td className="w250">{department.name}</td>
           </tr>
@@ -34,7 +36,7 @@ export const Departments = () => {
 
   return (
     <>
-      <Bar value={search} setter={setSearch} name="departments" />
+      <Bar name="departments" setter={setSearch} value={search} />
       <table className="table is-narrow is-fullwidth">
         <tbody>
           <tr>
@@ -47,5 +49,3 @@ export const Departments = () => {
     </>
   );
 };
-
-export default Departments;

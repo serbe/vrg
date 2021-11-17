@@ -1,10 +1,10 @@
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Bar, Data } from '../../components/table';
-import { ScopeList } from '../../models/types';
+import type { ScopeList } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 
-export const Scopes = () => {
+export const Scopes = (): JSX.Element => {
   const navigate = useNavigate();
   const [data] = GetList('ScopeList');
   const [search, setSearch] = useState('');
@@ -20,10 +20,12 @@ export const Scopes = () => {
       <>
         {tableData().map((scope) => (
           <tr
-            key={`tr${scope.id}`}
-            onClick={(): void => navigate(`/scopes/${scope.id}`)}
-            role="gridcell"
             className="link"
+            key={`tr${scope.id}`}
+            onClick={(): void => {
+              navigate(`/scopes/${scope.id}`);
+            }}
+            role="gridcell"
           >
             <td className="w250">{scope.name}</td>
           </tr>
@@ -34,7 +36,7 @@ export const Scopes = () => {
 
   return (
     <>
-      <Bar value={search} setter={setSearch} name="scopes" />
+      <Bar name="scopes" setter={setSearch} value={search} />
       <table className="table is-narrow is-fullwidth">
         <tbody>
           <tr>
@@ -47,5 +49,3 @@ export const Scopes = () => {
     </>
   );
 };
-
-export default Scopes;

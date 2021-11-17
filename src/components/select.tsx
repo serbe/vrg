@@ -1,6 +1,7 @@
-import { ChangeEvent, useEffect, useState } from 'react';
-import { SelectItem } from '../models/types';
-import { AdditionalColors, PrimarylColor } from '../models/variables';
+import type { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import { useEffect, useState } from 'react';
+import type { SelectItem } from '../models/types';
+import type { AdditionalColors, PrimarylColor } from '../models/variables';
 import { GetSelect } from '../services/fetcher';
 import { Icon } from './icon';
 import './select.css';
@@ -12,36 +13,36 @@ interface SelectProperties {
   label?: string;
   listName: string;
   name: string;
-  setter: (event?: number) => void;
+  setter: Dispatch<SetStateAction<number | undefined>>;
 }
 
-export const Select = ({ name, id, label, icon, color, listName, setter }: SelectProperties) => {
+export const Select = ({ name, id, label, icon, color, listName, setter }: SelectProperties): JSX.Element => {
   const [opened, setOpened] = useState(false);
-  const [itemID, setItemID] = useState(id || 0);
+  const [itemID, setItemID] = useState(id ?? 0);
   const [list, error] = GetSelect(listName);
   const [value, setValue] = useState<string>();
 
   useEffect(() => {
-    if (itemID === 0 && id) {
+    if (itemID === 0 && id != null) {
       setItemID(id);
     }
     if (list[0].id !== 0) {
       list.unshift({ id: 0, name: '' });
     }
-    if (!id && id === 0) {
+    if (id === 0) {
       setValue('');
     } else {
       const currentItem = list.find((item) => item.id === id);
-      setValue(currentItem?.name || '');
+      setValue(currentItem?.name ?? '');
     }
   }, [list, id, itemID]);
 
   const currentValue = (): string => {
     if (opened) {
-      return value || '';
+      return value ?? '';
     }
     const currentItem = list.find((item) => item.id === itemID);
-    return currentItem?.name || '';
+    return currentItem?.name ?? '';
   };
 
   const filteredList = (): SelectItem[] => {
@@ -62,36 +63,38 @@ export const Select = ({ name, id, label, icon, color, listName, setter }: Selec
 
   return (
     <div className="field" key={name}>
-      {label && (
-        <label className="label" key="SelectLabel" htmlFor={`select-${name}-id`}>
+      {label != null && (
+        <label className="label" htmlFor={`select-${name}-id`} key="SelectLabel">
           {label}
         </label>
       )}
       <div
+        className={`control is-expanded select is-fullwidth ${icon != null ? 'has-icons-left' : ''}`}
         id={`select-${name}-id`}
-        className={`control is-expanded select is-fullwidth ${icon ? 'has-icons-left' : ''}`}
         key={`${name}-control`}
       >
         <input
           aria-controls="dropdown-menu"
           aria-haspopup="true"
+          autoComplete="off"
           className={`input ${color ? `is-${color}` : ''}`}
+          key={`${name}-input`}
           name={name}
-          type="text"
-          value={currentValue()}
+          onBlur={(): void => {
+            setTimeout(() => {
+              setOpened(false);
+            }, 300);
+          }}
           onChange={(event: ChangeEvent<HTMLInputElement>): void => {
             setValue(event.target.value);
           }}
           onFocus={(): void => {
             setOpened(true);
           }}
-          onBlur={(): void => {
-            setTimeout(() => setOpened(false), 300);
-          }}
-          key={`${name}-input`}
-          autoComplete="off"
+          type="text"
+          value={currentValue()}
         />
-        {icon && (
+        {icon != null && (
           <Icon color={color !== 'primary' ? color : undefined} icon={icon} key="SelectIconLeft" position="left" />
         )}
       </div>
@@ -119,10 +122,8 @@ export const Select = ({ name, id, label, icon, color, listName, setter }: Selec
 };
 
 Select.defaultProps = {
-  color: undefined,
-  icon: undefined,
+  color: null,
+  icon: null,
   id: 0,
-  label: undefined,
+  label: null,
 };
-
-export default Select;

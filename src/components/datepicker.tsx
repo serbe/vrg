@@ -1,9 +1,10 @@
+import type { Dispatch, SetStateAction } from 'react';
 import { useEffect, useState } from 'react';
 
 interface DatePickerProperties {
   label?: string;
   name: string;
-  setter: (value?: string) => void;
+  setter: Dispatch<SetStateAction<string | undefined>>;
   value?: string;
 }
 
@@ -49,14 +50,14 @@ const listYears = (): string[] => {
   return list;
 };
 
-export const DatePicker = ({ name, value, setter, label }: DatePickerProperties) => {
+export const DatePicker = ({ name, value, setter, label }: DatePickerProperties): JSX.Element => {
   const [year, setYear] = useState(' ');
   const [month, setMonth] = useState(' ');
   const [day, setDay] = useState(' ');
   const [rawDate, setRawDate] = useState('');
 
   useEffect(() => {
-    if (value && value !== rawDate) {
+    if (value != null && value !== rawDate) {
       const values = value.split('-');
       if (values.length === 3) {
         setRawDate(value);
@@ -77,8 +78,8 @@ export const DatePicker = ({ name, value, setter, label }: DatePickerProperties)
 
   return (
     <div className="field" key={name}>
-      {label && (
-        <label className="label" key="DateLabel" htmlFor={`datepicker-${name}-id`}>
+      {label != null && (
+        <label className="label" htmlFor={`datepicker-${name}-id`} key="DateLabel">
           {label}
         </label>
       )}
@@ -87,10 +88,14 @@ export const DatePicker = ({ name, value, setter, label }: DatePickerProperties)
           <div className="select">
             <select
               className="select"
-              value={day}
               key={`${name}day`}
-              onChange={(event) => setDay(event.target.value)}
-              onBlur={(event) => setDay(event.target.value)}
+              onBlur={(event): void => {
+                setDay(event.target.value);
+              }}
+              onChange={(event): void => {
+                setDay(event.target.value);
+              }}
+              value={day}
             >
               {listDays(new Date(Number(year === ' ' ? '2021' : year), Number(month === ' ' ? '1' : month), 0)).map(
                 (item) => (
@@ -106,10 +111,14 @@ export const DatePicker = ({ name, value, setter, label }: DatePickerProperties)
           <div className="select">
             <select
               className="select"
-              value={month}
               key={`${name}month`}
-              onChange={(event) => setMonth(event.target.value)}
-              onBlur={(event) => setMonth(event.target.value)}
+              onBlur={(event): void => {
+                setMonth(event.target.value);
+              }}
+              onChange={(event): void => {
+                setMonth(event.target.value);
+              }}
+              value={month}
             >
               {listMonths().map((item) => (
                 <option key={`${name}month-${item.value}`} value={item.value}>
@@ -123,10 +132,14 @@ export const DatePicker = ({ name, value, setter, label }: DatePickerProperties)
           <div className="select">
             <select
               className="select"
-              value={year}
               key={`${name}year`}
-              onChange={(event) => setYear(event.target.value)}
-              onBlur={(event) => setYear(event.target.value)}
+              onBlur={(event): void => {
+                setYear(event.target.value);
+              }}
+              onChange={(event): void => {
+                setYear(event.target.value);
+              }}
+              value={year}
             >
               {listYears().map((item) => (
                 <option key={`${name}year-${item}`} value={item}>
@@ -142,8 +155,6 @@ export const DatePicker = ({ name, value, setter, label }: DatePickerProperties)
 };
 
 DatePicker.defaultProps = {
-  label: undefined,
-  value: undefined,
+  label: null,
+  value: null,
 };
-
-export default DatePicker;

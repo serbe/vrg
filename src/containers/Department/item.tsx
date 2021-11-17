@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { DepartmentNameInput } from '../../models/department';
 import { ItemFormButtons, NoteInput } from '../../models/impersonal';
-import { Department } from '../../models/types';
+import type { Department } from '../../models/types';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 
-export const DepartmentItem = () => {
+export const DepartmentItem = (): JSX.Element => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [name, setName] = useState<string>();
@@ -47,14 +47,12 @@ export const DepartmentItem = () => {
     <div>
       {item && (
         <>
-          <DepartmentNameInput value={name} setter={setName} />
-          <NoteInput value={note} setter={setNote} />
+          <DepartmentNameInput setter={setName} value={name} />
+          <NoteInput setter={setNote} value={note} />
 
-          <ItemFormButtons send={send} del={del} />
+          <ItemFormButtons del={del} send={send} />
         </>
       )}
     </div>
   );
 };
-
-export default DepartmentItem;

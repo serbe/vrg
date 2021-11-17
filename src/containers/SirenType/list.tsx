@@ -1,11 +1,11 @@
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Bar, Data } from '../../components/table';
-import { SirenTypeList } from '../../models/types';
+import type { SirenTypeList } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 
 /* eslint-disable camelcase */
-export const SirenTypes = () => {
+export const SirenTypes = (): JSX.Element => {
   const navigate = useNavigate();
   const [data] = GetList('SirenTypeList');
   const [search, setSearch] = useState('');
@@ -21,10 +21,12 @@ export const SirenTypes = () => {
       <>
         {tableData().map((siren_type) => (
           <tr
-            key={`tr${siren_type.id}`}
-            onClick={(): void => navigate(`/sirentypes/${siren_type.id}`)}
-            role="gridcell"
             className="link"
+            key={`tr${siren_type.id}`}
+            onClick={(): void => {
+              navigate(`/sirentypes/${siren_type.id}`);
+            }}
+            role="gridcell"
           >
             <td>{siren_type.name}</td>
             <td>{siren_type.radius}</td>
@@ -36,7 +38,7 @@ export const SirenTypes = () => {
 
   return (
     <>
-      <Bar value={search} setter={setSearch} name="sirentypes" />
+      <Bar name="sirentypes" setter={setSearch} value={search} />
       <table className="table is-narrow is-fullwidth">
         <tbody>
           <tr>
@@ -50,5 +52,3 @@ export const SirenTypes = () => {
     </>
   );
 };
-
-export default SirenTypes;

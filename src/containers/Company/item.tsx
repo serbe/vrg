@@ -5,11 +5,11 @@ import { ContactShortForm } from '../../models/contact';
 import { AddressInput, EmailInputs, FaxInputs, ItemFormButtons, NoteInput, PhoneInputs } from '../../models/impersonal';
 import { PracticeListForm } from '../../models/practice';
 import { ScopeIDSelect } from '../../models/scope';
-import { Company, ContactShort, PracticeList } from '../../models/types';
+import type { Company, ContactShort, PracticeList } from '../../models/types';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 import { addEmptyString, filterArrayNumber, filterArrayString, numberToString } from '../../services/utils';
 
-export const CompanyItem = () => {
+export const CompanyItem = (): JSX.Element => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [name, setName] = useState<string>();
@@ -55,8 +55,8 @@ export const CompanyItem = () => {
       setEmails(addEmptyString(data.emails));
       setPhones(addEmptyString(numberToString(data.phones)));
       setFaxes(addEmptyString(numberToString(data.faxes)));
-      setPractices(data.practices || []);
-      setContacts(data.contacts || []);
+      setPractices(data.practices ?? []);
+      setContacts(data.contacts ?? []);
     }
   }, [item]);
 
@@ -70,9 +70,9 @@ export const CompanyItem = () => {
     <div>
       {item && (
         <>
-          <CompanyNameInput value={name} setter={setName} />
+          <CompanyNameInput setter={setName} value={name} />
           <ScopeIDSelect id={scopeID} setter={setScopeID} />
-          <AddressInput value={address} setter={setAddress} />
+          <AddressInput setter={setAddress} value={address} />
 
           <div className="columns">
             <div className="column">
@@ -88,13 +88,11 @@ export const CompanyItem = () => {
 
           <PracticeListForm practices={practices} />
           <ContactShortForm contacts={contacts} />
-          <NoteInput value={note} setter={setNote} />
+          <NoteInput setter={setNote} value={note} />
 
-          <ItemFormButtons send={send} del={del} />
+          <ItemFormButtons del={del} send={send} />
         </>
       )}
     </div>
   );
 };
-
-export default CompanyItem;

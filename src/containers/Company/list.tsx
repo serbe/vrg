@@ -1,11 +1,11 @@
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Bar, Data } from '../../components/table';
-import { CompanyList } from '../../models/types';
+import type { CompanyList } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 import { splitNumbers, splitStrings } from '../../services/utils';
 
-export const Companies = () => {
+export const Companies = (): JSX.Element => {
   const navigate = useNavigate();
   const [data] = GetList('CompanyList');
   const [search, setSearch] = useState('');
@@ -21,7 +21,13 @@ export const Companies = () => {
       <>
         {tableData().map((company) => (
           <tr key={`tr${company.id}`}>
-            <td onClick={(): void => navigate(`/companies/${company.id}`)} role="gridcell" className="w250 link">
+            <td
+              className="w250 link"
+              onClick={(): void => {
+                navigate(`/companies/${company.id}`);
+              }}
+              role="gridcell"
+            >
               {company.name}
             </td>
             <td className="is-hidden-touch w250">{company.address}</td>
@@ -37,7 +43,7 @@ export const Companies = () => {
 
   return (
     <>
-      <Bar value={search} setter={setSearch} name="companies" />
+      <Bar name="companies" setter={setSearch} value={search} />
       <table className="table is-narrow is-fullwidth">
         <tbody>
           <tr>
@@ -55,5 +61,3 @@ export const Companies = () => {
     </>
   );
 };
-
-export default Companies;

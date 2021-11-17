@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ItemFormButtons, NoteInput } from '../../models/impersonal';
 import { SirenTypeNameInput, SirenTypeRadiusInput } from '../../models/sirentype';
-import { SirenType } from '../../models/types';
+import type { SirenType } from '../../models/types';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 
-export const SirenTypeItem = () => {
+export const SirenTypeItem = (): JSX.Element => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [name, setName] = useState<string>();
@@ -50,15 +50,13 @@ export const SirenTypeItem = () => {
     <div>
       {item && (
         <>
-          <SirenTypeNameInput value={name} setter={setName} />
-          <SirenTypeRadiusInput value={radius} setter={setRadius} />
-          <NoteInput value={note} setter={setNote} />
+          <SirenTypeNameInput setter={setName} value={name} />
+          <SirenTypeRadiusInput setter={setRadius} value={radius} />
+          <NoteInput setter={setNote} value={note} />
 
-          <ItemFormButtons send={send} del={del} />
+          <ItemFormButtons del={del} send={send} />
         </>
       )}
     </div>
   );
 };
-
-export default SirenTypeItem;

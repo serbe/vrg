@@ -6,11 +6,11 @@ import { DepartmentIDSelect } from '../../models/department';
 import { EmailInputs, FaxInputs, ItemFormButtons, NoteInput, PhoneInputs } from '../../models/impersonal';
 import { PostGoIDSelect, PostIDSelect } from '../../models/post';
 import { RankIDSelect } from '../../models/rank';
-import { Contact } from '../../models/types';
+import type { Contact } from '../../models/types';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 import { addEmptyString, filterArrayNumber, filterArrayString, numberToString } from '../../services/utils';
 
-export const ContactItem = () => {
+export const ContactItem = (): JSX.Element => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [name, setName] = useState<string>();
@@ -67,7 +67,7 @@ export const ContactItem = () => {
       setEmails(addEmptyString(data.emails));
       setPhones(addEmptyString(numberToString(data.phones)));
       setFaxes(addEmptyString(numberToString(data.faxes)));
-      setEducations(data.educations || []);
+      setEducations(data.educations ?? []);
     }
   }, [item]);
 
@@ -81,7 +81,7 @@ export const ContactItem = () => {
     <div>
       {item && (
         <>
-          <ContactNameInput value={name} setter={setName} />
+          <ContactNameInput setter={setName} value={name} />
           <CompanyIDSelect id={companyID} setter={setCompanyID} />
 
           <div className="columns">
@@ -103,7 +103,7 @@ export const ContactItem = () => {
 
           <div className="columns">
             <div className="column is-one-third">
-              <ContactBirthdayInput value={birthday} setter={setBirthday} />
+              <ContactBirthdayInput setter={setBirthday} value={birthday} />
             </div>
             <div className="column is-one-third">
               <input type="date" />
@@ -123,13 +123,11 @@ export const ContactItem = () => {
           </div>
 
           <ContactEducations educations={educations} />
-          <NoteInput value={note} setter={setNote} />
+          <NoteInput setter={setNote} value={note} />
 
-          <ItemFormButtons send={send} del={del} />
+          <ItemFormButtons del={del} send={send} />
         </>
       )}
     </div>
   );
 };
-
-export default ContactItem;

@@ -1,10 +1,10 @@
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Bar, Data } from '../../components/table';
-import { CertificateList } from '../../models/types';
+import type { CertificateList } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 
-export const Certificates = () => {
+export const Certificates = (): JSX.Element => {
   const navigate = useNavigate();
   const [data] = GetList('CertificateList');
   const [search, setSearch] = useState('');
@@ -21,23 +21,29 @@ export const Certificates = () => {
         {tableData().map((certificate) => (
           <tr key={`tr${certificate.id}`}>
             <td
-              onClick={(): void => navigate(`/certificates/${certificate.id}`)}
-              role="gridcell"
               className="link nowrap"
+              onClick={(): void => {
+                navigate(`/certificates/${certificate.id}`);
+              }}
+              role="gridcell"
             >
               {certificate.num}
             </td>
             <td
-              onClick={(): void => navigate(`/contacts/${certificate.contact_id || 0}`)}
-              role="gridcell"
               className="link"
+              onClick={(): void => {
+                navigate(`/contacts/${certificate.contact_id ?? 0}`);
+              }}
+              role="gridcell"
             >
               {certificate.contact_name}
             </td>
             <td
-              onClick={(): void => navigate(`/companies/${certificate.company_id || 0}`)}
-              role="gridcell"
               className="is-hidden-mobile link"
+              onClick={(): void => {
+                navigate(`/companies/${certificate.company_id ?? 0}`);
+              }}
+              role="gridcell"
             >
               {certificate.company_name}
             </td>
@@ -50,7 +56,7 @@ export const Certificates = () => {
 
   return (
     <>
-      <Bar value={search} setter={setSearch} name="certificates" />
+      <Bar name="certificates" setter={setSearch} value={search} />
       <table className="table is-narrow is-fullwidth">
         <tbody>
           <tr>
@@ -66,5 +72,3 @@ export const Certificates = () => {
     </>
   );
 };
-
-export default Certificates;

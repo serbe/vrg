@@ -1,10 +1,10 @@
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Bar, Data } from '../../components/table';
-import { PracticeList } from '../../models/types';
+import type { PracticeList } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 
-export const Practices = () => {
+export const Practices = (): JSX.Element => {
   const navigate = useNavigate();
   const [data] = GetList('PracticeList');
   const [search, setSearch] = useState('');
@@ -20,10 +20,12 @@ export const Practices = () => {
       <>
         {tableData().map((practice) => (
           <tr
-            key={`tr${practice.id}`}
-            onClick={(): void => navigate(`/practices/${practice.id}`)}
-            role="gridcell"
             className="link"
+            key={`tr${practice.id}`}
+            onClick={(): void => {
+              navigate(`/practices/${practice.id}`);
+            }}
+            role="gridcell"
           >
             <td className="nowrap">{practice.date_str}</td>
             <td className="w250">{practice.kind_name}</td>
@@ -36,7 +38,7 @@ export const Practices = () => {
 
   return (
     <>
-      <Bar value={search} setter={setSearch} name="practices" />
+      <Bar name="practices" setter={setSearch} value={search} />
       <table className="table is-narrow is-fullwidth">
         <tbody>
           <tr>
@@ -51,5 +53,3 @@ export const Practices = () => {
     </>
   );
 };
-
-export default Practices;

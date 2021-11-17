@@ -1,32 +1,34 @@
-import { ChangeEvent } from 'react';
+import type { ChangeEvent } from 'react';
 import { FormField } from '../components/formfield';
 import { Select } from '../components/select';
-import { NumberInputProperties, SelectValues, StringInputProperties } from './variables';
+import type { NumberInputProperties, SelectValues, StringInputProperties } from './variables';
 
-export const SirenTypeIDSelect = ({ id, setter }: SelectValues) => (
-  <Select name="siren_type_id" label="Тип сирены" listName="SirenTypeSelect" id={id} icon="tag" setter={setter} />
+export const SirenTypeIDSelect = ({ id, setter }: SelectValues): JSX.Element => (
+  <Select icon="tag" id={id} label="Тип сирены" listName="SirenTypeSelect" name="siren_type_id" setter={setter} />
 );
 
-export const SirenTypeNameInput = ({ value, setter }: StringInputProperties) => (
+export const SirenTypeNameInput = ({ value, setter }: StringInputProperties): JSX.Element => (
   <FormField
-    name="siren_type_name"
-    value={value}
-    onChange={(event: ChangeEvent<HTMLInputElement>): void =>
-      setter(event.target.value === '' ? undefined : event.target.value)
-    }
-    label="Тип сирены"
-    icon="tag"
     autocomplete="off"
+    icon="tag"
+    label="Тип сирены"
+    name="siren_type_name"
+    onChange={(event: ChangeEvent<HTMLInputElement>): void => {
+      setter(event.target.value === '' ? undefined : event.target.value);
+    }}
+    value={value}
   />
 );
 
-export const SirenTypeRadiusInput = ({ value, setter }: NumberInputProperties) => (
+export const SirenTypeRadiusInput = ({ value, setter }: NumberInputProperties): JSX.Element => (
   <FormField
-    name="siren_type_radius"
-    value={value}
-    onChange={(event: ChangeEvent<HTMLInputElement>): void => setter(Number(event.target.value))}
-    label="Радиус действия"
-    icon="tag"
     autocomplete="off"
+    icon="tag"
+    label="Радиус действия"
+    name="siren_type_radius"
+    onChange={(event: ChangeEvent<HTMLInputElement>): void => {
+      setter(Number(event.target.value));
+    }}
+    value={value}
   />
 );

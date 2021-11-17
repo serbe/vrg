@@ -1,10 +1,10 @@
 import { EducationNearList } from '../../models/education';
 import { PracticeNearList } from '../../models/practice';
-import { EducationShort, PracticeShort } from '../../models/types';
+import type { EducationShort, PracticeShort } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 import './index.css';
 
-export const Home = () => {
+export const Home = (): JSX.Element => {
   const [educations] = GetList('EducationNear') as [EducationShort[], string];
   const [practices] = GetList('PracticeNear') as [PracticeShort[], string];
 
@@ -19,5 +19,3 @@ export const Home = () => {
     </div>
   );
 };
-
-export default Home;

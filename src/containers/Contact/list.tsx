@@ -1,11 +1,11 @@
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Bar, Data } from '../../components/table';
-import { ContactList } from '../../models/types';
+import type { ContactList } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 import { splitNumbers } from '../../services/utils';
 
-export const Contacts = () => {
+export const Contacts = (): JSX.Element => {
   const navigate = useNavigate();
   const [data] = GetList('ContactList');
   const [search, setSearch] = useState('');
@@ -21,13 +21,21 @@ export const Contacts = () => {
       <>
         {tableData().map((contact) => (
           <tr key={`tr${contact.id}`}>
-            <td onClick={(): void => navigate(`/contacts/${contact.id}`)} role="gridcell" className="w250 link">
+            <td
+              className="w250 link"
+              onClick={(): void => {
+                navigate(`/contacts/${contact.id}`);
+              }}
+              role="gridcell"
+            >
               {contact.name}
             </td>
             <td
-              onClick={(): void => navigate(`/companies/${contact.company_id || 0}`)}
-              role="gridcell"
               className="is-hidden-mobile w250 link"
+              onClick={(): void => {
+                navigate(`/companies/${contact.company_id ?? 0}`);
+              }}
+              role="gridcell"
             >
               {contact.company_name}
             </td>
@@ -42,7 +50,7 @@ export const Contacts = () => {
 
   return (
     <>
-      <Bar value={search} setter={setSearch} name="contacts" />
+      <Bar name="contacts" setter={setSearch} value={search} />
       <table className="table is-narrow is-fullwidth">
         <tbody>
           <tr>
@@ -59,5 +67,3 @@ export const Contacts = () => {
     </>
   );
 };
-
-export default Contacts;

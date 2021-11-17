@@ -1,54 +1,56 @@
 /* eslint-disable camelcase */
-import { ChangeEvent } from 'react';
+import type { ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DatePicker } from '../components/datepicker';
 import { FormField } from '../components/formfield';
 import { Input } from '../components/input';
 import { Select } from '../components/select';
 import { diffMonth } from '../services/utils';
-import { ContactEducationsValues, ContactShortValues } from './types';
-import { DatePickerValues, SelectValues, StringInputProperties } from './variables';
+import type { ContactEducationsValues, ContactShortValues } from './types';
+import type { DatePickerValues, SelectValues, StringInputProperties } from './variables';
 
-export const ContactNameInput = ({ value, setter }: StringInputProperties) => (
+export const ContactNameInput = ({ value, setter }: StringInputProperties): JSX.Element => (
   <FormField
+    autocomplete="off"
     icon="user"
     label="Фамилия Имя Отчество"
     name="contact-name"
-    onChange={(event: ChangeEvent<HTMLInputElement>): void =>
-      setter(event.target.value === '' ? undefined : event.target.value)
-    }
+    onChange={(event: ChangeEvent<HTMLInputElement>): void => {
+      setter(event.target.value === '' ? undefined : event.target.value);
+    }}
     value={value}
-    autocomplete="off"
   />
 );
 
-export const ContactBirthdayInput = ({ value, setter }: DatePickerValues) => (
+export const ContactBirthdayInput = ({ value, setter }: DatePickerValues): JSX.Element => (
   <DatePicker label="Дата рождения" name="birthday" setter={setter} value={value} />
 );
 
-export const ContactShortForm = ({ contacts }: ContactShortValues) => {
+export const ContactShortForm = ({ contacts }: ContactShortValues): JSX.Element => {
   const navigate = useNavigate();
   return (
     <div className="field" key="contacts">
       <label className="label">Сотрудники</label>
       {contacts.map((contact) => (
         <Input
+          autocomplete="off"
           className="link"
           classNameDiv="pb-1"
           icon="user"
           key={`contact-${contact.id}`}
           name={`contact-${contact.id}`}
-          onClick={(): void => navigate(`/contacts/${contact.id}`)}
+          onClick={(): void => {
+            navigate(`/contacts/${contact.id}`);
+          }}
           readonly
-          value={`${contact.name || ''} - ${contact.post_name || ''}`}
-          autocomplete="off"
+          value={`${contact.name ?? ''} - ${contact.post_name ?? ''}`}
         />
       ))}
     </div>
   );
 };
 
-export const ContactIDSelect = ({ id, setter }: SelectValues) => (
+export const ContactIDSelect = ({ id, setter }: SelectValues): JSX.Element => (
   <Select icon="user" id={id} label="Фамилия Имя Отчество" listName="ContactSelect" name="contact" setter={setter} />
 );
 
@@ -64,17 +66,17 @@ const inputClass = (input: string): string => {
   return 'is-danger';
 };
 
-export const ContactEducations = ({ educations }: ContactEducationsValues) =>
+export const ContactEducations = ({ educations }: ContactEducationsValues): JSX.Element | null =>
   educations.length > 0 ? (
     <div className="field">
       <label className="label">Даты обучения в УМЦ</label>
       {educations.map((education) => (
         <Input
-          name={`education-${education}-input`}
-          key={`education-${education}`}
-          value={education}
           className={inputClass(education)}
           classNameDiv="pb-1"
+          key={`education-${education}`}
+          name={`education-${education}-input`}
+          value={education}
         />
       ))}
     </div>

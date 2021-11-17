@@ -1,7 +1,8 @@
-import { ChangeEvent, ReactElement, useCallback, useEffect, useReducer } from 'react';
+import type { ChangeEvent, Dispatch, ReactElement, SetStateAction } from 'react';
+import { useCallback, useEffect, useReducer } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthState } from '../services/auth';
-import { List } from '../services/fetcher';
+import type { List } from '../services/fetcher';
 import { latrus } from '../services/utils';
 import { Button } from './button';
 import { Input } from './input';
@@ -16,7 +17,7 @@ interface PaginateProperties {
   currentPage: number;
   filteredDataLength: number;
   itemsPerPage: number;
-  setter: (value: number) => void;
+  setter: (page: number) => void;
 }
 
 interface DataProperties {
@@ -26,7 +27,7 @@ interface DataProperties {
 
 interface BarProperties {
   name: string;
-  setter: (value: string) => void;
+  setter: Dispatch<SetStateAction<string>>;
   value: string;
 }
 
@@ -39,12 +40,12 @@ interface PaginateState {
 }
 
 type PaginateAction =
-  | { type: 'searchLessThanTwo'; value: List[]; valueLength: number }
   | { type: 'changeSearch'; value: List[]; search: string }
-  | { type: 'setFilteredData'; value: List[] }
+  | { type: 'searchLessThanTwo'; value: List[]; valueLength: number }
   | { type: 'setCurrentPage'; value: number }
-  | { type: 'setSearchValues'; value: SData[] }
-  | { type: 'setFilteredDataLength'; value: number };
+  | { type: 'setFilteredData'; value: List[] }
+  | { type: 'setFilteredDataLength'; value: number }
+  | { type: 'setSearchValues'; value: SData[] };
 
 const initialArguments = {
   currentPage: 0,
@@ -105,7 +106,12 @@ const paginateReducer = (state: PaginateState, action: PaginateAction): Paginate
   }
 };
 
-const Paginate = ({ filteredDataLength, itemsPerPage, currentPage, setter }: PaginateProperties) => {
+const Paginate = ({
+  filteredDataLength,
+  itemsPerPage,
+  currentPage,
+  setter,
+}: PaginateProperties): JSX.Element | null => {
   const receiveChildValue = (value: number): void => {
     setter(value - 1);
   };
@@ -143,7 +149,7 @@ export const Data = ({
     const sv: SData[] = data.map((row, index): SData => {
       const values = Object.values(row);
       const rowString: string[] = values.map((value) => {
-        if (value && typeof value !== 'number') {
+        if (value != null && typeof value !== 'number') {
           if (typeof value === 'string') {
             return value;
           }
@@ -188,7 +194,7 @@ export const Data = ({
   };
 };
 
-export const Bar = ({ name, setter, value }: BarProperties) => {
+export const Bar = ({ name, setter, value }: BarProperties): JSX.Element | null => {
   const { state } = useAuthState();
   const navigate = useNavigate();
 
@@ -196,7 +202,13 @@ export const Bar = ({ name, setter, value }: BarProperties) => {
     () =>
       state.state === 'SIGNED_IN' && state.currentUser.role > 2 ? (
         <div className="control mb-4" key="TableNewItem">
-          <Button onClick={() => navigate(`/${name}/0`)}>Создать</Button>
+          <Button
+            onClick={(): void => {
+              navigate(`/${name}/0`);
+            }}
+          >
+            Создать
+          </Button>
         </div>
       ) : null,
     [history, name, state],
@@ -209,8 +221,10 @@ export const Bar = ({ name, setter, value }: BarProperties) => {
         <Input
           className="input is-expanded"
           name="search"
+          onChange={(event: ChangeEvent<HTMLInputElement>): void => {
+            setter(event.target.value);
+          }}
           placeholder="Поиск"
-          onChange={(event: ChangeEvent<HTMLInputElement>): void => setter(event.target.value)}
           value={value}
         />
       </div>

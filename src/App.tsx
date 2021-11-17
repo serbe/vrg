@@ -2,24 +2,31 @@ import { useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Navbar } from './components/navbar';
 import { Router } from './components/routes';
-import Login from './containers/Login';
+import { Login } from './containers/Login';
 import './index.scss';
 import { AuthProvider, checkUser, useAuthState, useSign } from './services/auth';
 
-const Initializаtion = () => <p className="p-4 w-full h-full text-center">Initializаtion...</p>;
+const Initializаtion = (): JSX.Element => {
+  return <p className="p-4 w-full h-full text-center">Initializаtion...</p>;
+};
 
-const Main = () => {
+const Main = (): JSX.Element => {
   const { signIn, signOut } = useSign();
   const { state } = useAuthState();
 
   useEffect(() => {
     checkUser()
       .then((user) => {
-        if (user.token !== '') return signIn(user);
+        if (user.token !== '') {
+          signIn(user);
+          return;
+        }
         signOut();
         return;
       })
-      .catch(() => signOut());
+      .catch(() => {
+        signOut();
+      });
   }, []);
 
   return (
@@ -40,9 +47,7 @@ const Main = () => {
   );
 };
 
-export default Main;
-
-export const App = () => (
+export const App = (): JSX.Element => (
   <AuthProvider>
     <Main />
   </AuthProvider>

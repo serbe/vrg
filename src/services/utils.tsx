@@ -1,4 +1,5 @@
-import { RefObject, useEffect } from 'react';
+import type { RefObject } from 'react';
+import { useEffect } from 'react';
 
 export const filterArrayString = (values: string[]): string[] => values.filter((value: string) => value !== '');
 
@@ -45,8 +46,8 @@ export const numberToString = (values?: number[]): string[] => {
   return list;
 };
 
-export const splitStrings = (items?: string[]) =>
-  items?.map((arrayItem: string) => <div key={`div${arrayItem}`}>{arrayItem}</div>);
+export const splitStrings = (items?: string[]): JSX.Element[] | null =>
+  items ? items.map((arrayItem: string) => <div key={`div${arrayItem}`}>{arrayItem}</div>) : null;
 
 export const prettyPhone = (phone: string): string => {
   let value = phone;
@@ -56,7 +57,7 @@ export const prettyPhone = (phone: string): string => {
       value = value.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, '+7-$1-$2-$3-$4');
     }
     if (value.length === 11) {
-      if (value[0] === '8') {
+      if (value.startsWith('8')) {
         value = `7${value.slice(1)}`;
       }
       value = value.replace(/(\d)(\d{3})(\d{3})(\d{2})(\d{2})/, '+$1-$2-$3-$4-$5');
@@ -68,11 +69,13 @@ export const prettyPhone = (phone: string): string => {
   return value;
 };
 
-export const splitNumbers = (items?: number[]) =>
-  items?.map((arrayItem: number) => <div key={`div${arrayItem}`}>{prettyPhone(arrayItem.toString(10))}</div>);
+export const splitNumbers = (items?: number[]): JSX.Element[] | null =>
+  items
+    ? items.map((arrayItem: number) => <div key={`div${arrayItem}`}>{prettyPhone(arrayItem.toString(10))}</div>)
+    : null;
 
 export const diffMonth = (month: number, date?: Date): Date => {
-  const newDate = date || new Date();
+  const newDate = date ?? new Date();
   newDate.setMonth(newDate.getMonth() - month);
   return newDate;
 };
@@ -101,7 +104,7 @@ type AnyEvent = MouseEvent | TouchEvent;
 export const useOnClickOutside = (reference: RefObject<HTMLElement>, handler: (event: AnyEvent) => void): void => {
   useEffect(() => {
     const listener = (event: AnyEvent): void => {
-      const element = reference?.current;
+      const element = reference.current;
 
       if (!element || element.contains(event.target as Node)) {
         return;
@@ -113,7 +116,7 @@ export const useOnClickOutside = (reference: RefObject<HTMLElement>, handler: (e
     document.addEventListener(`mousedown`, listener);
     document.addEventListener(`touchstart`, listener);
 
-    return () => {
+    return (): void => {
       document.removeEventListener(`mousedown`, listener);
       document.removeEventListener(`touchstart`, listener);
     };
