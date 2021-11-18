@@ -1,4 +1,3 @@
-import type { ChangeEvent } from 'react';
 import { FormField } from '../components/formfield';
 import { Select } from '../components/select';
 import type { NumberInputProperties, SelectValues, StringInputProperties } from './variables';
@@ -8,16 +7,7 @@ export const SirenTypeIDSelect = ({ id, setter }: SelectValues): JSX.Element => 
 );
 
 export const SirenTypeNameInput = ({ value, setter }: StringInputProperties): JSX.Element => (
-  <FormField
-    autocomplete="off"
-    icon="tag"
-    label="Тип сирены"
-    name="siren_type_name"
-    onChange={(event: ChangeEvent<HTMLInputElement>): void => {
-      setter(event.target.value === '' ? undefined : event.target.value);
-    }}
-    value={value}
-  />
+  <FormField autocomplete="off" icon="tag" label="Тип сирены" name="siren_type_name" onChange={setter} value={value} />
 );
 
 export const SirenTypeRadiusInput = ({ value, setter }: NumberInputProperties): JSX.Element => (
@@ -26,9 +16,7 @@ export const SirenTypeRadiusInput = ({ value, setter }: NumberInputProperties): 
     icon="tag"
     label="Радиус действия"
     name="siren_type_radius"
-    onChange={(event: ChangeEvent<HTMLInputElement>): void => {
-      setter(Number(event.target.value));
-    }}
+    onChange={setter}
     value={value}
   />
 );

@@ -1,4 +1,4 @@
-import type { ChangeEvent, KeyboardEvent, MouseEvent } from 'react';
+import type { ChangeEventHandler, KeyboardEventHandler, MouseEventHandler } from 'react';
 import type { AdditionalColors, InputTypes, LinkColor, PrimarylColor, Sizes } from '../models/variables';
 import { Input } from './input';
 
@@ -15,10 +15,10 @@ interface FormFieldProperties {
   label?: string;
   load?: boolean;
   name: string;
-  onBlur?: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
-  onClick?: (event: MouseEvent<HTMLInputElement>) => void;
-  onKeyPress?: (event: KeyboardEvent<HTMLInputElement>) => void;
+  onBlur?: ChangeEventHandler<HTMLInputElement>;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
+  onClick?: MouseEventHandler<HTMLInputElement>;
+  onKeyPress?: KeyboardEventHandler<HTMLInputElement>;
   placeholder?: string;
   readonly?: boolean;
   round?: boolean;

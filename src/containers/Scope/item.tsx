@@ -4,12 +4,13 @@ import { ItemFormButtons, NoteInput } from '../../models/impersonal';
 import { ScopeNameInput } from '../../models/scope';
 import type { Scope } from '../../models/types';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
+import { useStringU } from '../../services/hooks';
 
 export const ScopeItem = (): JSX.Element => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [name, setName] = useState<string>();
-  const [note, setNote] = useState<string>();
+  const [name, setName, nameInput] = useStringU();
+  const [note, setNote, noteInput] = useStringU();
   const [item] = GetItem('Scope', id);
   const [status, setStatus] = useState(false);
 
@@ -35,7 +36,7 @@ export const ScopeItem = (): JSX.Element => {
       setName(data.name);
       setNote(data.note);
     }
-  }, [item]);
+  }, [item, setName, setNote]);
 
   useEffect(() => {
     if (status) {
@@ -47,8 +48,8 @@ export const ScopeItem = (): JSX.Element => {
     <div>
       {item && (
         <>
-          <ScopeNameInput setter={setName} value={name} />
-          <NoteInput setter={setNote} value={note} />
+          <ScopeNameInput setter={nameInput} value={name} />
+          <NoteInput setter={noteInput} value={note} />
 
           <ItemFormButtons del={del} send={send} />
         </>

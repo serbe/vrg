@@ -6,15 +6,16 @@ import { ContactIDSelect } from '../../models/contact';
 import { ItemFormButtons, NoteInput } from '../../models/impersonal';
 import type { Certificate } from '../../models/types';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
+import { useStringU } from '../../services/hooks';
 
 export const CertificateItem = (): JSX.Element => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [sNumber, setSNumber] = useState<string>();
+  const [sNumber, setSNumber, sNumberInput] = useStringU();
   const [contactID, setContactID] = useState<number>();
   const [companyID, setCompanyID] = useState<number>();
   const [certDate, setCertDate] = useState<string>();
-  const [note, setNote] = useState<string>();
+  const [note, setNote, noteInput] = useStringU();
   const [item] = GetItem('Certificate', id);
   const [status, setStatus] = useState(false);
 
@@ -46,7 +47,7 @@ export const CertificateItem = (): JSX.Element => {
       setCertDate(data.cert_date);
       setNote(data.note);
     }
-  }, [item]);
+  }, [item, setNote, setSNumber]);
 
   useEffect(() => {
     if (status) {
@@ -58,11 +59,11 @@ export const CertificateItem = (): JSX.Element => {
     <div>
       {item && (
         <>
-          <CertificateNumberInput setter={setSNumber} value={sNumber} />
+          <CertificateNumberInput setter={sNumberInput} value={sNumber} />
           <ContactIDSelect id={contactID} setter={setContactID} />
           <CompanyIDSelect id={companyID} setter={setCompanyID} />
           <CertificateDateInput setter={setCertDate} value={certDate} />
-          <NoteInput setter={setNote} value={note} />
+          <NoteInput setter={noteInput} value={note} />
 
           <ItemFormButtons del={del} send={send} />
         </>

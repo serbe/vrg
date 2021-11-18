@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-import type { ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DatePicker } from '../components/datepicker';
 import { FormField } from '../components/formfield';
@@ -36,9 +35,7 @@ export const PracticeTopicInput = ({ value, setter }: StringInputProperties): JS
     icon="tag"
     label="Тема тренировки"
     name="practice-topic"
-    onChange={(event: ChangeEvent<HTMLInputElement>): void => {
-      setter(event.target.value === '' ? undefined : event.target.value);
-    }}
+    onChange={setter}
     value={value}
   />
 );

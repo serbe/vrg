@@ -6,15 +6,16 @@ import { KindIDSelect } from '../../models/kind';
 import { PracticeDateInput, PracticeTopicInput } from '../../models/practice';
 import type { Practice } from '../../models/types';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
+import { useStringU } from '../../services/hooks';
 
 export const PracticeItem = (): JSX.Element => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [companyID, setCompanyID] = useState<number>();
   const [kindID, setKindID] = useState<number>();
-  const [topic, setTopic] = useState<string>();
+  const [topic, setTopic, topicInput] = useStringU();
   const [date, setDate] = useState<string>();
-  const [note, setNote] = useState<string>();
+  const [note, setNote, noteInput] = useStringU();
   const [item] = GetItem('Practice', id);
   const [status, setStatus] = useState(false);
 
@@ -46,7 +47,7 @@ export const PracticeItem = (): JSX.Element => {
       setDate(data.date_of_practice);
       setNote(data.note);
     }
-  }, [item]);
+  }, [item, setDate, setNote, setTopic]);
 
   useEffect(() => {
     if (status) {
@@ -60,9 +61,9 @@ export const PracticeItem = (): JSX.Element => {
         <>
           <CompanyIDSelect id={companyID} setter={setCompanyID} />
           <KindIDSelect id={kindID} setter={setKindID} />
-          <PracticeTopicInput setter={setTopic} value={topic} />
+          <PracticeTopicInput setter={topicInput} value={topic} />
           <PracticeDateInput setter={setDate} value={date} />
-          <NoteInput setter={setNote} value={note} />
+          <NoteInput setter={noteInput} value={note} />
 
           <ItemFormButtons del={del} send={send} />
         </>

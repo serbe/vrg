@@ -34,12 +34,12 @@ const Main = (): JSX.Element => {
       {state.state === 'UNKNOWN' ? (
         <Initializаtion />
       ) : state.state === 'SIGNED_IN' ? (
-        <div>
+        <>
           <Navbar />
-          <div className="p-4">
+          <div className="container p-4">
             <Router />
           </div>
-        </div>
+        </>
       ) : (
         <Login />
       )}

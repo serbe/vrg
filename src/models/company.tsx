@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-import type { ChangeEvent } from 'react';
 import { FormField } from '../components/formfield';
 import { Select } from '../components/select';
 import type { SelectValues, StringInputProperties } from './variables';
@@ -21,9 +20,7 @@ export const CompanyNameInput = ({ value, setter }: StringInputProperties): JSX.
     icon="building"
     label="Наименование организации"
     name="company-name"
-    onChange={(event: ChangeEvent<HTMLInputElement>): void => {
-      setter(event.target.value === '' ? undefined : event.target.value);
-    }}
+    onChange={setter}
     value={value}
   />
 );

@@ -1,4 +1,3 @@
-import type { ChangeEvent } from 'react';
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/button';
@@ -83,28 +82,11 @@ export const FaxInputs = ({ phones, setter }: PhoneValues): JSX.Element => (
 );
 
 export const NoteInput = ({ value, setter }: StringInputProperties): JSX.Element => (
-  <FormField
-    autocomplete="off"
-    icon="comment"
-    label="Заметки"
-    name="note"
-    onChange={(event: ChangeEvent<HTMLInputElement>): void => {
-      setter(event.target.value === '' ? undefined : event.target.value);
-    }}
-    value={value}
-  />
+  <FormField autocomplete="off" icon="comment" label="Заметки" name="note" onChange={setter} value={value} />
 );
 
 export const AddressInput = ({ value, setter }: StringInputProperties): JSX.Element => (
-  <FormField
-    icon="address-card"
-    label="Адрес"
-    name="address"
-    onChange={(event: ChangeEvent<HTMLInputElement>): void => {
-      setter(event.target.value === '' ? undefined : event.target.value);
-    }}
-    value={value}
-  />
+  <FormField icon="address-card" label="Адрес" name="address" onChange={setter} value={value} />
 );
 
 export const ContactIDSelect = ({ id, setter }: SelectValues): JSX.Element => (

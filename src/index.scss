@@ -1,3 +1,10 @@
+@charset "utf-8";
+@import '../node_modules/bulma/bulma.sass';
+
+.w300 {
+  width: 300px;
+}
+
 .small-border {
   padding-inline-start: 0.3rem;
   padding-inline-end: 0.3rem;

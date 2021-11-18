@@ -1,4 +1,4 @@
-import type { Dispatch, SetStateAction } from 'react';
+import type { ChangeEvent, Dispatch, SetStateAction } from 'react';
 
 export type BasicColors = 'black' | 'dark' | 'ghost' | 'light' | 'text' | 'white';
 
@@ -14,14 +14,16 @@ export type InputTypes = 'email' | 'password' | 'tel' | 'text';
 
 export type Positions = 'left' | 'right';
 
+type HtmlInputSetter = (event: ChangeEvent<HTMLInputElement>) => void;
+
 export interface StringInputProperties {
   value?: string;
-  setter: Dispatch<SetStateAction<string | undefined>>;
+  setter: HtmlInputSetter;
 }
 
 export interface NumberInputProperties {
   value?: number;
-  setter: Dispatch<SetStateAction<number | undefined>>;
+  setter: HtmlInputSetter;
 }
 
 export interface BooleanInputProperties {

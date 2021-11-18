@@ -5,6 +5,7 @@ import { ItemFormButtons, NoteInput } from '../../models/impersonal';
 import { PostGoIDSelect } from '../../models/post';
 import type { Education } from '../../models/types';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
+import { useStringU } from '../../services/hooks';
 
 export const EducationItem = (): JSX.Element => {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ export const EducationItem = (): JSX.Element => {
   const [startDate, setStartDate] = useState<string>();
   const [endDate, setEndDate] = useState<string>();
   const [postID, setPostID] = useState<number>();
-  const [note, setNote] = useState<string>();
+  const [note, setNote, noteInput] = useStringU();
   const [item] = GetItem('Education', id);
   const [status, setStatus] = useState(false);
 
@@ -45,7 +46,7 @@ export const EducationItem = (): JSX.Element => {
       setPostID(data.post_id);
       setNote(data.note);
     }
-  }, [item]);
+  }, [item, setNote]);
 
   useEffect(() => {
     if (status) {
@@ -69,7 +70,7 @@ export const EducationItem = (): JSX.Element => {
             </div>
           </div>
 
-          <NoteInput setter={setNote} value={note} />
+          <NoteInput setter={noteInput} value={note} />
 
           <ItemFormButtons del={del} send={send} />
         </>

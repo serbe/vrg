@@ -59,13 +59,7 @@ export const Login = (): JSX.Element => {
           />
           <div className="field">
             <div className="control">
-              <Button
-                onClick={(): void => {
-                  submit();
-                }}
-              >
-                Отправить
-              </Button>
+              <Button onClick={submit}>Отправить</Button>
             </div>
           </div>
           <div>{error}</div>

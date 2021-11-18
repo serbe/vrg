@@ -4,13 +4,14 @@ import { ItemFormButtons, NoteInput } from '../../models/impersonal';
 import { SirenTypeNameInput, SirenTypeRadiusInput } from '../../models/sirentype';
 import type { SirenType } from '../../models/types';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
+import { useNumberU, useStringU } from '../../services/hooks';
 
 export const SirenTypeItem = (): JSX.Element => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [name, setName] = useState<string>();
-  const [radius, setRadius] = useState<number>();
-  const [note, setNote] = useState<string>();
+  const [name, setName, nameInput] = useStringU();
+  const [radius, setRadius, radiusInput] = useNumberU();
+  const [note, setNote, noteInput] = useStringU();
   const [item] = GetItem('SirenType', id);
   const [status, setStatus] = useState(false);
 
@@ -38,7 +39,7 @@ export const SirenTypeItem = (): JSX.Element => {
       setRadius(data.radius);
       setNote(data.note);
     }
-  }, [item, history, status]);
+  }, [item, status, setRadius, setName, setNote]);
 
   useEffect(() => {
     if (status) {
@@ -50,9 +51,9 @@ export const SirenTypeItem = (): JSX.Element => {
     <div>
       {item && (
         <>
-          <SirenTypeNameInput setter={setName} value={name} />
-          <SirenTypeRadiusInput setter={setRadius} value={radius} />
-          <NoteInput setter={setNote} value={note} />
+          <SirenTypeNameInput setter={nameInput} value={name} />
+          <SirenTypeRadiusInput setter={radiusInput} value={radius} />
+          <NoteInput setter={noteInput} value={note} />
 
           <ItemFormButtons del={del} send={send} />
         </>

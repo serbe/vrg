@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-import type { ChangeEvent } from 'react';
 import { FormField } from '../components/formfield';
 import { Select } from '../components/select';
 import type { SelectValues, StringInputProperties } from './variables';
@@ -10,9 +9,7 @@ export const KindNameInput = ({ value, setter }: StringInputProperties): JSX.Ele
     icon="tag"
     label="Наименование типа тренировки"
     name="kind-name"
-    onChange={(event: ChangeEvent<HTMLInputElement>): void => {
-      setter(event.target.value === '' ? undefined : event.target.value);
-    }}
+    onChange={setter}
     value={value}
   />
 );
@@ -23,9 +20,7 @@ export const KindShortNameInput = ({ value, setter }: StringInputProperties): JS
     icon="tag"
     label="Сокращенное наименование"
     name="kind-short-name"
-    onChange={(event: ChangeEvent<HTMLInputElement>): void => {
-      setter(event.target.value === '' ? undefined : event.target.value);
-    }}
+    onChange={setter}
     value={value}
   />
 );

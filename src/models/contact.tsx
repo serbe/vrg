@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-import type { ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DatePicker } from '../components/datepicker';
 import { FormField } from '../components/formfield';
@@ -15,9 +14,7 @@ export const ContactNameInput = ({ value, setter }: StringInputProperties): JSX.
     icon="user"
     label="Фамилия Имя Отчество"
     name="contact-name"
-    onChange={(event: ChangeEvent<HTMLInputElement>): void => {
-      setter(event.target.value === '' ? undefined : event.target.value);
-    }}
+    onChange={setter}
     value={value}
   />
 );

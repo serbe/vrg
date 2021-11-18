@@ -4,12 +4,13 @@ import { ItemFormButtons, NoteInput } from '../../models/impersonal';
 import { RankNameInput } from '../../models/rank';
 import type { Rank } from '../../models/types';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
+import { useStringU } from '../../services/hooks';
 
 export const RankItem = (): JSX.Element => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [name, setName] = useState<string>();
-  const [note, setNote] = useState<string>();
+  const [name, setName, nameInput] = useStringU();
+  const [note, setNote, noteInput] = useStringU();
   const [item] = GetItem('Rank', id);
   const [status, setStatus] = useState(false);
 
@@ -35,7 +36,7 @@ export const RankItem = (): JSX.Element => {
       setName(data.name);
       setNote(data.note);
     }
-  }, [item]);
+  }, [item, setName, setNote]);
 
   useEffect(() => {
     if (status) {
@@ -47,8 +48,8 @@ export const RankItem = (): JSX.Element => {
     <div>
       {item && (
         <>
-          <RankNameInput setter={setName} value={name} />
-          <NoteInput setter={setNote} value={note} />
+          <RankNameInput setter={nameInput} value={name} />
+          <NoteInput setter={noteInput} value={note} />
 
           <ItemFormButtons del={del} send={send} />
         </>

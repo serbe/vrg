@@ -7,15 +7,16 @@ import { PracticeListForm } from '../../models/practice';
 import { ScopeIDSelect } from '../../models/scope';
 import type { Company, ContactShort, PracticeList } from '../../models/types';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
+import { useStringU } from '../../services/hooks';
 import { addEmptyString, filterArrayNumber, filterArrayString, numberToString } from '../../services/utils';
 
 export const CompanyItem = (): JSX.Element => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [name, setName] = useState<string>();
-  const [address, setAddress] = useState<string>();
+  const [name, setName, nameInput] = useStringU();
+  const [address, setAddress, addressInput] = useStringU();
   const [scopeID, setScopeID] = useState<number>();
-  const [note, setNote] = useState<string>();
+  const [note, setNote, noteInput] = useStringU();
   const [emails, setEmails] = useState(['']);
   const [phones, setPhones] = useState(['']);
   const [faxes, setFaxes] = useState(['']);
@@ -58,7 +59,7 @@ export const CompanyItem = (): JSX.Element => {
       setPractices(data.practices ?? []);
       setContacts(data.contacts ?? []);
     }
-  }, [item]);
+  }, [item, setAddress, setName, setNote]);
 
   useEffect(() => {
     if (status) {
@@ -70,9 +71,9 @@ export const CompanyItem = (): JSX.Element => {
     <div>
       {item && (
         <>
-          <CompanyNameInput setter={setName} value={name} />
+          <CompanyNameInput setter={nameInput} value={name} />
           <ScopeIDSelect id={scopeID} setter={setScopeID} />
-          <AddressInput setter={setAddress} value={address} />
+          <AddressInput setter={addressInput} value={address} />
 
           <div className="columns">
             <div className="column">
@@ -88,7 +89,7 @@ export const CompanyItem = (): JSX.Element => {
 
           <PracticeListForm practices={practices} />
           <ContactShortForm contacts={contacts} />
-          <NoteInput setter={setNote} value={note} />
+          <NoteInput setter={noteInput} value={note} />
 
           <ItemFormButtons del={del} send={send} />
         </>

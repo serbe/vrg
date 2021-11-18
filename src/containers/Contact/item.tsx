@@ -8,19 +8,20 @@ import { PostGoIDSelect, PostIDSelect } from '../../models/post';
 import { RankIDSelect } from '../../models/rank';
 import type { Contact } from '../../models/types';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
+import { useStringU } from '../../services/hooks';
 import { addEmptyString, filterArrayNumber, filterArrayString, numberToString } from '../../services/utils';
 
 export const ContactItem = (): JSX.Element => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [name, setName] = useState<string>();
+  const [name, setName, nameInput] = useStringU();
   const [companyID, setCompanyID] = useState<number>();
   const [departmentID, setDepartmentID] = useState<number>();
   const [postID, setPostID] = useState<number>();
   const [postGoID, setPostGoID] = useState<number>();
   const [rankID, setRankID] = useState<number>();
   const [birthday, setBirthday] = useState<string>();
-  const [note, setNote] = useState<string>();
+  const [note, setNote, noteInput] = useStringU();
   const [emails, setEmails] = useState(['']);
   const [phones, setPhones] = useState(['']);
   const [faxes, setFaxes] = useState(['']);
@@ -69,7 +70,7 @@ export const ContactItem = (): JSX.Element => {
       setFaxes(addEmptyString(numberToString(data.faxes)));
       setEducations(data.educations ?? []);
     }
-  }, [item]);
+  }, [item, setBirthday, setName, setNote]);
 
   useEffect(() => {
     if (status) {
@@ -81,7 +82,7 @@ export const ContactItem = (): JSX.Element => {
     <div>
       {item && (
         <>
-          <ContactNameInput setter={setName} value={name} />
+          <ContactNameInput setter={nameInput} value={name} />
           <CompanyIDSelect id={companyID} setter={setCompanyID} />
 
           <div className="columns">
@@ -105,9 +106,6 @@ export const ContactItem = (): JSX.Element => {
             <div className="column is-one-third">
               <ContactBirthdayInput setter={setBirthday} value={birthday} />
             </div>
-            <div className="column is-one-third">
-              <input type="date" />
-            </div>
           </div>
 
           <div className="columns">
@@ -123,7 +121,7 @@ export const ContactItem = (): JSX.Element => {
           </div>
 
           <ContactEducations educations={educations} />
-          <NoteInput setter={setNote} value={note} />
+          <NoteInput setter={noteInput} value={note} />
 
           <ItemFormButtons del={del} send={send} />
         </>

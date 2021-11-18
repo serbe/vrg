@@ -4,13 +4,14 @@ import { ItemFormButtons, NoteInput } from '../../models/impersonal';
 import { KindNameInput, KindShortNameInput } from '../../models/kind';
 import type { Kind } from '../../models/types';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
+import { useStringU } from '../../services/hooks';
 
 export const KindItem = (): JSX.Element => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [name, setName] = useState<string>();
-  const [shortName, setShortName] = useState<string>();
-  const [note, setNote] = useState<string>();
+  const [name, setName, nameInput] = useStringU();
+  const [shortName, setShortName, shortNameInput] = useStringU();
+  const [note, setNote, noteInput] = useStringU();
   const [item] = GetItem('Kind', id);
   const [status, setStatus] = useState(false);
 
@@ -38,7 +39,7 @@ export const KindItem = (): JSX.Element => {
       setShortName(data.short_name);
       setNote(data.note);
     }
-  }, [item]);
+  }, [item, setName, setNote, setShortName]);
 
   useEffect(() => {
     if (status) {
@@ -50,9 +51,9 @@ export const KindItem = (): JSX.Element => {
     <div>
       {item && (
         <>
-          <KindNameInput setter={setName} value={name} />
-          <KindShortNameInput setter={setShortName} value={shortName} />
-          <NoteInput setter={setNote} value={note} />
+          <KindNameInput setter={nameInput} value={name} />
+          <KindShortNameInput setter={shortNameInput} value={shortName} />
+          <NoteInput setter={noteInput} value={note} />
 
           <ItemFormButtons del={del} send={send} />
         </>

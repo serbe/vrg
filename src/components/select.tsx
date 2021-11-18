@@ -1,8 +1,9 @@
-import type { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 import { useEffect, useState } from 'react';
 import type { SelectItem } from '../models/types';
 import type { AdditionalColors, PrimarylColor } from '../models/variables';
 import { GetSelect } from '../services/fetcher';
+import { useStringU } from '../services/hooks';
 import { Icon } from './icon';
 import './select.css';
 
@@ -20,7 +21,7 @@ export const Select = ({ name, id, label, icon, color, listName, setter }: Selec
   const [opened, setOpened] = useState(false);
   const [itemID, setItemID] = useState(id ?? 0);
   const [list, error] = GetSelect(listName);
-  const [value, setValue] = useState<string>();
+  const [value, setValue, valueInput] = useStringU();
 
   useEffect(() => {
     if (itemID === 0 && id != null) {
@@ -35,7 +36,7 @@ export const Select = ({ name, id, label, icon, color, listName, setter }: Selec
       const currentItem = list.find((item) => item.id === id);
       setValue(currentItem?.name ?? '');
     }
-  }, [list, id, itemID]);
+  }, [list, id, itemID, setValue]);
 
   const currentValue = (): string => {
     if (opened) {
@@ -85,9 +86,7 @@ export const Select = ({ name, id, label, icon, color, listName, setter }: Selec
               setOpened(false);
             }, 300);
           }}
-          onChange={(event: ChangeEvent<HTMLInputElement>): void => {
-            setValue(event.target.value);
-          }}
+          onChange={valueInput}
           onFocus={(): void => {
             setOpened(true);
           }}

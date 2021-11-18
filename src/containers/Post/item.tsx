@@ -4,13 +4,14 @@ import { ItemFormButtons, NoteInput } from '../../models/impersonal';
 import { PostGOSwitch, PostNameInput } from '../../models/post';
 import type { Post } from '../../models/types';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
+import { useStringU } from '../../services/hooks';
 
 export const PostItem = (): JSX.Element => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [name, setName] = useState<string>();
+  const [name, setName, nameInput] = useStringU();
   const [go, setGo] = useState(false);
-  const [note, setNote] = useState<string>();
+  const [note, setNote, noteInput] = useStringU();
   const [item] = GetItem('Post', id);
   const [status, setStatus] = useState(false);
 
@@ -38,7 +39,7 @@ export const PostItem = (): JSX.Element => {
       setGo(data.go ?? false);
       setNote(data.note);
     }
-  }, [item]);
+  }, [item, setName, setNote]);
 
   useEffect(() => {
     if (status) {
@@ -50,9 +51,9 @@ export const PostItem = (): JSX.Element => {
     <div>
       {item && (
         <>
-          <PostNameInput setter={setName} value={name} />
+          <PostNameInput setter={nameInput} value={name} />
           <PostGOSwitch setter={setGo} value={go} />
-          <NoteInput setter={setNote} value={note} />
+          <NoteInput setter={noteInput} value={note} />
 
           <ItemFormButtons del={del} send={send} />
         </>

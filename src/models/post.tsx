@@ -1,4 +1,3 @@
-import type { ChangeEvent } from 'react';
 import { FormField } from '../components/formfield';
 import { Select } from '../components/select';
 import type { BooleanInputProperties, SelectValues, StringInputProperties } from './variables';
@@ -17,9 +16,7 @@ export const PostNameInput = ({ value, setter }: StringInputProperties): JSX.Ele
     icon="tag"
     label="Наименование должности"
     name="post-name"
-    onChange={(event: ChangeEvent<HTMLInputElement>): void => {
-      setter(event.target.value === '' ? undefined : event.target.value);
-    }}
+    onChange={setter}
     value={value}
   />
 );
