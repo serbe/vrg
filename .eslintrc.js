@@ -11,6 +11,7 @@ module.exports = {
     'plugin:@typescript-eslint/all',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'plugin:react/all',
+    'plugin:unicorn/recommended',
     'plugin:jsx-a11y/recommended',
     'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
@@ -18,7 +19,18 @@ module.exports = {
     'plugin:import/typescript',
     'plugin:prettier/recommended',
   ],
-  // extends: ['alloy', 'alloy/react', 'alloy/typescript'],
+  // extends: [
+  //   'eslint:recommended',
+  //   'plugin:@typescript-eslint/all',
+  //   'plugin:@typescript-eslint/recommended-requiring-type-checking',
+  //   'plugin:react/all',
+  //   'plugin:jsx-a11y/recommended',
+  //   'plugin:react/jsx-runtime',
+  //   'plugin:react-hooks/recommended',
+  //   'plugin:import/recommended',
+  //   'plugin:import/typescript',
+  //   'plugin:prettier/recommended',
+  // ],
   env: {
     // Your environments (which contains several predefined global variables)
     //
@@ -58,6 +70,9 @@ module.exports = {
     'react/jsx-max-depth': ['warn', { max: 5 }],
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
+    'unicorn/no-empty-file': 'off',
+    'unicorn/no-null': 'warn',
+    'unicorn/filename-case': 'off',
   },
   settings: {
     react: {

@@ -77,9 +77,9 @@ const NavbarDropdown = ({ setter }: Setter): JSX.Element => (
 );
 
 const NavBarStart = ({ setter }: Setter): JSX.Element => (
-  <div className="navbar-start" key="navbar-start">
+  <div className="navbar-start">
     <MainItems setter={setter} />
-    <div className="navbar-item has-dropdown is-hoverable" key="dropdown-items">
+    <div className="navbar-item has-dropdown is-hoverable">
       <a className="navbar-link" href="#directory">
         Справочники
       </a>
@@ -91,7 +91,7 @@ const NavBarStart = ({ setter }: Setter): JSX.Element => (
 const NavbarEnd = ({ user }: { user: User }): JSX.Element => {
   const { signOut } = useSign();
   return (
-    <div className="navbar-end" key="navbar-end">
+    <div className="navbar-end">
       <div className="navbar-item has-dropdown is-hoverable">
         <a className="navbar-link" href="#user">
           {user.name}
@@ -114,7 +114,7 @@ const NavbarEnd = ({ user }: { user: User }): JSX.Element => {
 };
 
 const BrandBar = ({ open, setter }: OpenState): JSX.Element => (
-  <>
+  <div className="navbar-brand">
     <NavLink className="navbar-item" to="/">
       ЕДДС
     </NavLink>
@@ -133,7 +133,7 @@ const BrandBar = ({ open, setter }: OpenState): JSX.Element => (
       <span aria-hidden="true" />
       <span aria-hidden="true" />
     </a>
-  </>
+  </div>
 );
 
 export const Navbar = (): JSX.Element => {
@@ -144,11 +144,9 @@ export const Navbar = (): JSX.Element => {
   const divClass = (): string => (open ? 'navbar-menu is-active' : 'navbar-menu');
 
   return state.state === 'SIGNED_IN' ? (
-    <nav aria-label="dropdown navigation" className="navbar is-dark" role="navigation">
+    <nav aria-label="main navigation" className="navbar is-dark" role="navigation">
       <div className="container px-4">
-        <div className="navbar-brand">
-          <BrandBar open={open} setter={setOpen} />
-        </div>
+        <BrandBar open={open} setter={setOpen} />
         <div className={divClass()} id="navbarData">
           <NavBarStart setter={setOpen} />
           <NavbarEnd user={state.currentUser} />

@@ -32,11 +32,12 @@ const Item = ({ check, index, link, ellipsis, current, setter }: ItemProperties)
         </a>
       )}
     </li>
-  ) : null;
+  ) : // eslint-disable-next-line unicorn/no-null
+  null;
 
 Item.defaultProps = {
   ellipsis: false,
-  link: null,
+  link: undefined,
 };
 
 export const Pagination = ({ currentPage, lastPage, setter }: PaginationProperties): JSX.Element => {

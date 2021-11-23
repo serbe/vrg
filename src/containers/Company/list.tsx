@@ -39,7 +39,7 @@ export const Companies = (): JSX.Element => {
         ))}
       </>
     );
-  }, [history, paginationData]);
+  }, [navigate, paginationData]);
 
   return (
     <>

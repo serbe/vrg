@@ -24,8 +24,8 @@ export const Icon = ({ children, className, color, position, icon }: IconPropert
 };
 
 Icon.defaultProps = {
-  children: null,
-  className: null,
-  color: null,
-  position: null,
+  children: undefined,
+  className: undefined,
+  color: undefined,
+  position: undefined,
 };

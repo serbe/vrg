@@ -34,7 +34,7 @@ export const Practices = (): JSX.Element => {
         ))}
       </>
     );
-  }, [history, paginationData]);
+  }, [navigate, paginationData]);
 
   return (
     <>

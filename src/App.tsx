@@ -27,6 +27,7 @@ const Main = (): JSX.Element => {
       .catch(() => {
         signOut();
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

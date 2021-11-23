@@ -52,7 +52,7 @@ export const Certificates = (): JSX.Element => {
         ))}
       </>
     );
-  }, [history, paginationData]);
+  }, [navigate, paginationData]);
 
   return (
     <>

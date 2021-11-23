@@ -57,7 +57,7 @@ const AuthReducer = (state: AuthState, action: AuthActions): AuthState => {
 export const AuthContext = createContext<AuthContextProperties>({
   state: { state: 'UNKNOWN' },
   dispatch: () => {
-    return null;
+    return;
   },
 });
 

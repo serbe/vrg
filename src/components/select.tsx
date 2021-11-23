@@ -24,7 +24,7 @@ export const Select = ({ name, id, label, icon, color, listName, setter }: Selec
   const [value, setValue, valueInput] = useStringU();
 
   useEffect(() => {
-    if (itemID === 0 && id != null) {
+    if (itemID === 0 && id != undefined) {
       setItemID(id);
     }
     if (list[0].id !== 0) {
@@ -64,13 +64,13 @@ export const Select = ({ name, id, label, icon, color, listName, setter }: Selec
 
   return (
     <div className="field" key={name}>
-      {label != null && (
+      {label != undefined && (
         <label className="label" htmlFor={`select-${name}-id`} key="SelectLabel">
           {label}
         </label>
       )}
       <div
-        className={`control is-expanded select is-fullwidth ${icon != null ? 'has-icons-left' : ''}`}
+        className={`control is-expanded select is-fullwidth ${icon != undefined ? 'has-icons-left' : ''}`}
         id={`select-${name}-id`}
         key={`${name}-control`}
       >
@@ -93,7 +93,7 @@ export const Select = ({ name, id, label, icon, color, listName, setter }: Selec
           type="text"
           value={currentValue()}
         />
-        {icon != null && (
+        {icon != undefined && (
           <Icon color={color !== 'primary' ? color : undefined} icon={icon} key="SelectIconLeft" position="left" />
         )}
       </div>
@@ -121,8 +121,8 @@ export const Select = ({ name, id, label, icon, color, listName, setter }: Selec
 };
 
 Select.defaultProps = {
-  color: null,
-  icon: null,
+  color: undefined,
+  icon: undefined,
   id: 0,
-  label: null,
+  label: undefined,
 };

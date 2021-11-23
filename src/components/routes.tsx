@@ -16,12 +16,12 @@ import { ScopeItem, Scopes } from '../containers/Scope';
 import { SirenItem, Sirens } from '../containers/Siren';
 import { SirenTypeItem, SirenTypes } from '../containers/SirenType';
 
-interface RouterProps {
+interface RouterProperties {
   path: string;
   element: ReactElement;
 }
 
-const routerList: RouterProps[] = [
+const routerList: RouterProperties[] = [
   { path: '/', element: <Home /> },
   { path: '/login', element: <Login /> },
   { path: '/certificates', element: <Certificates /> },

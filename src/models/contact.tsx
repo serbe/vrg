@@ -31,8 +31,8 @@ export const ContactShortForm = ({ contacts }: ContactShortValues): JSX.Element 
       {contacts.map((contact) => (
         <Input
           autocomplete="off"
-          className="link"
           classNameDiv="pb-1"
+          classNameInput="link"
           icon="user"
           key={`contact-${contact.id}`}
           name={`contact-${contact.id}`}
@@ -69,12 +69,13 @@ export const ContactEducations = ({ educations }: ContactEducationsValues): JSX.
       <label className="label">Даты обучения в УМЦ</label>
       {educations.map((education) => (
         <Input
-          className={inputClass(education)}
           classNameDiv="pb-1"
+          classNameInput={inputClass(education)}
           key={`education-${education}`}
           name={`education-${education}-input`}
           value={education}
         />
       ))}
     </div>
-  ) : null;
+  ) : // eslint-disable-next-line unicorn/no-null
+  null;

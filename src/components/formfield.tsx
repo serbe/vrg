@@ -4,8 +4,8 @@ import { Input } from './input';
 
 interface FormFieldProperties {
   autocomplete?: string;
-  className?: string;
   classNameDiv?: string;
+  classNameInput?: string;
   color?: AdditionalColors | LinkColor | PrimarylColor;
   disabled?: boolean;
   focus?: boolean;
@@ -29,8 +29,8 @@ interface FormFieldProperties {
 
 export const FormField = ({
   autocomplete,
-  className,
   classNameDiv,
+  classNameInput,
   color,
   disabled,
   focus,
@@ -52,15 +52,15 @@ export const FormField = ({
   value,
 }: FormFieldProperties): JSX.Element => (
   <div className="field">
-    {label != null && (
+    {label != undefined && (
       <label className="label" htmlFor={name}>
         {label}
       </label>
     )}
     <Input
       autocomplete={autocomplete}
-      className={className}
       classNameDiv={classNameDiv}
+      classNameInput={classNameInput}
       color={color}
       disabled={disabled}
       focus={focus}
@@ -84,25 +84,25 @@ export const FormField = ({
 );
 
 FormField.defaultProps = {
-  autocomplete: null,
-  className: null,
-  classNameDiv: null,
-  color: null,
+  autocomplete: undefined,
+  classNameDiv: undefined,
+  classNameInput: undefined,
+  color: undefined,
   disabled: false,
   focus: false,
   hover: false,
-  icon: null,
-  iconRight: null,
-  label: null,
+  icon: undefined,
+  iconRight: undefined,
+  label: undefined,
   load: false,
-  onBlur: null,
-  onChange: null,
-  onClick: null,
-  onKeyPress: null,
-  placeholder: null,
+  onBlur: undefined,
+  onChange: undefined,
+  onClick: undefined,
+  onKeyPress: undefined,
+  placeholder: undefined,
   readonly: false,
   round: false,
-  size: null,
+  size: undefined,
   type: 'text',
-  value: null,
+  value: undefined,
 };

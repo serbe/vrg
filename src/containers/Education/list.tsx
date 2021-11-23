@@ -35,7 +35,7 @@ export const Educations = (): JSX.Element => {
         ))}
       </>
     );
-  }, [history, paginationData]);
+  }, [navigate, paginationData]);
 
   return (
     <>

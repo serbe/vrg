@@ -121,7 +121,8 @@ const Paginate = ({
       lastPage={Math.ceil(filteredDataLength / itemsPerPage)}
       setter={receiveChildValue}
     />
-  ) : null;
+  ) : // eslint-disable-next-line unicorn/no-null
+  null;
 };
 
 export const Data = ({
@@ -149,7 +150,7 @@ export const Data = ({
     const sv: SData[] = data.map((row, index): SData => {
       const values = Object.values(row);
       const rowString: string[] = values.map((value) => {
-        if (value != null && typeof value !== 'number') {
+        if (value != undefined && typeof value !== 'number') {
           if (typeof value === 'string') {
             return value;
           }
@@ -210,20 +211,23 @@ export const Bar = ({ name, setter, value }: BarProperties): JSX.Element | null 
             Создать
           </Button>
         </div>
-      ) : null,
-    [history, name, state],
+      ) : // eslint-disable-next-line unicorn/no-null
+      null,
+    [name, navigate, state],
   );
+
+  const changeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
+    setter(event.target.value);
+  };
 
   return (
     <div className="field is-grouped">
       <CreateButton />
       <div className="control mb-4 is-expanded" key="TableSearch">
         <Input
-          className="input is-expanded"
+          classNameInput="input is-expanded"
           name="search"
-          onChange={(event: ChangeEvent<HTMLInputElement>): void => {
-            setter(event.target.value);
-          }}
+          onChange={changeHandler}
           placeholder="Поиск"
           value={value}
         />

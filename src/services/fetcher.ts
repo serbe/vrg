@@ -62,7 +62,7 @@ export type Item =
   | Scope
   | Siren
   | SirenType
-  | null;
+  | undefined;
 
 export type List =
   | CertificateList
@@ -219,7 +219,7 @@ type GetListResponse =
       object: { SelectItem: SelectItem[] };
       error: string;
     }
-  | null;
+  | undefined;
 
 type ModifyItemResponse =
   | {
@@ -411,12 +411,12 @@ export const postLogin = async (name: string, pass: string): Promise<LoginRespon
 
 export const GetItem = (name: string, id?: string): [Item, string] => {
   const { token } = useToken();
-  const [data, setData] = useState<Item>(null);
+  const [data, setData] = useState<Item>();
   const [error, setError] = useState<string>('');
 
   useEffect(() => {
     const NumberID = Number(id);
-    if (NumberID !== 0 && id != null) {
+    if (NumberID !== 0 && id != undefined) {
       getItem(name, id, token)
         .then((response) => {
           switch (response.name) {

@@ -32,7 +32,7 @@ export const Scopes = (): JSX.Element => {
         ))}
       </>
     );
-  }, [history, paginationData]);
+  }, [navigate, paginationData]);
 
   return (
     <>

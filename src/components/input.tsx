@@ -5,8 +5,8 @@ import { Icon } from './icon';
 
 interface InputProperties {
   autocomplete?: string;
-  className?: string;
   classNameDiv?: string;
+  classNameInput?: string;
   color?: AdditionalColors | LinkColor | PrimarylColor;
   disabled?: boolean;
   focus?: boolean;
@@ -29,8 +29,8 @@ interface InputProperties {
 
 export const Input = ({
   autocomplete,
-  className,
   classNameDiv,
+  classNameInput,
   color,
   disabled,
   focus,
@@ -59,7 +59,7 @@ export const Input = ({
   );
   const inputClass = clsx(
     'input',
-    className,
+    classNameInput,
     { 'is-rounded': round },
     { 'is-hovered': hover },
     { 'is-focused': focus },
@@ -85,31 +85,31 @@ export const Input = ({
         readOnly={readonly}
         type={type}
       />
-      {icon != null && <Icon icon={icon} position="left" />}
-      {iconRight != null && <Icon icon={iconRight} position="right" />}
+      {icon != undefined && <Icon icon={icon} position="left" />}
+      {iconRight != undefined && <Icon icon={iconRight} position="right" />}
     </div>
   );
 };
 
 Input.defaultProps = {
-  autocomplete: null,
-  className: null,
-  classNameDiv: null,
-  color: null,
+  autocomplete: undefined,
+  classNameDiv: undefined,
+  classNameInput: undefined,
+  color: undefined,
   disabled: false,
   focus: false,
   hover: false,
-  icon: null,
-  iconRight: null,
+  icon: undefined,
+  iconRight: undefined,
   load: false,
-  onBlur: null,
-  onChange: null,
-  onClick: null,
-  onKeyPress: null,
-  placeholder: null,
+  onBlur: undefined,
+  onChange: undefined,
+  onClick: undefined,
+  onKeyPress: undefined,
+  placeholder: undefined,
   readonly: false,
   round: false,
-  size: null,
+  size: undefined,
   type: 'text',
-  value: null,
+  value: undefined,
 };

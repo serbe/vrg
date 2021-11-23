@@ -115,7 +115,8 @@ export const ItemFormButtons = ({ del, send }: FormButtonsValues): JSX.Element =
             Сохранить
           </Button>
         </div>
-      ) : null,
+      ) : // eslint-disable-next-line unicorn/no-null
+      null,
     [send, state],
   );
 
@@ -131,7 +132,7 @@ export const ItemFormButtons = ({ del, send }: FormButtonsValues): JSX.Element =
         </Button>
       </div>
     ),
-    [history],
+    [navigate],
   );
 
   const DeleteButton = useCallback(
@@ -149,7 +150,8 @@ export const ItemFormButtons = ({ del, send }: FormButtonsValues): JSX.Element =
             Удалить
           </Button>
         </div>
-      ) : null,
+      ) : // eslint-disable-next-line unicorn/no-null
+      null,
     [del, state],
   );
 

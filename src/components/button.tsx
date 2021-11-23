@@ -53,7 +53,7 @@ export const Button = ({
     [`is-${size ?? 'normal'}`]: size,
   });
 
-  return href != null ? (
+  return href != undefined ? (
     <a className={buttonClass} href={href} onClick={onClick}>
       {children}
     </a>
@@ -66,19 +66,19 @@ export const Button = ({
 
 Button.defaultProps = {
   active: false,
-  children: null,
-  className: null,
-  color: null,
+  children: undefined,
+  className: undefined,
+  color: undefined,
   disable: false,
   focus: false,
   hover: false,
-  href: null,
+  href: undefined,
   invert: false,
   isstatic: false,
   light: false,
   load: false,
-  onClick: null,
+  onClick: undefined,
   outline: false,
   round: false,
-  size: null,
+  size: undefined,
 };

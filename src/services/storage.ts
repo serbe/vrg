@@ -9,10 +9,10 @@ export const clearStorage = (): void => {
 };
 
 export const getStorage = (): User => {
-  const userStorage: string | null = localStorage.getItem('vrg-user');
+  const userStorage = localStorage.getItem('vrg-user');
   const user: User = { role: 0, name: '', token: '' };
-  if (userStorage != null) {
-    const u = JSON.parse(userStorage) as User | null;
+  if (userStorage != undefined) {
+    const u = JSON.parse(userStorage) as User | undefined;
     if (u) {
       user.name = u.name;
       user.role = u.role;

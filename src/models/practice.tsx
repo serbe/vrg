@@ -14,8 +14,8 @@ export const PracticeListForm = ({ practices }: PracticeValues): JSX.Element | n
       <label className="label">Тренировки</label>
       {practices.map((practice) => (
         <Input
-          className="link"
           classNameDiv="pb-1"
+          classNameInput="link"
           key={`practice-${practice.id}`}
           name={`practice-${practice.id}`}
           onClick={(): void => {
@@ -26,7 +26,8 @@ export const PracticeListForm = ({ practices }: PracticeValues): JSX.Element | n
         />
       ))}
     </div>
-  ) : null;
+  ) : // eslint-disable-next-line unicorn/no-null
+  null;
 };
 
 export const PracticeTopicInput = ({ value, setter }: StringInputProperties): JSX.Element => (
