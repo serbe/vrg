@@ -1,15 +1,16 @@
 import clsx from 'clsx';
+import { ReactNode } from 'react';
 import type { AdditionalColors, Positions } from '../models/variables';
 
 interface IconProperties {
-  children?: Element;
+  children?: ReactNode;
   className?: string;
   color?: AdditionalColors;
   icon: string;
   position?: Positions;
 }
 
-export const Icon = ({ children, className, color, position, icon }: IconProperties): JSX.Element => {
+export const Icon = function ({ children, className, color, position, icon }: IconProperties): JSX.Element {
   const spanClass = clsx('icon', className, {
     [`has-text-${color ?? 'info'}`]: color,
     [`is-${position ?? 'left'}`]: position,
@@ -29,3 +30,5 @@ Icon.defaultProps = {
   color: undefined,
   position: undefined,
 };
+
+export default Icon;

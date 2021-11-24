@@ -4,7 +4,7 @@ import { Bar, Data } from '../../components/table';
 import type { ScopeList } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 
-export const Scopes = (): JSX.Element => {
+export const Scopes = function (): JSX.Element {
   const navigate = useNavigate();
   const [data] = GetList('ScopeList');
   const [search, setSearch] = useState('');
@@ -49,3 +49,5 @@ export const Scopes = (): JSX.Element => {
     </>
   );
 };
+
+export default Scopes;

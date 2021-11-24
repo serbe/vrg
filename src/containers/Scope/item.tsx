@@ -6,7 +6,7 @@ import type { Scope } from '../../models/types';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 import { useStringU } from '../../services/hooks';
 
-export const ScopeItem = (): JSX.Element => {
+export const ScopeItem = function (): JSX.Element {
   const navigate = useNavigate();
   const { id } = useParams();
   const [name, setName, nameInput] = useStringU();
@@ -57,3 +57,5 @@ export const ScopeItem = (): JSX.Element => {
     </div>
   );
 };
+
+export default ScopeItem;

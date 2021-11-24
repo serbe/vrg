@@ -32,63 +32,71 @@ const dropdownItems = [
   { link: '/sirentypes', name: 'Типы сирен' },
 ];
 
-const NavbarNotLogged = (): JSX.Element => (
-  <nav className="navbar is-dark" role="navigation">
-    <div className="navbar-brand">
-      <NavLink className="navbar-item" key="NavbarNotLogged" to="/login">
-        Авторизация
-      </NavLink>
+const NavbarNotLogged = function (): JSX.Element {
+  return (
+    <nav className="navbar is-dark" role="navigation">
+      <div className="navbar-brand">
+        <NavLink className="navbar-item" key="NavbarNotLogged" to="/login">
+          Авторизация
+        </NavLink>
+      </div>
+    </nav>
+  );
+};
+
+const MainItems = function ({ setter }: Setter): JSX.Element {
+  return (
+    <>
+      {mainItems.map((item) => (
+        <NavLink
+          className="navbar-item"
+          key={`main-items-${item.name}`}
+          onClick={(): void => {
+            setter(false);
+          }}
+          to={item.link}
+        >
+          {item.name}
+        </NavLink>
+      ))}
+    </>
+  );
+};
+
+const NavbarDropdown = function ({ setter }: Setter): JSX.Element {
+  return (
+    <div className="navbar-dropdown" key="navbar-dropdown">
+      {dropdownItems.map((item) => (
+        <NavLink
+          className="navbar-item"
+          key={`navbar-dropdown-${item.name}`}
+          onClick={(): void => {
+            setter(false);
+          }}
+          to={item.link}
+        >
+          {item.name}
+        </NavLink>
+      ))}
     </div>
-  </nav>
-);
+  );
+};
 
-const MainItems = ({ setter }: Setter): JSX.Element => (
-  <>
-    {mainItems.map((item) => (
-      <NavLink
-        className="navbar-item"
-        key={`main-items-${item.name}`}
-        onClick={(): void => {
-          setter(false);
-        }}
-        to={item.link}
-      >
-        {item.name}
-      </NavLink>
-    ))}
-  </>
-);
-
-const NavbarDropdown = ({ setter }: Setter): JSX.Element => (
-  <div className="navbar-dropdown" key="navbar-dropdown">
-    {dropdownItems.map((item) => (
-      <NavLink
-        className="navbar-item"
-        key={`navbar-dropdown-${item.name}`}
-        onClick={(): void => {
-          setter(false);
-        }}
-        to={item.link}
-      >
-        {item.name}
-      </NavLink>
-    ))}
-  </div>
-);
-
-const NavBarStart = ({ setter }: Setter): JSX.Element => (
-  <div className="navbar-start">
-    <MainItems setter={setter} />
-    <div className="navbar-item has-dropdown is-hoverable">
-      <a className="navbar-link" href="#directory">
-        Справочники
-      </a>
-      <NavbarDropdown setter={setter} />
+const NavBarStart = function ({ setter }: Setter): JSX.Element {
+  return (
+    <div className="navbar-start">
+      <MainItems setter={setter} />
+      <div className="navbar-item has-dropdown is-hoverable">
+        <a className="navbar-link" href="#directory">
+          Справочники
+        </a>
+        <NavbarDropdown setter={setter} />
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
-const NavbarEnd = ({ user }: { user: User }): JSX.Element => {
+const NavbarEnd = function ({ user }: { user: User }): JSX.Element {
   const { signOut } = useSign();
   return (
     <div className="navbar-end">
@@ -113,30 +121,32 @@ const NavbarEnd = ({ user }: { user: User }): JSX.Element => {
   );
 };
 
-const BrandBar = ({ open, setter }: OpenState): JSX.Element => (
-  <div className="navbar-brand">
-    <NavLink className="navbar-item" to="/">
-      ЕДДС
-    </NavLink>
-    <a
-      aria-expanded="false"
-      aria-label="menu"
-      className={open ? 'navbar-burger is-active' : 'navbar-burger'}
-      data-target="navbarData"
-      href="#button"
-      onClick={(): void => {
-        setter(!open);
-      }}
-      role="button"
-    >
-      <span aria-hidden="true" />
-      <span aria-hidden="true" />
-      <span aria-hidden="true" />
-    </a>
-  </div>
-);
+const BrandBar = function ({ open, setter }: OpenState): JSX.Element {
+  return (
+    <div className="navbar-brand">
+      <NavLink className="navbar-item" to="/">
+        ЕДДС
+      </NavLink>
+      <a
+        aria-expanded="false"
+        aria-label="menu"
+        className={open ? 'navbar-burger is-active' : 'navbar-burger'}
+        data-target="navbarData"
+        href="#button"
+        onClick={(): void => {
+          setter(!open);
+        }}
+        role="button"
+      >
+        <span aria-hidden="true" />
+        <span aria-hidden="true" />
+        <span aria-hidden="true" />
+      </a>
+    </div>
+  );
+};
 
-export const Navbar = (): JSX.Element => {
+export const Navbar = function (): JSX.Element {
   // const openClassName = (cn: string): string => (open ? `${cn} is-active` : cn);
   const { state } = useAuthState();
   const [open, setOpen] = useState(false);
@@ -157,3 +167,5 @@ export const Navbar = (): JSX.Element => {
     <NavbarNotLogged />
   );
 };
+
+export default Navbar;

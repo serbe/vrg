@@ -4,7 +4,7 @@ import { Bar, Data } from '../../components/table';
 import type { KindList } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 
-export const Kinds = (): JSX.Element => {
+export const Kinds = function (): JSX.Element {
   const navigate = useNavigate();
   const [data] = GetList('KindList');
   const [search, setSearch] = useState('');
@@ -51,3 +51,5 @@ export const Kinds = (): JSX.Element => {
     </>
   );
 };
+
+export default Kinds;

@@ -7,7 +7,7 @@ import { tinyDate, trClass } from '../services/utils';
 import type { PracticeShort, PracticeValues } from './types';
 import type { DatePickerValues, StringInputProperties } from './variables';
 
-export const PracticeListForm = ({ practices }: PracticeValues): JSX.Element | null => {
+export const PracticeListForm = function ({ practices }: PracticeValues): JSX.Element | null {
   const navigate = useNavigate();
   return practices.length > 0 ? (
     <div className="field" key="practices">
@@ -26,26 +26,27 @@ export const PracticeListForm = ({ practices }: PracticeValues): JSX.Element | n
         />
       ))}
     </div>
-  ) : // eslint-disable-next-line unicorn/no-null
-  null;
+  ) : null;
 };
 
-export const PracticeTopicInput = ({ value, setter }: StringInputProperties): JSX.Element => (
-  <FormField
-    autocomplete="off"
-    icon="tag"
-    label="Тема тренировки"
-    name="practice-topic"
-    onChange={setter}
-    value={value}
-  />
-);
+export const PracticeTopicInput = function ({ value, setter }: StringInputProperties): JSX.Element {
+  return (
+    <FormField
+      autocomplete="off"
+      icon="tag"
+      label="Тема тренировки"
+      name="practice-topic"
+      onChange={setter}
+      value={value}
+    />
+  );
+};
 
-export const PracticeDateInput = ({ value, setter }: DatePickerValues): JSX.Element => (
-  <DatePicker label="Дата проведения тренировки" name="practice-date" setter={setter} value={value} />
-);
+export const PracticeDateInput = function ({ value, setter }: DatePickerValues): JSX.Element {
+  return <DatePicker label="Дата проведения тренировки" name="practice-date" setter={setter} value={value} />;
+};
 
-export const PracticeNearList = ({ list }: { list: PracticeShort[] }): JSX.Element => {
+export const PracticeNearList = function ({ list }: { list: PracticeShort[] }): JSX.Element {
   const navigate = useNavigate();
   return (
     <table className="table is-narrow">

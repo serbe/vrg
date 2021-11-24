@@ -15,8 +15,8 @@ interface ItemProperties {
   setter: (page: number) => void;
 }
 
-const Item = ({ check, index, link, ellipsis, current, setter }: ItemProperties): JSX.Element | null =>
-  check ? (
+const Item = function ({ check, index, link, ellipsis, current, setter }: ItemProperties): JSX.Element | null {
+  return check ? (
     <li key={`li${index}`}>
       {ellipsis ?? false ? (
         <span className="pagination-ellipsis">&hellip;</span>
@@ -32,15 +32,15 @@ const Item = ({ check, index, link, ellipsis, current, setter }: ItemProperties)
         </a>
       )}
     </li>
-  ) : // eslint-disable-next-line unicorn/no-null
-  null;
+  ) : null;
+};
 
 Item.defaultProps = {
   ellipsis: false,
   link: undefined,
 };
 
-export const Pagination = ({ currentPage, lastPage, setter }: PaginationProperties): JSX.Element => {
+export const Pagination = function ({ currentPage, lastPage, setter }: PaginationProperties): JSX.Element {
   const navClasses = `pagination is-rounded is-centered`;
 
   const Previous = useCallback(
@@ -107,3 +107,5 @@ export const Pagination = ({ currentPage, lastPage, setter }: PaginationProperti
     </nav>
   );
 };
+
+export default Pagination;

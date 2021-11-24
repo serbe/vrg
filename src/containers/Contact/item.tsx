@@ -11,7 +11,7 @@ import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 import { useStringU } from '../../services/hooks';
 import { addEmptyString, filterArrayNumber, filterArrayString, numberToString } from '../../services/utils';
 
-export const ContactItem = (): JSX.Element => {
+export const ContactItem = function (): JSX.Element {
   const navigate = useNavigate();
   const { id } = useParams();
   const [name, setName, nameInput] = useStringU();
@@ -129,3 +129,5 @@ export const ContactItem = (): JSX.Element => {
     </div>
   );
 };
+
+export default ContactItem;

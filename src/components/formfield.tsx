@@ -1,9 +1,10 @@
-import type { ChangeEventHandler, KeyboardEventHandler, MouseEventHandler } from 'react';
+import type { ChangeEventHandler, KeyboardEventHandler, MouseEventHandler, ReactNode } from 'react';
 import type { AdditionalColors, InputTypes, LinkColor, PrimarylColor, Sizes } from '../models/variables';
 import { Input } from './input';
 
 interface FormFieldProperties {
   autocomplete?: string;
+  children?: ReactNode;
   classNameDiv?: string;
   classNameInput?: string;
   color?: AdditionalColors | LinkColor | PrimarylColor;
@@ -27,8 +28,9 @@ interface FormFieldProperties {
   value?: number | string;
 }
 
-export const FormField = ({
+export const FormField = function ({
   autocomplete,
+  children,
   classNameDiv,
   classNameInput,
   color,
@@ -50,41 +52,45 @@ export const FormField = ({
   size,
   type,
   value,
-}: FormFieldProperties): JSX.Element => (
-  <div className="field">
-    {label != undefined && (
-      <label className="label" htmlFor={name}>
-        {label}
-      </label>
-    )}
-    <Input
-      autocomplete={autocomplete}
-      classNameDiv={classNameDiv}
-      classNameInput={classNameInput}
-      color={color}
-      disabled={disabled}
-      focus={focus}
-      hover={hover}
-      icon={icon}
-      iconRight={iconRight}
-      load={load}
-      name={name}
-      onBlur={onBlur}
-      onChange={onChange}
-      onClick={onClick}
-      onKeyPress={onKeyPress}
-      placeholder={placeholder}
-      readonly={readonly}
-      round={round}
-      size={size}
-      type={type}
-      value={value}
-    />
-  </div>
-);
+}: FormFieldProperties): JSX.Element {
+  return (
+    <div className="field">
+      {label && (
+        <label className="label" htmlFor={name}>
+          {label}
+        </label>
+      )}
+      <Input
+        autocomplete={autocomplete}
+        classNameDiv={classNameDiv}
+        classNameInput={classNameInput}
+        color={color}
+        disabled={disabled}
+        focus={focus}
+        hover={hover}
+        icon={icon}
+        iconRight={iconRight}
+        load={load}
+        name={name}
+        onBlur={onBlur}
+        onChange={onChange}
+        onClick={onClick}
+        onKeyPress={onKeyPress}
+        placeholder={placeholder}
+        readonly={readonly}
+        round={round}
+        size={size}
+        type={type}
+        value={value}
+      />
+      {children}
+    </div>
+  );
+};
 
 FormField.defaultProps = {
   autocomplete: undefined,
+  children: undefined,
   classNameDiv: undefined,
   classNameInput: undefined,
   color: undefined,
@@ -106,3 +112,5 @@ FormField.defaultProps = {
   type: 'text',
   value: undefined,
 };
+
+export default FormField;

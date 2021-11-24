@@ -50,14 +50,14 @@ const listYears = (): string[] => {
   return list;
 };
 
-export const DatePicker = ({ name, value, setter, label }: DatePickerProperties): JSX.Element => {
+export const DatePicker = function ({ name, value, setter, label }: DatePickerProperties): JSX.Element {
   const [year, setYear] = useState(' ');
   const [month, setMonth] = useState(' ');
   const [day, setDay] = useState(' ');
   const [rawDate, setRawDate] = useState('');
 
   useEffect(() => {
-    if (value != undefined && value !== rawDate) {
+    if (value && value !== rawDate) {
       const values = value.split('-');
       if (values.length === 3) {
         setRawDate(value);
@@ -90,7 +90,7 @@ export const DatePicker = ({ name, value, setter, label }: DatePickerProperties)
 
   return (
     <div className="field" key={name}>
-      {label != undefined && (
+      {label && (
         <label className="label" htmlFor={`datepicker-${name}-id`} key="DateLabel">
           {label}
         </label>
@@ -152,3 +152,5 @@ DatePicker.defaultProps = {
   label: undefined,
   value: undefined,
 };
+
+export default DatePicker;

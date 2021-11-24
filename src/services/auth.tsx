@@ -9,8 +9,13 @@ interface CheckResponse {
   r: boolean;
 }
 
-export const postCheck = async (user: User): Promise<User> =>
-  fetch(checkURL, {
+export const postCheck = (user: User): Promise<User> => {
+  const emptyUser: User = {
+    role: 0,
+    name: '',
+    token: '',
+  };
+  return fetch(checkURL, {
     method: 'POST',
     mode: 'cors',
     headers: {
@@ -18,11 +23,16 @@ export const postCheck = async (user: User): Promise<User> =>
     },
     body: JSON.stringify({ t: user.token, r: user.role }),
   })
-    .then(async (response) => response.json())
-    .then((response) => (response as CheckResponse).r)
-    .then(() => user);
+    .then((response) => response.json())
+    .then((jsonResponse) => {
+      if ((jsonResponse as CheckResponse).r) {
+        return user;
+      }
+      return emptyUser;
+    });
+};
 
-type AuthState =
+export type AuthState =
   | {
       state: 'SIGNED_IN';
       currentUser: User;
@@ -56,12 +66,10 @@ const AuthReducer = (state: AuthState, action: AuthActions): AuthState => {
 
 export const AuthContext = createContext<AuthContextProperties>({
   state: { state: 'UNKNOWN' },
-  dispatch: () => {
-    return;
-  },
+  dispatch: () => {},
 });
 
-const AuthProvider = ({ children }: { children: ReactNode }): JSX.Element => {
+const AuthProvider = function ({ children }: { children: ReactNode }): JSX.Element {
   const [state, dispatch] = useReducer(AuthReducer, { state: 'UNKNOWN' });
 
   const value = useMemo(
@@ -121,7 +129,7 @@ const useSign = (): {
   };
 };
 
-const checkUser = async (): Promise<User> => {
+const checkUser = (): Promise<User> => {
   const user = getStorage();
   return postCheck(user);
 };

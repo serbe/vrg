@@ -10,7 +10,7 @@ import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 import { useStringU } from '../../services/hooks';
 import { addEmptyString, filterArrayNumber, filterArrayString, numberToString } from '../../services/utils';
 
-export const CompanyItem = (): JSX.Element => {
+export const CompanyItem = function (): JSX.Element {
   const navigate = useNavigate();
   const { id } = useParams();
   const [name, setName, nameInput] = useStringU();
@@ -97,3 +97,5 @@ export const CompanyItem = (): JSX.Element => {
     </div>
   );
 };
+
+export default CompanyItem;

@@ -8,7 +8,7 @@ import type { Certificate } from '../../models/types';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 import { useStringU } from '../../services/hooks';
 
-export const CertificateItem = (): JSX.Element => {
+export const CertificateItem = function (): JSX.Element {
   const navigate = useNavigate();
   const { id } = useParams();
   const [sNumber, setSNumber, sNumberInput] = useStringU();
@@ -71,3 +71,5 @@ export const CertificateItem = (): JSX.Element => {
     </div>
   );
 };
+
+export default CertificateItem;

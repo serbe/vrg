@@ -4,7 +4,7 @@ import { Bar, Data } from '../../components/table';
 import type { DepartmentList } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 
-export const Departments = (): JSX.Element => {
+export const Departments = function (): JSX.Element {
   const navigate = useNavigate();
   const [data] = GetList('DepartmentList');
   const [search, setSearch] = useState('');
@@ -49,3 +49,5 @@ export const Departments = (): JSX.Element => {
     </>
   );
 };
+
+export default Departments;

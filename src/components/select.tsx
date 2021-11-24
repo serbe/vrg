@@ -17,14 +17,14 @@ interface SelectProperties {
   setter: Dispatch<SetStateAction<number | undefined>>;
 }
 
-export const Select = ({ name, id, label, icon, color, listName, setter }: SelectProperties): JSX.Element => {
+export const Select = function ({ name, id, label, icon, color, listName, setter }: SelectProperties): JSX.Element {
   const [opened, setOpened] = useState(false);
   const [itemID, setItemID] = useState(id ?? 0);
   const [list, error] = GetSelect(listName);
   const [value, setValue, valueInput] = useStringU();
 
   useEffect(() => {
-    if (itemID === 0 && id != undefined) {
+    if (itemID === 0 && id) {
       setItemID(id);
     }
     if (list[0].id !== 0) {
@@ -64,13 +64,13 @@ export const Select = ({ name, id, label, icon, color, listName, setter }: Selec
 
   return (
     <div className="field" key={name}>
-      {label != undefined && (
+      {label && (
         <label className="label" htmlFor={`select-${name}-id`} key="SelectLabel">
           {label}
         </label>
       )}
       <div
-        className={`control is-expanded select is-fullwidth ${icon != undefined ? 'has-icons-left' : ''}`}
+        className={`control is-expanded select is-fullwidth ${icon ? 'has-icons-left' : ''}`}
         id={`select-${name}-id`}
         key={`${name}-control`}
       >
@@ -93,7 +93,7 @@ export const Select = ({ name, id, label, icon, color, listName, setter }: Selec
           type="text"
           value={currentValue()}
         />
-        {icon != undefined && (
+        {icon && (
           <Icon color={color !== 'primary' ? color : undefined} icon={icon} key="SelectIconLeft" position="left" />
         )}
       </div>
@@ -126,3 +126,5 @@ Select.defaultProps = {
   id: 0,
   label: undefined,
 };
+
+export default Select;

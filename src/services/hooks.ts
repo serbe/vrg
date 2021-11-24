@@ -73,9 +73,10 @@ export const useLocalStorage = <T>(key: string, initialValue: T): [T, (value: T 
       // Get from local storage by key
       const item = window.localStorage.getItem(key);
       // Parse stored json or if none return initialValue
-      return item != undefined ? (JSON.parse(item) as T) : initialValue;
+      return item ? (JSON.parse(item) as T) : initialValue;
     } catch (error) {
       // If error also return initialValue
+      // eslint-disable-next-line no-console
       console.log(error);
       return initialValue;
     }
@@ -93,6 +94,7 @@ export const useLocalStorage = <T>(key: string, initialValue: T): [T, (value: T 
       window.localStorage.setItem(key, JSON.stringify(valueToStore));
     } catch (error) {
       // A more advanced implementation would handle the error case
+      // eslint-disable-next-line no-console
       console.log(error);
     }
   };

@@ -347,7 +347,7 @@ interface LoginResponse {
   r: number;
 }
 
-export const getItem = async (name: string, id: string, token: string): Promise<GetItemResponse> =>
+export const getItem = (name: string, id: string, token: string): Promise<GetItemResponse> =>
   fetch(URL, {
     method: 'POST',
     mode: 'cors',
@@ -356,10 +356,10 @@ export const getItem = async (name: string, id: string, token: string): Promise<
     },
     body: `{"command":{"GetItem":{"name":"${name}","id":${Number(id)}}},"addon":"${token}"}`,
   })
-    .then(async (response) => response.json())
-    .then((response) => response as GetItemResponse);
+    .then((response) => response.json())
+    .then((jsonResponse) => jsonResponse as GetItemResponse);
 
-export const getList = async (name: string, token: string): Promise<GetListResponse> =>
+export const getList = (name: string, token: string): Promise<GetListResponse> =>
   fetch(URL, {
     method: 'POST',
     mode: 'cors',
@@ -368,10 +368,10 @@ export const getList = async (name: string, token: string): Promise<GetListRespo
     },
     body: `{"command":{"GetList":"${name}"},"addon":"${token}"}`,
   })
-    .then(async (response) => response.json())
-    .then((response) => response as GetListResponse);
+    .then((response) => response.json())
+    .then((jsonResponse) => jsonResponse as GetListResponse);
 
-export const setItem = async (id: number, name: string, item: Item, token: string): Promise<ModifyItemResponse> =>
+export const setItem = (id: number, name: string, item: Item, token: string): Promise<ModifyItemResponse> =>
   fetch(URL, {
     method: 'POST',
     mode: 'cors',
@@ -382,10 +382,10 @@ export const setItem = async (id: number, name: string, item: Item, token: strin
       item,
     )} } }, "addon": "${token}" }`,
   })
-    .then(async (response) => response.json())
-    .then((response) => response as ModifyItemResponse);
+    .then((response) => response.json())
+    .then((jsonResponse) => jsonResponse as ModifyItemResponse);
 
-export const delItem = async (id: number, name: string, token: string): Promise<ModifyItemResponse> =>
+export const delItem = (id: number, name: string, token: string): Promise<ModifyItemResponse> =>
   fetch(URL, {
     method: 'POST',
     mode: 'cors',
@@ -394,10 +394,10 @@ export const delItem = async (id: number, name: string, token: string): Promise<
     },
     body: `{"command":{"Delete":{"name":"${name}","id":${id}}},"addon":"${token}"}`,
   })
-    .then(async (response) => response.json())
-    .then((response) => response as ModifyItemResponse);
+    .then((response) => response.json())
+    .then((jsonResponse) => jsonResponse as ModifyItemResponse);
 
-export const postLogin = async (name: string, pass: string): Promise<LoginResponse> =>
+export const postLogin = (name: string, pass: string): Promise<LoginResponse> =>
   fetch(loginURL, {
     method: 'POST',
     mode: 'cors',
@@ -406,8 +406,10 @@ export const postLogin = async (name: string, pass: string): Promise<LoginRespon
     },
     body: JSON.stringify({ u: name, p: btoa(pass) }),
   })
-    .then(async (response) => response.json())
-    .then((response) => response as LoginResponse);
+    .then((response) => response.json())
+    .then((jsonResponse) => {
+      return jsonResponse as LoginResponse;
+    });
 
 export const GetItem = (name: string, id?: string): [Item, string] => {
   const { token } = useToken();
@@ -416,7 +418,7 @@ export const GetItem = (name: string, id?: string): [Item, string] => {
 
   useEffect(() => {
     const NumberID = Number(id);
-    if (NumberID !== 0 && id != undefined) {
+    if (NumberID !== 0 && id) {
       getItem(name, id, token)
         .then((response) => {
           switch (response.name) {

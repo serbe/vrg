@@ -11,7 +11,7 @@ export const clearStorage = (): void => {
 export const getStorage = (): User => {
   const userStorage = localStorage.getItem('vrg-user');
   const user: User = { role: 0, name: '', token: '' };
-  if (userStorage != undefined) {
+  if (userStorage) {
     const u = JSON.parse(userStorage) as User | undefined;
     if (u) {
       user.name = u.name;

@@ -106,12 +106,12 @@ const paginateReducer = (state: PaginateState, action: PaginateAction): Paginate
   }
 };
 
-const Paginate = ({
+const Paginate = function ({
   filteredDataLength,
   itemsPerPage,
   currentPage,
   setter,
-}: PaginateProperties): JSX.Element | null => {
+}: PaginateProperties): JSX.Element | null {
   const receiveChildValue = (value: number): void => {
     setter(value - 1);
   };
@@ -121,17 +121,13 @@ const Paginate = ({
       lastPage={Math.ceil(filteredDataLength / itemsPerPage)}
       setter={receiveChildValue}
     />
-  ) : // eslint-disable-next-line unicorn/no-null
-  null;
+  ) : null;
 };
 
-export const Data = ({
-  data,
-  search,
-}: DataProperties): {
+export const Data = function ({ data, search }: DataProperties): {
   paginationData: () => List[];
   Paginate: ReactElement;
-} => {
+} {
   type TableData = typeof data;
 
   const [{ filteredData, currentPage, filteredDataLength, itemsPerPage }, dispatch] = useReducer(
@@ -150,7 +146,7 @@ export const Data = ({
     const sv: SData[] = data.map((row, index): SData => {
       const values = Object.values(row);
       const rowString: string[] = values.map((value) => {
-        if (value != undefined && typeof value !== 'number') {
+        if (value && typeof value !== 'number') {
           if (typeof value === 'string') {
             return value;
           }
@@ -195,7 +191,7 @@ export const Data = ({
   };
 };
 
-export const Bar = ({ name, setter, value }: BarProperties): JSX.Element | null => {
+export const Bar = function ({ name, setter, value }: BarProperties): JSX.Element | null {
   const { state } = useAuthState();
   const navigate = useNavigate();
 
@@ -211,8 +207,7 @@ export const Bar = ({ name, setter, value }: BarProperties): JSX.Element | null 
             Создать
           </Button>
         </div>
-      ) : // eslint-disable-next-line unicorn/no-null
-      null,
+      ) : null,
     [name, navigate, state],
   );
 
@@ -235,3 +230,5 @@ export const Bar = ({ name, setter, value }: BarProperties): JSX.Element | null 
     </div>
   );
 };
+
+export default Data;

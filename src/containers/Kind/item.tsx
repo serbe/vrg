@@ -6,7 +6,7 @@ import type { Kind } from '../../models/types';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 import { useStringU } from '../../services/hooks';
 
-export const KindItem = (): JSX.Element => {
+export const KindItem = function (): JSX.Element {
   const navigate = useNavigate();
   const { id } = useParams();
   const [name, setName, nameInput] = useStringU();
@@ -61,3 +61,5 @@ export const KindItem = (): JSX.Element => {
     </div>
   );
 };
+
+export default KindItem;

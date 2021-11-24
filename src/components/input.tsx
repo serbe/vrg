@@ -27,7 +27,7 @@ interface InputProperties {
   value?: number | string;
 }
 
-export const Input = ({
+export const Input = function ({
   autocomplete,
   classNameDiv,
   classNameInput,
@@ -49,7 +49,7 @@ export const Input = ({
   size,
   type,
   value,
-}: InputProperties): JSX.Element => {
+}: InputProperties): JSX.Element {
   const divClass = clsx(
     'control',
     classNameDiv,
@@ -85,8 +85,8 @@ export const Input = ({
         readOnly={readonly}
         type={type}
       />
-      {icon != undefined && <Icon icon={icon} position="left" />}
-      {iconRight != undefined && <Icon icon={iconRight} position="right" />}
+      {icon && <Icon icon={icon} position="left" />}
+      {iconRight && <Icon icon={iconRight} position="right" />}
     </div>
   );
 };
@@ -113,3 +113,5 @@ Input.defaultProps = {
   type: 'text',
   value: undefined,
 };
+
+export default Input;

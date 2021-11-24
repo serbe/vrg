@@ -5,7 +5,7 @@ import type { SirenTypeList } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 
 /* eslint-disable camelcase */
-export const SirenTypes = (): JSX.Element => {
+export const SirenTypes = function (): JSX.Element {
   const navigate = useNavigate();
   const [data] = GetList('SirenTypeList');
   const [search, setSearch] = useState('');
@@ -52,3 +52,5 @@ export const SirenTypes = (): JSX.Element => {
     </>
   );
 };
+
+export default SirenTypes;

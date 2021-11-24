@@ -5,7 +5,7 @@ import type { ContactList } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 import { splitNumbers } from '../../services/utils';
 
-export const Contacts = (): JSX.Element => {
+export const Contacts = function (): JSX.Element {
   const navigate = useNavigate();
   const [data] = GetList('ContactList');
   const [search, setSearch] = useState('');
@@ -67,3 +67,5 @@ export const Contacts = (): JSX.Element => {
     </>
   );
 };
+
+export default Contacts;

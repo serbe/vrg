@@ -8,22 +8,24 @@ import { diffMonth } from '../services/utils';
 import type { ContactEducationsValues, ContactShortValues } from './types';
 import type { DatePickerValues, SelectValues, StringInputProperties } from './variables';
 
-export const ContactNameInput = ({ value, setter }: StringInputProperties): JSX.Element => (
-  <FormField
-    autocomplete="off"
-    icon="user"
-    label="Фамилия Имя Отчество"
-    name="contact-name"
-    onChange={setter}
-    value={value}
-  />
-);
+export const ContactNameInput = function ({ value, setter }: StringInputProperties): JSX.Element {
+  return (
+    <FormField
+      autocomplete="off"
+      icon="user"
+      label="Фамилия Имя Отчество"
+      name="contact-name"
+      onChange={setter}
+      value={value}
+    />
+  );
+};
 
-export const ContactBirthdayInput = ({ value, setter }: DatePickerValues): JSX.Element => (
-  <DatePicker label="Дата рождения" name="birthday" setter={setter} value={value} />
-);
+export const ContactBirthdayInput = function ({ value, setter }: DatePickerValues): JSX.Element {
+  return <DatePicker label="Дата рождения" name="birthday" setter={setter} value={value} />;
+};
 
-export const ContactShortForm = ({ contacts }: ContactShortValues): JSX.Element => {
+export const ContactShortForm = function ({ contacts }: ContactShortValues): JSX.Element {
   const navigate = useNavigate();
   return (
     <div className="field" key="contacts">
@@ -47,9 +49,11 @@ export const ContactShortForm = ({ contacts }: ContactShortValues): JSX.Element 
   );
 };
 
-export const ContactIDSelect = ({ id, setter }: SelectValues): JSX.Element => (
-  <Select icon="user" id={id} label="Фамилия Имя Отчество" listName="ContactSelect" name="contact" setter={setter} />
-);
+export const ContactIDSelect = function ({ id, setter }: SelectValues): JSX.Element {
+  return (
+    <Select icon="user" id={id} label="Фамилия Имя Отчество" listName="ContactSelect" name="contact" setter={setter} />
+  );
+};
 
 const inputClass = (input: string): string => {
   const date = new Date(input);
@@ -63,8 +67,8 @@ const inputClass = (input: string): string => {
   return 'is-danger';
 };
 
-export const ContactEducations = ({ educations }: ContactEducationsValues): JSX.Element | null =>
-  educations.length > 0 ? (
+export const ContactEducations = function ({ educations }: ContactEducationsValues): JSX.Element | null {
+  return educations.length > 0 ? (
     <div className="field">
       <label className="label">Даты обучения в УМЦ</label>
       {educations.map((education) => (
@@ -77,5 +81,5 @@ export const ContactEducations = ({ educations }: ContactEducationsValues): JSX.
         />
       ))}
     </div>
-  ) : // eslint-disable-next-line unicorn/no-null
-  null;
+  ) : null;
+};

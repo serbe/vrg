@@ -1,10 +1,10 @@
 import clsx from 'clsx';
-import type { MouseEventHandler } from 'react';
+import type { MouseEventHandler, ReactNode } from 'react';
 import type { AdditionalColors, BasicColors, LinkColor, PrimarylColor, Sizes } from '../models/variables';
 
 interface ButtonProperties {
   active?: boolean;
-  children?: string;
+  children: ReactNode;
   className?: string;
   color?: AdditionalColors | BasicColors | LinkColor | PrimarylColor;
   disable?: boolean;
@@ -21,7 +21,7 @@ interface ButtonProperties {
   size?: Sizes;
 }
 
-export const Button = ({
+export const Button = function ({
   active,
   children,
   className,
@@ -38,7 +38,7 @@ export const Button = ({
   outline,
   round,
   size,
-}: ButtonProperties): JSX.Element => {
+}: ButtonProperties): JSX.Element {
   const buttonClass = clsx(`button`, className, {
     'is-active': active,
     'is-focused': focus,
@@ -53,7 +53,7 @@ export const Button = ({
     [`is-${size ?? 'normal'}`]: size,
   });
 
-  return href != undefined ? (
+  return href ? (
     <a className={buttonClass} href={href} onClick={onClick}>
       {children}
     </a>
@@ -66,7 +66,6 @@ export const Button = ({
 
 Button.defaultProps = {
   active: false,
-  children: undefined,
   className: undefined,
   color: undefined,
   disable: false,
@@ -82,3 +81,5 @@ Button.defaultProps = {
   round: false,
   size: undefined,
 };
+
+export default Button;

@@ -8,7 +8,7 @@ import type { Practice } from '../../models/types';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 import { useStringU } from '../../services/hooks';
 
-export const PracticeItem = (): JSX.Element => {
+export const PracticeItem = function (): JSX.Element {
   const navigate = useNavigate();
   const { id } = useParams();
   const [companyID, setCompanyID] = useState<number>();
@@ -71,3 +71,5 @@ export const PracticeItem = (): JSX.Element => {
     </div>
   );
 };
+
+export default PracticeItem;

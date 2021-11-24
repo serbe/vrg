@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Navbar } from './components/navbar';
 import { Router } from './components/routes';
@@ -6,11 +6,11 @@ import { Login } from './containers/Login';
 import './index.scss';
 import { AuthProvider, checkUser, useAuthState, useSign } from './services/auth';
 
-const Initializаtion = (): JSX.Element => {
+const Initializаtion = function (): JSX.Element {
   return <p className="p-4 w-full h-full text-center">Initializаtion...</p>;
 };
 
-const Main = (): JSX.Element => {
+const Main = function (): JSX.Element {
   const { signIn, signOut } = useSign();
   const { state } = useAuthState();
 
@@ -22,7 +22,6 @@ const Main = (): JSX.Element => {
           return;
         }
         signOut();
-        return;
       })
       .catch(() => {
         signOut();
@@ -30,26 +29,36 @@ const Main = (): JSX.Element => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return (
-    <BrowserRouter>
-      {state.state === 'UNKNOWN' ? (
-        <Initializаtion />
-      ) : state.state === 'SIGNED_IN' ? (
+  const Content = useCallback(() => {
+    if (state.state === 'UNKNOWN') {
+      return <Initializаtion />;
+    }
+    if (state.state === 'SIGNED_IN') {
+      return (
         <>
           <Navbar />
           <div className="container p-4">
             <Router />
           </div>
         </>
-      ) : (
-        <Login />
-      )}
+      );
+    }
+    return <Login />;
+  }, [state.state]);
+
+  return (
+    <BrowserRouter>
+      <Content />
     </BrowserRouter>
   );
 };
 
-export const App = (): JSX.Element => (
-  <AuthProvider>
-    <Main />
-  </AuthProvider>
-);
+export const App = function (): JSX.Element {
+  return (
+    <AuthProvider>
+      <Main />
+    </AuthProvider>
+  );
+};
+
+export default App;

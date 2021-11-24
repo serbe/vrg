@@ -50,14 +50,20 @@ const routerList: RouterProperties[] = [
   { path: '/sirentypes/:id', element: <SirenTypeItem /> },
 ];
 
-const Loading = (): JSX.Element => <p className="p-4 w-full h-full text-center">Loading...</p>;
+const Loading = function (): JSX.Element {
+  return <p className="p-4 w-full h-full text-center">Loading...</p>;
+};
 
-export const Router = (): JSX.Element => (
-  <Suspense fallback={<Loading />}>
-    <Routes>
-      {routerList.map((item) => (
-        <Route element={item.element} key={item.path} path={item.path} />
-      ))}
-    </Routes>
-  </Suspense>
-);
+export const Router = function (): JSX.Element {
+  return (
+    <Suspense fallback={<Loading />}>
+      <Routes>
+        {routerList.map((item) => (
+          <Route element={item.element} key={item.path} path={item.path} />
+        ))}
+      </Routes>
+    </Suspense>
+  );
+};
+
+export default Router;

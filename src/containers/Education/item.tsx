@@ -7,7 +7,7 @@ import type { Education } from '../../models/types';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 import { useStringU } from '../../services/hooks';
 
-export const EducationItem = (): JSX.Element => {
+export const EducationItem = function (): JSX.Element {
   const navigate = useNavigate();
   const { id } = useParams();
   const [contactID, setContactID] = useState<number>();
@@ -78,3 +78,5 @@ export const EducationItem = (): JSX.Element => {
     </div>
   );
 };
+
+export default EducationItem;

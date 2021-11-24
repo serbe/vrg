@@ -5,7 +5,7 @@ import type { SirenList } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 import { splitNumbers } from '../../services/utils';
 
-export const Sirens = (): JSX.Element => {
+export const Sirens = function (): JSX.Element {
   const navigate = useNavigate();
   const [data] = GetList('SirenList');
   const [search, setSearch] = useState('');
@@ -56,3 +56,5 @@ export const Sirens = (): JSX.Element => {
     </>
   );
 };
+
+export default Sirens;
