@@ -6,10 +6,17 @@ import { DepartmentIDSelect } from '../../models/department';
 import { EmailInputs, FaxInputs, ItemFormButtons, NoteInput, PhoneInputs } from '../../models/impersonal';
 import { PostGoIDSelect, PostIDSelect } from '../../models/post';
 import { RankIDSelect } from '../../models/rank';
-import type { Contact } from '../../models/types';
+import type { Contact, SelectItem } from '../../models/types';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 import { useStringU } from '../../services/hooks';
-import { addEmptyString, filterArrayNumber, filterArrayString, numberToString } from '../../services/utils';
+import {
+  addEmptyString,
+  filterArrayNumber,
+  filterArrayString,
+  numbersToSelectItems,
+  numberToString,
+  prettyPhone,
+} from '../../services/utils';
 
 export const ContactItem = function (): JSX.Element {
   const navigate = useNavigate();
@@ -23,7 +30,7 @@ export const ContactItem = function (): JSX.Element {
   const [birthday, setBirthday] = useState<string>();
   const [note, setNote, noteInput] = useStringU();
   const [emails, setEmails] = useState(['']);
-  const [phones, setPhones] = useState(['']);
+  const [phones, setPhones] = useState<SelectItem[]>([]);
   const [faxes, setFaxes] = useState(['']);
   const [educations, setEducations] = useState<string[]>([]);
   const [item] = GetItem('Contact', id);
@@ -42,7 +49,8 @@ export const ContactItem = function (): JSX.Element {
       birthday,
       note,
       emails: filterArrayString(emails),
-      phones: filterArrayNumber(phones),
+      // phones: filterArrayNumber(phones),
+      phones: [],
       faxes: filterArrayNumber(faxes),
     };
 
@@ -66,7 +74,7 @@ export const ContactItem = function (): JSX.Element {
       setBirthday(data.birthday);
       setNote(data.note);
       setEmails(addEmptyString(data.emails));
-      setPhones(addEmptyString(numberToString(data.phones)));
+      setPhones(numbersToSelectItems(data.phones));
       setFaxes(addEmptyString(numberToString(data.faxes)));
       setEducations(data.educations ?? []);
     }
@@ -77,6 +85,15 @@ export const ContactItem = function (): JSX.Element {
       navigate(-1);
     }
   }, [navigate, status]);
+
+  const onChangePhones = (pos: number, value: string): void => {
+    const tmpPhones = phones;
+    tmpPhones[pos].name = prettyPhone(value);
+    console.log(prettyPhone(value));
+    console.log(tmpPhones);
+    setPhones(tmpPhones);
+    console.log(phones);
+  };
 
   return (
     <div>
@@ -113,7 +130,7 @@ export const ContactItem = function (): JSX.Element {
               <EmailInputs emails={emails} setter={setEmails} />
             </div>
             <div className="column">
-              <PhoneInputs phones={phones} setter={setPhones} />
+              <PhoneInputs phones={faxes} items={phones} setter={setFaxes} onChange={onChangePhones} />
             </div>
             <div className="column">
               <FaxInputs phones={faxes} setter={setFaxes} />

@@ -1,5 +1,6 @@
 import type { RefObject } from 'react';
 import { useEffect } from 'react';
+import { SelectItem } from '../models/types';
 
 export const filterArrayString = (values: string[]): string[] => values.filter((value: string) => value !== '');
 
@@ -46,25 +47,37 @@ export const numberToString = (values?: number[]): string[] => {
   return list;
 };
 
+export const numbersToSelectItems = (values?: number[]): SelectItem[] => {
+  if (values) {
+    return values.map((value, index) => {
+      const item = { id: index, name: value.toString(10) };
+      return item;
+    });
+  }
+  return [];
+};
+
 export const splitStrings = (items?: string[]): JSX.Element[] | undefined =>
   items?.map((arrayItem: string) => <div key={`div${arrayItem}`}>{arrayItem}</div>);
 
 export const prettyPhone = (phone: string): string => {
   let value = phone;
   if (value.length > 0) {
-    value = value.replace(/\D/g, '');
-    if (value.length === 10) {
-      value = value.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, '+7-$1-$2-$3-$4');
+    let newValue = value.replace(/\D/g, '');
+    if (newValue.length === 0) {
+      return value;
     }
-    if (value.length === 11) {
-      if (value.startsWith('8')) {
-        value = `7${value.slice(1)}`;
+    if (newValue.length === 11) {
+      if (newValue.startsWith('8')) {
+        newValue = newValue.replace(/(\d)(\d{3})(\d{3})(\d{2})(\d{2})/, '$1($2)$3-$4-$5');
+      } else {
+        newValue = newValue.replace(/(\d)(\d{3})(\d{3})(\d{2})(\d{2})/, '+$1($2)$3-$4-$5');
       }
-      value = value.replace(/(\d)(\d{3})(\d{3})(\d{2})(\d{2})/, '+$1-$2-$3-$4-$5');
     }
-    if (value.length === 7) {
-      value = value.replace(/(\d{3})(\d{2})(\d{2})/, '$1-$2-$3');
+    if (newValue.length === 7) {
+      newValue = newValue.replace(/(\d{3})(\d{2})(\d{2})/, '$1-$2-$3');
     }
+    value = newValue;
   }
   return value;
 };

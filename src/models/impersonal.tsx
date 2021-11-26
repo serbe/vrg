@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/button';
 import { FormField } from '../components/formfield';
+import { Icon } from '../components/icon';
 import { Input } from '../components/input';
 import { Select } from '../components/select';
 import { useAuthState } from '../services/auth';
@@ -35,27 +36,45 @@ export const EmailInputs = function ({ emails, setter }: EmailValues): JSX.Eleme
   );
 };
 
-export const PhoneInputs = function ({ phones, setter }: PhoneValues): JSX.Element {
+// const Phone = function ({ value }: { value: string }): JSX.Element {
+//   const [phone, setPhone] = useState(prettyPhone(value));
+
+//   return (
+//     <Input
+//       classNameDiv="pb-1"
+//       icon="phone"
+//       onChange={(event): void => {
+//         setPhone(prettyPhone(event.target.value));
+//       }}
+//       placeholder="Phone"
+//       type="text"
+//       value={phone}
+//       name={`ph-${phone}`}
+//     />
+//   );
+// };
+
+export const PhoneInputs = function ({ phones, items, onChange }: PhoneValues): JSX.Element {
   return (
     <div className="field">
       <label className="label">Телефон</label>
-      {phones.map((phone, index) => (
-        <Input
-          autocomplete="off"
-          classNameDiv="pb-1"
-          icon="phone"
-          key={`phone-${phone}`}
-          name={`phone-${phone}-input`}
-          onBlur={(event): void => {
-            let values = phones;
-            values[index] = event.target.value;
-            values = addEmptyString(values);
-            setter(values);
-          }}
-          placeholder="Телефон"
-          type="tel"
-          value={prettyPhone(phone)}
-        />
+      {items?.map(({ id, name }) => (
+        <div className="control has-icons-left pb-1" key={`phone-div-${id}`}>
+          <input
+            className="input"
+            // defaultValue={value}
+            id={`${id}`}
+            key={`phone-input-${id}`}
+            name={`phone-${id}-input`}
+            onChange={(event): void => {
+              if (onChange) onChange(id, event.target.value);
+            }}
+            placeholder="Телефон"
+            type="tel"
+            value={name}
+          />
+          <Icon icon="phone" position="left" />
+        </div>
       ))}
     </div>
   );

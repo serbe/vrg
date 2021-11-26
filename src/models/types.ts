@@ -176,7 +176,10 @@ export interface ParameterTypes {
 
 export interface PhoneValues {
   phones: string[];
+  items?: SelectItem[];
   setter: (value: SetStateAction<string[]>) => void;
+  onBlur?: (value: SetStateAction<string[]>) => void;
+  onChange?: (pos: number, value: string) => void;
 }
 
 export interface Post {
