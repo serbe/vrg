@@ -9,7 +9,7 @@ import { RankIDSelect } from '../../models/rank';
 import type { Contact, SelectItem } from '../../models/types';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 import { useStringU } from '../../services/hooks';
-import { addEmptyString, filterArrayString, numbersToSelectItems, prettyPhone } from '../../services/utils';
+import { numbersToSelectItems, prettyPhone, stringsToSelectItems } from '../../services/utils';
 
 export const ContactItem = function (): JSX.Element {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ export const ContactItem = function (): JSX.Element {
   const [rankID, setRankID] = useState<number>();
   const [birthday, setBirthday] = useState<string>();
   const [note, setNote, noteInput] = useStringU();
-  const [emails, setEmails] = useState(['']);
+  const [emails, setEmails] = useState<SelectItem[]>([{ id: 0, name: '' }]);
   const [phones, setPhones] = useState<SelectItem[]>([{ id: 0, name: '' }]);
   const [faxes, setFaxes] = useState<SelectItem[]>([{ id: 0, name: '' }]);
   const [educations, setEducations] = useState<string[]>([]);
@@ -41,8 +41,9 @@ export const ContactItem = function (): JSX.Element {
       rank_id: rankID,
       birthday,
       note,
-      emails: filterArrayString(emails),
+      // emails: filterArrayString(emails),
       // phones: filterArrayNumber(phones),
+      emails: [],
       phones: [],
       faxes: [],
     };
@@ -66,7 +67,7 @@ export const ContactItem = function (): JSX.Element {
       setRankID(data.rank_id);
       setBirthday(data.birthday);
       setNote(data.note);
-      setEmails(addEmptyString(data.emails));
+      setEmails(stringsToSelectItems(data.emails));
       setPhones(numbersToSelectItems(data.phones));
       setFaxes(numbersToSelectItems(data.faxes));
       setEducations(data.educations ?? []);
@@ -78,6 +79,14 @@ export const ContactItem = function (): JSX.Element {
       navigate(-1);
     }
   }, [navigate, status]);
+
+  const updateEmails =
+    (index: number) =>
+    (e: ChangeEvent<HTMLInputElement>): void => {
+      const newArr = [...emails];
+      newArr[index].name = e.target.value;
+      setPhones(newArr);
+    };
 
   const updatePhones =
     (index: number) =>
@@ -127,13 +136,13 @@ export const ContactItem = function (): JSX.Element {
 
           <div className="columns">
             <div className="column">
-              <EmailInputs emails={emails} setter={setEmails} />
+              <EmailInputs values={emails} onChange={updateEmails} />
             </div>
             <div className="column">
-              <PhoneInputs phones={phones} setter={updatePhones} />
+              <PhoneInputs values={phones} onChange={updatePhones} />
             </div>
             <div className="column">
-              <FaxInputs phones={faxes} setter={updateFaxes} />
+              <FaxInputs values={faxes} onChange={updateFaxes} />
             </div>
           </div>
 

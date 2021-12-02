@@ -30,22 +30,23 @@ export const latrus = (input: string): string => {
 //   return value || 0;
 // };
 
-export const addEmptyString = (values?: string[]): string[] => {
-  let list: string[] = [];
+export const addEmptyItem = (values: SelectItem[]): SelectItem[] => {
+  let list: SelectItem[] = [];
   if (values) {
-    list = values.filter((value) => value !== '');
+    list = values.filter((value) => value.name !== '');
   }
-  list.push('');
+  const id = values ? values[values.length - 1].id + 1 : 0;
+  list.push({ id, name: '' });
   return list;
 };
 
-export const numberToString = (values?: number[]): string[] => {
-  let list: string[] = [];
-  if (values) {
-    list = values.map((value) => value.toString());
-  }
-  return list;
-};
+// export const numberToString = (values?: number[]): string[] => {
+//   let list: string[] = [];
+//   if (values) {
+//     list = values.map((value) => value.toString());
+//   }
+//   return list;
+// };
 
 export const prettyPhone = (phone: string): string => {
   let value = phone;
@@ -73,6 +74,16 @@ export const numbersToSelectItems = (values?: number[]): SelectItem[] => {
   if (values) {
     return values.map((value, index) => {
       const item = { id: index, name: prettyPhone(value.toString(10)) };
+      return item;
+    });
+  }
+  return [];
+};
+
+export const stringsToSelectItems = (values?: string[]): SelectItem[] => {
+  if (values) {
+    return values.map((value, index) => {
+      const item = { id: index, name: value };
       return item;
     });
   }

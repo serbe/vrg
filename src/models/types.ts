@@ -1,4 +1,4 @@
-import type { ChangeEvent, SetStateAction } from 'react';
+import type { ChangeEvent } from 'react';
 
 export interface Certificate {
   id: number;
@@ -147,9 +147,9 @@ export interface EducationShort {
   start_date: string;
 }
 
-export interface EmailValues {
-  emails: string[];
-  setter: (value: SetStateAction<string[]>) => void;
+export interface InputValues {
+  values: SelectItem[];
+  onChange: (index: number) => (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export interface Kind {
@@ -172,11 +172,6 @@ export interface KindList {
 
 export interface ParameterTypes {
   id: string;
-}
-
-export interface PhoneValues {
-  phones: SelectItem[];
-  setter: (index: number) => (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export interface Post {
