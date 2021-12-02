@@ -8,6 +8,7 @@ interface FormFieldProperties {
   classNameDiv?: string;
   classNameInput?: string;
   color?: AdditionalColors | LinkColor | PrimarylColor;
+  defaultValue?: number | string;
   disabled?: boolean;
   focus?: boolean;
   hover?: boolean;
@@ -34,6 +35,7 @@ export const FormField = function ({
   classNameDiv,
   classNameInput,
   color,
+  defaultValue,
   disabled,
   focus,
   hover,
@@ -65,6 +67,7 @@ export const FormField = function ({
         classNameDiv={classNameDiv}
         classNameInput={classNameInput}
         color={color}
+        defaultValue={defaultValue}
         disabled={disabled}
         focus={focus}
         hover={hover}
@@ -94,6 +97,7 @@ FormField.defaultProps = {
   classNameDiv: undefined,
   classNameInput: undefined,
   color: undefined,
+  defaultValue: undefined,
   disabled: false,
   focus: false,
   hover: false,

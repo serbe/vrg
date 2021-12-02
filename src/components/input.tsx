@@ -8,6 +8,7 @@ interface InputProperties {
   classNameDiv?: string;
   classNameInput?: string;
   color?: AdditionalColors | LinkColor | PrimarylColor;
+  defaultValue?: number | string;
   disabled?: boolean;
   focus?: boolean;
   hover?: boolean;
@@ -32,6 +33,7 @@ export const Input = function ({
   classNameDiv,
   classNameInput,
   color,
+  defaultValue,
   disabled,
   focus,
   hover,
@@ -72,7 +74,7 @@ export const Input = function ({
       <input
         autoComplete={autocomplete}
         className={inputClass}
-        defaultValue={value}
+        defaultValue={defaultValue}
         disabled={disabled}
         id={name}
         key={name}
@@ -84,6 +86,7 @@ export const Input = function ({
         placeholder={placeholder}
         readOnly={readonly}
         type={type}
+        value={value}
       />
       {icon && <Icon icon={icon} position="left" />}
       {iconRight && <Icon icon={iconRight} position="right" />}
@@ -96,6 +99,7 @@ Input.defaultProps = {
   classNameDiv: undefined,
   classNameInput: undefined,
   color: undefined,
+  defaultValue: undefined,
   disabled: false,
   focus: false,
   hover: false,
