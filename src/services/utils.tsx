@@ -47,19 +47,6 @@ export const numberToString = (values?: number[]): string[] => {
   return list;
 };
 
-export const numbersToSelectItems = (values?: number[]): SelectItem[] => {
-  if (values) {
-    return values.map((value, index) => {
-      const item = { id: index, name: value.toString(10) };
-      return item;
-    });
-  }
-  return [];
-};
-
-export const splitStrings = (items?: string[]): JSX.Element[] | undefined =>
-  items?.map((arrayItem: string) => <div key={`div${arrayItem}`}>{arrayItem}</div>);
-
 export const prettyPhone = (phone: string): string => {
   let value = phone;
   if (value.length > 0) {
@@ -81,6 +68,19 @@ export const prettyPhone = (phone: string): string => {
   }
   return value;
 };
+
+export const numbersToSelectItems = (values?: number[]): SelectItem[] => {
+  if (values) {
+    return values.map((value, index) => {
+      const item = { id: index, name: prettyPhone(value.toString(10)) };
+      return item;
+    });
+  }
+  return [];
+};
+
+export const splitStrings = (items?: string[]): JSX.Element[] | undefined =>
+  items?.map((arrayItem: string) => <div key={`div${arrayItem}`}>{arrayItem}</div>);
 
 export const splitNumbers = (items?: number[]): JSX.Element[] | undefined =>
   items?.map((arrayItem: number) => <div key={`div${arrayItem}`}>{prettyPhone(arrayItem.toString(10))}</div>);

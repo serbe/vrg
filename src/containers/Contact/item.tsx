@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { CompanyIDSelect } from '../../models/company';
 import { ContactBirthdayInput, ContactEducations, ContactNameInput } from '../../models/contact';
@@ -9,14 +9,7 @@ import { RankIDSelect } from '../../models/rank';
 import type { Contact, SelectItem } from '../../models/types';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 import { useStringU } from '../../services/hooks';
-import {
-  addEmptyString,
-  filterArrayNumber,
-  filterArrayString,
-  numbersToSelectItems,
-  numberToString,
-  prettyPhone,
-} from '../../services/utils';
+import { addEmptyString, filterArrayString, numbersToSelectItems, prettyPhone } from '../../services/utils';
 
 export const ContactItem = function (): JSX.Element {
   const navigate = useNavigate();
@@ -30,8 +23,8 @@ export const ContactItem = function (): JSX.Element {
   const [birthday, setBirthday] = useState<string>();
   const [note, setNote, noteInput] = useStringU();
   const [emails, setEmails] = useState(['']);
-  const [phones, setPhones] = useState<SelectItem[]>([]);
-  const [faxes, setFaxes] = useState(['']);
+  const [phones, setPhones] = useState<SelectItem[]>([{ id: 0, name: '' }]);
+  const [faxes, setFaxes] = useState<SelectItem[]>([{ id: 0, name: '' }]);
   const [educations, setEducations] = useState<string[]>([]);
   const [item] = GetItem('Contact', id);
   const [status, setStatus] = useState(false);
@@ -51,7 +44,7 @@ export const ContactItem = function (): JSX.Element {
       emails: filterArrayString(emails),
       // phones: filterArrayNumber(phones),
       phones: [],
-      faxes: filterArrayNumber(faxes),
+      faxes: [],
     };
 
     SetItem(NumberID, 'Contact', contact, setStatus);
@@ -75,7 +68,7 @@ export const ContactItem = function (): JSX.Element {
       setNote(data.note);
       setEmails(addEmptyString(data.emails));
       setPhones(numbersToSelectItems(data.phones));
-      setFaxes(addEmptyString(numberToString(data.faxes)));
+      setFaxes(numbersToSelectItems(data.faxes));
       setEducations(data.educations ?? []);
     }
   }, [item, setBirthday, setName, setNote]);
@@ -86,14 +79,21 @@ export const ContactItem = function (): JSX.Element {
     }
   }, [navigate, status]);
 
-  const onChangePhones = (pos: number, value: string): void => {
-    const tmpPhones = phones;
-    tmpPhones[pos].name = prettyPhone(value);
-    console.log(prettyPhone(value));
-    console.log(tmpPhones);
-    setPhones(tmpPhones);
-    console.log(phones);
-  };
+  const updatePhones =
+    (index: number) =>
+    (e: ChangeEvent<HTMLInputElement>): void => {
+      const newArr = [...phones];
+      newArr[index].name = prettyPhone(e.target.value);
+      setPhones(newArr);
+    };
+
+  const updateFaxes =
+    (index: number) =>
+    (e: ChangeEvent<HTMLInputElement>): void => {
+      const newArr = [...faxes];
+      newArr[index].name = prettyPhone(e.target.value);
+      setFaxes(newArr);
+    };
 
   return (
     <div>
@@ -130,10 +130,10 @@ export const ContactItem = function (): JSX.Element {
               <EmailInputs emails={emails} setter={setEmails} />
             </div>
             <div className="column">
-              <PhoneInputs phones={faxes} items={phones} setter={setFaxes} onChange={onChangePhones} />
+              <PhoneInputs phones={phones} setter={updatePhones} />
             </div>
             <div className="column">
-              <FaxInputs phones={faxes} setter={setFaxes} />
+              <FaxInputs phones={faxes} setter={updateFaxes} />
             </div>
           </div>
 

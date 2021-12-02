@@ -6,7 +6,7 @@ import { Icon } from '../components/icon';
 import { Input } from '../components/input';
 import { Select } from '../components/select';
 import { useAuthState } from '../services/auth';
-import { addEmptyString, prettyPhone } from '../services/utils';
+import { addEmptyString } from '../services/utils';
 import type { EmailValues, PhoneValues } from './types';
 import type { SelectValues, StringInputProperties } from './variables';
 
@@ -54,21 +54,19 @@ export const EmailInputs = function ({ emails, setter }: EmailValues): JSX.Eleme
 //   );
 // };
 
-export const PhoneInputs = function ({ phones, items, onChange }: PhoneValues): JSX.Element {
+export const PhoneInputs = function ({ phones, setter }: PhoneValues): JSX.Element {
   return (
     <div className="field">
       <label className="label">Телефон</label>
-      {items?.map(({ id, name }) => (
+      {phones.map(({ id, name }) => (
         <div className="control has-icons-left pb-1" key={`phone-div-${id}`}>
           <input
+            autoComplete="off"
             className="input"
-            // defaultValue={value}
             id={`${id}`}
             key={`phone-input-${id}`}
             name={`phone-${id}-input`}
-            onChange={(event): void => {
-              if (onChange) onChange(id, event.target.value);
-            }}
+            onChange={setter(id)}
             placeholder="Телефон"
             type="tel"
             value={name}
@@ -84,23 +82,31 @@ export const FaxInputs = function ({ phones, setter }: PhoneValues): JSX.Element
   return (
     <div className="field">
       <label className="label">Факс</label>
-      {phones.map((fax, index) => (
+      {phones.map(({ id, name }) => (
         <Input
           autocomplete="off"
-          classNameDiv="pb-1"
-          icon="fax"
-          key={`fax-${fax}`}
-          name={`fax-${fax}-input`}
-          onBlur={(event): void => {
-            let values = phones;
-            values[index] = event.target.value;
-            values = addEmptyString(values);
-            setter(values);
-          }}
+          icon="phone"
+          key={`fax-inpit-key-${id}`}
+          name={`fax-input-${id}`}
+          onChange={setter(id)}
           placeholder="Факс"
           type="tel"
-          value={prettyPhone(fax)}
+          value={name}
         />
+        // <div className="control has-icons-left pb-1" key={`fax-div-${id}`}>
+        //   <input
+        //     autoComplete="off"
+        //     className="input"
+        //     id={`${id}`}
+        //     key={`fax-input-${id}`}
+        //     name={`fax-${id}-input`}
+        //     onChange={setter(id)}
+        //     placeholder="Факс"
+        //     type="tel"
+        //     value={name}
+        //   />
+        //   <Icon icon="phone" position="left" />
+        // </div>
       ))}
     </div>
   );
