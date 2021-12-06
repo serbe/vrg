@@ -148,7 +148,7 @@ export const ItemFormButtons = function ({ del, send }: FormButtonsValues): JSX.
   );
 
   return (
-    <div className="field is-grouped">
+    <div className="field is-grouped pt-4">
       <SaveButton />
       <BackButton />
       <DeleteButton />
