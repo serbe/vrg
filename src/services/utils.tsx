@@ -77,7 +77,7 @@ export const stringsToSelectItems = (values?: string[]): SelectItem[] => {
 
 export const itemsToNumbers = (items?: SelectItem[]): number[] => {
   if (items) {
-    return items.map((item) => Number(item.name)).filter((num) => num !== 0);
+    return items.map((item) => Number(item.name.replace(/\D/g, ''))).filter((num) => num !== 0);
   }
   return [];
 };
