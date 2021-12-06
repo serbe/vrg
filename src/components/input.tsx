@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import type { ChangeEventHandler, KeyboardEventHandler, MouseEventHandler } from 'react';
+import type { ChangeEventHandler, FocusEventHandler, KeyboardEventHandler, MouseEventHandler } from 'react';
 import type { AdditionalColors, InputTypes, LinkColor, PrimarylColor, Sizes } from '../models/variables';
 import { Icon } from './icon';
 
@@ -16,7 +16,7 @@ interface InputProperties {
   iconRight?: string;
   load?: boolean;
   name: string;
-  onBlur?: ChangeEventHandler<HTMLInputElement>;
+  onBlur?: FocusEventHandler<HTMLInputElement>;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   onClick?: MouseEventHandler<HTMLInputElement>;
   onKeyPress?: KeyboardEventHandler<HTMLInputElement>;
@@ -115,7 +115,7 @@ Input.defaultProps = {
   round: false,
   size: undefined,
   type: 'text',
-  value: undefined,
+  value: '',
 };
 
 export default Input;

@@ -1,4 +1,4 @@
-import type { ChangeEventHandler, KeyboardEventHandler, MouseEventHandler, ReactNode } from 'react';
+import type { ChangeEventHandler, FocusEventHandler, KeyboardEventHandler, MouseEventHandler, ReactNode } from 'react';
 import type { AdditionalColors, InputTypes, LinkColor, PrimarylColor, Sizes } from '../models/variables';
 import { Input } from './input';
 
@@ -17,7 +17,7 @@ interface FormFieldProperties {
   label?: string;
   load?: boolean;
   name: string;
-  onBlur?: ChangeEventHandler<HTMLInputElement>;
+  onBlur?: FocusEventHandler<HTMLInputElement>;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   onClick?: MouseEventHandler<HTMLInputElement>;
   onKeyPress?: KeyboardEventHandler<HTMLInputElement>;
@@ -84,7 +84,7 @@ export const FormField = function ({
         round={round}
         size={size}
         type={type}
-        value={value}
+        value={value || ''}
       />
       {children}
     </div>

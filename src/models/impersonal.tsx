@@ -8,7 +8,7 @@ import { useAuthState } from '../services/auth';
 import type { InputValues } from './types';
 import type { SelectValues, StringInputProperties } from './variables';
 
-export const EmailInputs = function ({ values, onChange }: InputValues): JSX.Element {
+export const EmailInputs = function ({ values, onBlur, onChange }: InputValues): JSX.Element {
   return (
     <div className="field">
       <label className="label">Электронный адрес</label>
@@ -19,12 +19,7 @@ export const EmailInputs = function ({ values, onChange }: InputValues): JSX.Ele
           icon="envelope"
           key={`email-inpit-key-${id}`}
           name={`email-input-${id}`}
-          // onBlur={(event): void => {
-          //   let values = emails;
-          //   values[index] = event.target.value;
-          //   values = addEmptyString(values);
-          //   setter(values);
-          // }}
+          onBlur={onBlur}
           onChange={onChange(id)}
           placeholder="Электронный адрес"
           type="email"
@@ -35,7 +30,7 @@ export const EmailInputs = function ({ values, onChange }: InputValues): JSX.Ele
   );
 };
 
-export const PhoneInputs = function ({ values, onChange }: InputValues): JSX.Element {
+export const PhoneInputs = function ({ values, onBlur, onChange }: InputValues): JSX.Element {
   return (
     <div className="field">
       <label className="label">Телефон</label>
@@ -46,6 +41,7 @@ export const PhoneInputs = function ({ values, onChange }: InputValues): JSX.Ele
           icon="phone"
           key={`phone-inpit-key-${id}`}
           name={`phone-input-${id}`}
+          onBlur={onBlur}
           onChange={onChange(id)}
           placeholder="Телефон"
           type="tel"
@@ -56,7 +52,7 @@ export const PhoneInputs = function ({ values, onChange }: InputValues): JSX.Ele
   );
 };
 
-export const FaxInputs = function ({ values, onChange }: InputValues): JSX.Element {
+export const FaxInputs = function ({ values, onBlur, onChange }: InputValues): JSX.Element {
   return (
     <div className="field">
       <label className="label">Факс</label>
@@ -67,6 +63,7 @@ export const FaxInputs = function ({ values, onChange }: InputValues): JSX.Eleme
           icon="phone"
           key={`fax-inpit-key-${id}`}
           name={`fax-input-${id}`}
+          onBlur={onBlur}
           onChange={onChange(id)}
           placeholder="Факс"
           type="tel"

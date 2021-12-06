@@ -1,4 +1,4 @@
-import type { ChangeEvent } from 'react';
+import type { ChangeEvent, FocusEventHandler } from 'react';
 
 export interface Certificate {
   id: number;
@@ -149,6 +149,7 @@ export interface EducationShort {
 
 export interface InputValues {
   values: SelectItem[];
+  onBlur?: FocusEventHandler<HTMLInputElement>;
   onChange: (index: number) => (e: ChangeEvent<HTMLInputElement>) => void;
 }
 

@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { CompanyIDSelect } from '../../models/company';
 import { ContactBirthdayInput, ContactEducations, ContactNameInput } from '../../models/contact';
@@ -6,10 +6,17 @@ import { DepartmentIDSelect } from '../../models/department';
 import { EmailInputs, FaxInputs, ItemFormButtons, NoteInput, PhoneInputs } from '../../models/impersonal';
 import { PostGoIDSelect, PostIDSelect } from '../../models/post';
 import { RankIDSelect } from '../../models/rank';
-import type { Contact, SelectItem } from '../../models/types';
+import type { Contact } from '../../models/types';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
-import { useStringU } from '../../services/hooks';
-import { numbersToSelectItems, prettyPhone, stringsToSelectItems } from '../../services/utils';
+import { useItems, useStringU } from '../../services/hooks';
+import {
+  addEmptyItem,
+  itemsToNumbers,
+  itemsToStrings,
+  numbersToSelectItems,
+  prettyPhone,
+  stringsToSelectItems,
+} from '../../services/utils';
 
 export const ContactItem = function (): JSX.Element {
   const navigate = useNavigate();
@@ -22,9 +29,9 @@ export const ContactItem = function (): JSX.Element {
   const [rankID, setRankID] = useState<number>();
   const [birthday, setBirthday] = useState<string>();
   const [note, setNote, noteInput] = useStringU();
-  const [emails, setEmails] = useState<SelectItem[]>([{ id: 0, name: '' }]);
-  const [phones, setPhones] = useState<SelectItem[]>([{ id: 0, name: '' }]);
-  const [faxes, setFaxes] = useState<SelectItem[]>([{ id: 0, name: '' }]);
+  const [emails, setEmails, updateEmails] = useItems();
+  const [phones, setPhones, updatePhones] = useItems(prettyPhone);
+  const [faxes, setFaxes, updateFaxes] = useItems(prettyPhone);
   const [educations, setEducations] = useState<string[]>([]);
   const [item] = GetItem('Contact', id);
   const [status, setStatus] = useState(false);
@@ -41,11 +48,9 @@ export const ContactItem = function (): JSX.Element {
       rank_id: rankID,
       birthday,
       note,
-      // emails: filterArrayString(emails),
-      // phones: filterArrayNumber(phones),
-      emails: [],
-      phones: [],
-      faxes: [],
+      emails: itemsToStrings(emails),
+      phones: itemsToNumbers(phones),
+      faxes: itemsToNumbers(faxes),
     };
 
     SetItem(NumberID, 'Contact', contact, setStatus);
@@ -67,42 +72,18 @@ export const ContactItem = function (): JSX.Element {
       setRankID(data.rank_id);
       setBirthday(data.birthday);
       setNote(data.note);
-      setEmails(stringsToSelectItems(data.emails));
-      setPhones(numbersToSelectItems(data.phones));
-      setFaxes(numbersToSelectItems(data.faxes));
+      setEmails(addEmptyItem(stringsToSelectItems(data.emails)));
+      setPhones(addEmptyItem(numbersToSelectItems(data.phones)));
+      setFaxes(addEmptyItem(numbersToSelectItems(data.faxes)));
       setEducations(data.educations ?? []);
     }
-  }, [item, setBirthday, setName, setNote]);
+  }, [item, setBirthday, setEmails, setFaxes, setName, setNote, setPhones]);
 
   useEffect(() => {
     if (status) {
       navigate(-1);
     }
   }, [navigate, status]);
-
-  const updateEmails =
-    (index: number) =>
-    (e: ChangeEvent<HTMLInputElement>): void => {
-      const newArr = [...emails];
-      newArr[index].name = e.target.value;
-      setPhones(newArr);
-    };
-
-  const updatePhones =
-    (index: number) =>
-    (e: ChangeEvent<HTMLInputElement>): void => {
-      const newArr = [...phones];
-      newArr[index].name = prettyPhone(e.target.value);
-      setPhones(newArr);
-    };
-
-  const updateFaxes =
-    (index: number) =>
-    (e: ChangeEvent<HTMLInputElement>): void => {
-      const newArr = [...faxes];
-      newArr[index].name = prettyPhone(e.target.value);
-      setFaxes(newArr);
-    };
 
   return (
     <div>
@@ -136,13 +117,21 @@ export const ContactItem = function (): JSX.Element {
 
           <div className="columns">
             <div className="column">
-              <EmailInputs values={emails} onChange={updateEmails} />
+              <EmailInputs
+                values={emails}
+                onBlur={(): void => setEmails(addEmptyItem(emails))}
+                onChange={updateEmails}
+              />
             </div>
             <div className="column">
-              <PhoneInputs values={phones} onChange={updatePhones} />
+              <PhoneInputs
+                values={phones}
+                onBlur={(): void => setPhones(addEmptyItem(phones))}
+                onChange={updatePhones}
+              />
             </div>
             <div className="column">
-              <FaxInputs values={faxes} onChange={updateFaxes} />
+              <FaxInputs values={faxes} onBlur={(): void => setFaxes(addEmptyItem(faxes))} onChange={updateFaxes} />
             </div>
           </div>
 
