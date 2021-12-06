@@ -14,6 +14,7 @@ import {
 } from '../../models/siren';
 import { SirenTypeIDSelect } from '../../models/sirentype';
 import type { Siren } from '../../models/types';
+import { useToken } from '../../services/auth';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 import { useNumberU, useStringU } from '../../services/hooks';
 
@@ -35,6 +36,7 @@ export const SirenItem = function (): JSX.Element {
   const [note, setNote, noteInput] = useStringU();
   const [item] = GetItem('Siren', id);
   const [status, setStatus] = useState(false);
+  const { token } = useToken();
 
   const send = (): void => {
     const NumberID = Number(id);
@@ -55,12 +57,12 @@ export const SirenItem = function (): JSX.Element {
       note,
     };
 
-    SetItem(NumberID, 'Siren', siren, setStatus);
+    SetItem(NumberID, 'Siren', siren, setStatus, token);
   };
 
   const del = (): void => {
     const NumberID = Number(id);
-    DelItem(NumberID, 'Siren', setStatus);
+    DelItem(NumberID, 'Siren', setStatus, token);
   };
 
   useEffect(() => {

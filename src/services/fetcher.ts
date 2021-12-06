@@ -378,9 +378,9 @@ export const setItem = (id: number, name: string, item: Item, token: string): Pr
     headers: {
       'Content-Type': 'application/json',
     },
-    body: `{ "command": { "${id === 0 ? 'InsertItem' : 'UpdateItem'}": { "${name}": ${JSON.stringify(
+    body: `{"command":{"${id === 0 ? 'InsertItem' : 'UpdateItem'}":{"${name}":${JSON.stringify(
       item,
-    )} } }, "addon": "${token}" }`,
+    )}}},"addon":"${token}"}`,
   })
     .then((response) => response.json())
     .then((jsonResponse) => jsonResponse as ModifyItemResponse);
@@ -633,8 +633,13 @@ export const GetSelect = (name: string): [SelectItem[], string] => {
   return [list, error];
 };
 
-export const SetItem = (id: number, name: string, item: Item, status: Dispatch<SetStateAction<boolean>>): void => {
-  const { token } = useToken();
+export const SetItem = (
+  id: number,
+  name: string,
+  item: Item,
+  status: Dispatch<SetStateAction<boolean>>,
+  token: string,
+): void => {
   setItem(id, name, item, token)
     .then((response) => {
       const command = id === 0 ? 'InsertItem' : 'UpdateItem';
@@ -648,8 +653,7 @@ export const SetItem = (id: number, name: string, item: Item, status: Dispatch<S
     });
 };
 
-export const DelItem = (id: number, name: string, status: Dispatch<SetStateAction<boolean>>): void => {
-  const { token } = useToken();
+export const DelItem = (id: number, name: string, status: Dispatch<SetStateAction<boolean>>, token: string): void => {
   delItem(id, name, token)
     .then((response) => {
       if (response.command === 'DeleteItem' && response.name === name) {

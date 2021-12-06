@@ -6,6 +6,7 @@ import { AddressInput, EmailInputs, FaxInputs, ItemFormButtons, NoteInput, Phone
 import { PracticeListForm } from '../../models/practice';
 import { ScopeIDSelect } from '../../models/scope';
 import type { Company, ContactShort, PracticeList } from '../../models/types';
+import { useToken } from '../../services/auth';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 import { useItems, useStringU } from '../../services/hooks';
 import {
@@ -31,6 +32,7 @@ export const CompanyItem = function (): JSX.Element {
   const [contacts, setContacts] = useState<ContactShort[]>([]);
   const [item] = GetItem('Company', id);
   const [status, setStatus] = useState(false);
+  const { token } = useToken();
 
   const send = (): void => {
     const NumberID = Number(id);
@@ -45,12 +47,12 @@ export const CompanyItem = function (): JSX.Element {
       faxes: itemsToNumbers(faxes),
     };
 
-    SetItem(NumberID, 'Company', company, setStatus);
+    SetItem(NumberID, 'Company', company, setStatus, token);
   };
 
   const del = (): void => {
     const NumberID = Number(id);
-    DelItem(NumberID, 'Company', setStatus);
+    DelItem(NumberID, 'Company', setStatus, token);
   };
 
   useEffect(() => {

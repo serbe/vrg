@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ItemFormButtons, NoteInput } from '../../models/impersonal';
 import { SirenTypeNameInput, SirenTypeRadiusInput } from '../../models/sirentype';
 import type { SirenType } from '../../models/types';
+import { useToken } from '../../services/auth';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 import { useNumberU, useStringU } from '../../services/hooks';
 
@@ -14,6 +15,7 @@ export const SirenTypeItem = function (): JSX.Element {
   const [note, setNote, noteInput] = useStringU();
   const [item] = GetItem('SirenType', id);
   const [status, setStatus] = useState(false);
+  const { token } = useToken();
 
   const send = (): void => {
     const NumberID = Number(id);
@@ -24,12 +26,12 @@ export const SirenTypeItem = function (): JSX.Element {
       note,
     };
 
-    SetItem(NumberID, 'SirenType', sirenType, setStatus);
+    SetItem(NumberID, 'SirenType', sirenType, setStatus, token);
   };
 
   const del = (): void => {
     const NumberID = Number(id);
-    DelItem(NumberID, 'SirenType', setStatus);
+    DelItem(NumberID, 'SirenType', setStatus, token);
   };
 
   useEffect(() => {

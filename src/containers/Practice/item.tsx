@@ -5,6 +5,7 @@ import { ItemFormButtons, NoteInput } from '../../models/impersonal';
 import { KindIDSelect } from '../../models/kind';
 import { PracticeDateInput, PracticeTopicInput } from '../../models/practice';
 import type { Practice } from '../../models/types';
+import { useToken } from '../../services/auth';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 import { useStringU } from '../../services/hooks';
 
@@ -18,6 +19,7 @@ export const PracticeItem = function (): JSX.Element {
   const [note, setNote, noteInput] = useStringU();
   const [item] = GetItem('Practice', id);
   const [status, setStatus] = useState(false);
+  const { token } = useToken();
 
   const send = (): void => {
     const NumberID = Number(id);
@@ -30,12 +32,12 @@ export const PracticeItem = function (): JSX.Element {
       note,
     };
 
-    SetItem(NumberID, 'Practice', practice, setStatus);
+    SetItem(NumberID, 'Practice', practice, setStatus, token);
   };
 
   const del = (): void => {
     const NumberID = Number(id);
-    DelItem(NumberID, 'Practice', setStatus);
+    DelItem(NumberID, 'Practice', setStatus, token);
   };
 
   useEffect(() => {

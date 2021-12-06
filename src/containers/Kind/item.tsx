@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ItemFormButtons, NoteInput } from '../../models/impersonal';
 import { KindNameInput, KindShortNameInput } from '../../models/kind';
 import type { Kind } from '../../models/types';
+import { useToken } from '../../services/auth';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 import { useStringU } from '../../services/hooks';
 
@@ -14,6 +15,7 @@ export const KindItem = function (): JSX.Element {
   const [note, setNote, noteInput] = useStringU();
   const [item] = GetItem('Kind', id);
   const [status, setStatus] = useState(false);
+  const { token } = useToken();
 
   const send = (): void => {
     const NumberID = Number(id);
@@ -24,12 +26,12 @@ export const KindItem = function (): JSX.Element {
       note,
     };
 
-    SetItem(NumberID, 'Kind', kind, setStatus);
+    SetItem(NumberID, 'Kind', kind, setStatus, token);
   };
 
   const del = (): void => {
     const NumberID = Number(id);
-    DelItem(NumberID, 'Kind', setStatus);
+    DelItem(NumberID, 'Kind', setStatus, token);
   };
 
   useEffect(() => {

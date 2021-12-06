@@ -4,6 +4,7 @@ import { EducationEndDateInput, EducationNameSelect, EducationStartDateInput } f
 import { ItemFormButtons, NoteInput } from '../../models/impersonal';
 import { PostGoIDSelect } from '../../models/post';
 import type { Education } from '../../models/types';
+import { useToken } from '../../services/auth';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 import { useStringU } from '../../services/hooks';
 
@@ -17,6 +18,7 @@ export const EducationItem = function (): JSX.Element {
   const [note, setNote, noteInput] = useStringU();
   const [item] = GetItem('Education', id);
   const [status, setStatus] = useState(false);
+  const { token } = useToken();
 
   const send = (): void => {
     const NumberID = Number(id);
@@ -29,12 +31,12 @@ export const EducationItem = function (): JSX.Element {
       note,
     };
 
-    SetItem(NumberID, 'Education', education, setStatus);
+    SetItem(NumberID, 'Education', education, setStatus, token);
   };
 
   const del = (): void => {
     const NumberID = Number(id);
-    DelItem(NumberID, 'Education', setStatus);
+    DelItem(NumberID, 'Education', setStatus, token);
   };
 
   useEffect(() => {

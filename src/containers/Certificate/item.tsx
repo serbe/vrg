@@ -5,6 +5,7 @@ import { CompanyIDSelect } from '../../models/company';
 import { ContactIDSelect } from '../../models/contact';
 import { ItemFormButtons, NoteInput } from '../../models/impersonal';
 import type { Certificate } from '../../models/types';
+import { useToken } from '../../services/auth';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 import { useStringU } from '../../services/hooks';
 
@@ -18,6 +19,7 @@ export const CertificateItem = function (): JSX.Element {
   const [note, setNote, noteInput] = useStringU();
   const [item] = GetItem('Certificate', id);
   const [status, setStatus] = useState(false);
+  const { token } = useToken();
 
   const send = (): void => {
     const NumberID = Number(id);
@@ -30,12 +32,12 @@ export const CertificateItem = function (): JSX.Element {
       note,
     };
 
-    SetItem(NumberID, 'Certificate', certificate, setStatus);
+    SetItem(NumberID, 'Certificate', certificate, setStatus, token);
   };
 
   const del = (): void => {
     const NumberID = Number(id);
-    DelItem(NumberID, 'Certificate', setStatus);
+    DelItem(NumberID, 'Certificate', setStatus, token);
   };
 
   useEffect(() => {

@@ -7,6 +7,7 @@ import { EmailInputs, FaxInputs, ItemFormButtons, NoteInput, PhoneInputs } from 
 import { PostGoIDSelect, PostIDSelect } from '../../models/post';
 import { RankIDSelect } from '../../models/rank';
 import type { Contact } from '../../models/types';
+import { useToken } from '../../services/auth';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 import { useItems, useStringU } from '../../services/hooks';
 import {
@@ -35,6 +36,7 @@ export const ContactItem = function (): JSX.Element {
   const [educations, setEducations] = useState<string[]>([]);
   const [item] = GetItem('Contact', id);
   const [status, setStatus] = useState(false);
+  const { token } = useToken();
 
   const send = (): void => {
     const NumberID = Number(id);
@@ -53,12 +55,12 @@ export const ContactItem = function (): JSX.Element {
       faxes: itemsToNumbers(faxes),
     };
 
-    SetItem(NumberID, 'Contact', contact, setStatus);
+    SetItem(NumberID, 'Contact', contact, setStatus, token);
   };
 
   const del = (): void => {
     const NumberID = Number(id);
-    DelItem(NumberID, 'Contact', setStatus);
+    DelItem(NumberID, 'Contact', setStatus, token);
   };
 
   useEffect(() => {

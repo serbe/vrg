@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ItemFormButtons, NoteInput } from '../../models/impersonal';
 import { PostGOSwitch, PostNameInput } from '../../models/post';
 import type { Post } from '../../models/types';
+import { useToken } from '../../services/auth';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 import { useStringU } from '../../services/hooks';
 
@@ -14,6 +15,7 @@ export const PostItem = function (): JSX.Element {
   const [note, setNote, noteInput] = useStringU();
   const [item] = GetItem('Post', id);
   const [status, setStatus] = useState(false);
+  const { token } = useToken();
 
   const send = (): void => {
     const NumberID = Number(id);
@@ -24,12 +26,12 @@ export const PostItem = function (): JSX.Element {
       note,
     };
 
-    SetItem(NumberID, 'Post', post, setStatus);
+    SetItem(NumberID, 'Post', post, setStatus, token);
   };
 
   const del = (): void => {
     const NumberID = Number(id);
-    DelItem(NumberID, 'Post', setStatus);
+    DelItem(NumberID, 'Post', setStatus, token);
   };
 
   useEffect(() => {

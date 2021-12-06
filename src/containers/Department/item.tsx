@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { DepartmentNameInput } from '../../models/department';
 import { ItemFormButtons, NoteInput } from '../../models/impersonal';
 import type { Department } from '../../models/types';
+import { useToken } from '../../services/auth';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 import { useStringU } from '../../services/hooks';
 
@@ -13,6 +14,7 @@ export const DepartmentItem = function (): JSX.Element {
   const [note, setNote, noteInput] = useStringU();
   const [item] = GetItem('Department', id);
   const [status, setStatus] = useState(false);
+  const { token } = useToken();
 
   const send = (): void => {
     const NumberID = Number(id);
@@ -22,12 +24,12 @@ export const DepartmentItem = function (): JSX.Element {
       note,
     };
 
-    SetItem(NumberID, 'Department', department, setStatus);
+    SetItem(NumberID, 'Department', department, setStatus, token);
   };
 
   const del = (): void => {
     const NumberID = Number(id);
-    DelItem(NumberID, 'Department', setStatus);
+    DelItem(NumberID, 'Department', setStatus, token);
   };
 
   useEffect(() => {
