@@ -1,29 +1,48 @@
 import type { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { useState } from 'react';
+import { SelectItem } from '../models/types';
 
-interface ReturnBooleanType {
-  value: boolean;
-  setValue: Dispatch<SetStateAction<boolean>>;
-  setTrue: () => void;
-  setFalse: () => void;
-  toggle: () => void;
-}
+// interface ReturnBooleanType {
+//   value: boolean;
+//   setValue: Dispatch<SetStateAction<boolean>>;
+//   setTrue: () => void;
+//   setFalse: () => void;
+//   toggle: () => void;
+// }
 
-export const useBoolean = (defaultValue?: boolean): ReturnBooleanType => {
-  const [value, setValue] = useState(defaultValue ?? false);
-
-  const setTrue = (): void => {
-    setValue(true);
-  };
-  const setFalse = (): void => {
-    setValue(false);
-  };
-  const toggle = (): void => {
-    setValue((x) => !x);
-  };
-
-  return { value, setValue, setTrue, setFalse, toggle };
+export const useItems = (
+  func?: (value: string) => string,
+): [
+  SelectItem[],
+  Dispatch<SetStateAction<SelectItem[]>>,
+  (index: number) => (e: ChangeEvent<HTMLInputElement>) => void,
+] => {
+  const [items, setItems] = useState<SelectItem[]>([{ id: 0, name: '' }]);
+  const updateItems =
+    (index: number) =>
+    (e: ChangeEvent<HTMLInputElement>): void => {
+      const newArr = [...items];
+      newArr[index].name = func ? func(e.target.value) : e.target.value;
+      setItems(newArr);
+    };
+  return [items, setItems, updateItems];
 };
+
+// export const useBoolean = (defaultValue?: boolean): ReturnBooleanType => {
+//   const [value, setValue] = useState(defaultValue ?? false);
+
+//   const setTrue = (): void => {
+//     setValue(true);
+//   };
+//   const setFalse = (): void => {
+//     setValue(false);
+//   };
+//   const toggle = (): void => {
+//     setValue((x) => !x);
+//   };
+
+//   return { value, setValue, setTrue, setFalse, toggle };
+// };
 
 export const useNumberU = (): [
   number | undefined,

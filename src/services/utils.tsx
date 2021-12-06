@@ -2,11 +2,6 @@ import type { RefObject } from 'react';
 import { useEffect } from 'react';
 import { SelectItem } from '../models/types';
 
-export const filterArrayString = (values: string[]): string[] => values.filter((value: string) => value !== '');
-
-export const filterArrayNumber = (values: string[]): number[] =>
-  values.map((value: string) => Number(value)).filter((value: number) => value !== 0);
-
 export const latrus = (input: string): string => {
   const lat = '`qwertyuiop[]asdfghjkl;\'zxcvbnm,.~QWERTYUIOP{}ASDFGHJKL:"ZXCVBNM<>';
   const rus = 'ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ';
@@ -22,31 +17,21 @@ export const latrus = (input: string): string => {
   return word;
 };
 
-// export const stringNoNull = (value?: string): string => {
-//   return value || '';
-// };
-
-// export const numberNoNull = (value?: number): number => {
-//   return value || 0;
-// };
-
-export const addEmptyItem = (values: SelectItem[]): SelectItem[] => {
+export const addEmptyItem = (items: SelectItem[]): SelectItem[] => {
   let list: SelectItem[] = [];
-  if (values) {
-    list = values.filter((value) => value.name !== '');
+  let id = 0;
+  if (items) {
+    list = items.filter((value): boolean => {
+      if (value.name !== '') {
+        id = value.id + 1;
+        return true;
+      }
+      return false;
+    });
   }
-  const id = values ? values[values.length - 1].id + 1 : 0;
   list.push({ id, name: '' });
   return list;
 };
-
-// export const numberToString = (values?: number[]): string[] => {
-//   let list: string[] = [];
-//   if (values) {
-//     list = values.map((value) => value.toString());
-//   }
-//   return list;
-// };
 
 export const prettyPhone = (phone: string): string => {
   let value = phone;
@@ -86,6 +71,20 @@ export const stringsToSelectItems = (values?: string[]): SelectItem[] => {
       const item = { id: index, name: value };
       return item;
     });
+  }
+  return [];
+};
+
+export const itemsToNumbers = (items?: SelectItem[]): number[] => {
+  if (items) {
+    return items.map((item) => Number(item.name)).filter((num) => num !== 0);
+  }
+  return [];
+};
+
+export const itemsToStrings = (items?: SelectItem[]): string[] => {
+  if (items) {
+    return items.map((item) => item.name).filter((num) => num !== '');
   }
   return [];
 };
