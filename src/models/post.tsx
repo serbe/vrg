@@ -2,28 +2,28 @@ import { FormField } from '../components/formfield';
 import { Select } from '../components/select';
 import type { BooleanInputProperties, SelectValues, StringInputProperties } from './variables';
 
-export const PostIDSelect = function ({ id, setter }: SelectValues): JSX.Element {
+export const PostIDSelect = ({ id, setter }: SelectValues): JSX.Element => {
   return <Select icon="tag" id={id} label="Должность" listName="PostSelect" name="post" setter={setter} />;
 };
 
-export const PostGoIDSelect = function ({ id, setter }: SelectValues): JSX.Element {
+export const PostGoIDSelect = ({ id, setter }: SelectValues): JSX.Element => {
   return <Select icon="tag" id={id} label="Должность ГО ЧС" listName="PostGoSelect" name="post-go" setter={setter} />;
 };
 
-export const PostNameInput = function ({ value, setter }: StringInputProperties): JSX.Element {
+export const PostNameInput = ({ value, setter }: StringInputProperties): JSX.Element => {
   return (
     <FormField
       autocomplete="off"
       icon="tag"
       label="Наименование должности"
       name="post-name"
-      onChange={setter}
       value={value}
+      onChange={setter}
     />
   );
 };
 
-export const PostGOSwitch = function ({ value, setter }: BooleanInputProperties): JSX.Element {
+export const PostGOSwitch = ({ value, setter }: BooleanInputProperties): JSX.Element => {
   return (
     <div className="field">
       <div className="control">
@@ -33,10 +33,10 @@ export const PostGOSwitch = function ({ value, setter }: BooleanInputProperties)
             className="checkbox"
             id="post-go"
             name="post-go"
+            type="checkbox"
             onClick={(): void => {
               setter(!value);
             }}
-            type="checkbox"
           />
           Должность по гражданской обороне
         </label>

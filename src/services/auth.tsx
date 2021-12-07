@@ -3,19 +3,19 @@ import { createContext, useContext, useMemo, useReducer } from 'react';
 import type { User } from '../models/types';
 import { clearStorage, getStorage, setStorage } from './storage';
 
-const checkURL = (import.meta.env.VITE_APP_CHECKURL as string) || '/go/check';
+const checkUrl = (import.meta.env.VITE_APP_CHECKURL as string) || '/go/check';
 
 interface CheckResponse {
   r: boolean;
 }
 
-export const postCheck = (user: User): Promise<User> => {
+export const postCheck = async (user: User): Promise<User> => {
   const emptyUser: User = {
     role: 0,
     name: '',
     token: '',
   };
-  return fetch(checkURL, {
+  return fetch(checkUrl, {
     method: 'POST',
     mode: 'cors',
     headers: {
@@ -23,11 +23,12 @@ export const postCheck = (user: User): Promise<User> => {
     },
     body: JSON.stringify({ t: user.token, r: user.role }),
   })
-    .then((response) => response.json())
+    .then(async (response) => response.json())
     .then((jsonResponse) => {
       if ((jsonResponse as CheckResponse).r) {
         return user;
       }
+
       return emptyUser;
     });
 };
@@ -47,6 +48,7 @@ export type AuthState =
 type AuthActions = { type: 'SIGN_IN'; payload: { user: User } } | { type: 'SIGN_OUT' };
 
 const AuthReducer = (state: AuthState, action: AuthActions): AuthState => {
+  // eslint-disable-next-line default-case
   switch (action.type) {
     case 'SIGN_IN':
       return {
@@ -57,19 +59,15 @@ const AuthReducer = (state: AuthState, action: AuthActions): AuthState => {
       return {
         state: 'SIGNED_OUT',
       };
-    default:
-      return {
-        state: 'SIGNED_OUT',
-      };
   }
 };
 
 export const AuthContext = createContext<AuthContextProperties>({
   state: { state: 'UNKNOWN' },
-  dispatch: () => {},
+  dispatch: () => undefined,
 });
 
-const AuthProvider = function ({ children }: { children: ReactNode }): JSX.Element {
+const AuthProvider = ({ children }: { children: ReactNode }): JSX.Element => {
   const [state, dispatch] = useReducer(AuthReducer, { state: 'UNKNOWN' });
 
   const value = useMemo(
@@ -119,17 +117,19 @@ const useSign = (): {
     dispatch({ type: 'SIGN_IN', payload: { user } });
     setStorage(user);
   };
+
   const signOut = (): void => {
     dispatch({ type: 'SIGN_OUT' });
     clearStorage();
   };
+
   return {
     signIn,
     signOut,
   };
 };
 
-const checkUser = (): Promise<User> => {
+const checkUser = async (): Promise<User> => {
   const user = getStorage();
   return postCheck(user);
 };

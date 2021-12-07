@@ -4,7 +4,7 @@ import { Bar, Data } from '../../components/table';
 import type { CertificateList } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 
-export const Certificates = function (): JSX.Element {
+export const Certificates = (): JSX.Element => {
   const navigate = useNavigate();
   const [data] = GetList('CertificateList');
   const [search, setSearch] = useState('');
@@ -22,28 +22,28 @@ export const Certificates = function (): JSX.Element {
           <tr key={`tr${certificate.id}`}>
             <td
               className="link nowrap"
+              role="gridcell"
               onClick={(): void => {
                 navigate(`/certificates/${certificate.id}`);
               }}
-              role="gridcell"
             >
               {certificate.num}
             </td>
             <td
               className="link"
+              role="gridcell"
               onClick={(): void => {
                 navigate(`/contacts/${certificate.contact_id ?? 0}`);
               }}
-              role="gridcell"
             >
               {certificate.contact_name}
             </td>
             <td
               className="is-hidden-mobile link"
+              role="gridcell"
               onClick={(): void => {
                 navigate(`/companies/${certificate.company_id ?? 0}`);
               }}
-              role="gridcell"
             >
               {certificate.company_name}
             </td>

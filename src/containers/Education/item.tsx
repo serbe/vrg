@@ -8,7 +8,7 @@ import { useToken } from '../../services/auth';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 import { useStringU } from '../../services/hooks';
 
-export const EducationItem = function (): JSX.Element {
+export const EducationItem = (): JSX.Element => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [contactID, setContactID] = useState<number>();
@@ -31,7 +31,7 @@ export const EducationItem = function (): JSX.Element {
       note,
     };
 
-    SetItem(NumberID, 'Education', education, setStatus, token);
+    SetItem('Education', education, setStatus, token);
   };
 
   const del = (): void => {

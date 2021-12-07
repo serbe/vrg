@@ -4,7 +4,7 @@ import { Bar, Data } from '../../components/table';
 import type { PostList } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 
-export const Posts = function (): JSX.Element {
+export const Posts = (): JSX.Element => {
   const navigate = useNavigate();
   const [data] = GetList('PostList');
   const [search, setSearch] = useState('');
@@ -20,16 +20,16 @@ export const Posts = function (): JSX.Element {
       <>
         {tableData().map((post) => (
           <tr
-            className="link"
             key={`tr${post.id}`}
+            className="link"
+            role="gridcell"
             onClick={(): void => {
               navigate(`/posts/${post.id}`);
             }}
-            role="gridcell"
           >
             <td>{post.name}</td>
             <td className="w9">
-              <input checked={post.go} readOnly type="checkbox" />
+              <input readOnly checked={post.go} type="checkbox" />
             </td>
           </tr>
         ))}

@@ -5,7 +5,7 @@ import type { CompanyList } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 import { splitNumbers, splitStrings } from '../../services/utils';
 
-export const Companies = function (): JSX.Element {
+export const Companies = (): JSX.Element => {
   const navigate = useNavigate();
   const [data] = GetList('CompanyList');
   const [search, setSearch] = useState('');
@@ -23,10 +23,10 @@ export const Companies = function (): JSX.Element {
           <tr key={`tr${company.id}`}>
             <td
               className="w250 link"
+              role="gridcell"
               onClick={(): void => {
                 navigate(`/companies/${company.id}`);
               }}
-              role="gridcell"
             >
               {company.name}
             </td>

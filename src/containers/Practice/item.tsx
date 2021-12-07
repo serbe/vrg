@@ -9,7 +9,7 @@ import { useToken } from '../../services/auth';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 import { useStringU } from '../../services/hooks';
 
-export const PracticeItem = function (): JSX.Element {
+export const PracticeItem = (): JSX.Element => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [companyID, setCompanyID] = useState<number>();
@@ -32,7 +32,7 @@ export const PracticeItem = function (): JSX.Element {
       note,
     };
 
-    SetItem(NumberID, 'Practice', practice, setStatus, token);
+    SetItem('Practice', practice, setStatus, token);
   };
 
   const del = (): void => {

@@ -19,7 +19,7 @@ import {
   stringsToSelectItems,
 } from '../../services/utils';
 
-export const ContactItem = function (): JSX.Element {
+export const ContactItem = (): JSX.Element => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [name, setName, nameInput] = useStringU();
@@ -55,7 +55,7 @@ export const ContactItem = function (): JSX.Element {
       faxes: itemsToNumbers(faxes),
     };
 
-    SetItem(NumberID, 'Contact', contact, setStatus, token);
+    SetItem('Contact', contact, setStatus, token);
   };
 
   const del = (): void => {
@@ -121,19 +121,29 @@ export const ContactItem = function (): JSX.Element {
             <div className="column">
               <EmailInputs
                 values={emails}
-                onBlur={(): void => setEmails(addEmptyItem(emails))}
+                onBlur={(): void => {
+                  setEmails(addEmptyItem(emails));
+                }}
                 onChange={updateEmails}
               />
             </div>
             <div className="column">
               <PhoneInputs
                 values={phones}
-                onBlur={(): void => setPhones(addEmptyItem(phones))}
+                onBlur={(): void => {
+                  setPhones(addEmptyItem(phones));
+                }}
                 onChange={updatePhones}
               />
             </div>
             <div className="column">
-              <FaxInputs values={faxes} onBlur={(): void => setFaxes(addEmptyItem(faxes))} onChange={updateFaxes} />
+              <FaxInputs
+                values={faxes}
+                onBlur={(): void => {
+                  setFaxes(addEmptyItem(faxes));
+                }}
+                onChange={updateFaxes}
+              />
             </div>
           </div>
 

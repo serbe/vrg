@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import type { Dispatch, SetStateAction } from 'react';
 import { useEffect, useState } from 'react';
 import type {
@@ -48,6 +47,7 @@ import { useToken } from './auth';
 
 const URL = (import.meta.env.VITE_APP_JSONURL as string) || '/go/json';
 const loginURL = (import.meta.env.VITE_APP_LOGINURL as string) || '/go/login';
+const jsonType = 'application/json';
 
 export type Item =
   | Certificate
@@ -347,66 +347,66 @@ interface LoginResponse {
   r: number;
 }
 
-export const getItem = (name: string, id: string, token: string): Promise<GetItemResponse> =>
+export const getItem = async (name: string, id: string, token: string): Promise<GetItemResponse> =>
   fetch(URL, {
     method: 'POST',
     mode: 'cors',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': jsonType,
     },
     body: `{"command":{"GetItem":{"name":"${name}","id":${Number(id)}}},"addon":"${token}"}`,
   })
-    .then((response) => response.json())
+    .then(async (response) => response.json())
     .then((jsonResponse) => jsonResponse as GetItemResponse);
 
-export const getList = (name: string, token: string): Promise<GetListResponse> =>
+export const getList = async (name: string, token: string): Promise<GetListResponse> =>
   fetch(URL, {
     method: 'POST',
     mode: 'cors',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': jsonType,
     },
     body: `{"command":{"GetList":"${name}"},"addon":"${token}"}`,
   })
-    .then((response) => response.json())
+    .then(async (response) => response.json())
     .then((jsonResponse) => jsonResponse as GetListResponse);
 
-export const setItem = (id: number, name: string, item: Item, token: string): Promise<ModifyItemResponse> =>
+export const setItem = async (id: number, name: string, item: Item, token: string): Promise<ModifyItemResponse> =>
   fetch(URL, {
     method: 'POST',
     mode: 'cors',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': jsonType,
     },
     body: `{"command":{"${id === 0 ? 'InsertItem' : 'UpdateItem'}":{"${name}":${JSON.stringify(
       item,
     )}}},"addon":"${token}"}`,
   })
-    .then((response) => response.json())
+    .then(async (response) => response.json())
     .then((jsonResponse) => jsonResponse as ModifyItemResponse);
 
-export const delItem = (id: number, name: string, token: string): Promise<ModifyItemResponse> =>
+export const delItem = async (id: number, name: string, token: string): Promise<ModifyItemResponse> =>
   fetch(URL, {
     method: 'POST',
     mode: 'cors',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': jsonType,
     },
     body: `{"command":{"Delete":{"name":"${name}","id":${id}}},"addon":"${token}"}`,
   })
-    .then((response) => response.json())
+    .then(async (response) => response.json())
     .then((jsonResponse) => jsonResponse as ModifyItemResponse);
 
-export const postLogin = (name: string, pass: string): Promise<LoginResponse> =>
+export const postLogin = async (name: string, pass: string): Promise<LoginResponse> =>
   fetch(loginURL, {
     method: 'POST',
     mode: 'cors',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': jsonType,
     },
-    body: JSON.stringify({ u: name, p: btoa(pass) }),
+    body: JSON.stringify({ u: name, p: Buffer.from(pass).toString('base64') }),
   })
-    .then((response) => response.json())
+    .then(async (response) => response.json())
     .then((jsonResponse) => {
       return jsonResponse as LoginResponse;
     });
@@ -461,6 +461,7 @@ export const GetItem = (name: string, id?: string): [Item, string] => {
             default:
               break;
           }
+
           return true;
         })
         .catch(() => {
@@ -568,6 +569,7 @@ export const GetList = (name: string): [List[], string] => {
               break;
           }
         }
+
         return true;
       })
       .catch(() => {
@@ -623,6 +625,7 @@ export const GetSelect = (name: string): [SelectItem[], string] => {
               break;
           }
         }
+
         return true;
       })
       .catch(() => {
@@ -633,19 +636,16 @@ export const GetSelect = (name: string): [SelectItem[], string] => {
   return [list, error];
 };
 
-export const SetItem = (
-  id: number,
-  name: string,
-  item: Item,
-  status: Dispatch<SetStateAction<boolean>>,
-  token: string,
-): void => {
+export const SetItem = (name: string, item: Item, status: Dispatch<SetStateAction<boolean>>, token: string): void => {
+  const id = item ? item.id : 0;
   setItem(id, name, item, token)
     .then((response) => {
       const command = id === 0 ? 'InsertItem' : 'UpdateItem';
       if (response.command === command && response.name === name) {
         status(true);
+        return;
       }
+
       status(false);
     })
     .catch(() => {
@@ -658,7 +658,9 @@ export const DelItem = (id: number, name: string, status: Dispatch<SetStateActio
     .then((response) => {
       if (response.command === 'DeleteItem' && response.name === name) {
         status(true);
+        return;
       }
+
       status(false);
     })
     .catch(() => {

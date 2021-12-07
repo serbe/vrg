@@ -19,5 +19,6 @@ export const getStorage = (): User => {
       user.token = u.token;
     }
   }
+
   return user;
 };

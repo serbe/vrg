@@ -2,14 +2,6 @@ import type { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { useState } from 'react';
 import { SelectItem } from '../models/types';
 
-// interface ReturnBooleanType {
-//   value: boolean;
-//   setValue: Dispatch<SetStateAction<boolean>>;
-//   setTrue: () => void;
-//   setFalse: () => void;
-//   toggle: () => void;
-// }
-
 export const useItems = (
   func?: (value: string) => string,
 ): [
@@ -25,24 +17,9 @@ export const useItems = (
       newArr[index].name = func ? func(e.target.value) : e.target.value;
       setItems(newArr);
     };
+
   return [items, setItems, updateItems];
 };
-
-// export const useBoolean = (defaultValue?: boolean): ReturnBooleanType => {
-//   const [value, setValue] = useState(defaultValue ?? false);
-
-//   const setTrue = (): void => {
-//     setValue(true);
-//   };
-//   const setFalse = (): void => {
-//     setValue(false);
-//   };
-//   const toggle = (): void => {
-//     setValue((x) => !x);
-//   };
-
-//   return { value, setValue, setTrue, setFalse, toggle };
-// };
 
 export const useNumberU = (): [
   number | undefined,
@@ -93,9 +70,9 @@ export const useLocalStorage = <T>(key: string, initialValue: T): [T, (value: T 
       const item = window.localStorage.getItem(key);
       // Parse stored json or if none return initialValue
       return item ? (JSON.parse(item) as T) : initialValue;
-    } catch (error) {
+    } catch (error: unknown) {
       // If error also return initialValue
-      // eslint-disable-next-line no-console
+
       console.log(error);
       return initialValue;
     }
@@ -111,9 +88,9 @@ export const useLocalStorage = <T>(key: string, initialValue: T): [T, (value: T 
       setStoredValue(valueToStore);
       // Save to local storage
       window.localStorage.setItem(key, JSON.stringify(valueToStore));
-    } catch (error) {
+    } catch (error: unknown) {
       // A more advanced implementation would handle the error case
-      // eslint-disable-next-line no-console
+
       console.log(error);
     }
   };

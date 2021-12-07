@@ -264,7 +264,7 @@ export interface ScopeList {
 }
 
 export interface SelectItem {
-  id: number;
+  readonly id: number;
   name: string;
 }
 

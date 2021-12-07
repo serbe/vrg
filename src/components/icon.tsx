@@ -10,7 +10,7 @@ interface IconProperties {
   position?: Positions;
 }
 
-export const Icon = function ({ children, className, color, position, icon }: IconProperties): JSX.Element {
+export const Icon = ({ children, className, color, position, icon }: IconProperties): JSX.Element => {
   const spanClass = clsx('icon', className, {
     [`has-text-${color ?? 'info'}`]: color,
     [`is-${position ?? 'left'}`]: position,

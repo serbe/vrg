@@ -4,7 +4,7 @@ import { Bar, Data } from '../../components/table';
 import type { DepartmentList } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 
-export const Departments = function (): JSX.Element {
+export const Departments = (): JSX.Element => {
   const navigate = useNavigate();
   const [data] = GetList('DepartmentList');
   const [search, setSearch] = useState('');
@@ -20,12 +20,12 @@ export const Departments = function (): JSX.Element {
       <>
         {tableData().map((department) => (
           <tr
-            className="link"
             key={`tr${department.id}`}
+            className="link"
+            role="gridcell"
             onClick={(): void => {
               navigate(`/departments/${department.id}`);
             }}
-            role="gridcell"
           >
             <td className="w250">{department.name}</td>
           </tr>

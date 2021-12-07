@@ -65,6 +65,7 @@ const paginateReducer = (state: PaginateState, action: PaginateAction): Paginate
           filteredData: action.value,
         };
       }
+
       return state;
     case 'changeSearch': {
       const searchArray = action.search.toLowerCase().split(' ');
@@ -85,14 +86,17 @@ const paginateReducer = (state: PaginateState, action: PaginateAction): Paginate
             filteredDataLength: temporaryFilteredLength,
           };
         }
+
         return {
           ...state,
           filteredData: temporaryFilteredData,
           filteredDataLength: temporaryFilteredLength,
         };
       }
+
       return state;
     }
+
     case 'setFilteredData':
       return { ...state, filteredData: action.value };
     case 'setCurrentPage':
@@ -106,15 +110,16 @@ const paginateReducer = (state: PaginateState, action: PaginateAction): Paginate
   }
 };
 
-const Paginate = function ({
+const Paginate = ({
   filteredDataLength,
   itemsPerPage,
   currentPage,
   setter,
-}: PaginateProperties): JSX.Element | null {
+}: PaginateProperties): JSX.Element | null => {
   const receiveChildValue = (value: number): void => {
     setter(value - 1);
   };
+
   return filteredDataLength / itemsPerPage > 2 ? (
     <Pagination
       currentPage={currentPage + 1}
@@ -124,10 +129,13 @@ const Paginate = function ({
   ) : null;
 };
 
-export const Data = function ({ data, search }: DataProperties): {
+export const Data = ({
+  data,
+  search,
+}: DataProperties): {
   paginationData: () => List[];
   Paginate: ReactElement;
-} {
+} => {
   type TableData = typeof data;
 
   const [{ filteredData, currentPage, filteredDataLength, itemsPerPage }, dispatch] = useReducer(
@@ -150,10 +158,12 @@ export const Data = function ({ data, search }: DataProperties): {
           if (typeof value === 'string') {
             return value;
           }
+
           if (Array.isArray(value)) {
             return value.join('');
           }
         }
+
         return '';
       });
       return { id: index, data: rowString.join('').toLowerCase() };
@@ -191,14 +201,14 @@ export const Data = function ({ data, search }: DataProperties): {
   };
 };
 
-export const Bar = function ({ name, setter, value }: BarProperties): JSX.Element | null {
+export const Bar = ({ name, setter, value }: BarProperties): JSX.Element | null => {
   const { state } = useAuthState();
   const navigate = useNavigate();
 
   const CreateButton = useCallback(
     () =>
       state.state === 'SIGNED_IN' && state.currentUser.role > 2 ? (
-        <div className="control mb-4" key="TableNewItem">
+        <div key="TableNewItem" className="control mb-4">
           <Button
             onClick={(): void => {
               navigate(`/${name}/0`);
@@ -218,13 +228,13 @@ export const Bar = function ({ name, setter, value }: BarProperties): JSX.Elemen
   return (
     <div className="field is-grouped">
       <CreateButton />
-      <div className="control mb-4 is-expanded" key="TableSearch">
+      <div key="TableSearch" className="control mb-4 is-expanded">
         <Input
           classNameInput="input is-expanded"
           name="search"
-          onChange={changeHandler}
           placeholder="Поиск"
           value={value}
+          onChange={changeHandler}
         />
       </div>
     </div>

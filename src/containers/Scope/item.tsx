@@ -7,7 +7,7 @@ import { useToken } from '../../services/auth';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 import { useStringU } from '../../services/hooks';
 
-export const ScopeItem = function (): JSX.Element {
+export const ScopeItem = (): JSX.Element => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [name, setName, nameInput] = useStringU();
@@ -24,7 +24,7 @@ export const ScopeItem = function (): JSX.Element {
       note,
     };
 
-    SetItem(NumberID, 'Scope', scope, setStatus, token);
+    SetItem('Scope', scope, setStatus, token);
   };
 
   const del = (): void => {

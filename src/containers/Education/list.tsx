@@ -4,7 +4,7 @@ import { Bar, Data } from '../../components/table';
 import type { EducationList } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 
-export const Educations = function (): JSX.Element {
+export const Educations = (): JSX.Element => {
   const navigate = useNavigate();
   const [data] = GetList('EducationList');
   const [search, setSearch] = useState('');
@@ -20,12 +20,12 @@ export const Educations = function (): JSX.Element {
       <>
         {tableData().map((education) => (
           <tr
-            className="link"
             key={`tr${education.id}`}
+            className="link"
+            role="gridcell"
             onClick={(): void => {
               navigate(`/educations/${education.id}`);
             }}
-            role="gridcell"
           >
             <td>{education.contact_name}</td>
             <td className="is-hidden-mobile">{education.post_name}</td>

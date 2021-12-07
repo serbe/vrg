@@ -5,7 +5,7 @@ import type { ContactList } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 import { splitNumbers } from '../../services/utils';
 
-export const Contacts = function (): JSX.Element {
+export const Contacts = (): JSX.Element => {
   const navigate = useNavigate();
   const [data] = GetList('ContactList');
   const [search, setSearch] = useState('');
@@ -23,19 +23,19 @@ export const Contacts = function (): JSX.Element {
           <tr key={`tr${contact.id}`}>
             <td
               className="w250 link"
+              role="gridcell"
               onClick={(): void => {
                 navigate(`/contacts/${contact.id}`);
               }}
-              role="gridcell"
             >
               {contact.name}
             </td>
             <td
               className="is-hidden-mobile w250 link"
+              role="gridcell"
               onClick={(): void => {
                 navigate(`/companies/${contact.company_id ?? 0}`);
               }}
-              role="gridcell"
             >
               {contact.company_name}
             </td>

@@ -5,14 +5,19 @@ module.exports = {
     tsconfigRootDir: __dirname,
     project: ['./tsconfig.json'],
   },
-  plugins: [],
+  plugins: ['@typescript-eslint'],
   extends: [
-    'airbnb',
-    'airbnb-typescript',
-    'airbnb/hooks',
-    'plugin:@typescript-eslint/recommended',
+    // 'airbnb',
+    // 'airbnb-typescript',
+    // 'airbnb/hooks',
+    // 'eslint:recommended',
+    // 'plugin:@typescript-eslint/recommended',
+    'xo',
+    'xo-typescript/space',
+    'xo-react/space',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'plugin:react/jsx-runtime',
+    'plugin:sonarjs/recommended',
     'plugin:prettier/recommended',
   ],
   env: {
@@ -40,9 +45,18 @@ module.exports = {
     // ],
     // 'max-params': ['error', 4],
     //
+    '@typescript-eslint/naming-convention': [
+      'off',
+      {
+        selector: ['function'],
+        format: ['camelCase'],
+        leadingUnderscore: 'allow',
+      },
+    ],
     '@typescript-eslint/explicit-function-return-type': 'warn',
     'jsx-a11y/label-has-associated-control': 'off',
     'func-names': 'off',
+    'new-cap': 'off',
   },
   settings: {
     react: {

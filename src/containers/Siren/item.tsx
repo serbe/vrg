@@ -18,7 +18,7 @@ import { useToken } from '../../services/auth';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 import { useNumberU, useStringU } from '../../services/hooks';
 
-export const SirenItem = function (): JSX.Element {
+export const SirenItem = (): JSX.Element => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [numberID, setNumberID, numberIDInput] = useNumberU();
@@ -57,7 +57,7 @@ export const SirenItem = function (): JSX.Element {
       note,
     };
 
-    SetItem(NumberID, 'Siren', siren, setStatus, token);
+    SetItem('Siren', siren, setStatus, token);
   };
 
   const del = (): void => {

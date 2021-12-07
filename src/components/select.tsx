@@ -17,7 +17,7 @@ interface SelectProperties {
   setter: Dispatch<SetStateAction<number | undefined>>;
 }
 
-export const Select = function ({ name, id, label, icon, color, listName, setter }: SelectProperties): JSX.Element {
+export const Select = ({ name, id, label, icon, color, listName, setter }: SelectProperties): JSX.Element => {
   const [opened, setOpened] = useState(false);
   const [itemID, setItemID] = useState(id ?? 0);
   const [list, error] = GetSelect(listName);
@@ -27,9 +27,11 @@ export const Select = function ({ name, id, label, icon, color, listName, setter
     if (itemID === 0 && id) {
       setItemID(id);
     }
+
     if (list[0].id !== 0) {
       list.unshift({ id: 0, name: '' });
     }
+
     if (id === 0) {
       setValue('');
     } else {
@@ -42,6 +44,7 @@ export const Select = function ({ name, id, label, icon, color, listName, setter
     if (opened) {
       return value ?? '';
     }
+
     const currentItem = list.find((item) => item.id === itemID);
     return currentItem?.name ?? '';
   };
@@ -62,25 +65,30 @@ export const Select = function ({ name, id, label, icon, color, listName, setter
     );
   };
 
+  const inputColor = color ? `is-${color}` : '';
+  const iconColor = color === 'primary' ? undefined : color;
+
   return (
-    <div className="field" key={name}>
+    <div key={name} className="field">
       {label && (
-        <label className="label" htmlFor={`select-${name}-id`} key="SelectLabel">
+        <label key="SelectLabel" className="label" htmlFor={`select-${name}-id`}>
           {label}
         </label>
       )}
       <div
+        key={`${name}-control`}
         className={`control is-expanded select is-fullwidth ${icon ? 'has-icons-left' : ''}`}
         id={`select-${name}-id`}
-        key={`${name}-control`}
       >
         <input
+          key={`${name}-input`}
           aria-controls="dropdown-menu"
           aria-haspopup="true"
           autoComplete="off"
-          className={`input ${color ? `is-${color}` : ''}`}
-          key={`${name}-input`}
+          className={`input ${inputColor}`}
           name={name}
+          type="text"
+          value={currentValue()}
           onBlur={(): void => {
             setTimeout(() => {
               setOpened(false);
@@ -90,26 +98,22 @@ export const Select = function ({ name, id, label, icon, color, listName, setter
           onFocus={(): void => {
             setOpened(true);
           }}
-          type="text"
-          value={currentValue()}
         />
-        {icon && (
-          <Icon color={color !== 'primary' ? color : undefined} icon={icon} key="SelectIconLeft" position="left" />
-        )}
+        {icon && <Icon key="SelectIconLeft" color={iconColor} icon={icon} position="left" />}
       </div>
       {!error && opened && (
-        <div className="select-box" key={`${name}-dropdown`}>
+        <div key={`${name}-dropdown`} className="select-box">
           {filteredList().map((ListItem, index) => (
             <div
-              className="select-item"
               key={`${name}-${ListItem.id}`}
+              className="select-item"
+              role="row"
+              tabIndex={index}
               onMouseDown={(): void => {
                 setItemID(ListItem.id);
                 setValue(ListItem.name);
                 setter(ListItem.id === 0 ? undefined : ListItem.id);
               }}
-              role="row"
-              tabIndex={index}
             >
               {ListItem.name}
             </div>

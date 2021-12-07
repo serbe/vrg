@@ -7,7 +7,7 @@ import { useToken } from '../../services/auth';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 import { useStringU } from '../../services/hooks';
 
-export const RankItem = function (): JSX.Element {
+export const RankItem = (): JSX.Element => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [name, setName, nameInput] = useStringU();
@@ -24,7 +24,7 @@ export const RankItem = function (): JSX.Element {
       note,
     };
 
-    SetItem(NumberID, 'Rank', rank, setStatus, token);
+    SetItem('Rank', rank, setStatus, token);
   };
 
   const del = (): void => {

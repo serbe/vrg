@@ -7,7 +7,7 @@ import { useToken } from '../../services/auth';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 import { useStringU } from '../../services/hooks';
 
-export const PostItem = function (): JSX.Element {
+export const PostItem = (): JSX.Element => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [name, setName, nameInput] = useStringU();
@@ -26,7 +26,7 @@ export const PostItem = function (): JSX.Element {
       note,
     };
 
-    SetItem(NumberID, 'Post', post, setStatus, token);
+    SetItem('Post', post, setStatus, token);
   };
 
   const del = (): void => {

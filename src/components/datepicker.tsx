@@ -19,11 +19,12 @@ const listDays = (date: Date): string[] => {
   for (let index = 1; index <= days; index += 1) {
     list.push(index.toString().length === 1 ? `0${index}` : index.toString());
   }
+
   return list;
 };
 
 const listMonths = (): DatePickerMonth[] => {
-  const list = [
+  return [
     { value: ' ', name: ' ' },
     { value: '01', name: 'января' },
     { value: '02', name: 'февраля' },
@@ -38,7 +39,6 @@ const listMonths = (): DatePickerMonth[] => {
     { value: '11', name: 'ноября' },
     { value: '12', name: 'декабря' },
   ];
-  return list;
 };
 
 const listYears = (): string[] => {
@@ -47,10 +47,11 @@ const listYears = (): string[] => {
   for (let index = currentYear; index > currentYear - 100; index -= 1) {
     list.push(index.toString());
   }
+
   return list;
 };
 
-export const DatePicker = function ({ name, value, setter, label }: DatePickerProperties): JSX.Element {
+export const DatePicker = ({ name, value, setter, label }: DatePickerProperties): JSX.Element => {
   const [year, setYear] = useState(' ');
   const [month, setMonth] = useState(' ');
   const [day, setDay] = useState(' ');
@@ -89,16 +90,16 @@ export const DatePicker = function ({ name, value, setter, label }: DatePickerPr
   };
 
   return (
-    <div className="field" key={name}>
+    <div key={name} className="field">
       {label && (
-        <label className="label" htmlFor={`datepicker-${name}-id`} key="DateLabel">
+        <label key="DateLabel" className="label" htmlFor={`datepicker-${name}-id`}>
           {label}
         </label>
       )}
       <div className="field has-addons" id={`datepicker-${name}-id`}>
         <div className="control">
           <div className="select">
-            <select className="select" key={`${name}day`} onBlur={setDayHandler} onChange={setDayHandler} value={day}>
+            <select key={`${name}day`} className="select" value={day} onBlur={setDayHandler} onChange={setDayHandler}>
               {listDays(new Date(Number(year === ' ' ? '2021' : year), Number(month === ' ' ? '1' : month), 0)).map(
                 (item) => (
                   <option key={`${name}day-${item}`} value={item}>
@@ -112,11 +113,11 @@ export const DatePicker = function ({ name, value, setter, label }: DatePickerPr
         <div className="control">
           <div className="select">
             <select
-              className="select"
               key={`${name}month`}
+              className="select"
+              value={month}
               onBlur={setMonthHandler}
               onChange={setMonthHandler}
-              value={month}
             >
               {listMonths().map((item) => (
                 <option key={`${name}month-${item.value}`} value={item.value}>
@@ -129,11 +130,11 @@ export const DatePicker = function ({ name, value, setter, label }: DatePickerPr
         <div className="control">
           <div className="select">
             <select
-              className="select"
               key={`${name}year`}
+              className="select"
+              value={year}
               onBlur={setYearHandler}
               onChange={setYearHandler}
-              value={year}
             >
               {listYears().map((item) => (
                 <option key={`${name}year-${item}`} value={item}>

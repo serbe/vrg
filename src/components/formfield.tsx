@@ -29,7 +29,7 @@ interface FormFieldProperties {
   value?: number | string;
 }
 
-export const FormField = function ({
+export const FormField = ({
   autocomplete,
   children,
   classNameDiv,
@@ -54,7 +54,7 @@ export const FormField = function ({
   size,
   type,
   value,
-}: FormFieldProperties): JSX.Element {
+}: FormFieldProperties): JSX.Element => {
   return (
     <div className="field">
       {label && (
@@ -75,16 +75,16 @@ export const FormField = function ({
         iconRight={iconRight}
         load={load}
         name={name}
-        onBlur={onBlur}
-        onChange={onChange}
-        onClick={onClick}
-        onKeyPress={onKeyPress}
         placeholder={placeholder}
         readonly={readonly}
         round={round}
         size={size}
         type={type}
-        value={value || ''}
+        value={value ?? ''}
+        onBlur={onBlur}
+        onChange={onChange}
+        onClick={onClick}
+        onKeyPress={onKeyPress}
       />
       {children}
     </div>

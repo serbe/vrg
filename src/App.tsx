@@ -6,11 +6,11 @@ import { Login } from './containers/Login';
 import './index.scss';
 import { AuthProvider, checkUser, useAuthState, useSign } from './services/auth';
 
-const Initializаtion = function (): JSX.Element {
+const Initializаtion = (): JSX.Element => {
   return <p className="p-4 w-full h-full text-center">Initializаtion...</p>;
 };
 
-const Main = function (): JSX.Element {
+const Main = (): JSX.Element => {
   const { signIn, signOut } = useSign();
   const { state } = useAuthState();
 
@@ -21,6 +21,7 @@ const Main = function (): JSX.Element {
           signIn(user);
           return;
         }
+
         signOut();
       })
       .catch(() => {
@@ -33,6 +34,7 @@ const Main = function (): JSX.Element {
     if (state.state === 'UNKNOWN') {
       return <Initializаtion />;
     }
+
     if (state.state === 'SIGNED_IN') {
       return (
         <>
@@ -43,6 +45,7 @@ const Main = function (): JSX.Element {
         </>
       );
     }
+
     return <Login />;
   }, [state.state]);
 
@@ -53,7 +56,7 @@ const Main = function (): JSX.Element {
   );
 };
 
-export const App = function (): JSX.Element {
+export const App = (): JSX.Element => {
   return (
     <AuthProvider>
       <Main />

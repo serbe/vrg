@@ -8,81 +8,81 @@ import { useAuthState } from '../services/auth';
 import type { InputValues } from './types';
 import type { SelectValues, StringInputProperties } from './variables';
 
-export const EmailInputs = function ({ values, onBlur, onChange }: InputValues): JSX.Element {
+export const EmailInputs = ({ values, onBlur, onChange }: InputValues): JSX.Element => {
   return (
     <div className="field">
       <label className="label">Электронный адрес</label>
       {values.map(({ id, name }) => (
         <Input
+          key={`email-inpit-key-${id}`}
           autocomplete="off"
           classNameDiv="pb-1"
           icon="envelope"
-          key={`email-inpit-key-${id}`}
           name={`email-input-${id}`}
-          onBlur={onBlur}
-          onChange={onChange(id)}
           placeholder="Электронный адрес"
           type="email"
           value={name}
+          onBlur={onBlur}
+          onChange={onChange(id)}
         />
       ))}
     </div>
   );
 };
 
-export const PhoneInputs = function ({ values, onBlur, onChange }: InputValues): JSX.Element {
+export const PhoneInputs = ({ values, onBlur, onChange }: InputValues): JSX.Element => {
   return (
     <div className="field">
       <label className="label">Телефон</label>
       {values.map(({ id, name }) => (
         <Input
+          key={`phone-inpit-key-${id}`}
           autocomplete="off"
           classNameDiv="pb-1"
           icon="phone"
-          key={`phone-inpit-key-${id}`}
           name={`phone-input-${id}`}
-          onBlur={onBlur}
-          onChange={onChange(id)}
           placeholder="Телефон"
           type="tel"
           value={name}
+          onBlur={onBlur}
+          onChange={onChange(id)}
         />
       ))}
     </div>
   );
 };
 
-export const FaxInputs = function ({ values, onBlur, onChange }: InputValues): JSX.Element {
+export const FaxInputs = ({ values, onBlur, onChange }: InputValues): JSX.Element => {
   return (
     <div className="field">
       <label className="label">Факс</label>
       {values.map(({ id, name }) => (
         <Input
+          key={`fax-inpit-key-${id}`}
           autocomplete="off"
           classNameDiv="pb-1"
           icon="phone"
-          key={`fax-inpit-key-${id}`}
           name={`fax-input-${id}`}
-          onBlur={onBlur}
-          onChange={onChange(id)}
           placeholder="Факс"
           type="tel"
           value={name}
+          onBlur={onBlur}
+          onChange={onChange(id)}
         />
       ))}
     </div>
   );
 };
 
-export const NoteInput = function ({ value, setter }: StringInputProperties): JSX.Element {
-  return <FormField autocomplete="off" icon="comment" label="Заметки" name="note" onChange={setter} value={value} />;
+export const NoteInput = ({ value, setter }: StringInputProperties): JSX.Element => {
+  return <FormField autocomplete="off" icon="comment" label="Заметки" name="note" value={value} onChange={setter} />;
 };
 
-export const AddressInput = function ({ value, setter }: StringInputProperties): JSX.Element {
-  return <FormField icon="address-card" label="Адрес" name="address" onChange={setter} value={value} />;
+export const AddressInput = ({ value, setter }: StringInputProperties): JSX.Element => {
+  return <FormField icon="address-card" label="Адрес" name="address" value={value} onChange={setter} />;
 };
 
-export const ContactIDSelect = function ({ id, setter }: SelectValues): JSX.Element {
+export const ContactIDSelect = ({ id, setter }: SelectValues): JSX.Element => {
   return <Select icon="user" id={id} label="Контактное лицо" listName="ContactSelect" name="contact" setter={setter} />;
 };
 
@@ -91,7 +91,7 @@ interface FormButtonsValues {
   send: () => void;
 }
 
-export const ItemFormButtons = function ({ del, send }: FormButtonsValues): JSX.Element {
+export const ItemFormButtons = ({ del, send }: FormButtonsValues): JSX.Element => {
   const navigate = useNavigate();
   const { state } = useAuthState();
 

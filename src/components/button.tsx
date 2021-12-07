@@ -21,7 +21,7 @@ interface ButtonProperties {
   size?: Sizes;
 }
 
-export const Button = function ({
+export const Button = ({
   active,
   children,
   className,
@@ -38,7 +38,7 @@ export const Button = function ({
   outline,
   round,
   size,
-}: ButtonProperties): JSX.Element {
+}: ButtonProperties): JSX.Element => {
   const buttonClass = clsx(`button`, className, {
     'is-active': active,
     'is-focused': focus,
@@ -58,7 +58,7 @@ export const Button = function ({
       {children}
     </a>
   ) : (
-    <button className={buttonClass} disabled={disable} onClick={onClick} type="button">
+    <button className={buttonClass} disabled={disable} type="button" onClick={onClick}>
       {children}
     </button>
   );

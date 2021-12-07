@@ -28,7 +28,7 @@ interface InputProperties {
   value?: number | string;
 }
 
-export const Input = function ({
+export const Input = ({
   autocomplete,
   classNameDiv,
   classNameInput,
@@ -51,7 +51,7 @@ export const Input = function ({
   size,
   type,
   value,
-}: InputProperties): JSX.Element {
+}: InputProperties): JSX.Element => {
   const divClass = clsx(
     'control',
     classNameDiv,
@@ -72,21 +72,21 @@ export const Input = function ({
   return (
     <div className={divClass}>
       <input
+        key={name}
         autoComplete={autocomplete}
         className={inputClass}
         defaultValue={defaultValue}
         disabled={disabled}
         id={name}
-        key={name}
         name={name}
-        onBlur={onBlur}
-        onChange={onChange}
-        onClick={onClick}
-        onKeyPress={onKeyPress}
         placeholder={placeholder}
         readOnly={readonly}
         type={type}
         value={value}
+        onBlur={onBlur}
+        onChange={onChange}
+        onClick={onClick}
+        onKeyPress={onKeyPress}
       />
       {icon && <Icon icon={icon} position="left" />}
       {iconRight && <Icon icon={iconRight} position="right" />}

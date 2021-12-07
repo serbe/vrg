@@ -4,8 +4,7 @@ import { Bar, Data } from '../../components/table';
 import type { SirenTypeList } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 
-/* eslint-disable camelcase */
-export const SirenTypes = function (): JSX.Element {
+export const SirenTypes = (): JSX.Element => {
   const navigate = useNavigate();
   const [data] = GetList('SirenTypeList');
   const [search, setSearch] = useState('');
@@ -21,12 +20,12 @@ export const SirenTypes = function (): JSX.Element {
       <>
         {tableData().map((siren_type) => (
           <tr
-            className="link"
             key={`tr${siren_type.id}`}
+            className="link"
+            role="gridcell"
             onClick={(): void => {
               navigate(`/sirentypes/${siren_type.id}`);
             }}
-            role="gridcell"
           >
             <td>{siren_type.name}</td>
             <td>{siren_type.radius}</td>

@@ -32,11 +32,11 @@ const dropdownItems = [
   { link: '/sirentypes', name: 'Типы сирен' },
 ];
 
-const NavbarNotLogged = function (): JSX.Element {
+const NavbarNotLogged = (): JSX.Element => {
   return (
     <nav className="navbar is-dark" role="navigation">
       <div className="navbar-brand">
-        <NavLink className="navbar-item" key="NavbarNotLogged" to="/login">
+        <NavLink key="NavbarNotLogged" className="navbar-item" to="/login">
           Авторизация
         </NavLink>
       </div>
@@ -44,17 +44,17 @@ const NavbarNotLogged = function (): JSX.Element {
   );
 };
 
-const MainItems = function ({ setter }: Setter): JSX.Element {
+const MainItems = ({ setter }: Setter): JSX.Element => {
   return (
     <>
       {mainItems.map((item) => (
         <NavLink
-          className="navbar-item"
           key={`main-items-${item.name}`}
+          className="navbar-item"
+          to={item.link}
           onClick={(): void => {
             setter(false);
           }}
-          to={item.link}
         >
           {item.name}
         </NavLink>
@@ -63,17 +63,17 @@ const MainItems = function ({ setter }: Setter): JSX.Element {
   );
 };
 
-const NavbarDropdown = function ({ setter }: Setter): JSX.Element {
+const NavbarDropdown = ({ setter }: Setter): JSX.Element => {
   return (
-    <div className="navbar-dropdown" key="navbar-dropdown">
+    <div key="navbar-dropdown" className="navbar-dropdown">
       {dropdownItems.map((item) => (
         <NavLink
-          className="navbar-item"
           key={`navbar-dropdown-${item.name}`}
+          className="navbar-item"
+          to={item.link}
           onClick={(): void => {
             setter(false);
           }}
-          to={item.link}
         >
           {item.name}
         </NavLink>
@@ -82,7 +82,7 @@ const NavbarDropdown = function ({ setter }: Setter): JSX.Element {
   );
 };
 
-const NavBarStart = function ({ setter }: Setter): JSX.Element {
+const NavBarStart = ({ setter }: Setter): JSX.Element => {
   return (
     <div className="navbar-start">
       <MainItems setter={setter} />
@@ -96,7 +96,7 @@ const NavBarStart = function ({ setter }: Setter): JSX.Element {
   );
 };
 
-const NavbarEnd = function ({ user }: { user: User }): JSX.Element {
+const NavbarEnd = ({ user }: { user: User }): JSX.Element => {
   const { signOut } = useSign();
   return (
     <div className="navbar-end">
@@ -121,7 +121,7 @@ const NavbarEnd = function ({ user }: { user: User }): JSX.Element {
   );
 };
 
-const BrandBar = function ({ open, setter }: OpenState): JSX.Element {
+const BrandBar = ({ open, setter }: OpenState): JSX.Element => {
   return (
     <div className="navbar-brand">
       <NavLink className="navbar-item" to="/">
@@ -133,10 +133,10 @@ const BrandBar = function ({ open, setter }: OpenState): JSX.Element {
         className={open ? 'navbar-burger is-active' : 'navbar-burger'}
         data-target="navbarData"
         href="#button"
+        role="button"
         onClick={(): void => {
           setter(!open);
         }}
-        role="button"
       >
         <span aria-hidden="true" />
         <span aria-hidden="true" />
@@ -146,8 +146,8 @@ const BrandBar = function ({ open, setter }: OpenState): JSX.Element {
   );
 };
 
-export const Navbar = function (): JSX.Element {
-  // const openClassName = (cn: string): string => (open ? `${cn} is-active` : cn);
+export const Navbar = (): JSX.Element => {
+  // Const openClassName = (cn: string): string => (open ? `${cn} is-active` : cn);
   const { state } = useAuthState();
   const [open, setOpen] = useState(false);
 

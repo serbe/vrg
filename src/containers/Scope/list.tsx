@@ -4,7 +4,7 @@ import { Bar, Data } from '../../components/table';
 import type { ScopeList } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 
-export const Scopes = function (): JSX.Element {
+export const Scopes = (): JSX.Element => {
   const navigate = useNavigate();
   const [data] = GetList('ScopeList');
   const [search, setSearch] = useState('');
@@ -20,12 +20,12 @@ export const Scopes = function (): JSX.Element {
       <>
         {tableData().map((scope) => (
           <tr
-            className="link"
             key={`tr${scope.id}`}
+            className="link"
+            role="gridcell"
             onClick={(): void => {
               navigate(`/scopes/${scope.id}`);
             }}
-            role="gridcell"
           >
             <td className="w250">{scope.name}</td>
           </tr>

@@ -10,7 +10,7 @@ const submitHandler = (event: FormEvent<HTMLFormElement>): void => {
   event.preventDefault();
 };
 
-export const Login = function (): JSX.Element {
+export const Login = (): JSX.Element => {
   const navigate = useNavigate();
   const { signIn } = useSign();
   const [name, setName] = useState('');
@@ -38,15 +38,16 @@ export const Login = function (): JSX.Element {
             icon="user"
             label="Имя пользователя"
             name="name"
+            type="text"
             onChange={(event: ChangeEvent<HTMLInputElement>): void => {
               setName(event.target.value);
             }}
-            type="text"
           />
           <FormField
             icon="key"
             label="Пароль"
             name="password"
+            type="password"
             onChange={(event: ChangeEvent<HTMLInputElement>): void => {
               setPass(event.target.value);
             }}
@@ -55,7 +56,6 @@ export const Login = function (): JSX.Element {
                 submit();
               }
             }}
-            type="password"
           />
           <div className="field">
             <div className="control">
