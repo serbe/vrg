@@ -151,18 +151,14 @@ export const Data = ({
   };
 
   useEffect(() => {
-    if (data) {
-      const sv: SData[] = data.map((row, index): SData => {
-        const values = Object.values(row);
-        const rowString: string[] = values.map((value) => anyToString(value));
-        return { id: index, data: rowString.join('').toLowerCase() };
-      });
-      dispatch({ type: 'setSearchValues', value: sv });
-      dispatch({ type: 'setFilteredData', value: data });
-      dispatch({ type: 'setFilteredDataLength', value: data.length });
-    } else {
-      console.log(data);
-    }
+    const sv: SData[] = data.map((row, index): SData => {
+      const values = Object.values(row);
+      const rowString: string[] = values.map((value) => anyToString(value));
+      return { id: index, data: rowString.join('').toLowerCase() };
+    });
+    dispatch({ type: 'setSearchValues', value: sv });
+    dispatch({ type: 'setFilteredData', value: data });
+    dispatch({ type: 'setFilteredDataLength', value: data.length });
   }, [data]);
 
   useEffect(() => {

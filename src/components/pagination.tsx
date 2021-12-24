@@ -20,9 +20,9 @@ const Item = ({ check, index, link, ellipsis, current, setter }: ItemProperties)
   const Link = (
     <a
       className={link === current ? 'pagination-link is-current' : 'pagination-link'}
-      href="#item"
+      href={`#${link ?? 1}`}
       onClick={(): void => {
-        if (link === current) setter(link);
+        if (link && link !== current) setter(link);
       }}
     >
       {link}
@@ -51,7 +51,7 @@ export const Pagination = ({ currentPage, lastPage, setter }: PaginationProperti
         <a
           key="PaginationPrev"
           className="pagination-previous"
-          href="#prev"
+          href={`#${currentPage - 1}`}
           onClick={(): void => {
             setter(currentPage - 1);
           }}
@@ -72,7 +72,7 @@ export const Pagination = ({ currentPage, lastPage, setter }: PaginationProperti
         <a
           key="PaginationNext"
           className="pagination-next"
-          href="#next"
+          href={`#${currentPage + 1}`}
           onClick={(): void => {
             setter(currentPage + 1);
           }}
