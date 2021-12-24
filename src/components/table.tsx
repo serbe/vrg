@@ -3,7 +3,7 @@ import { useCallback, useEffect, useReducer } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthState } from '../services/auth';
 import type { List } from '../services/fetcher';
-import { latrus } from '../services/utils';
+import { anyToString, latrus } from '../services/utils';
 import { Button } from './button';
 import { Input } from './input';
 import { Pagination } from './pagination';
@@ -151,27 +151,18 @@ export const Data = ({
   };
 
   useEffect(() => {
-    console.log(data.length);
-    const sv: SData[] = data.map((row, index): SData => {
-      const values = Object.values(row);
-      const rowString: string[] = values.map((value) => {
-        if (value && typeof value !== 'number') {
-          if (typeof value === 'string') {
-            return value;
-          }
-
-          if (Array.isArray(value)) {
-            return value.join('');
-          }
-        }
-
-        return '';
+    if (data) {
+      const sv: SData[] = data.map((row, index): SData => {
+        const values = Object.values(row);
+        const rowString: string[] = values.map((value) => anyToString(value));
+        return { id: index, data: rowString.join('').toLowerCase() };
       });
-      return { id: index, data: rowString.join('').toLowerCase() };
-    });
-    dispatch({ type: 'setSearchValues', value: sv });
-    dispatch({ type: 'setFilteredData', value: data });
-    dispatch({ type: 'setFilteredDataLength', value: data.length });
+      dispatch({ type: 'setSearchValues', value: sv });
+      dispatch({ type: 'setFilteredData', value: data });
+      dispatch({ type: 'setFilteredDataLength', value: data.length });
+    } else {
+      console.log(data);
+    }
   }, [data]);
 
   useEffect(() => {
