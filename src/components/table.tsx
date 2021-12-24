@@ -151,6 +151,7 @@ export const Data = ({
   };
 
   useEffect(() => {
+    console.log(data.length);
     const sv: SData[] = data.map((row, index): SData => {
       const values = Object.values(row);
       const rowString: string[] = values.map((value) => {
