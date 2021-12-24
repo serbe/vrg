@@ -39,6 +39,7 @@ export const Login = (): JSX.Element => {
             label="Имя пользователя"
             name="name"
             type="text"
+            value={name}
             onChange={(event: ChangeEvent<HTMLInputElement>): void => {
               setName(event.target.value);
             }}
@@ -48,6 +49,7 @@ export const Login = (): JSX.Element => {
             label="Пароль"
             name="password"
             type="password"
+            value={pass}
             onChange={(event: ChangeEvent<HTMLInputElement>): void => {
               setPass(event.target.value);
             }}
