@@ -46,7 +46,6 @@ import {
 import { useToken } from './auth';
 
 const URL = (import.meta.env.VITE_APP_JSONURL as string) || '/go/json';
-const loginURL = (import.meta.env.VITE_APP_LOGINURL as string) || '/go/login';
 const jsonType = 'application/json';
 
 export type Item =
@@ -342,11 +341,6 @@ type GetItemResponse =
   | { command: 'GetItem'; name: 'Post'; object: { Post: Post }; error: string }
   | { command: 'GetItem'; name: 'Rank'; object: { Rank: Rank }; error: string };
 
-interface LoginResponse {
-  t: string;
-  r: number;
-}
-
 export const getItem = async (name: string, id: string, token: string): Promise<GetItemResponse> =>
   fetch(URL, {
     method: 'POST',
@@ -396,20 +390,6 @@ export const delItem = async (id: number, name: string, token: string): Promise<
   })
     .then(async (response) => response.json())
     .then((jsonResponse) => jsonResponse as ModifyItemResponse);
-
-export const postLogin = async (name: string, pass: string): Promise<LoginResponse> =>
-  fetch(loginURL, {
-    method: 'POST',
-    mode: 'cors',
-    headers: {
-      'Content-Type': jsonType,
-    },
-    body: JSON.stringify({ u: name, p: Buffer.from(pass).toString('base64') }),
-  })
-    .then(async (response) => response.json())
-    .then((jsonResponse) => {
-      return jsonResponse as LoginResponse;
-    });
 
 export const GetItem = (name: string, id?: string): [Item, string] => {
   const { token } = useToken();

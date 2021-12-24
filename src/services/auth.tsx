@@ -4,6 +4,27 @@ import type { User } from '../models/types';
 import { clearStorage, getStorage, setStorage } from './storage';
 
 const checkUrl = (import.meta.env.VITE_APP_CHECKURL as string) || '/go/check';
+const loginURL = (import.meta.env.VITE_APP_LOGINURL as string) || '/go/login';
+const jsonType = 'application/json';
+
+interface LoginResponse {
+  t: string;
+  r: number;
+}
+
+export const postLogin = async (name: string, pass: string): Promise<LoginResponse> =>
+  fetch(loginURL, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': jsonType,
+    },
+    body: JSON.stringify({ u: name, p: btoa(pass) }),
+  })
+    .then(async (response) => response.json())
+    .then((jsonResponse) => {
+      return jsonResponse as LoginResponse;
+    });
 
 interface CheckResponse {
   r: boolean;
@@ -19,7 +40,7 @@ export const postCheck = async (user: User): Promise<User> => {
     method: 'POST',
     mode: 'cors',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': jsonType,
     },
     body: JSON.stringify({ t: user.token, r: user.role }),
   })

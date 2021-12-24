@@ -3,8 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../../components/button';
 import { FormField } from '../../components/formfield';
-import { useSign } from '../../services/auth';
-import { postLogin } from '../../services/fetcher';
+import { postLogin, useSign } from '../../services/auth';
 
 const submitHandler = (event: FormEvent<HTMLFormElement>): void => {
   event.preventDefault();
