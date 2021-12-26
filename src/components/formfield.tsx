@@ -1,4 +1,12 @@
-import type { ChangeEventHandler, FocusEventHandler, KeyboardEventHandler, MouseEventHandler, ReactNode } from 'react';
+import type {
+  ChangeEventHandler,
+  Dispatch,
+  FocusEventHandler,
+  KeyboardEventHandler,
+  MouseEventHandler,
+  ReactNode,
+  SetStateAction,
+} from 'react';
 import type { AdditionalColors, InputTypes, LinkColor, PrimarylColor, Sizes } from '../models/variables';
 import { Input } from './input';
 
@@ -19,6 +27,7 @@ interface FormFieldProperties {
   name: string;
   onBlur?: FocusEventHandler<HTMLInputElement>;
   onChange?: ChangeEventHandler<HTMLInputElement>;
+  onClear?: Dispatch<SetStateAction<string>>;
   onClick?: MouseEventHandler<HTMLInputElement>;
   onKeyPress?: KeyboardEventHandler<HTMLInputElement>;
   placeholder?: string;
@@ -46,6 +55,7 @@ export const FormField = ({
   name,
   onBlur,
   onChange,
+  onClear,
   onClick,
   onKeyPress,
   placeholder,
@@ -83,6 +93,7 @@ export const FormField = ({
         value={value ?? ''}
         onBlur={onBlur}
         onChange={onChange}
+        onClear={onClear}
         onClick={onClick}
         onKeyPress={onKeyPress}
       />
@@ -107,6 +118,7 @@ FormField.defaultProps = {
   load: false,
   onBlur: undefined,
   onChange: undefined,
+  onClear: undefined,
   onClick: undefined,
   onKeyPress: undefined,
   placeholder: undefined,

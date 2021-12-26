@@ -1,5 +1,12 @@
 import clsx from 'clsx';
-import type { ChangeEventHandler, FocusEventHandler, KeyboardEventHandler, MouseEventHandler } from 'react';
+import type {
+  ChangeEventHandler,
+  Dispatch,
+  FocusEventHandler,
+  KeyboardEventHandler,
+  MouseEventHandler,
+  SetStateAction,
+} from 'react';
 import type { AdditionalColors, InputTypes, LinkColor, PrimarylColor, Sizes } from '../models/variables';
 import { Icon } from './icon';
 
@@ -18,6 +25,7 @@ interface InputProperties {
   name: string;
   onBlur?: FocusEventHandler<HTMLInputElement>;
   onChange?: ChangeEventHandler<HTMLInputElement>;
+  onClear?: Dispatch<SetStateAction<string>>;
   onClick?: MouseEventHandler<HTMLInputElement>;
   onKeyPress?: KeyboardEventHandler<HTMLInputElement>;
   placeholder?: string;
@@ -43,6 +51,7 @@ export const Input = ({
   name,
   onBlur,
   onChange,
+  onClear,
   onClick,
   onKeyPress,
   placeholder,
@@ -56,7 +65,7 @@ export const Input = ({
     'control',
     classNameDiv,
     { 'has-icons-left': icon },
-    { 'has-icons-right': iconRight },
+    { 'has-icons-right': onClear ?? iconRight },
     { 'is-loading': load },
   );
   const inputClass = clsx(
@@ -89,6 +98,15 @@ export const Input = ({
         onKeyPress={onKeyPress}
       />
       {icon && <Icon icon={icon} position="left" />}
+      {onClear && (
+        <Icon
+          icon="times"
+          position="right"
+          onClick={(): void => {
+            onClear('');
+          }}
+        />
+      )}
       {iconRight && <Icon icon={iconRight} position="right" />}
     </div>
   );
@@ -108,6 +126,7 @@ Input.defaultProps = {
   load: false,
   onBlur: undefined,
   onChange: undefined,
+  onClear: undefined,
   onClick: undefined,
   onKeyPress: undefined,
   placeholder: undefined,

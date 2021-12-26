@@ -1,9 +1,10 @@
-import type { ChangeEvent, FormEvent, KeyboardEvent } from 'react';
+import type { FormEvent, KeyboardEvent } from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../../components/button';
 import { FormField } from '../../components/formfield';
 import { postLogin, useSign } from '../../services/auth';
+import { useString } from '../../services/hooks';
 
 const submitHandler = (event: FormEvent<HTMLFormElement>): void => {
   event.preventDefault();
@@ -12,8 +13,8 @@ const submitHandler = (event: FormEvent<HTMLFormElement>): void => {
 export const Login = (): JSX.Element => {
   const navigate = useNavigate();
   const { signIn } = useSign();
-  const [name, setName] = useState('');
-  const [pass, setPass] = useState('');
+  const [name, setName, nameInput] = useString('');
+  const [pass, setPass, passInput] = useString('');
   const [error, setError] = useState('');
 
   const submit = (): void => {
@@ -39,9 +40,8 @@ export const Login = (): JSX.Element => {
             name="name"
             type="text"
             value={name}
-            onChange={(event: ChangeEvent<HTMLInputElement>): void => {
-              setName(event.target.value);
-            }}
+            onChange={nameInput}
+            onClear={setName}
           />
           <FormField
             icon="key"
@@ -49,9 +49,8 @@ export const Login = (): JSX.Element => {
             name="password"
             type="password"
             value={pass}
-            onChange={(event: ChangeEvent<HTMLInputElement>): void => {
-              setPass(event.target.value);
-            }}
+            onChange={passInput}
+            onClear={setPass}
             onKeyPress={(event: KeyboardEvent<HTMLInputElement>): void => {
               if (event.key === 'Enter') {
                 submit();

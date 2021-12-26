@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { ReactNode } from 'react';
+import { MouseEventHandler, ReactNode } from 'react';
 import type { AdditionalColors, Positions } from '../models/variables';
 
 interface IconProperties {
@@ -7,10 +7,11 @@ interface IconProperties {
   className?: string;
   color?: AdditionalColors;
   icon: string;
+  onClick?: MouseEventHandler;
   position?: Positions;
 }
 
-export const Icon = ({ children, className, color, position, icon }: IconProperties): JSX.Element => {
+export const Icon = ({ children, className, color, icon, onClick, position }: IconProperties): JSX.Element => {
   const spanClass = clsx('icon', className, {
     [`has-text-${color ?? 'info'}`]: color,
     [`is-${position ?? 'left'}`]: position,
@@ -18,7 +19,7 @@ export const Icon = ({ children, className, color, position, icon }: IconPropert
   const iconClass = clsx('fas', { [`fa-${icon}`]: icon });
 
   return (
-    <span className={spanClass}>
+    <span className={spanClass} onClick={onClick}>
       <i className={iconClass}>{children}</i>
     </span>
   );
@@ -28,6 +29,7 @@ Icon.defaultProps = {
   children: undefined,
   className: undefined,
   color: undefined,
+  onClick: undefined,
   position: undefined,
 };
 
