@@ -7,6 +7,7 @@ import type {
   MouseEventHandler,
   SetStateAction,
 } from 'react';
+import { ClearIcon } from '../models/impersonal';
 import type { AdditionalColors, InputTypes, LinkColor, PrimarylColor, Sizes } from '../models/variables';
 import { Icon } from './icon';
 
@@ -98,15 +99,7 @@ export const Input = ({
         onKeyPress={onKeyPress}
       />
       {icon && <Icon icon={icon} position="left" />}
-      {onClear && (
-        <Icon
-          icon="times"
-          position="right"
-          onClick={(): void => {
-            onClear('');
-          }}
-        />
-      )}
+      <ClearIcon setter={onClear} />
       {iconRight && <Icon icon={iconRight} position="right" />}
     </div>
   );

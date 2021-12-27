@@ -1,7 +1,8 @@
-import { useCallback } from 'react';
+import { Dispatch, SetStateAction, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/button';
 import { FormField } from '../components/formfield';
+import { Icon } from '../components/icon';
 import { Input } from '../components/input';
 import { Select } from '../components/select';
 import { useAuthState } from '../services/auth';
@@ -154,4 +155,17 @@ export const ItemFormButtons = ({ del, send }: FormButtonsValues): JSX.Element =
       <DeleteButton />
     </div>
   );
+};
+
+export const ClearIcon = ({ setter }: { setter?: Dispatch<SetStateAction<string>> }): JSX.Element | null => {
+  return setter ? (
+    <Icon
+      className="is-clickable"
+      icon="times"
+      position="right"
+      onClick={(): void => {
+        setter('');
+      }}
+    />
+  ) : null;
 };
