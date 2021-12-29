@@ -44,7 +44,7 @@ const listMonths = (): DatePickerMonth[] => {
 const listYears = (): string[] => {
   const currentYear = new Date().getFullYear();
   const list = [' '];
-  for (let index = currentYear; index > currentYear - 100; index -= 1) {
+  for (let index = currentYear + 1; index > currentYear - 100; index -= 1) {
     list.push(index.toString());
   }
 
