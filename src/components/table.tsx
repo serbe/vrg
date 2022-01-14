@@ -186,7 +186,7 @@ export const Data = ({
   };
 };
 
-export const Bar = ({ name, setter, value }: BarProperties): JSX.Element | undefined => {
+export const Bar = ({ name, setter, value }: BarProperties): JSX.Element => {
   const { state } = useAuthState();
   const navigate = useNavigate();
 
