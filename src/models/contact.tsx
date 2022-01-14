@@ -68,7 +68,7 @@ const inputClass = (input: string): string => {
   return 'is-danger';
 };
 
-export const ContactEducations = ({ educations }: ContactEducationsValues): JSX.Element | null => {
+export const ContactEducations = ({ educations }: ContactEducationsValues): JSX.Element => {
   return educations.length > 0 ? (
     <div className="field">
       <label className="label">Даты обучения в УМЦ</label>
@@ -82,5 +82,7 @@ export const ContactEducations = ({ educations }: ContactEducationsValues): JSX.
         />
       ))}
     </div>
-  ) : null;
+  ) : (
+    <></>
+  );
 };

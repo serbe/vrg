@@ -6,7 +6,7 @@ import { tinyDate, trClass } from '../services/utils';
 import type { PracticeShort, PracticeValues } from './types';
 import type { DatePickerValues, StringInputProperties } from './variables';
 
-export const PracticeListForm = ({ practices }: PracticeValues): JSX.Element | null => {
+export const PracticeListForm = ({ practices }: PracticeValues): JSX.Element => {
   const navigate = useNavigate();
   return practices.length > 0 ? (
     <div key="practices" className="field">
@@ -25,7 +25,9 @@ export const PracticeListForm = ({ practices }: PracticeValues): JSX.Element | n
         />
       ))}
     </div>
-  ) : null;
+  ) : (
+    <></>
+  );
 };
 
 export const PracticeTopicInput = ({ value, setter }: StringInputProperties): JSX.Element => {

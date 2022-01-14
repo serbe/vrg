@@ -157,7 +157,7 @@ export const ItemFormButtons = ({ del, send }: FormButtonsValues): JSX.Element =
   );
 };
 
-export const ClearIcon = ({ setter }: { setter?: Dispatch<SetStateAction<string>> }): JSX.Element | null => {
+export const ClearIcon = ({ setter }: { setter?: Dispatch<SetStateAction<string>> }): JSX.Element => {
   return setter ? (
     <Icon
       className="is-clickable"
@@ -167,5 +167,7 @@ export const ClearIcon = ({ setter }: { setter?: Dispatch<SetStateAction<string>
         setter('');
       }}
     />
-  ) : null;
+  ) : (
+    <></>
+  );
 };

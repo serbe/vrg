@@ -15,7 +15,7 @@ interface ItemProperties {
   setter: (page: number) => void;
 }
 
-const Item = ({ check, index, link, ellipsis, current, setter }: ItemProperties): JSX.Element | null => {
+const Item = ({ check, index, link, ellipsis, current, setter }: ItemProperties): JSX.Element => {
   const Ellipsis = <span className="pagination-ellipsis">&hellip;</span>;
   const Link = (
     <a
@@ -34,7 +34,9 @@ const Item = ({ check, index, link, ellipsis, current, setter }: ItemProperties)
     <li key={`li${index}`}>
       <Li />
     </li>
-  ) : null;
+  ) : (
+    <></>
+  );
 };
 
 Item.defaultProps = {

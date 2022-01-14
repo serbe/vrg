@@ -110,12 +110,7 @@ const paginateReducer = (state: PaginateState, action: PaginateAction): Paginate
   }
 };
 
-const Paginate = ({
-  filteredDataLength,
-  itemsPerPage,
-  currentPage,
-  setter,
-}: PaginateProperties): JSX.Element | null => {
+const Paginate = ({ filteredDataLength, itemsPerPage, currentPage, setter }: PaginateProperties): JSX.Element => {
   const receiveChildValue = (value: number): void => {
     setter(value - 1);
   };
@@ -126,7 +121,9 @@ const Paginate = ({
       lastPage={Math.ceil(filteredDataLength / itemsPerPage)}
       setter={receiveChildValue}
     />
-  ) : null;
+  ) : (
+    <></>
+  );
 };
 
 export const Data = ({
@@ -189,7 +186,7 @@ export const Data = ({
   };
 };
 
-export const Bar = ({ name, setter, value }: BarProperties): JSX.Element | null => {
+export const Bar = ({ name, setter, value }: BarProperties): JSX.Element | undefined => {
   const { state } = useAuthState();
   const navigate = useNavigate();
 
