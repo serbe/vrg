@@ -57,6 +57,7 @@ module.exports = {
     'jsx-a11y/label-has-associated-control': 'off',
     'func-names': 'off',
     'new-cap': 'off',
+    'react/jsx-no-useless-fragment': 'off',
   },
   settings: {
     react: {
