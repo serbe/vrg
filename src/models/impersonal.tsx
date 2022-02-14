@@ -80,7 +80,9 @@ export const NoteInput = ({ value, setter }: StringInputProperties): JSX.Element
 };
 
 export const AddressInput = ({ value, setter }: StringInputProperties): JSX.Element => {
-  return <FormField icon="address-card" label="Адрес" name="address" value={value} onChange={setter} />;
+  return (
+    <FormField autocomplete="off" icon="address-card" label="Адрес" name="address" value={value} onChange={setter} />
+  );
 };
 
 export const ContactIDSelect = ({ id, setter }: SelectValues): JSX.Element => {
