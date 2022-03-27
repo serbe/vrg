@@ -38,7 +38,7 @@ interface FormFieldProperties {
   value?: number | string;
 }
 
-export const FormField = ({
+export function FormField({
   autocomplete,
   children,
   classNameDiv,
@@ -64,7 +64,7 @@ export const FormField = ({
   size,
   type,
   value,
-}: FormFieldProperties): JSX.Element => {
+}: FormFieldProperties): JSX.Element {
   return (
     <div className="field">
       {label && (
@@ -100,7 +100,7 @@ export const FormField = ({
       {children}
     </div>
   );
-};
+}
 
 FormField.defaultProps = {
   autocomplete: undefined,

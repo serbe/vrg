@@ -7,7 +7,7 @@ import { useToken } from '../../services/auth';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 import { useStringU } from '../../services/hooks';
 
-export const PostItem = (): JSX.Element => {
+export function PostItem(): JSX.Element {
   const navigate = useNavigate();
   const { id } = useParams();
   const [name, setName, nameInput] = useStringU();
@@ -62,6 +62,6 @@ export const PostItem = (): JSX.Element => {
       )}
     </div>
   );
-};
+}
 
 export default PostItem;

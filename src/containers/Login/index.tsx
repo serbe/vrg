@@ -10,7 +10,7 @@ const submitHandler = (event: FormEvent<HTMLFormElement>): void => {
   event.preventDefault();
 };
 
-export const Login = (): JSX.Element => {
+export function Login(): JSX.Element {
   const navigate = useNavigate();
   const { signIn } = useSign();
   const [name, setName, nameInput] = useString('');
@@ -67,6 +67,6 @@ export const Login = (): JSX.Element => {
       </form>
     </div>
   );
-};
+}
 
 export default Login;

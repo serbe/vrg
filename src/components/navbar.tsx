@@ -32,7 +32,7 @@ const dropdownItems = [
   { link: '/sirentypes', name: 'Типы сирен' },
 ];
 
-const NavbarNotLogged = (): JSX.Element => {
+function NavbarNotLogged(): JSX.Element {
   return (
     <nav className="navbar is-dark" role="navigation">
       <div className="navbar-brand">
@@ -42,9 +42,9 @@ const NavbarNotLogged = (): JSX.Element => {
       </div>
     </nav>
   );
-};
+}
 
-const MainItems = ({ setter }: Setter): JSX.Element => {
+function MainItems({ setter }: Setter): JSX.Element {
   return (
     <>
       {mainItems.map((item) => (
@@ -61,9 +61,9 @@ const MainItems = ({ setter }: Setter): JSX.Element => {
       ))}
     </>
   );
-};
+}
 
-const NavbarDropdown = ({ setter }: Setter): JSX.Element => {
+function NavbarDropdown({ setter }: Setter): JSX.Element {
   return (
     <div key="navbar-dropdown" className="navbar-dropdown">
       {dropdownItems.map((item) => (
@@ -80,9 +80,9 @@ const NavbarDropdown = ({ setter }: Setter): JSX.Element => {
       ))}
     </div>
   );
-};
+}
 
-const NavBarStart = ({ setter }: Setter): JSX.Element => {
+function NavBarStart({ setter }: Setter): JSX.Element {
   return (
     <div className="navbar-start">
       <MainItems setter={setter} />
@@ -94,9 +94,9 @@ const NavBarStart = ({ setter }: Setter): JSX.Element => {
       </div>
     </div>
   );
-};
+}
 
-const NavbarEnd = ({ user }: { user: User }): JSX.Element => {
+function NavbarEnd({ user }: { user: User }): JSX.Element {
   const { signOut } = useSign();
   return (
     <div className="navbar-end">
@@ -119,9 +119,9 @@ const NavbarEnd = ({ user }: { user: User }): JSX.Element => {
       </div>
     </div>
   );
-};
+}
 
-const BrandBar = ({ open, setter }: OpenState): JSX.Element => {
+function BrandBar({ open, setter }: OpenState): JSX.Element {
   return (
     <div className="navbar-brand">
       <NavLink className="navbar-item" to="/">
@@ -144,9 +144,9 @@ const BrandBar = ({ open, setter }: OpenState): JSX.Element => {
       </a>
     </div>
   );
-};
+}
 
-export const Navbar = (): JSX.Element => {
+export function Navbar(): JSX.Element {
   // Const openClassName = (cn: string): string => (open ? `${cn} is-active` : cn);
   const { state } = useAuthState();
   const [open, setOpen] = useState(false);
@@ -166,6 +166,6 @@ export const Navbar = (): JSX.Element => {
   ) : (
     <NavbarNotLogged />
   );
-};
+}
 
 export default Navbar;

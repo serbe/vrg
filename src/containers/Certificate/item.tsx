@@ -9,7 +9,7 @@ import { useToken } from '../../services/auth';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 import { useStringU } from '../../services/hooks';
 
-export const CertificateItem = (): JSX.Element => {
+export function CertificateItem(): JSX.Element {
   const navigate = useNavigate();
   const { id } = useParams();
   const [sNumber, setSNumber, sNumberInput] = useStringU();
@@ -72,6 +72,6 @@ export const CertificateItem = (): JSX.Element => {
       )}
     </div>
   );
-};
+}
 
 export default CertificateItem;

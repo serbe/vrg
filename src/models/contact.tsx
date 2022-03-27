@@ -7,7 +7,7 @@ import { diffMonth } from '../services/utils';
 import type { ContactEducationsValues, ContactShortValues } from './types';
 import type { DatePickerValues, SelectValues, StringInputProperties } from './variables';
 
-export const ContactNameInput = ({ value, setter }: StringInputProperties): JSX.Element => {
+export function ContactNameInput({ value, setter }: StringInputProperties): JSX.Element {
   return (
     <FormField
       autocomplete="off"
@@ -18,13 +18,13 @@ export const ContactNameInput = ({ value, setter }: StringInputProperties): JSX.
       onChange={setter}
     />
   );
-};
+}
 
-export const ContactBirthdayInput = ({ value, setter }: DatePickerValues): JSX.Element => {
+export function ContactBirthdayInput({ value, setter }: DatePickerValues): JSX.Element {
   return <DatePicker label="Дата рождения" name="birthday" setter={setter} value={value} />;
-};
+}
 
-export const ContactShortForm = ({ contacts }: ContactShortValues): JSX.Element => {
+export function ContactShortForm({ contacts }: ContactShortValues): JSX.Element {
   const navigate = useNavigate();
   return (
     <div key="contacts" className="field">
@@ -46,13 +46,13 @@ export const ContactShortForm = ({ contacts }: ContactShortValues): JSX.Element 
       ))}
     </div>
   );
-};
+}
 
-export const ContactIDSelect = ({ id, setter }: SelectValues): JSX.Element => {
+export function ContactIDSelect({ id, setter }: SelectValues): JSX.Element {
   return (
     <Select icon="user" id={id} label="Фамилия Имя Отчество" listName="ContactSelect" name="contact" setter={setter} />
   );
-};
+}
 
 const inputClass = (input: string): string => {
   const date = new Date(input);
@@ -68,7 +68,7 @@ const inputClass = (input: string): string => {
   return 'is-danger';
 };
 
-export const ContactEducations = ({ educations }: ContactEducationsValues): JSX.Element => {
+export function ContactEducations({ educations }: ContactEducationsValues): JSX.Element {
   return educations.length > 0 ? (
     <div className="field">
       <label className="label">Даты обучения в УМЦ</label>
@@ -85,4 +85,4 @@ export const ContactEducations = ({ educations }: ContactEducationsValues): JSX.
   ) : (
     <></>
   );
-};
+}

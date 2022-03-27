@@ -4,7 +4,7 @@ import { Bar, Data } from '../../components/table';
 import type { SirenTypeList } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 
-export const SirenTypes = (): JSX.Element => {
+export function SirenTypes(): JSX.Element {
   const navigate = useNavigate();
   const [data] = GetList('SirenTypeList');
   const [search, setSearch] = useState('');
@@ -50,6 +50,6 @@ export const SirenTypes = (): JSX.Element => {
       {Paginate}
     </>
   );
-};
+}
 
 export default SirenTypes;

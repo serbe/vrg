@@ -17,7 +17,7 @@ interface SelectProperties {
   setter: Dispatch<SetStateAction<number | undefined>>;
 }
 
-export const Select = ({ name, id, label, icon, color, listName, setter }: SelectProperties): JSX.Element => {
+export function Select({ name, id, label, icon, color, listName, setter }: SelectProperties): JSX.Element {
   const [opened, setOpened] = useState(false);
   const [itemID, setItemID] = useState(id ?? 0);
   const [list, error] = GetSelect(listName);
@@ -122,7 +122,7 @@ export const Select = ({ name, id, label, icon, color, listName, setter }: Selec
       )}
     </div>
   );
-};
+}
 
 Select.defaultProps = {
   color: undefined,

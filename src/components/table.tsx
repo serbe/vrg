@@ -110,7 +110,7 @@ const paginateReducer = (state: PaginateState, action: PaginateAction): Paginate
   }
 };
 
-const Paginate = ({ filteredDataLength, itemsPerPage, currentPage, setter }: PaginateProperties): JSX.Element => {
+function Paginate({ filteredDataLength, itemsPerPage, currentPage, setter }: PaginateProperties): JSX.Element {
   const receiveChildValue = (value: number): void => {
     setter(value - 1);
   };
@@ -124,15 +124,12 @@ const Paginate = ({ filteredDataLength, itemsPerPage, currentPage, setter }: Pag
   ) : (
     <></>
   );
-};
+}
 
-export const Data = ({
-  data,
-  search,
-}: DataProperties): {
+export function Data({ data, search }: DataProperties): {
   paginationData: () => List[];
   Paginate: ReactElement;
-} => {
+} {
   type TableData = typeof data;
 
   const [{ filteredData, currentPage, filteredDataLength, itemsPerPage }, dispatch] = useReducer(
@@ -184,9 +181,9 @@ export const Data = ({
       />
     ),
   };
-};
+}
 
-export const Bar = ({ name, setter, value }: BarProperties): JSX.Element => {
+export function Bar({ name, setter, value }: BarProperties): JSX.Element {
   const { state } = useAuthState();
   const navigate = useNavigate();
 
@@ -224,6 +221,6 @@ export const Bar = ({ name, setter, value }: BarProperties): JSX.Element => {
       </div>
     </div>
   );
-};
+}
 
 export default Data;

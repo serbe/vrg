@@ -4,7 +4,7 @@ import { Bar, Data } from '../../components/table';
 import type { RankList } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 
-export const Ranks = (): JSX.Element => {
+export function Ranks(): JSX.Element {
   const navigate = useNavigate();
   const [data] = GetList('RankList');
   const [search, setSearch] = useState('');
@@ -48,6 +48,6 @@ export const Ranks = (): JSX.Element => {
       {Paginate}
     </>
   );
-};
+}
 
 export default Ranks;

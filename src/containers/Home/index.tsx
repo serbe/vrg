@@ -4,7 +4,7 @@ import type { EducationShort, PracticeShort } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 import './index.css';
 
-export const Home = (): JSX.Element => {
+export function Home(): JSX.Element {
   const [educations] = GetList('EducationNear') as [EducationShort[], string];
   const [practices] = GetList('PracticeNear') as [PracticeShort[], string];
 
@@ -18,6 +18,6 @@ export const Home = (): JSX.Element => {
       </div>
     </div>
   );
-};
+}
 
 export default Home;

@@ -2,7 +2,7 @@ import { FormField } from '../components/formfield';
 import { Select } from '../components/select';
 import type { SelectValues, StringInputProperties } from './variables';
 
-export const KindNameInput = ({ value, setter }: StringInputProperties): JSX.Element => {
+export function KindNameInput({ value, setter }: StringInputProperties): JSX.Element {
   return (
     <FormField
       autocomplete="off"
@@ -13,9 +13,9 @@ export const KindNameInput = ({ value, setter }: StringInputProperties): JSX.Ele
       onChange={setter}
     />
   );
-};
+}
 
-export const KindShortNameInput = ({ value, setter }: StringInputProperties): JSX.Element => {
+export function KindShortNameInput({ value, setter }: StringInputProperties): JSX.Element {
   return (
     <FormField
       autocomplete="off"
@@ -26,8 +26,8 @@ export const KindShortNameInput = ({ value, setter }: StringInputProperties): JS
       onChange={setter}
     />
   );
-};
+}
 
-export const KindIDSelect = ({ id, setter }: SelectValues): JSX.Element => {
+export function KindIDSelect({ id, setter }: SelectValues): JSX.Element {
   return <Select icon="tag" id={id} label="Тип тренировки" listName="KindSelect" name="kink-select" setter={setter} />;
-};
+}

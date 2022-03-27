@@ -5,7 +5,7 @@ import type { CompanyList } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 import { splitNumbers, splitStrings } from '../../services/utils';
 
-export const Companies = (): JSX.Element => {
+export function Companies(): JSX.Element {
   const navigate = useNavigate();
   const [data] = GetList('CompanyList');
   const [search, setSearch] = useState('');
@@ -60,6 +60,6 @@ export const Companies = (): JSX.Element => {
       {Paginate}
     </>
   );
-};
+}
 
 export default Companies;

@@ -7,7 +7,7 @@ import { useToken } from '../../services/auth';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 import { useNumberU, useStringU } from '../../services/hooks';
 
-export const SirenTypeItem = (): JSX.Element => {
+export function SirenTypeItem(): JSX.Element {
   const navigate = useNavigate();
   const { id } = useParams();
   const [name, setName, nameInput] = useStringU();
@@ -62,6 +62,6 @@ export const SirenTypeItem = (): JSX.Element => {
       )}
     </div>
   );
-};
+}
 
 export default SirenTypeItem;

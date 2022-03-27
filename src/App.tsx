@@ -6,11 +6,11 @@ import { Login } from './containers/Login';
 import './index.scss';
 import { AuthProvider, checkUser, useAuthState, useSign } from './services/auth';
 
-const Initializаtion = (): JSX.Element => {
+function Initializаtion(): JSX.Element {
   return <p className="p-4 w-full h-full text-center">Initializаtion...</p>;
-};
+}
 
-const Main = (): JSX.Element => {
+function Main(): JSX.Element {
   const { signIn, signOut } = useSign();
   const { state } = useAuthState();
 
@@ -54,14 +54,14 @@ const Main = (): JSX.Element => {
       <Content />
     </BrowserRouter>
   );
-};
+}
 
-export const App = (): JSX.Element => {
+export function App(): JSX.Element {
   return (
     <AuthProvider>
       <Main />
     </AuthProvider>
   );
-};
+}
 
 export default App;

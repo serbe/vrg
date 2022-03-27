@@ -4,7 +4,7 @@ import { Bar, Data } from '../../components/table';
 import type { CertificateList } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 
-export const Certificates = (): JSX.Element => {
+export function Certificates(): JSX.Element {
   const navigate = useNavigate();
   const [data] = GetList('CertificateList');
   const [search, setSearch] = useState('');
@@ -71,6 +71,6 @@ export const Certificates = (): JSX.Element => {
       {Paginate}
     </>
   );
-};
+}
 
 export default Certificates;

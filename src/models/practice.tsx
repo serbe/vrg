@@ -6,7 +6,7 @@ import { tinyDate, trClass } from '../services/utils';
 import type { PracticeShort, PracticeValues } from './types';
 import type { DatePickerValues, StringInputProperties } from './variables';
 
-export const PracticeListForm = ({ practices }: PracticeValues): JSX.Element => {
+export function PracticeListForm({ practices }: PracticeValues): JSX.Element {
   const navigate = useNavigate();
   return practices.length > 0 ? (
     <div key="practices" className="field">
@@ -28,9 +28,9 @@ export const PracticeListForm = ({ practices }: PracticeValues): JSX.Element => 
   ) : (
     <></>
   );
-};
+}
 
-export const PracticeTopicInput = ({ value, setter }: StringInputProperties): JSX.Element => {
+export function PracticeTopicInput({ value, setter }: StringInputProperties): JSX.Element {
   return (
     <FormField
       autocomplete="off"
@@ -41,13 +41,13 @@ export const PracticeTopicInput = ({ value, setter }: StringInputProperties): JS
       onChange={setter}
     />
   );
-};
+}
 
-export const PracticeDateInput = ({ value, setter }: DatePickerValues): JSX.Element => {
+export function PracticeDateInput({ value, setter }: DatePickerValues): JSX.Element {
   return <DatePicker label="Дата проведения тренировки" name="practice-date" setter={setter} value={value} />;
-};
+}
 
-export const PracticeNearList = ({ list }: { list: PracticeShort[] }): JSX.Element => {
+export function PracticeNearList({ list }: { list: PracticeShort[] }): JSX.Element {
   const navigate = useNavigate();
   return (
     <table className="table is-narrow">
@@ -86,4 +86,4 @@ export const PracticeNearList = ({ list }: { list: PracticeShort[] }): JSX.Eleme
       </tbody>
     </table>
   );
-};
+}

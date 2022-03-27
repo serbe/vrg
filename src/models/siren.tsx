@@ -1,7 +1,7 @@
 import { FormField } from '../components/formfield';
 import type { NumberInputProperties, StringInputProperties } from './variables';
 
-export const SirenNumberIDInput = ({ value, setter }: NumberInputProperties): JSX.Element => {
+export function SirenNumberIDInput({ value, setter }: NumberInputProperties): JSX.Element {
   return (
     <FormField
       autocomplete="off"
@@ -12,9 +12,9 @@ export const SirenNumberIDInput = ({ value, setter }: NumberInputProperties): JS
       onChange={setter}
     />
   );
-};
+}
 
-export const SirenNumberPassportInput = ({ value, setter }: StringInputProperties): JSX.Element => {
+export function SirenNumberPassportInput({ value, setter }: StringInputProperties): JSX.Element {
   return (
     <FormField
       autocomplete="off"
@@ -25,13 +25,13 @@ export const SirenNumberPassportInput = ({ value, setter }: StringInputPropertie
       onChange={setter}
     />
   );
-};
+}
 
-export const SirenRadioInput = ({ value, setter }: StringInputProperties): JSX.Element => {
+export function SirenRadioInput({ value, setter }: StringInputProperties): JSX.Element {
   return <FormField autocomplete="off" icon="tag" label="Радио" name="siren_radio" value={value} onChange={setter} />;
-};
+}
 
-export const SirenDeskInput = ({ value, setter }: StringInputProperties): JSX.Element => {
+export function SirenDeskInput({ value, setter }: StringInputProperties): JSX.Element {
   return (
     <FormField
       autocomplete="off"
@@ -42,26 +42,26 @@ export const SirenDeskInput = ({ value, setter }: StringInputProperties): JSX.El
       onChange={setter}
     />
   );
-};
+}
 
-export const SirenLatitudeInput = ({ value, setter }: StringInputProperties): JSX.Element => {
+export function SirenLatitudeInput({ value, setter }: StringInputProperties): JSX.Element {
   return (
     <FormField autocomplete="off" icon="tag" label="Широта" name="siren_latitude" value={value} onChange={setter} />
   );
-};
+}
 
-export const SirenLongitudeInput = ({ value, setter }: StringInputProperties): JSX.Element => {
+export function SirenLongitudeInput({ value, setter }: StringInputProperties): JSX.Element {
   return (
     <FormField autocomplete="off" icon="tag" label="Долгота" name="siren_longtitude" value={value} onChange={setter} />
   );
-};
+}
 
-export const SirenStageInput = ({ value, setter }: NumberInputProperties): JSX.Element => {
+export function SirenStageInput({ value, setter }: NumberInputProperties): JSX.Element {
   return <FormField autocomplete="off" icon="tag" label="Этап" name="siren_stage" value={value} onChange={setter} />;
-};
+}
 
-export const SirenOwnInput = ({ value, setter }: StringInputProperties): JSX.Element => {
+export function SirenOwnInput({ value, setter }: StringInputProperties): JSX.Element {
   return (
     <FormField autocomplete="off" icon="tag" label="Собственность" name="siren_own" value={value} onChange={setter} />
   );
-};
+}

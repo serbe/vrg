@@ -7,7 +7,7 @@ import { useToken } from '../../services/auth';
 import { DelItem, GetItem, SetItem } from '../../services/fetcher';
 import { useStringU } from '../../services/hooks';
 
-export const KindItem = (): JSX.Element => {
+export function KindItem(): JSX.Element {
   const navigate = useNavigate();
   const { id } = useParams();
   const [name, setName, nameInput] = useStringU();
@@ -62,6 +62,6 @@ export const KindItem = (): JSX.Element => {
       )}
     </div>
   );
-};
+}
 
 export default KindItem;

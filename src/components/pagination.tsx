@@ -15,7 +15,7 @@ interface ItemProperties {
   setter: (page: number) => void;
 }
 
-const Item = ({ check, index, link, ellipsis, current, setter }: ItemProperties): JSX.Element => {
+function Item({ check, index, link, ellipsis, current, setter }: ItemProperties): JSX.Element {
   const Ellipsis = <span className="pagination-ellipsis">&hellip;</span>;
   const Link = (
     <a
@@ -28,7 +28,9 @@ const Item = ({ check, index, link, ellipsis, current, setter }: ItemProperties)
       {link}
     </a>
   );
-  const Li = (): JSX.Element => (ellipsis ? Ellipsis : Link);
+  function Li(): JSX.Element {
+    return ellipsis ? Ellipsis : Link;
+  }
 
   return check ? (
     <li key={`li${index}`}>
@@ -37,14 +39,14 @@ const Item = ({ check, index, link, ellipsis, current, setter }: ItemProperties)
   ) : (
     <></>
   );
-};
+}
 
 Item.defaultProps = {
   ellipsis: false,
   link: undefined,
 };
 
-export const Pagination = ({ currentPage, lastPage, setter }: PaginationProperties): JSX.Element => {
+export function Pagination({ currentPage, lastPage, setter }: PaginationProperties): JSX.Element {
   const navClasses = `pagination is-rounded is-centered`;
 
   const Previous = useCallback(
@@ -110,6 +112,6 @@ export const Pagination = ({ currentPage, lastPage, setter }: PaginationProperti
       </ul>
     </nav>
   );
-};
+}
 
 export default Pagination;

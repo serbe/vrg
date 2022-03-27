@@ -18,7 +18,7 @@ import {
   stringsToSelectItems,
 } from '../../services/utils';
 
-export const CompanyItem = (): JSX.Element => {
+export function CompanyItem(): JSX.Element {
   const navigate = useNavigate();
   const { id } = useParams();
   const [name, setName, nameInput] = useStringU();
@@ -123,6 +123,6 @@ export const CompanyItem = (): JSX.Element => {
       )}
     </div>
   );
-};
+}
 
 export default CompanyItem;

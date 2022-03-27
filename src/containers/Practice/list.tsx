@@ -4,7 +4,7 @@ import { Bar, Data } from '../../components/table';
 import type { PracticeList } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 
-export const Practices = (): JSX.Element => {
+export function Practices(): JSX.Element {
   const navigate = useNavigate();
   const [data] = GetList('PracticeList');
   const [search, setSearch] = useState('');
@@ -52,6 +52,6 @@ export const Practices = (): JSX.Element => {
       {Paginate}
     </>
   );
-};
+}
 
 export default Practices;

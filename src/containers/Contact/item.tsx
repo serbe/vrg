@@ -19,7 +19,7 @@ import {
   stringsToSelectItems,
 } from '../../services/utils';
 
-export const ContactItem = (): JSX.Element => {
+export function ContactItem(): JSX.Element {
   const navigate = useNavigate();
   const { id } = useParams();
   const [name, setName, nameInput] = useStringU();
@@ -155,6 +155,6 @@ export const ContactItem = (): JSX.Element => {
       )}
     </div>
   );
-};
+}
 
 export default ContactItem;

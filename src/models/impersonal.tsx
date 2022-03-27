@@ -9,7 +9,7 @@ import { useAuthState } from '../services/auth';
 import type { InputValues } from './types';
 import type { SelectValues, StringInputProperties } from './variables';
 
-export const EmailInputs = ({ values, onBlur, onChange }: InputValues): JSX.Element => {
+export function EmailInputs({ values, onBlur, onChange }: InputValues): JSX.Element {
   return (
     <div className="field">
       <label className="label">Электронный адрес</label>
@@ -29,9 +29,9 @@ export const EmailInputs = ({ values, onBlur, onChange }: InputValues): JSX.Elem
       ))}
     </div>
   );
-};
+}
 
-export const PhoneInputs = ({ values, onBlur, onChange }: InputValues): JSX.Element => {
+export function PhoneInputs({ values, onBlur, onChange }: InputValues): JSX.Element {
   return (
     <div className="field">
       <label className="label">Телефон</label>
@@ -51,9 +51,9 @@ export const PhoneInputs = ({ values, onBlur, onChange }: InputValues): JSX.Elem
       ))}
     </div>
   );
-};
+}
 
-export const FaxInputs = ({ values, onBlur, onChange }: InputValues): JSX.Element => {
+export function FaxInputs({ values, onBlur, onChange }: InputValues): JSX.Element {
   return (
     <div className="field">
       <label className="label">Факс</label>
@@ -73,28 +73,28 @@ export const FaxInputs = ({ values, onBlur, onChange }: InputValues): JSX.Elemen
       ))}
     </div>
   );
-};
+}
 
-export const NoteInput = ({ value, setter }: StringInputProperties): JSX.Element => {
+export function NoteInput({ value, setter }: StringInputProperties): JSX.Element {
   return <FormField autocomplete="off" icon="comment" label="Заметки" name="note" value={value} onChange={setter} />;
-};
+}
 
-export const AddressInput = ({ value, setter }: StringInputProperties): JSX.Element => {
+export function AddressInput({ value, setter }: StringInputProperties): JSX.Element {
   return (
     <FormField autocomplete="off" icon="address-card" label="Адрес" name="address" value={value} onChange={setter} />
   );
-};
+}
 
-export const ContactIDSelect = ({ id, setter }: SelectValues): JSX.Element => {
+export function ContactIDSelect({ id, setter }: SelectValues): JSX.Element {
   return <Select icon="user" id={id} label="Контактное лицо" listName="ContactSelect" name="contact" setter={setter} />;
-};
+}
 
 interface FormButtonsValues {
   del: () => void;
   send: () => void;
 }
 
-export const ItemFormButtons = ({ del, send }: FormButtonsValues): JSX.Element => {
+export function ItemFormButtons({ del, send }: FormButtonsValues): JSX.Element {
   const navigate = useNavigate();
   const { state } = useAuthState();
 
@@ -157,9 +157,9 @@ export const ItemFormButtons = ({ del, send }: FormButtonsValues): JSX.Element =
       <DeleteButton />
     </div>
   );
-};
+}
 
-export const ClearIcon = ({ setter }: { setter?: Dispatch<SetStateAction<string>> }): JSX.Element => {
+export function ClearIcon({ setter }: { setter?: Dispatch<SetStateAction<string>> }): JSX.Element {
   return setter ? (
     <Icon
       className="is-clickable"
@@ -172,4 +172,4 @@ export const ClearIcon = ({ setter }: { setter?: Dispatch<SetStateAction<string>
   ) : (
     <></>
   );
-};
+}

@@ -561,7 +561,7 @@ export const GetList = (name: string): [List[], string] => {
 };
 
 export const GetSelect = (name: string): [SelectItem[], string] => {
-  const [list, setSelect] = useState<SelectItem[]>([{ id: 0, name: '' }]);
+  const [list, setList] = useState<SelectItem[]>([{ id: 0, name: '' }]);
   const [error, setError] = useState<string>('');
   const { token } = useToken();
 
@@ -575,31 +575,31 @@ export const GetSelect = (name: string): [SelectItem[], string] => {
               : [{ id: 0, name: '' }];
           switch (response.name) {
             case 'CompanySelect':
-              setSelect(item);
+              setList(item);
               break;
             case 'ContactSelect':
-              setSelect(item);
+              setList(item);
               break;
             case 'DepartmentSelect':
-              setSelect(item);
+              setList(item);
               break;
             case 'KindSelect':
-              setSelect(item);
+              setList(item);
               break;
             case 'PostSelect':
-              setSelect(item);
+              setList(item);
               break;
             case 'PostGoSelect':
-              setSelect(item);
+              setList(item);
               break;
             case 'RankSelect':
-              setSelect(item);
+              setList(item);
               break;
             case 'ScopeSelect':
-              setSelect(item);
+              setList(item);
               break;
             case 'SirenTypeSelect':
-              setSelect(item);
+              setList(item);
               break;
             default:
               break;

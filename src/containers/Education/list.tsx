@@ -4,7 +4,7 @@ import { Bar, Data } from '../../components/table';
 import type { EducationList } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 
-export const Educations = (): JSX.Element => {
+export function Educations(): JSX.Element {
   const navigate = useNavigate();
   const [data] = GetList('EducationList');
   const [search, setSearch] = useState('');
@@ -54,6 +54,6 @@ export const Educations = (): JSX.Element => {
       {Paginate}
     </>
   );
-};
+}
 
 export default Educations;

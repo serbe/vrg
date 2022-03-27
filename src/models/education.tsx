@@ -5,7 +5,7 @@ import { tinyDate, trClass } from '../services/utils';
 import type { EducationShort } from './types';
 import type { DatePickerValues, SelectValues } from './variables';
 
-export const EducationNameSelect = ({ id, setter }: SelectValues): JSX.Element => {
+export function EducationNameSelect({ id, setter }: SelectValues): JSX.Element {
   return (
     <Select
       icon="user"
@@ -16,17 +16,17 @@ export const EducationNameSelect = ({ id, setter }: SelectValues): JSX.Element =
       setter={setter}
     />
   );
-};
+}
 
-export const EducationStartDateInput = ({ value, setter }: DatePickerValues): JSX.Element => {
+export function EducationStartDateInput({ value, setter }: DatePickerValues): JSX.Element {
   return <DatePicker label="Дата начала обучения" name="education-start-date" setter={setter} value={value} />;
-};
+}
 
-export const EducationEndDateInput = ({ value, setter }: DatePickerValues): JSX.Element => {
+export function EducationEndDateInput({ value, setter }: DatePickerValues): JSX.Element {
   return <DatePicker label="Дата окончания обучения" name="education-end-date" setter={setter} value={value} />;
-};
+}
 
-export const EducationNearList = ({ list }: { list: EducationShort[] }): JSX.Element => {
+export function EducationNearList({ list }: { list: EducationShort[] }): JSX.Element {
   const navigate = useNavigate();
   return (
     <table className="table is-narrow">
@@ -56,4 +56,4 @@ export const EducationNearList = ({ list }: { list: EducationShort[] }): JSX.Ele
       </tbody>
     </table>
   );
-};
+}

@@ -21,7 +21,7 @@ interface ButtonProperties {
   size?: Sizes;
 }
 
-export const Button = ({
+export function Button({
   active,
   children,
   className,
@@ -38,7 +38,7 @@ export const Button = ({
   outline,
   round,
   size,
-}: ButtonProperties): JSX.Element => {
+}: ButtonProperties): JSX.Element {
   const buttonClass = clsx(`button`, className, {
     'is-active': active,
     'is-focused': focus,
@@ -62,7 +62,7 @@ export const Button = ({
       {children}
     </button>
   );
-};
+}
 
 Button.defaultProps = {
   active: false,

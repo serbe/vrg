@@ -4,7 +4,7 @@ import { Bar, Data } from '../../components/table';
 import type { PostList } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 
-export const Posts = (): JSX.Element => {
+export function Posts(): JSX.Element {
   const navigate = useNavigate();
   const [data] = GetList('PostList');
   const [search, setSearch] = useState('');
@@ -52,6 +52,6 @@ export const Posts = (): JSX.Element => {
       {Paginate}
     </>
   );
-};
+}
 
 export default Posts;

@@ -2,7 +2,7 @@ import { FormField } from '../components/formfield';
 import { Select } from '../components/select';
 import type { SelectValues, StringInputProperties } from './variables';
 
-export const CompanyIDSelect = ({ id, setter }: SelectValues): JSX.Element => {
+export function CompanyIDSelect({ id, setter }: SelectValues): JSX.Element {
   return (
     <Select
       icon="building"
@@ -13,9 +13,9 @@ export const CompanyIDSelect = ({ id, setter }: SelectValues): JSX.Element => {
       setter={setter}
     />
   );
-};
+}
 
-export const CompanyNameInput = ({ value, setter }: StringInputProperties): JSX.Element => {
+export function CompanyNameInput({ value, setter }: StringInputProperties): JSX.Element {
   return (
     <FormField
       autocomplete="off"
@@ -26,4 +26,4 @@ export const CompanyNameInput = ({ value, setter }: StringInputProperties): JSX.
       onChange={setter}
     />
   );
-};
+}
