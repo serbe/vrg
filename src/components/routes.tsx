@@ -56,7 +56,7 @@ function Loading(): JSX.Element {
 
 export function Router(): JSX.Element {
   return (
-    <Suspense fallback={Loading}>
+    <Suspense fallback={<Loading />}>
       <Routes>
         {routerList.map((item) => (
           <Route key={item.path} element={item.element} path={item.path} />
