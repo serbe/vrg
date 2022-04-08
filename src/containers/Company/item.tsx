@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { CompanyNameInput } from '../../models/company';
+import { CompanyFullNameInput, CompanyNameInput } from '../../models/company';
 import { ContactShortForm } from '../../models/contact';
 import { AddressInput, EmailInputs, FaxInputs, ItemFormButtons, NoteInput, PhoneInputs } from '../../models/impersonal';
 import { PracticeListForm } from '../../models/practice';
@@ -22,6 +22,7 @@ export function CompanyItem(): JSX.Element {
   const navigate = useNavigate();
   const { id } = useParams();
   const [name, setName, nameInput] = useStringU();
+  const [fullName, setFullName, fullNameInput] = useStringU();
   const [address, setAddress, addressInput] = useStringU();
   const [scopeID, setScopeID] = useState<number>();
   const [note, setNote, noteInput] = useStringU();
@@ -39,6 +40,7 @@ export function CompanyItem(): JSX.Element {
     const company: Company = {
       id: NumberID,
       name,
+      full_name: fullName,
       address,
       scope_id: scopeID,
       note,
@@ -59,6 +61,7 @@ export function CompanyItem(): JSX.Element {
     if (item) {
       const data = item as Company;
       setName(data.name);
+      setFullName(data.full_name);
       setAddress(data.address);
       setScopeID(data.scope_id);
       setNote(data.note);
@@ -68,7 +71,7 @@ export function CompanyItem(): JSX.Element {
       setPractices(data.practices ?? []);
       setContacts(data.contacts ?? []);
     }
-  }, [item, setAddress, setEmails, setFaxes, setName, setNote, setPhones]);
+  }, [item, setAddress, setEmails, setFaxes, setFullName, setName, setNote, setPhones]);
 
   useEffect(() => {
     if (status) {
@@ -81,6 +84,7 @@ export function CompanyItem(): JSX.Element {
       {item && (
         <>
           <CompanyNameInput setter={nameInput} value={name} />
+          <CompanyFullNameInput setter={fullNameInput} value={fullName} />
           <ScopeIDSelect id={scopeID} setter={setScopeID} />
           <AddressInput setter={addressInput} value={address} />
 

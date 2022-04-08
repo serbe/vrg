@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DatePicker } from '../components/datepicker';
 import { Select } from '../components/select';
@@ -32,26 +33,40 @@ export function EducationNearList({ list }: { list: EducationShort[] }): JSX.Ele
     <table className="table is-narrow">
       <tbody>
         {list.map((row) => (
-          <tr key={row.id} className={trClass(row.start_date)}>
-            <td
-              className="has-text-black"
-              role="gridcell"
-              onMouseDown={(): void => {
-                navigate(`/educations/${row.id}`);
-              }}
-            >
-              {tinyDate(row.start_date)}
-            </td>
-            <td
-              className="has-text-black"
-              role="gridcell"
-              onMouseDown={(): void => {
-                navigate(`/contacts/${row.contact_id}`);
-              }}
-            >
-              {row.contact_name}
-            </td>
-          </tr>
+          <Fragment key={row.id}>
+            <tr className={`${trClass(row.start_date)}`}>
+              <td
+                rowSpan={2}
+                className="has-text-black is-vcentered"
+                role="gridcell"
+                onMouseDown={(): void => {
+                  navigate(`/educations/${row.id}`);
+                }}
+              >
+                {tinyDate(row.start_date)}
+              </td>
+              <td
+                className="has-text-black"
+                role="gridcell"
+                onMouseDown={(): void => {
+                  navigate(`/contacts/${row.contact_id}`);
+                }}
+              >
+                {row.contact_name}
+              </td>
+            </tr>
+            <tr>
+              <td
+                className={`${trClass(row.start_date)} has-text-black`}
+                role="gridcell"
+                onMouseDown={(): void => {
+                  navigate(`/companies/${row.company_id}`);
+                }}
+              >
+                {row.company_name}
+              </td>
+            </tr>
+          </Fragment>
         ))}
       </tbody>
     </table>

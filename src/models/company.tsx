@@ -27,3 +27,16 @@ export function CompanyNameInput({ value, setter }: StringInputProperties): JSX.
     />
   );
 }
+
+export function CompanyFullNameInput({ value, setter }: StringInputProperties): JSX.Element {
+  return (
+    <FormField
+      autocomplete="off"
+      icon="building"
+      label="Полное наименование организации"
+      name="company-name"
+      value={value}
+      onChange={setter}
+    />
+  );
+}

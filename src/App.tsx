@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { StrictMode, useCallback, useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Navbar } from './components/navbar';
 import { Router } from './components/routes';
@@ -58,9 +58,11 @@ function Main(): JSX.Element {
 
 export function App(): JSX.Element {
   return (
-    <AuthProvider>
-      <Main />
-    </AuthProvider>
+    <StrictMode>
+      <AuthProvider>
+        <Main />
+      </AuthProvider>
+    </StrictMode>
   );
 }
 

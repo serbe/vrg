@@ -27,6 +27,7 @@ export interface CertificateList {
 export interface Company {
   id: number;
   name?: string;
+  full_name?: string;
   address?: string;
   scope_id?: number;
   note?: string;
@@ -144,6 +145,8 @@ export interface EducationShort {
   id: number;
   contact_id: number;
   contact_name: string;
+  company_id: number;
+  company_name: string;
   start_date: string;
 }
 
