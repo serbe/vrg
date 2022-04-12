@@ -111,18 +111,18 @@ export const diffMonth = (month: number, date?: Date): Date => {
   return newDate;
 };
 
-export const trClass = (input: string): string => {
+export const colorDate = (input: string): string => {
   const date = new Date(input);
   if (date < new Date()) {
-    return 'tr-green';
+    return 'green';
   }
 
   const newDate = diffMonth(1);
   if (date < newDate) {
-    return 'tr-red';
+    return 'red';
   }
 
-  return 'tr-yellow';
+  return 'yellow';
 };
 
 export const tinyDate = (date: string): string => {

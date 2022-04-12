@@ -14,39 +14,27 @@
   white-space: nowrap;
 }
 
-.tr-green td {
-  border-color: hsl(141, 71%, 48%) !important;
-}
-
-.tr-red td {
-  border-color: hsl(348, 100%, 61%) !important;
-}
-
-.tr-yellow td {
-  border-color: hsl(48, 100%, 67%) !important;
-}
-
-.tr-green:hover {
+.td-green-hover:hover {
   background-color: hsl(141, 71%, 48%) !important;
 }
 
-.tr-red:hover {
+.td-red-hover:hover {
   background-color: hsl(348, 100%, 61%) !important;
 }
 
-.tr-yellow:hover {
+.td-yellow-hover:hover {
   background-color: hsl(48, 100%, 67%) !important;
 }
 
-.tr-green td:first-child {
+.td-green {
   background-color: hsl(141, 71%, 48%) !important;
 }
 
-.tr-red td:first-child {
+.td-red {
   background-color: hsl(348, 100%, 61%) !important;
 }
 
-.tr-yellow td:first-child {
+.td-yellow {
   background-color: hsl(48, 100%, 67%) !important;
 }
 

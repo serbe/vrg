@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { DatePicker } from '../components/datepicker';
 import { FormField } from '../components/formfield';
 import { Input } from '../components/input';
-import { tinyDate, trClass } from '../services/utils';
+import { colorDate, tinyDate } from '../services/utils';
 import type { PracticeShort, PracticeValues } from './types';
 import type { DatePickerValues, StringInputProperties } from './variables';
 
@@ -48,38 +48,25 @@ export function PracticeDateInput({ value, setter }: DatePickerValues): JSX.Elem
 }
 
 export function PracticeNearList({ list }: { list: PracticeShort[] }): JSX.Element {
-  const navigate = useNavigate();
   return (
     <table className="table is-narrow">
       <tbody>
         {list.map((row) => (
-          <tr key={row.id} className={trClass(row.date_of_practice)}>
-            <td
-              className="has-text-black"
-              role="gridcell"
-              onMouseDown={(): void => {
-                navigate(`/practices/${row.id}`);
-              }}
-            >
-              {tinyDate(row.date_of_practice)}
+          <tr key={row.id}>
+            <td className={`td-${colorDate(row.date_of_practice)}`} role="gridcell">
+              <a href={`/practices/${row.id}`} className="has-text-black">
+                {tinyDate(row.date_of_practice)}
+              </a>
             </td>
-            <td
-              className="has-text-black"
-              role="gridcell"
-              onMouseDown={(): void => {
-                navigate(`/kinds/${row.kind_id}`);
-              }}
-            >
-              {row.kind_short_name}
+            <td className={`td-${colorDate(row.date_of_practice)}-hover`} role="gridcell">
+              <a href={`/kinds/${row.kind_id}`} className="has-text-black">
+                {row.kind_short_name}
+              </a>
             </td>
-            <td
-              className="has-text-black"
-              role="gridcell"
-              onMouseDown={(): void => {
-                navigate(`/companies/${row.company_id}`);
-              }}
-            >
-              {row.company_name}
+            <td className={`td-${colorDate(row.date_of_practice)}-hover`} role="gridcell">
+              <a href={`/companies/${row.company_id}`} className="has-text-black">
+                {row.company_name}
+              </a>
             </td>
           </tr>
         ))}

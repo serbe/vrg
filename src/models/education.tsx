@@ -1,8 +1,7 @@
 import { Fragment } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { DatePicker } from '../components/datepicker';
 import { Select } from '../components/select';
-import { tinyDate, trClass } from '../services/utils';
+import { colorDate, tinyDate } from '../services/utils';
 import type { EducationShort } from './types';
 import type { DatePickerValues, SelectValues } from './variables';
 
@@ -28,42 +27,28 @@ export function EducationEndDateInput({ value, setter }: DatePickerValues): JSX.
 }
 
 export function EducationNearList({ list }: { list: EducationShort[] }): JSX.Element {
-  const navigate = useNavigate();
   return (
-    <table className="table is-narrow">
+    <table className="table is-narrow is-bordered">
       <tbody>
         {list.map((row) => (
           <Fragment key={row.id}>
-            <tr className={`${trClass(row.start_date)}`}>
-              <td
-                rowSpan={2}
-                className="has-text-black is-vcentered"
-                role="gridcell"
-                onMouseDown={(): void => {
-                  navigate(`/educations/${row.id}`);
-                }}
-              >
-                {tinyDate(row.start_date)}
+            <tr>
+              <td rowSpan={2} className={`td-${colorDate(row.start_date)} is-vcentered`} role="gridcell">
+                <a href={`/educations/${row.id}`} className="has-text-black">
+                  {tinyDate(row.start_date)}
+                </a>
               </td>
-              <td
-                className="has-text-black"
-                role="gridcell"
-                onMouseDown={(): void => {
-                  navigate(`/contacts/${row.contact_id}`);
-                }}
-              >
-                {row.contact_name}
+              <td className={`td-${colorDate(row.start_date)}-hover`} role="gridcell">
+                <a href={`/contacts/${row.contact_id}`} className="has-text-black">
+                  {row.contact_name}
+                </a>
               </td>
             </tr>
-            <tr>
-              <td
-                className={`${trClass(row.start_date)} has-text-black`}
-                role="gridcell"
-                onMouseDown={(): void => {
-                  navigate(`/companies/${row.company_id}`);
-                }}
-              >
-                {row.company_name}
+            <tr className={`tr-${colorDate(row.start_date)}`}>
+              <td className={`td-${colorDate(row.start_date)}-hover`} role="gridcell">
+                <a href={`/companies/${row.company_id}`} className="has-text-black">
+                  {row.company_name}
+                </a>
               </td>
             </tr>
           </Fragment>
