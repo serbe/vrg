@@ -1,12 +1,10 @@
 import { useCallback, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Bar, Data } from '../../components/table';
 import type { ContactList } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 import { splitNumbers } from '../../services/utils';
 
 export function Contacts(): JSX.Element {
-  const navigate = useNavigate();
   const [data] = GetList('ContactList');
   const [search, setSearch] = useState('');
 
@@ -21,32 +19,24 @@ export function Contacts(): JSX.Element {
       <>
         {tableData().map((contact) => (
           <tr key={`tr${contact.id}`}>
-            <td
-              className="w250 link"
-              role="gridcell"
-              onClick={(): void => {
-                navigate(`/contacts/${contact.id}`);
-              }}
-            >
-              {contact.name}
+            <td className="w250" role="gridcell">
+              <a href={`/contacts/${contact.id}`} className="has-text-black">
+                {contact.name}
+              </a>
             </td>
-            <td
-              className="is-hidden-mobile w250 link"
-              role="gridcell"
-              onClick={(): void => {
-                navigate(`/companies/${contact.company_id ?? 0}`);
-              }}
-            >
-              {contact.company_name}
+            <td className="is-hidden-mobile w250" role="gridcell">
+              <a href={`/companies/${contact.company_id ?? 0}`} className="has-text-black">
+                {contact.company_name}
+              </a>
             </td>
             <td className="is-hidden-touch w250">{contact.post_name}</td>
-            <td className="w95">{splitNumbers(contact.phones)}</td>
-            <td className="is-hidden-mobile w95">{splitNumbers(contact.faxes)}</td>
+            <td className="w95 nowrap">{splitNumbers(contact.phones)}</td>
+            <td className="is-hidden-mobile w95 nowrap">{splitNumbers(contact.faxes)}</td>
           </tr>
         ))}
       </>
     );
-  }, [navigate, paginationData]);
+  }, [paginationData]);
 
   return (
     <>

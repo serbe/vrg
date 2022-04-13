@@ -68,7 +68,7 @@ export type AuthState =
 
 type AuthActions = { type: 'SIGN_IN'; payload: { user: User } } | { type: 'SIGN_OUT' };
 
-const AuthReducer = (state: AuthState, action: AuthActions): AuthState => {
+const AuthReducer = (_state: AuthState, action: AuthActions): AuthState => {
   // eslint-disable-next-line default-case
   switch (action.type) {
     case 'SIGN_IN':

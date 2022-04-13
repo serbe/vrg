@@ -1,11 +1,9 @@
 import { useCallback, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Bar, Data } from '../../components/table';
 import type { DepartmentList } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 
 export function Departments(): JSX.Element {
-  const navigate = useNavigate();
   const [data] = GetList('DepartmentList');
   const [search, setSearch] = useState('');
 
@@ -19,20 +17,15 @@ export function Departments(): JSX.Element {
     return (
       <>
         {tableData().map((department) => (
-          <tr
-            key={`tr${department.id}`}
-            className="link"
-            role="gridcell"
-            onClick={(): void => {
-              navigate(`/departments/${department.id}`);
-            }}
-          >
-            <td className="w250">{department.name}</td>
+          <tr key={`tr${department.id}`} role="gridcell">
+            <a href={`/departments/${department.id}`} className="has-text-black">
+              <td className="w250">{department.name}</td>
+            </a>
           </tr>
         ))}
       </>
     );
-  }, [navigate, paginationData]);
+  }, [paginationData]);
 
   return (
     <>

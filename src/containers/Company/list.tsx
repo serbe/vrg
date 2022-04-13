@@ -1,12 +1,10 @@
 import { useCallback, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Bar, Data } from '../../components/table';
 import type { CompanyList } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 import { splitNumbers, splitStrings } from '../../services/utils';
 
 export function Companies(): JSX.Element {
-  const navigate = useNavigate();
   const [data] = GetList('CompanyList');
   const [search, setSearch] = useState('');
 
@@ -21,25 +19,21 @@ export function Companies(): JSX.Element {
       <>
         {tableData().map((company) => (
           <tr key={`tr${company.id}`}>
-            <td
-              className="w250 link"
-              role="gridcell"
-              onClick={(): void => {
-                navigate(`/companies/${company.id}`);
-              }}
-            >
-              {company.name}
+            <td className="w250" role="gridcell">
+              <a href={`/companies/${company.id}`} className="has-text-black">
+                {company.name}
+              </a>
             </td>
             <td className="is-hidden-touch w250">{company.address}</td>
             <td className="is-hidden-mobile w250">{company.scope_name}</td>
-            <td className="w95">{splitNumbers(company.phones)}</td>
-            <td className="is-hidden-touch w95">{splitNumbers(company.faxes)}</td>
-            <td className="is-hidden-touch is-hidden-desktop-only w95">{splitStrings(company.practices)}</td>
+            <td className="w95 nowrap">{splitNumbers(company.phones)}</td>
+            <td className="is-hidden-touch w95 nowrap">{splitNumbers(company.faxes)}</td>
+            <td className="is-hidden-touch is-hidden-desktop-only w95 nowrap">{splitStrings(company.practices)}</td>
           </tr>
         ))}
       </>
     );
-  }, [navigate, paginationData]);
+  }, [paginationData]);
 
   return (
     <>

@@ -1,11 +1,9 @@
 import { useCallback, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Bar, Data } from '../../components/table';
 import type { CertificateList } from '../../models/types';
 import { GetList } from '../../services/fetcher';
 
 export function Certificates(): JSX.Element {
-  const navigate = useNavigate();
   const [data] = GetList('CertificateList');
   const [search, setSearch] = useState('');
 
@@ -20,39 +18,27 @@ export function Certificates(): JSX.Element {
       <>
         {tableData().map((certificate) => (
           <tr key={`tr${certificate.id}`}>
-            <td
-              className="link nowrap"
-              role="gridcell"
-              onClick={(): void => {
-                navigate(`/certificates/${certificate.id}`);
-              }}
-            >
-              {certificate.num}
+            <td className="nowrap" role="gridcell">
+              <a href={`/certificates/${certificate.id}`} className="has-text-black">
+                {certificate.num}
+              </a>
             </td>
-            <td
-              className="link"
-              role="gridcell"
-              onClick={(): void => {
-                navigate(`/contacts/${certificate.contact_id ?? 0}`);
-              }}
-            >
-              {certificate.contact_name}
+            <td role="gridcell">
+              <a href={`/contacts/${certificate.contact_id ?? 0}`} className="has-text-black">
+                {certificate.contact_name}
+              </a>
             </td>
-            <td
-              className="is-hidden-mobile link"
-              role="gridcell"
-              onClick={(): void => {
-                navigate(`/companies/${certificate.company_id ?? 0}`);
-              }}
-            >
-              {certificate.company_name}
+            <td className="is-hidden-mobile" role="gridcell">
+              <a href={`/companies/${certificate.company_id ?? 0}`} className="has-text-black">
+                {certificate.company_name}
+              </a>
             </td>
             <td className="nowrap">{certificate.cert_date}</td>
           </tr>
         ))}
       </>
     );
-  }, [navigate, paginationData]);
+  }, [paginationData]);
 
   return (
     <>
