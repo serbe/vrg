@@ -1,21 +1,21 @@
 import { useCallback } from 'react';
 
-interface PaginationProperties {
+type PaginationProperties = {
   currentPage: number;
   lastPage: number;
   setter: (page: number) => void;
-}
+};
 
-interface ItemProperties {
-  check: boolean;
-  ellipsis?: boolean;
+type ItemProperties = {
+  isCheck: boolean;
+  isEllipsis?: boolean;
   index: number;
   link?: number;
   current: number;
   setter: (page: number) => void;
-}
+};
 
-function Item({ check, index, link, ellipsis, current, setter }: ItemProperties): JSX.Element {
+function Item({ isCheck, index, link, isEllipsis, current, setter }: ItemProperties): JSX.Element {
   const Ellipsis = <span className="pagination-ellipsis">&hellip;</span>;
   const Link = (
     <a
@@ -29,10 +29,10 @@ function Item({ check, index, link, ellipsis, current, setter }: ItemProperties)
     </a>
   );
   function Li(): JSX.Element {
-    return ellipsis ? Ellipsis : Link;
+    return isEllipsis ? Ellipsis : Link;
   }
 
-  return check ? (
+  return isCheck ? (
     <li key={`li${index}`}>
       <Li />
     </li>
@@ -42,7 +42,7 @@ function Item({ check, index, link, ellipsis, current, setter }: ItemProperties)
 }
 
 Item.defaultProps = {
-  ellipsis: false,
+  isEllipsis: false,
   link: undefined,
 };
 
@@ -96,19 +96,19 @@ export function Pagination({ currentPage, lastPage, setter }: PaginationProperti
       <Previous />
       <Next />
       <ul key="ul" className="pagination-list">
-        <Item check={currentPage > 1} current={currentPage} index={1} link={1} setter={setter} />
-        <Item ellipsis check={currentPage > 3} current={currentPage} index={2} setter={setter} />
-        <Item check={currentPage > 2} current={currentPage} index={3} link={currentPage - 1} setter={setter} />
-        <Item check current={currentPage} index={4} link={currentPage} setter={setter} />
+        <Item isCheck={currentPage > 1} current={currentPage} index={1} link={1} setter={setter} />
+        <Item isEllipsis isCheck={currentPage > 3} current={currentPage} index={2} setter={setter} />
+        <Item isCheck={currentPage > 2} current={currentPage} index={3} link={currentPage - 1} setter={setter} />
+        <Item isCheck current={currentPage} index={4} link={currentPage} setter={setter} />
         <Item
-          check={currentPage < lastPage - 1}
+          isCheck={currentPage < lastPage - 1}
           current={currentPage}
           index={5}
           link={currentPage + 1}
           setter={setter}
         />
-        <Item ellipsis check={currentPage < lastPage - 2} current={currentPage} index={6} setter={setter} />
-        <Item check={currentPage < lastPage} current={currentPage} index={7} link={lastPage} setter={setter} />
+        <Item isEllipsis isCheck={currentPage < lastPage - 2} current={currentPage} index={6} setter={setter} />
+        <Item isCheck={currentPage < lastPage} current={currentPage} index={7} link={lastPage} setter={setter} />
       </ul>
     </nav>
   );

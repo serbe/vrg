@@ -16,10 +16,10 @@ import { ScopeItem, Scopes } from '../containers/Scope';
 import { SirenItem, Sirens } from '../containers/Siren';
 import { SirenTypeItem, SirenTypes } from '../containers/SirenType';
 
-interface RouterProperties {
+type RouterProperties = {
   path: string;
   element: ReactElement;
-}
+};
 
 const routerList: RouterProperties[] = [
   { path: '/', element: <Home /> },

@@ -8,36 +8,36 @@ import { Button } from './button';
 import { Input } from './input';
 import { Pagination } from './pagination';
 
-export interface SData {
+export type SData = {
   data: string;
   id: number;
-}
+};
 
-interface PaginateProperties {
+type PaginateProperties = {
   currentPage: number;
   filteredDataLength: number;
   itemsPerPage: number;
   setter: (page: number) => void;
-}
+};
 
-interface DataProperties {
+type DataProperties = {
   data: List[];
   search: string;
-}
+};
 
-interface BarProperties {
+type BarProperties = {
   name: string;
   setter: Dispatch<SetStateAction<string>>;
   value: string;
-}
+};
 
-interface PaginateState {
+type PaginateState = {
   currentPage: number;
   filteredData: List[];
   filteredDataLength: number;
   itemsPerPage: number;
   searchValues: SData[];
-}
+};
 
 type PaginateAction =
   | { type: 'changeSearch'; value: List[]; search: string }

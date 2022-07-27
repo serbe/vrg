@@ -1,19 +1,19 @@
 import type { ChangeEvent, FocusEventHandler } from 'react';
 
-export interface Certificate {
+export type Certificate = {
   id: number;
   num?: string;
   contact_id?: number;
   company_id?: number;
   cert_date?: string;
   note?: string;
-}
+};
 
 export const CertificateEmpty: Certificate = {
   id: 0,
 };
 
-export interface CertificateList {
+export type CertificateList = {
   id: number;
   num?: string;
   contact_id?: number;
@@ -22,9 +22,9 @@ export interface CertificateList {
   company_name?: string;
   cert_date?: string;
   note?: string;
-}
+};
 
-export interface Company {
+export type Company = {
   id: number;
   name?: string;
   full_name?: string;
@@ -36,13 +36,13 @@ export interface Company {
   faxes?: number[];
   practices?: PracticeList[];
   contacts?: ContactShort[];
-}
+};
 
 export const CompanyEmpty: Company = {
   id: 0,
 };
 
-export interface CompanyList {
+export type CompanyList = {
   id: number;
   name?: string;
   address?: string;
@@ -51,13 +51,13 @@ export interface CompanyList {
   phones?: number[];
   faxes?: number[];
   practices?: string[];
-}
+};
 
-export interface ContactEducationsValues {
+export type ContactEducationsValues = {
   educations: string[];
-}
+};
 
-export interface Contact {
+export type Contact = {
   id: number;
   name?: string;
   company_id?: number;
@@ -71,13 +71,13 @@ export interface Contact {
   phones?: number[];
   faxes?: number[];
   educations?: string[];
-}
+};
 
 export const ContactEmpty: Contact = {
   id: 0,
 };
 
-export interface ContactList {
+export type ContactList = {
   id: number;
   name?: string;
   company_id?: number;
@@ -85,50 +85,50 @@ export interface ContactList {
   post_name?: string;
   phones?: number[];
   faxes?: number[];
-}
+};
 
-export interface ContactShort {
+export type ContactShort = {
   id: number;
   name?: string;
   department_name?: string;
   post_name?: string;
   post_go_name?: string;
-}
+};
 
-export interface ContactShortValues {
+export type ContactShortValues = {
   contacts: ContactShort[];
-}
+};
 
-export interface Department {
+export type Department = {
   id: number;
   name?: string;
   note?: string;
-}
+};
 
 export const DepartmentEmpty: Department = {
   id: 0,
 };
 
-export interface DepartmentList {
+export type DepartmentList = {
   id: number;
   name?: string;
   note?: string;
-}
+};
 
-export interface Education {
+export type Education = {
   id: number;
   contact_id?: number;
   start_date?: string;
   end_date?: string;
   post_id?: number;
   note?: string;
-}
+};
 
 export const EducationEmpty: Education = {
   id: 0,
 };
 
-export interface EducationList {
+export type EducationList = {
   id: number;
   contact_id?: number;
   contact_name?: string;
@@ -139,77 +139,77 @@ export interface EducationList {
   post_id?: number;
   post_name?: string;
   note?: string;
-}
+};
 
-export interface EducationShort {
+export type EducationShort = {
   id: number;
   contact_id: number;
   contact_name: string;
   company_id: number;
   company_name: string;
   start_date: string;
-}
+};
 
-export interface InputValues {
+export type InputValues = {
   values: SelectItem[];
   onBlur?: FocusEventHandler<HTMLInputElement>;
   onChange: (index: number) => (e: ChangeEvent<HTMLInputElement>) => void;
-}
+};
 
-export interface Kind {
+export type Kind = {
   id: number;
   name?: string;
   short_name?: string;
   note?: string;
-}
+};
 
 export const KindEmpty: Kind = {
   id: 0,
 };
 
-export interface KindList {
+export type KindList = {
   id: number;
   name?: string;
   short_name?: string;
   note?: string;
-}
+};
 
-export interface ParameterTypes {
+export type ParameterTypes = {
   id: string;
-}
+};
 
-export interface Post {
+export type Post = {
   id: number;
   name?: string;
   go?: boolean;
   note?: string;
-}
+};
 
 export const PostEmpty: Post = {
   id: 0,
 };
 
-export interface PostList {
+export type PostList = {
   id: number;
   name?: string;
   go?: boolean;
   note?: string;
-}
+};
 
-export interface Practice {
+export type Practice = {
   id: number;
   company_id?: number;
   kind_id?: number;
   topic?: string;
   date_of_practice?: string;
   note?: string;
-}
+};
 
 export const PracticeEmpty: Practice = {
   id: 0,
 };
 
-export interface PracticeList {
+export type PracticeList = {
   id: number;
   company_id?: number;
   company_name?: string;
@@ -219,59 +219,59 @@ export interface PracticeList {
   topic?: string;
   date_of_practice?: string;
   date_str?: string;
-}
+};
 
-export interface PracticeShort {
+export type PracticeShort = {
   id: number;
   company_id: number;
   company_name: string;
   kind_id: number;
   kind_short_name: string;
   date_of_practice: string;
-}
+};
 
-export interface PracticeValues {
+export type PracticeValues = {
   practices: PracticeList[];
-}
+};
 
-export interface Rank {
+export type Rank = {
   id: number;
   name?: string;
   note?: string;
-}
+};
 
 export const RankEmpty: Rank = {
   id: 0,
 };
 
-export interface RankList {
+export type RankList = {
   id: number;
   name?: string;
   note?: string;
-}
+};
 
-export interface Scope {
+export type Scope = {
   id: number;
   name?: string;
   note?: string;
-}
+};
 
 export const ScopeEmpty: Scope = {
   id: 0,
 };
 
-export interface ScopeList {
+export type ScopeList = {
   id: number;
   name?: string;
   note?: string;
-}
+};
 
-export interface SelectItem {
+export type SelectItem = {
   readonly id: number;
   name: string;
-}
+};
 
-export interface Siren {
+export type Siren = {
   id: number;
   num_id?: number;
   num_pass?: string;
@@ -286,40 +286,40 @@ export interface Siren {
   stage?: number;
   own?: string;
   note?: string;
-}
+};
 
 export const SirenEmpty: Siren = {
   id: 0,
 };
 
-export interface SirenList {
+export type SirenList = {
   id: number;
   siren_type_name?: string;
   address?: string;
   contact_name?: string;
   phones?: number[];
-}
+};
 
-export interface SirenType {
+export type SirenType = {
   id: number;
   name?: string;
   radius?: number;
   note?: string;
-}
+};
 
 export const SirenTypeEmpty: SirenType = {
   id: 0,
 };
 
-export interface SirenTypeList {
+export type SirenTypeList = {
   id: number;
   name?: string;
   radius?: number;
   note?: string;
-}
+};
 
-export interface User {
+export type User = {
   role: number;
   name: string;
   token: string;
-}
+};

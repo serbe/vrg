@@ -16,27 +16,27 @@ export type Positions = 'left' | 'right';
 
 type HtmlInputSetter = (event: ChangeEvent<HTMLInputElement>) => void;
 
-export interface StringInputProperties {
+export type StringInputProperties = {
   value?: string;
   setter: HtmlInputSetter;
-}
+};
 
-export interface NumberInputProperties {
+export type NumberInputProperties = {
   value?: number;
   setter: HtmlInputSetter;
-}
+};
 
-export interface BooleanInputProperties {
+export type BooleanInputProperties = {
   value: boolean;
   setter: Dispatch<SetStateAction<boolean>>;
-}
+};
 
-export interface SelectValues {
+export type SelectValues = {
   id?: number;
   setter: Dispatch<SetStateAction<number | undefined>>;
-}
+};
 
-export interface DatePickerValues {
+export type DatePickerValues = {
   value?: string;
   setter: Dispatch<SetStateAction<string | undefined>>;
-}
+};

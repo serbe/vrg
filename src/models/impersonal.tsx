@@ -89,10 +89,10 @@ export function ContactIDSelect({ id, setter }: SelectValues): JSX.Element {
   return <Select icon="user" id={id} label="Контактное лицо" listName="ContactSelect" name="contact" setter={setter} />;
 }
 
-interface FormButtonsValues {
+type FormButtonsValues = {
   del: () => void;
   send: () => void;
-}
+};
 
 export function ItemFormButtons({ del, send }: FormButtonsValues): JSX.Element {
   const navigate = useNavigate();

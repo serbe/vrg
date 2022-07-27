@@ -2,14 +2,14 @@ import clsx from 'clsx';
 import { MouseEventHandler, ReactNode } from 'react';
 import type { AdditionalColors, Positions } from '../models/variables';
 
-interface IconProperties {
+type IconProperties = {
   children?: ReactNode;
   className?: string;
   color?: AdditionalColors;
   icon: string;
   onClick?: MouseEventHandler;
   position?: Positions;
-}
+};
 
 export function Icon({ children, className, color, icon, onClick, position }: IconProperties): JSX.Element {
   const spanClass = clsx('icon', className, {

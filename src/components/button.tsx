@@ -2,53 +2,53 @@ import clsx from 'clsx';
 import type { MouseEventHandler, ReactNode } from 'react';
 import type { AdditionalColors, BasicColors, LinkColor, PrimarylColor, Sizes } from '../models/variables';
 
-interface ButtonProperties {
-  active?: boolean;
+type ButtonProperties = {
+  isActive?: boolean;
   children: ReactNode;
   className?: string;
   color?: AdditionalColors | BasicColors | LinkColor | PrimarylColor;
-  disable?: boolean;
-  focus?: boolean;
-  hover?: boolean;
+  isDisable?: boolean;
+  isFocus?: boolean;
+  isHover?: boolean;
   href?: string;
-  invert?: boolean;
-  isstatic?: boolean;
-  light?: boolean;
-  load?: boolean;
+  isInvert?: boolean;
+  isStatic?: boolean;
+  isLight?: boolean;
+  isLoad?: boolean;
   onClick?: MouseEventHandler<HTMLAnchorElement | HTMLButtonElement | HTMLInputElement>;
-  outline?: boolean;
-  round?: boolean;
+  isOutline?: boolean;
+  isRound?: boolean;
   size?: Sizes;
-}
+};
 
 export function Button({
-  active,
+  isActive,
   children,
   className,
   color,
-  disable,
-  focus,
-  hover,
+  isDisable,
+  isFocus,
+  isHover,
   href,
-  invert,
-  isstatic,
-  light,
-  load,
+  isInvert,
+  isStatic,
+  isLight,
+  isLoad,
   onClick,
-  outline,
-  round,
+  isOutline,
+  isRound,
   size,
 }: ButtonProperties): JSX.Element {
   const buttonClass = clsx(`button`, className, {
-    'is-active': active,
-    'is-focused': focus,
-    'is-hovered': hover,
-    'is-inverted': invert,
-    'is-light': light,
-    'is-loading': load,
-    'is-outlined': outline,
-    'is-rounded': round,
-    'is-static': isstatic,
+    'is-active': isActive,
+    'is-focused': isFocus,
+    'is-hovered': isHover,
+    'is-inverted': isInvert,
+    'is-light': isLight,
+    'is-loading': isLoad,
+    'is-outlined': isOutline,
+    'is-rounded': isRound,
+    'is-static': isStatic,
     [`is-${color ?? 'primary'}`]: color,
     [`is-${size ?? 'normal'}`]: size,
   });
@@ -58,27 +58,27 @@ export function Button({
       {children}
     </a>
   ) : (
-    <button className={buttonClass} disabled={disable} type="button" onClick={onClick}>
+    <button className={buttonClass} disabled={isDisable} type="button" onClick={onClick}>
       {children}
     </button>
   );
 }
 
 Button.defaultProps = {
-  active: false,
+  isActive: false,
   className: undefined,
   color: undefined,
-  disable: false,
-  focus: false,
-  hover: false,
+  isDisable: false,
+  isFocus: false,
+  isHover: false,
   href: undefined,
-  invert: false,
-  isstatic: false,
-  light: false,
-  load: false,
+  isInvert: false,
+  isStatic: false,
+  isLight: false,
+  isLoad: false,
   onClick: undefined,
-  outline: false,
-  round: false,
+  isOutline: false,
+  isRound: false,
   size: undefined,
 };
 

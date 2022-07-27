@@ -7,10 +7,10 @@ const checkUrl = (import.meta.env.VITE_APP_CHECKURL as string) || '/go/check';
 const loginURL = (import.meta.env.VITE_APP_LOGINURL as string) || '/go/login';
 const jsonType = 'application/json';
 
-interface LoginResponse {
+type LoginResponse = {
   t: string;
   r: number;
-}
+};
 
 export const postLogin = async (name: string, pass: string): Promise<LoginResponse> =>
   fetch(loginURL, {
@@ -26,9 +26,9 @@ export const postLogin = async (name: string, pass: string): Promise<LoginRespon
       return jsonResponse as LoginResponse;
     });
 
-interface CheckResponse {
+type CheckResponse = {
   r: boolean;
-}
+};
 
 export const postCheck = async (user: User): Promise<User> => {
   const emptyUser: User = {
@@ -102,10 +102,10 @@ function AuthProvider({ children }: { children: ReactNode }): JSX.Element {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
-interface AuthContextProperties {
+type AuthContextProperties = {
   state: AuthState;
   dispatch: Dispatch<AuthActions>;
-}
+};
 
 const useAuthState = (): { state: AuthState } => {
   const { state } = useContext(AuthContext);

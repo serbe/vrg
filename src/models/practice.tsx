@@ -14,7 +14,7 @@ export function PracticeListForm({ practices }: PracticeValues): JSX.Element {
       {practices.map((practice) => (
         <Input
           key={`practice-${practice.id}`}
-          readonly
+          isReadOnly
           classNameDiv="pb-1"
           classNameInput="link"
           name={`practice-${practice.id}`}

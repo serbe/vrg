@@ -32,7 +32,7 @@ export function ContactShortForm({ contacts }: ContactShortValues): JSX.Element 
       {contacts.map((contact) => (
         <Input
           key={`contact-${contact.id}`}
-          readonly
+          isReadOnly
           autocomplete="off"
           classNameDiv="pb-1"
           classNameInput="link"

@@ -10,20 +10,20 @@ import type {
 import type { AdditionalColors, InputTypes, LinkColor, PrimarylColor, Sizes } from '../models/variables';
 import { Input } from './input';
 
-interface FormFieldProperties {
+type FormFieldProperties = {
   autocomplete?: string;
   children?: ReactNode;
   classNameDiv?: string;
   classNameInput?: string;
   color?: AdditionalColors | LinkColor | PrimarylColor;
   defaultValue?: number | string;
-  disabled?: boolean;
-  focus?: boolean;
-  hover?: boolean;
+  isDisabled?: boolean;
+  isFocus?: boolean;
+  isHover?: boolean;
   icon?: string;
   iconRight?: string;
   label?: string;
-  load?: boolean;
+  isLoad?: boolean;
   name: string;
   onBlur?: FocusEventHandler<HTMLInputElement>;
   onChange?: ChangeEventHandler<HTMLInputElement>;
@@ -31,12 +31,12 @@ interface FormFieldProperties {
   onClick?: MouseEventHandler<HTMLInputElement>;
   onKeyPress?: KeyboardEventHandler<HTMLInputElement>;
   placeholder?: string;
-  readonly?: boolean;
-  round?: boolean;
+  isReadOnly?: boolean;
+  isRound?: boolean;
   size?: Sizes;
   type?: InputTypes;
   value?: number | string;
-}
+};
 
 export function FormField({
   autocomplete,
@@ -45,13 +45,13 @@ export function FormField({
   classNameInput,
   color,
   defaultValue,
-  disabled,
-  focus,
-  hover,
+  isDisabled,
+  isFocus,
+  isHover,
   icon,
   iconRight,
   label,
-  load,
+  isLoad,
   name,
   onBlur,
   onChange,
@@ -59,8 +59,8 @@ export function FormField({
   onClick,
   onKeyPress,
   placeholder,
-  readonly,
-  round,
+  isReadOnly,
+  isRound,
   size,
   type,
   value,
@@ -78,16 +78,16 @@ export function FormField({
         classNameInput={classNameInput}
         color={color}
         defaultValue={defaultValue}
-        disabled={disabled}
-        focus={focus}
-        hover={hover}
+        isDisabled={isDisabled}
+        isFocus={isFocus}
+        isHover={isHover}
         icon={icon}
         iconRight={iconRight}
-        load={load}
+        isLoad={isLoad}
         name={name}
         placeholder={placeholder}
-        readonly={readonly}
-        round={round}
+        isReadOnly={isReadOnly}
+        isRound={isRound}
         size={size}
         type={type}
         value={value ?? ''}
@@ -109,21 +109,21 @@ FormField.defaultProps = {
   classNameInput: undefined,
   color: undefined,
   defaultValue: undefined,
-  disabled: false,
-  focus: false,
-  hover: false,
+  isDisabled: false,
+  isFocus: false,
+  isHover: false,
   icon: undefined,
   iconRight: undefined,
   label: undefined,
-  load: false,
+  isLoad: false,
   onBlur: undefined,
   onChange: undefined,
   onClear: undefined,
   onClick: undefined,
   onKeyPress: undefined,
   placeholder: undefined,
-  readonly: false,
-  round: false,
+  isReadOnly: false,
+  isRound: false,
   size: undefined,
   type: 'text',
   value: undefined,

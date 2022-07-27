@@ -7,7 +7,7 @@ import { useStringU } from '../services/hooks';
 import { Icon } from './icon';
 import './select.css';
 
-interface SelectProperties {
+type SelectProperties = {
   color?: AdditionalColors | PrimarylColor;
   icon?: string;
   id?: number;
@@ -15,7 +15,7 @@ interface SelectProperties {
   listName: string;
   name: string;
   setter: Dispatch<SetStateAction<number | undefined>>;
-}
+};
 
 export function Select({ name, id, label, icon, color, listName, setter }: SelectProperties): JSX.Element {
   const [opened, setOpened] = useState(false);

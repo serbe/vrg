@@ -5,14 +5,14 @@ import type { User } from '../models/types';
 import { useAuthState, useSign } from '../services/auth';
 import { Button } from './button';
 
-interface Setter {
+type Setter = {
   setter: Dispatch<SetStateAction<boolean>>;
-}
+};
 
-interface OpenState {
-  open: boolean;
+type OpenState = {
+  isOpen: boolean;
   setter: Dispatch<SetStateAction<boolean>>;
-}
+};
 
 const mainItems = [
   { link: '/contacts', name: 'Контакты' },
@@ -121,7 +121,7 @@ function NavbarEnd({ user }: { user: User }): JSX.Element {
   );
 }
 
-function BrandBar({ open, setter }: OpenState): JSX.Element {
+function BrandBar({ isOpen, setter }: OpenState): JSX.Element {
   return (
     <div className="navbar-brand">
       <NavLink className="navbar-item" to="/">
@@ -130,12 +130,12 @@ function BrandBar({ open, setter }: OpenState): JSX.Element {
       <a
         aria-expanded="false"
         aria-label="menu"
-        className={open ? 'navbar-burger is-active' : 'navbar-burger'}
+        className={isOpen ? 'navbar-burger is-active' : 'navbar-burger'}
         data-target="navbarData"
         href="#button"
         role="button"
         onClick={(): void => {
-          setter(!open);
+          setter(!isOpen);
         }}
       >
         <span aria-hidden="true" />
@@ -147,7 +147,7 @@ function BrandBar({ open, setter }: OpenState): JSX.Element {
 }
 
 export function Navbar(): JSX.Element {
-  // Const openClassName = (cn: string): string => (open ? `${cn} is-active` : cn);
+  // Const openClassName = (cn: string): string => (isOpen ? `${cn} is-active` : cn);
   const { state } = useAuthState();
   const [open, setOpen] = useState(false);
 
@@ -156,7 +156,7 @@ export function Navbar(): JSX.Element {
   return state.state === 'SIGNED_IN' ? (
     <nav aria-label="main navigation" className="navbar is-dark" role="navigation">
       <div className="container px-4">
-        <BrandBar open={open} setter={setOpen} />
+        <BrandBar isOpen={open} setter={setOpen} />
         <div className={divClass()} id="navbarData">
           <NavBarStart setter={setOpen} />
           <NavbarEnd user={state.currentUser} />

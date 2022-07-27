@@ -11,18 +11,18 @@ import { ClearIcon } from '../models/impersonal';
 import type { AdditionalColors, InputTypes, LinkColor, PrimarylColor, Sizes } from '../models/variables';
 import { Icon } from './icon';
 
-interface InputProperties {
+type InputProperties = {
   autocomplete?: string;
   classNameDiv?: string;
   classNameInput?: string;
   color?: AdditionalColors | LinkColor | PrimarylColor;
   defaultValue?: number | string;
-  disabled?: boolean;
-  focus?: boolean;
-  hover?: boolean;
+  isDisabled?: boolean;
+  isFocus?: boolean;
+  isHover?: boolean;
   icon?: string;
   iconRight?: string;
-  load?: boolean;
+  isLoad?: boolean;
   name: string;
   onBlur?: FocusEventHandler<HTMLInputElement>;
   onChange?: ChangeEventHandler<HTMLInputElement>;
@@ -30,12 +30,12 @@ interface InputProperties {
   onClick?: MouseEventHandler<HTMLInputElement>;
   onKeyPress?: KeyboardEventHandler<HTMLInputElement>;
   placeholder?: string;
-  readonly?: boolean;
-  round?: boolean;
+  isReadOnly?: boolean;
+  isRound?: boolean;
   size?: Sizes;
   type?: InputTypes;
   value?: number | string;
-}
+};
 
 export function Input({
   autocomplete,
@@ -43,12 +43,12 @@ export function Input({
   classNameInput,
   color,
   defaultValue,
-  disabled,
-  focus,
-  hover,
+  isDisabled,
+  isFocus,
+  isHover,
   icon,
   iconRight,
-  load,
+  isLoad,
   name,
   onBlur,
   onChange,
@@ -56,8 +56,8 @@ export function Input({
   onClick,
   onKeyPress,
   placeholder,
-  readonly,
-  round,
+  isReadOnly,
+  isRound,
   size,
   type,
   value,
@@ -67,14 +67,14 @@ export function Input({
     classNameDiv,
     { 'has-icons-left': icon },
     { 'has-icons-right': onClear ?? iconRight },
-    { 'is-loading': load },
+    { 'is-loading': isLoad },
   );
   const inputClass = clsx(
     'input',
     classNameInput,
-    { 'is-rounded': round },
-    { 'is-hovered': hover },
-    { 'is-focused': focus },
+    { 'is-rounded': isRound },
+    { 'is-hovered': isHover },
+    { 'is-focused': isFocus },
     { [`is-${color ?? 'text'}`]: color },
     { [`is-${size ?? 'normal'}`]: size },
   );
@@ -86,11 +86,11 @@ export function Input({
         autoComplete={autocomplete}
         className={inputClass}
         defaultValue={defaultValue}
-        disabled={disabled}
+        disabled={isDisabled}
         id={name}
         name={name}
         placeholder={placeholder}
-        readOnly={readonly}
+        readOnly={isReadOnly}
         type={type}
         value={value}
         onBlur={onBlur}
@@ -111,20 +111,20 @@ Input.defaultProps = {
   classNameInput: undefined,
   color: undefined,
   defaultValue: undefined,
-  disabled: false,
-  focus: false,
-  hover: false,
+  isDisabled: false,
+  isFocus: false,
+  isHover: false,
   icon: undefined,
   iconRight: undefined,
-  load: false,
+  isLoad: false,
   onBlur: undefined,
   onChange: undefined,
   onClear: undefined,
   onClick: undefined,
   onKeyPress: undefined,
   placeholder: undefined,
-  readonly: false,
-  round: false,
+  isReadOnly: false,
+  isRound: false,
   size: undefined,
   type: 'text',
   value: '',

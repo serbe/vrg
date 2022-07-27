@@ -1,17 +1,17 @@
 import type { ChangeEvent, Dispatch, FocusEvent, SetStateAction } from 'react';
 import { useEffect, useState } from 'react';
 
-interface DatePickerProperties {
+type DatePickerProperties = {
   label?: string;
   name: string;
   setter: Dispatch<SetStateAction<string | undefined>>;
   value?: string;
-}
+};
 
-interface DatePickerMonth {
+type DatePickerMonth = {
   value: string;
   name: string;
-}
+};
 
 const listDays = (date: Date): string[] => {
   const days = date.getDate();
