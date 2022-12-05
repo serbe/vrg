@@ -1,6 +1,6 @@
 import type { RefObject } from 'react';
 import { useEffect } from 'react';
-import { SelectItem } from '../models/types';
+import type { SelectItem } from '../models/types';
 
 export const latrus = (input: string): string => {
   const lat = '`qwertyuiop[]asdfghjkl;\'zxcvbnm,.~QWERTYUIOP{}ASDFGHJKL:"ZXCVBNM<>';

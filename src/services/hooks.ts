@@ -1,6 +1,6 @@
 import type { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { useState } from 'react';
-import { SelectItem } from '../models/types';
+import type { SelectItem } from '../models/types';
 
 export const useItems = (
   func?: (value: string) => string,

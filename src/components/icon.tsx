@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { MouseEventHandler, ReactNode } from 'react';
+import type { MouseEventHandler, ReactNode } from 'react';
 import type { AdditionalColors, Positions } from '../models/variables';
 
 type IconProperties = {

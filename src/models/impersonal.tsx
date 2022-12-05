@@ -1,4 +1,5 @@
-import { Dispatch, SetStateAction, useCallback } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
+import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/button';
 import { FormField } from '../components/formfield';
