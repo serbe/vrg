@@ -3,22 +3,22 @@ import type { MouseEventHandler, ReactNode } from 'react';
 import type { AdditionalColors, BasicColors, LinkColor, PrimarylColor, Sizes } from '../models/variables';
 
 type ButtonProperties = {
-  isActive?: boolean;
-  children: ReactNode;
-  className?: string;
-  color?: AdditionalColors | BasicColors | LinkColor | PrimarylColor;
-  isDisable?: boolean;
-  isFocus?: boolean;
-  isHover?: boolean;
-  href?: string;
-  isInvert?: boolean;
-  isStatic?: boolean;
-  isLight?: boolean;
-  isLoad?: boolean;
-  onClick?: MouseEventHandler<HTMLAnchorElement | HTMLButtonElement | HTMLInputElement>;
-  isOutline?: boolean;
-  isRound?: boolean;
-  size?: Sizes;
+  readonly isActive?: boolean;
+  readonly children: ReactNode;
+  readonly className?: string;
+  readonly color?: AdditionalColors | BasicColors | LinkColor | PrimarylColor;
+  readonly isDisable?: boolean;
+  readonly isFocus?: boolean;
+  readonly isHover?: boolean;
+  readonly href?: string;
+  readonly isInvert?: boolean;
+  readonly isStatic?: boolean;
+  readonly isLight?: boolean;
+  readonly isLoad?: boolean;
+  readonly onClick?: MouseEventHandler<HTMLAnchorElement | HTMLButtonElement | HTMLInputElement>;
+  readonly isOutline?: boolean;
+  readonly isRound?: boolean;
+  readonly size?: Sizes;
 };
 
 export function Button({

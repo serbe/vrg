@@ -3,12 +3,12 @@ import type { MouseEventHandler, ReactNode } from 'react';
 import type { AdditionalColors, Positions } from '../models/variables';
 
 type IconProperties = {
-  children?: ReactNode;
-  className?: string;
-  color?: AdditionalColors;
-  icon: string;
-  onClick?: MouseEventHandler;
-  position?: Positions;
+  readonly children?: ReactNode;
+  readonly className?: string;
+  readonly color?: AdditionalColors;
+  readonly icon: string;
+  readonly onClick?: MouseEventHandler;
+  readonly position?: Positions;
 };
 
 export function Icon({ children, className, color, icon, onClick, position }: IconProperties): JSX.Element {

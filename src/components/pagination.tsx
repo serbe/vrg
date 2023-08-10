@@ -1,18 +1,18 @@
 import { useCallback } from 'react';
 
 type PaginationProperties = {
-  currentPage: number;
-  lastPage: number;
-  setter: (page: number) => void;
+  readonly currentPage: number;
+  readonly lastPage: number;
+  readonly setter: (page: number) => void;
 };
 
 type ItemProperties = {
-  isCheck: boolean;
-  isEllipsis?: boolean;
-  index: number;
-  link?: number;
-  current: number;
-  setter: (page: number) => void;
+  readonly isCheck: boolean;
+  readonly isEllipsis?: boolean;
+  readonly index: number;
+  readonly link?: number;
+  readonly current: number;
+  readonly setter: (page: number) => void;
 };
 
 function Item({ isCheck, index, link, isEllipsis, current, setter }: ItemProperties): JSX.Element {

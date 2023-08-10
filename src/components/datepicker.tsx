@@ -2,10 +2,10 @@ import type { ChangeEvent, Dispatch, FocusEvent, SetStateAction } from 'react';
 import { useEffect, useState } from 'react';
 
 type DatePickerProperties = {
-  label?: string;
-  name: string;
-  setter: Dispatch<SetStateAction<string | undefined>>;
-  value?: string;
+  readonly label?: string;
+  readonly name: string;
+  readonly setter: Dispatch<SetStateAction<string | undefined>>;
+  readonly value?: string;
 };
 
 type DatePickerMonth = {

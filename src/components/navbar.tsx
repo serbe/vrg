@@ -6,12 +6,12 @@ import { useAuthState, useSign } from '../services/auth';
 import { Button } from './button';
 
 type Setter = {
-  setter: Dispatch<SetStateAction<boolean>>;
+  readonly setter: Dispatch<SetStateAction<boolean>>;
 };
 
 type OpenState = {
-  isOpen: boolean;
-  setter: Dispatch<SetStateAction<boolean>>;
+  readonly isOpen: boolean;
+  readonly setter: Dispatch<SetStateAction<boolean>>;
 };
 
 const mainItems = [
@@ -96,7 +96,7 @@ function NavBarStart({ setter }: Setter): JSX.Element {
   );
 }
 
-function NavbarEnd({ user }: { user: User }): JSX.Element {
+function NavbarEnd({ user }: { readonly user: User }): JSX.Element {
   const { signOut } = useSign();
   return (
     <div className="navbar-end">

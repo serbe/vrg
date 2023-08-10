@@ -8,13 +8,13 @@ import { Icon } from './icon';
 import './select.css';
 
 type SelectProperties = {
-  color?: AdditionalColors | PrimarylColor;
-  icon?: string;
-  id?: number;
-  label?: string;
-  listName: string;
-  name: string;
-  setter: Dispatch<SetStateAction<number | undefined>>;
+  readonly color?: AdditionalColors | PrimarylColor;
+  readonly icon?: string;
+  readonly id?: number;
+  readonly label?: string;
+  readonly listName: string;
+  readonly name: string;
+  readonly setter: Dispatch<SetStateAction<number | undefined>>;
 };
 
 export function Select({ name, id, label, icon, color, listName, setter }: SelectProperties): JSX.Element {

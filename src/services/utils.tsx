@@ -157,7 +157,7 @@ export const useOnClickOutside = (reference: RefObject<HTMLElement>, handler: (e
   }, [reference, handler]);
 };
 
-export const anyToString = (value: any): string => {
+export const anyToString = (value: unknown): string => {
   if (value && typeof value !== 'number') {
     if (typeof value === 'string') {
       return value;

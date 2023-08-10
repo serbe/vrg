@@ -14,10 +14,10 @@ export type SData = {
 };
 
 type PaginateProperties = {
-  currentPage: number;
-  filteredDataLength: number;
-  itemsPerPage: number;
-  setter: (page: number) => void;
+  readonly currentPage: number;
+  readonly filteredDataLength: number;
+  readonly itemsPerPage: number;
+  readonly setter: (page: number) => void;
 };
 
 type DataProperties = {
@@ -26,9 +26,9 @@ type DataProperties = {
 };
 
 type BarProperties = {
-  name: string;
-  setter: Dispatch<SetStateAction<string>>;
-  value: string;
+  readonly name: string;
+  readonly setter: Dispatch<SetStateAction<string>>;
+  readonly value: string;
 };
 
 type PaginateState = {

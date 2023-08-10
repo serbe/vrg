@@ -12,29 +12,29 @@ import type { AdditionalColors, InputTypes, LinkColor, PrimarylColor, Sizes } fr
 import { Icon } from './icon';
 
 type InputProperties = {
-  autocomplete?: string;
-  classNameDiv?: string;
-  classNameInput?: string;
-  color?: AdditionalColors | LinkColor | PrimarylColor;
-  defaultValue?: number | string;
-  isDisabled?: boolean;
-  isFocus?: boolean;
-  isHover?: boolean;
-  icon?: string;
-  iconRight?: string;
-  isLoad?: boolean;
-  name: string;
-  onBlur?: FocusEventHandler<HTMLInputElement>;
-  onChange?: ChangeEventHandler<HTMLInputElement>;
-  onClear?: Dispatch<SetStateAction<string>>;
-  onClick?: MouseEventHandler<HTMLInputElement>;
-  onKeyPress?: KeyboardEventHandler<HTMLInputElement>;
-  placeholder?: string;
-  isReadOnly?: boolean;
-  isRound?: boolean;
-  size?: Sizes;
-  type?: InputTypes;
-  value?: number | string;
+  readonly autocomplete?: string;
+  readonly classNameDiv?: string;
+  readonly classNameInput?: string;
+  readonly color?: AdditionalColors | LinkColor | PrimarylColor;
+  readonly defaultValue?: number | string;
+  readonly isDisabled?: boolean;
+  readonly isFocus?: boolean;
+  readonly isHover?: boolean;
+  readonly icon?: string;
+  readonly iconRight?: string;
+  readonly isLoad?: boolean;
+  readonly name: string;
+  readonly onBlur?: FocusEventHandler<HTMLInputElement>;
+  readonly onChange?: ChangeEventHandler<HTMLInputElement>;
+  readonly onClear?: Dispatch<SetStateAction<string>>;
+  readonly onClick?: MouseEventHandler<HTMLInputElement>;
+  readonly onKeyPress?: KeyboardEventHandler<HTMLInputElement>;
+  readonly placeholder?: string;
+  readonly isReadOnly?: boolean;
+  readonly isRound?: boolean;
+  readonly size?: Sizes;
+  readonly type?: InputTypes;
+  readonly value?: number | string;
 };
 
 export function Input({
