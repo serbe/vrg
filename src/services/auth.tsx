@@ -88,7 +88,7 @@ export const AuthContext = createContext<AuthContextProperties>({
   dispatch: () => undefined,
 });
 
-function AuthProvider({ children }: { children: ReactNode }): JSX.Element {
+function AuthProvider({ children }: { readonly children: ReactNode }): JSX.Element {
   const [state, dispatch] = useReducer(AuthReducer, { state: 'UNKNOWN' });
 
   const value = useMemo(
@@ -163,4 +163,4 @@ const useToken = (): {
   return { token };
 };
 
-export { useAuth, useAuthState, useToken, useAuthDispatch, useSign, checkUser, AuthProvider };
+export { AuthProvider, checkUser, useAuth, useAuthDispatch, useAuthState, useSign, useToken };

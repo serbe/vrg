@@ -91,8 +91,8 @@ export function ContactIDSelect({ id, setter }: SelectValues): JSX.Element {
 }
 
 type FormButtonsValues = {
-  del: () => void;
-  send: () => void;
+  readonly del: () => void;
+  readonly send: () => void;
 };
 
 export function ItemFormButtons({ del, send }: FormButtonsValues): JSX.Element {
@@ -160,7 +160,7 @@ export function ItemFormButtons({ del, send }: FormButtonsValues): JSX.Element {
   );
 }
 
-export function ClearIcon({ setter }: { setter?: Dispatch<SetStateAction<string>> }): JSX.Element {
+export function ClearIcon({ setter }: { readonly setter?: Dispatch<SetStateAction<string>> }): JSX.Element {
   return setter ? (
     <Icon
       className="is-clickable"

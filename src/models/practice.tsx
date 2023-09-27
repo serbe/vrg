@@ -47,7 +47,7 @@ export function PracticeDateInput({ value, setter }: DatePickerValues): JSX.Elem
   return <DatePicker label="Дата проведения тренировки" name="practice-date" setter={setter} value={value} />;
 }
 
-export function PracticeNearList({ list }: { list: PracticeShort[] }): JSX.Element {
+export function PracticeNearList({ list }: { readonly list: PracticeShort[] }): JSX.Element {
   return (
     <table className="table is-narrow">
       <tbody>

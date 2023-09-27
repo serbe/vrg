@@ -26,7 +26,7 @@ export function EducationEndDateInput({ value, setter }: DatePickerValues): JSX.
   return <DatePicker label="Дата окончания обучения" name="education-end-date" setter={setter} value={value} />;
 }
 
-export function EducationNearList({ list }: { list: EducationShort[] }): JSX.Element {
+export function EducationNearList({ list }: { readonly list: EducationShort[] }): JSX.Element {
   return (
     <table className="table is-narrow is-bordered">
       <tbody>
